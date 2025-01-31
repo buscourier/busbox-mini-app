@@ -1,0 +1,1 @@
+ng test --no-watch --no-progress --browsers=ChromeHeadless && ng build --configuration production
