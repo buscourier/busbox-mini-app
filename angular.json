@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-starter": {
+    "busbox-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
             "customWebpackConfig": {
               "path": "./custom-webpack.config.js"
             },
-            "outputPath": "dist/angular-starter",
+            "outputPath": "dist/busbox-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -106,17 +106,17 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "buildTarget": "angular-starter:build"
+            "buildTarget": "busbox-ui:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "angular-starter:build:production"
+              "buildTarget": "busbox-ui:build:production"
             },
             "development": {
-              "buildTarget": "angular-starter:build:development"
+              "buildTarget": "busbox-ui:build:development"
             },
             "staging": {
-              "buildTarget": "angular-starter:build:staging"
+              "buildTarget": "busbox-ui:build:staging"
             }
           },
           "defaultConfiguration": "development"

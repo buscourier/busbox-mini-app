@@ -33,7 +33,7 @@ The project can be run both locally and through Docker. Deployment is implemente
 ### 1. Locally
 
 - Clone the project to your computer:
-  - `https://github.com/ArtNekki/angularjs-starter.git`
+  - `https://github.com/buscourier/busbox-ui.git`
 - Navigate to the project and install dependencies:
   - `npm ci`
 - Activate the `develop` branch in the project:

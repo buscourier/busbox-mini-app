@@ -1,0 +1,154 @@
+diff --git a/Dockerfile b/Dockerfile
+index a023235..ffb33a6 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -40,7 +40,7 @@ RUN mkdir /etc/nginx/logs && \
+ FROM nginx:alpine
+ 
+ # Copy built files from the build stage
+-COPY --from=builder /app/dist/angular-starter /usr/share/nginx/html
++COPY --from=builder /app/dist/busbox-ui /usr/share/nginx/html
+ 
+ # Copy Nginx configuration
+ COPY --from=nginx-config /etc/nginx/nginx.conf /etc/nginx/nginx.conf
+diff --git a/README.en.md b/README.en.md
+index 19e79fc..f4ff3fd 100644
+--- a/README.en.md
++++ b/README.en.md
+@@ -33,7 +33,7 @@ The project can be run both locally and through Docker. Deployment is implemente
+ ### 1. Locally
+ 
+ - Clone the project to your computer:
+-  - `https://github.com/ArtNekki/angularjs-starter.git`
++  - `https://github.com/buscourier/busbox-ui.git`
+ - Navigate to the project and install dependencies:
+   - `npm ci`
+ - Activate the `develop` branch in the project:
+diff --git a/README.md b/README.md
+index fc9af66..ff25919 100644
+--- a/README.md
++++ b/README.md
+@@ -33,7 +33,7 @@
+ ### 1. Локально
+ 
+ - Склонировать проект на свой компьютер:
+-  - `https://github.com/ArtNekki/angularjs-starter.git`
++  - `https://github.com/buscourier/busbox-ui.git`
+ - Перейти в проект и установить зависимости:
+   - `npm ci`
+ - В проекте активировать ветку `develop`:
+diff --git a/angular.json b/angular.json
+index 7ed702c..c09ca7c 100644
+--- a/angular.json
++++ b/angular.json
+@@ -3,7 +3,7 @@
+   "version": 1,
+   "newProjectRoot": "projects",
+   "projects": {
+-    "angular-starter": {
++    "busbox-ui": {
+       "projectType": "application",
+       "schematics": {
+         "@schematics/angular:component": {
+@@ -20,7 +20,7 @@
+             "customWebpackConfig": {
+               "path": "./custom-webpack.config.js"
+             },
+-            "outputPath": "dist/angular-starter",
++            "outputPath": "dist/busbox-ui",
+             "index": "src/index.html",
+             "main": "src/main.ts",
+             "polyfills": [
+@@ -106,17 +106,17 @@
+         "serve": {
+           "builder": "@angular-builders/custom-webpack:dev-server",
+           "options": {
+-            "buildTarget": "angular-starter:build"
++            "buildTarget": "busbox-ui:build"
+           },
+           "configurations": {
+             "production": {
+-              "buildTarget": "angular-starter:build:production"
++              "buildTarget": "busbox-ui:build:production"
+             },
+             "development": {
+-              "buildTarget": "angular-starter:build:development"
++              "buildTarget": "busbox-ui:build:development"
+             },
+             "staging": {
+-              "buildTarget": "angular-starter:build:staging"
++              "buildTarget": "busbox-ui:build:staging"
+             }
+           },
+           "defaultConfiguration": "development"
+diff --git a/doppler.yaml b/doppler.yaml
+index 916cb98..2a91a92 100644
+--- a/doppler.yaml
++++ b/doppler.yaml
+@@ -1,3 +1,3 @@
+ setup:
+-  project: angular-starter
++  project: busbox-ui
+   config: dev
+diff --git a/package-lock.json b/package-lock.json
+index 307542f..94d75db 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,11 +1,11 @@
+ {
+-  "name": "angular-starter",
++  "name": "busbox-ui",
+   "version": "1.0.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+-      "name": "angular-starter",
++      "name": "busbox-ui",
+       "version": "1.0.0",
+       "license": "MIT",
+       "dependencies": {
+diff --git a/package.json b/package.json
+index 89b25ce..d45acf2 100644
+--- a/package.json
++++ b/package.json
+@@ -1,12 +1,12 @@
+ {
+-  "name": "angular-starter",
++  "name": "busbox-ui",
+   "version": "1.0.0",
+   "description": "Starter template for Angular project with NgRx and Tailwind CSS",
+   "author": "Anton Maiatskii <work.mayatskiy@gmail.com>",
+   "license": "MIT",
+   "repository": {
+     "type": "git",
+-    "url": "https://github.com/ArtNekki/angular-starter.git"
++    "url": "https://github.com/buscourier/busbox-ui"
+   },
+   "keywords": [
+     "angular",
+@@ -14,9 +14,9 @@
+     "ngrx",
+     "tailwind"
+   ],
+-  "homepage": "https://angular-starter.dev",
++  "homepage": "https://busbox-ui.dev",
+   "bugs": {
+-    "url": "https://github.com/ArtNekki/angular-starter.git/issues"
++    "url": "https://github.com/buscourier/busbox-ui/issues"
+   },
+   "engines": {
+     "node": ">=20.15.0"
+diff --git a/src/app/app.component.html b/src/app/app.component.html
+index f1b378b..e194ddb 100644
+--- a/src/app/app.component.html
++++ b/src/app/app.component.html
+@@ -13,7 +13,7 @@
+         >Документация</a
+       >
+       <a
+-        href="https://github.com/ArtNekki/angular-starter.git"
++        href="https://github.com/ArtNekki/busbox-ui.git"
+         target="_blank"
+         class="bg-gray-800 text-white px-6 py-2 rounded-full hover:bg-gray-900 transition duration-300"
+         >GitHub</a

@@ -1,12 +1,12 @@
 {
-  "name": "angular-starter",
+  "name": "busbox-ui",
   "version": "1.0.0",
   "description": "Starter template for Angular project with NgRx and Tailwind CSS",
   "author": "Anton Maiatskii <work.mayatskiy@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ArtNekki/angular-starter.git"
+    "url": "https://github.com/buscourier/busbox-ui"
   },
   "keywords": [
     "angular",
@@ -14,9 +14,9 @@
     "ngrx",
     "tailwind"
   ],
-  "homepage": "https://angular-starter.dev",
+  "homepage": "https://busbox-ui.dev",
   "bugs": {
-    "url": "https://github.com/ArtNekki/angular-starter.git/issues"
+    "url": "https://github.com/buscourier/busbox-ui/issues"
   },
   "engines": {
     "node": ">=20.15.0"

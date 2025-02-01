@@ -33,7 +33,7 @@
 ### 1. Локально
 
 - Склонировать проект на свой компьютер:
-  - `https://github.com/ArtNekki/angularjs-starter.git`
+  - `https://github.com/buscourier/busbox-ui.git`
 - Перейти в проект и установить зависимости:
   - `npm ci`
 - В проекте активировать ветку `develop`:

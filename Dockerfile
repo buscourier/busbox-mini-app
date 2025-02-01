@@ -40,7 +40,7 @@ RUN mkdir /etc/nginx/logs && \
 FROM nginx:alpine
 
 # Copy built files from the build stage
-COPY --from=builder /app/dist/angular-starter /usr/share/nginx/html
+COPY --from=builder /app/dist/busbox-ui /usr/share/nginx/html
 
 # Copy Nginx configuration
 COPY --from=nginx-config /etc/nginx/nginx.conf /etc/nginx/nginx.conf
