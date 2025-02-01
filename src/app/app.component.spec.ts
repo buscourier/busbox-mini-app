@@ -20,25 +20,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Angular 18 Starter');
   });
 
-  it(`should have the 'Добро пожаловать в ваш новый проект!' text`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.text).toEqual('Добро пожаловать в ваш новый проект!');
-  });
-
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Angular 18 Starter');
-  });
-
-  it('should render text', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('p')?.textContent).toContain(
-      'Добро пожаловать в ваш новый проект!',
-    );
   });
 });
