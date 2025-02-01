@@ -1,10 +1,11 @@
+import { TuiRoot } from '@taiga-ui/core';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, TuiRoot],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css',
