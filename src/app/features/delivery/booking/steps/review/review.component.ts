@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-summary',
+  selector: 'app-review',
   imports: [],
-  templateUrl: './summary.component.html',
-  styleUrl: './summary.component.css',
+  templateUrl: './review.component.html',
+  styleUrl: './review.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SummaryComponent {}
+export class ReviewComponent {}
