@@ -2,11 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, concatAll, filter, Observable, shareReplay, throwError, toArray } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PickupCity } from '@shared/types/pickup-city.types';
-import { DeliveryCity } from '@shared/types/delivery-city.types';
-import { Office } from '@shared/types/office.types';
 import { environment } from '@env/environment';
 import { ERROR_MESSAGES, ErrorCode } from '@core/constants';
+import { DeliveryCity, Office, PickupCity } from '@shared/types';
 
 const EXCLUDED_CITY_ID = '249';
 
