@@ -35,6 +35,7 @@ module.exports = tseslint.config(
           style: 'kebab-case',
         },
       ],
+      '@ngrx/prefix-selectors-with-select': 'off',
     },
   },
   {
