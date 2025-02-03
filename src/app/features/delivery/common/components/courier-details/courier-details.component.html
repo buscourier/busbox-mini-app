@@ -1,0 +1,119 @@
+@if (form) {
+  <div [formGroup]="form" class="space-y-3">
+    <label class="block">
+      <span class="mb-1 inline-block text-xs">
+        Улица
+
+        @if (street.errors && street.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <div class="relative">
+        <tui-input
+          #streetInput
+          tuiTextfieldSize="m"
+          [formControl]="street"
+          [tuiTextfieldLabelOutside]="true"
+          [tuiHint]="[] | tuiFieldErrorContent"
+          [minlength]="ADDRESS_VALIDATION_LIMITS.STREET.MIN_LENGTH"
+          [maxlength]="ADDRESS_VALIDATION_LIMITS.STREET.MAX_LENGTH"
+          tuiHintAppearance="error"
+        >
+          <input
+            type="text"
+            tuiTextfieldLegacy
+            [attr.maxlength]="ADDRESS_VALIDATION_LIMITS.STREET.MAX_LENGTH"
+          />
+        </tui-input>
+        @if (streetInput.focused) {
+          <span class="absolute top-1/2 -translate-y-1/2 right-2">
+            <tui-badge appearance="secondary" tuiHint="Максимум символов" size="s">{{
+              availableStreetLength
+            }}</tui-badge>
+          </span>
+        }
+      </div>
+    </label>
+    <div class="flex space-x-7">
+      <label class="block">
+        <span class="mb-1 inline-block text-xs">
+          Дом, корпус, строение
+
+          @if (building.errors && building.hasError('required')) {
+            <sup class="text-red-50">*</sup>
+          }
+        </span>
+        <div class="relative">
+          <tui-input
+            #buildingInput
+            tuiTextfieldSize="m"
+            [formControl]="building"
+            [tuiTextfieldLabelOutside]="true"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            [minlength]="ADDRESS_VALIDATION_LIMITS.BUILDING.MIN_LENGTH"
+            [maxlength]="ADDRESS_VALIDATION_LIMITS.BUILDING.MAX_LENGTH"
+            tuiHintAppearance="error"
+          >
+            <input
+              type="text"
+              tuiTextfieldLegacy
+              [attr.maxlength]="ADDRESS_VALIDATION_LIMITS.BUILDING.MAX_LENGTH"
+            />
+          </tui-input>
+          @if (buildingInput.focused) {
+            <span class="absolute top-1/2 -translate-y-1/2 right-2">
+              <tui-badge appearance="secondary" tuiHint="Максимум символов" size="s">{{
+                availableBuildingLength
+              }}</tui-badge>
+            </span>
+          }
+        </div>
+      </label>
+      <label class="block">
+        <span class="mb-1 inline-block text-xs">
+          Кв. / офис
+          @if (apartment.errors && apartment.hasError('required')) {
+            <sup class="text-red-50">*</sup>
+          }
+        </span>
+        <div class="relative">
+          <tui-input
+            #apartmentInput
+            tuiTextfieldSize="m"
+            [formControl]="apartment"
+            [tuiTextfieldLabelOutside]="true"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            [minlength]="ADDRESS_VALIDATION_LIMITS.APARTMENT.MIN_LENGTH"
+            [maxlength]="ADDRESS_VALIDATION_LIMITS.APARTMENT.MAX_LENGTH"
+            tuiHintAppearance="error"
+          >
+            <input
+              type="text"
+              tuiTextfieldLegacy
+              [attr.maxlength]="ADDRESS_VALIDATION_LIMITS.APARTMENT.MAX_LENGTH"
+            />
+          </tui-input>
+          @if (apartmentInput.focused) {
+            <span class="absolute top-1/2 -translate-y-1/2 right-2">
+              <tui-badge appearance="secondary" tuiHint="Максимум символов" size="s">{{
+                availableApartmentLength
+              }}</tui-badge>
+            </span>
+          }
+        </div>
+      </label>
+    </div>
+    <tui-radio-list
+      size="s"
+      [formControl]="preferredTime"
+      [itemContent]="content"
+      [items]="preferredTimeSlots"
+      [identityMatcher]="identityMatcherById"
+      [style.flex-direction]="'row'"
+    >
+      <ng-template #content let-data>
+        <b>{{ data.label }}</b>
+      </ng-template>
+    </tui-radio-list>
+  </div>
+}
