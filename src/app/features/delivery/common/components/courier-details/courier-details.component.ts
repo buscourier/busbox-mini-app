@@ -21,7 +21,6 @@ import {
   TUI_VALIDATION_ERRORS,
   TuiBadge,
   TuiFieldErrorContentPipe,
-  TuiFieldErrorPipe,
   TuiRadioList,
 } from '@taiga-ui/kit';
 import { CourierDetails } from '@features/delivery/types';
@@ -30,25 +29,20 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 import { PreferredTimeSlot } from '@shared/types';
 import { PREFERRED_COURIER_TIME } from '@features/delivery/common/components/courier-details/constants';
-import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
-import { TuiError, TuiHintDirective, TuiTextfieldOptionsDirective } from '@taiga-ui/core';
-import { AsyncPipe } from '@angular/common';
 import { CourierDetailsForm } from '@features/delivery/common/components/courier-details/types';
+import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
+import { TuiHint } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-courier-details',
   imports: [
-    ReactiveFormsModule,
-    TuiInputModule,
-    TuiTextfieldOptionsDirective,
     TuiTextfieldControllerModule,
-    TuiRadioList,
-    TuiError,
-    TuiFieldErrorPipe,
-    AsyncPipe,
-    TuiBadge,
-    TuiHintDirective,
+    TuiHint,
+    ReactiveFormsModule,
     TuiFieldErrorContentPipe,
+    TuiInputModule,
+    TuiBadge,
+    TuiRadioList,
   ],
   templateUrl: './courier-details.component.html',
   styleUrl: './courier-details.component.css',
