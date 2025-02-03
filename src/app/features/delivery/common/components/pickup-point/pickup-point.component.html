@@ -1,1 +1,86 @@
-<p>pickup-point works!</p>
+@let vm = vm$ | async;
+
+@if (vm && form) {
+  <form [formGroup]="form">
+    <tui-loader [showLoader]="vm.loadingStatus.isCitiesLoading">
+      <tui-combo-box
+        [formControl]="city"
+        [stringify]="'name' | tuiStringify"
+        (searchChange)="onSearchChange($event)"
+        [tuiTextfieldLabelOutside]="true"
+        tuiTextfieldSize="m"
+      >
+        Выберите город
+        <tui-data-list-wrapper
+          *tuiDataList
+          [items]="cities$ | async"
+          [itemContent]="'name' | tuiStringify | tuiStringifyContent"
+        />
+      </tui-combo-box>
+    </tui-loader>
+    <tui-error [formControl]="city" [error]="[] | tuiFieldError | async" />
+
+    @if (vm.selectionStatus.selectedCity) {
+      <!--      @let tabs = vm.tabs;-->
+
+      @if (vm.tabs.length) {
+        <div class="tabs">
+          @for (tab of vm.tabs; track tab.id) {
+            <button
+              type="button"
+              [class.active]="tab === vm.activeTab"
+              (click)="onTabChange(tab.id)"
+            >
+              {{ tab.name }}
+            </button>
+          }
+        </div>
+      }
+    }
+
+    <div class="tab-content">
+      @switch (vm.activeTab?.id) {
+        @case (TabType.OFFICE) {
+          <div @tabContent>
+            <tui-select
+              [formControl]="office"
+              [stringify]="'address' | tuiStringify"
+              [tuiTextfieldLabelOutside]="true"
+              tuiTextfieldSize="m"
+            >
+              Выберите офис
+              <tui-data-list-wrapper
+                *tuiDataList
+                [items]="vm.offices"
+                [itemContent]="'address' | tuiStringify | tuiStringifyContent"
+              />
+            </tui-select>
+            <tui-error [formControl]="office" [error]="[] | tuiFieldError | async"></tui-error>
+          </div>
+        }
+        @case (TabType.COURIER) {
+          <div @tabContent>
+            @defer {
+              <app-courier-details [formControl]="courierPoint" />
+            } @loading (minimum 1s) {
+              <tui-loader />
+            }
+          </div>
+        }
+      }
+    </div>
+
+    @if (vm.activeTab?.id) {
+      <div>
+        <tui-input-date
+          [formControl]="departureDate"
+          tuiUnfinishedValidator="Выберите дату"
+          [tuiTextfieldLabelOutside]="true"
+          tuiTextfieldSize="m"
+          [min]="minDate"
+        />
+        <tui-error [formControl]="departureDate" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+    }
+  </form>
+}
