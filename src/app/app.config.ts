@@ -11,6 +11,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { pickupPointFeature } from '@features/delivery/common/components/pickup-point/store/feature';
 import { PickupPointEffects } from '@features/delivery/common/components/pickup-point/store/effects';
 import { provideHttpClient } from '@angular/common/http';
+import { CustomDateTransformer } from '@core/transformers';
+import { TUI_DATE_VALUE_TRANSFORMER } from '@taiga-ui/kit';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,5 +26,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     NG_EVENT_PLUGINS,
+    {
+      provide: TUI_DATE_VALUE_TRANSFORMER,
+      useClass: CustomDateTransformer,
+    },
   ],
 };
