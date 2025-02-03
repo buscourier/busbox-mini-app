@@ -5,7 +5,7 @@ import { PickupPointTabType } from '@features/delivery/common/components/pickup-
 export interface PickupPointState {
   cities: CitiesState<PickupCity>;
   offices: OfficesState;
-  courierPoint: CourierDetails | null;
+  courierDetails: CourierDetails | null;
   departureDate: string | null;
   form: FormState;
   activeTabId: PickupPointTabType | null;
