@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Configuration interface for storage operations.
+ * @template T Type of data being stored
+ */
 interface StorageConfig<T> {
   storage?: Storage;
   serialize?: (value: T) => string;
   deserialize?: (value: string) => T;
 }
 
+/**
+ * Service for type-safe persistence operations with Storage (localStorage/sessionStorage).
+ * Handles serialization, deserialization and error handling.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -16,6 +24,15 @@ export class PersistenceService {
     deserialize: JSON.parse,
   };
 
+  /**
+   * Saves data to storage with type safety.
+   * @template K Key type from storage schema
+   * @template T Storage schema type
+   * @param key Storage key
+   * @param data Data to persist
+   * @param config Optional storage configuration
+   * @throws Error if persistence fails
+   */
   save<K extends keyof T, T>(key: K, data: T[K], config?: Partial<StorageConfig<T[K]>>): void {
     try {
       const { storage, serialize } = { ...this.defaultConfig, ...config };
@@ -27,6 +44,15 @@ export class PersistenceService {
     }
   }
 
+  /**
+   * Loads data from storage with type safety.
+   * @template K Key type from storage schema
+   * @template T Storage schema type
+   * @param key Storage key
+   * @param config Optional storage configuration
+   * @returns Stored data or null if not found
+   * @throws Error if loading fails
+   */
   load<K extends keyof T, T>(key: K, config?: Partial<StorageConfig<T[K]>>): T[K] | null {
     try {
       const { storage, deserialize } = { ...this.defaultConfig, ...config };
@@ -38,6 +64,14 @@ export class PersistenceService {
     }
   }
 
+  /**
+   * Removes data from storage.
+   * @template K Key type from storage schema
+   * @template T Storage schema type
+   * @param key Storage key
+   * @param config Optional storage configuration
+   * @throws Error if removal fails
+   */
   remove<K extends keyof T, T>(key: K, config?: Pick<StorageConfig<unknown>, 'storage'>): void {
     try {
       const { storage } = { ...this.defaultConfig, ...config };
@@ -48,6 +82,15 @@ export class PersistenceService {
     }
   }
 
+  /**
+   * Checks if key exists in storage.
+   * @template K Key type from storage schema
+   * @template T Storage schema type
+   * @param key Storage key
+   * @param config Optional storage configuration
+   * @returns true if key exists, false otherwise
+   * @throws Error if check fails
+   */
   has<K extends keyof T, T>(key: K, config?: Pick<StorageConfig<unknown>, 'storage'>): boolean {
     try {
       const { storage } = { ...this.defaultConfig, ...config };
