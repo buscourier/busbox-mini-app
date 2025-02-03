@@ -18,7 +18,7 @@ export const deliveryRoutes: Routes = [
       },
       {
         path: 'booking',
-        loadChildren: () => import('./booking/booking.routes').then(m => m.bookingRoutes),
+        loadChildren: () => import('./booking/booking.routes').then((m) => m.bookingRoutes),
       },
     ],
   },
