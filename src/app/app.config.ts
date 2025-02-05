@@ -8,11 +8,10 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore } from '@ngrx/router-store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { pickupPointFeature } from '@features/delivery/common/components/pickup-point/store/feature';
-import { PickupPointEffects } from '@features/delivery/common/components/pickup-point/store/effects';
 import { provideHttpClient } from '@angular/common/http';
 import { CustomDateTransformer } from '@core/transformers';
 import { TUI_DATE_VALUE_TRANSFORMER } from '@taiga-ui/kit';
+import { PickupPointEffects, pickupPointFeature } from '@delivery/foundation/pickup-point/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { OrderSummaryComponent } from '@delivery/foundation/order-summary';
 
 @Component({
   selector: 'app-delivery',

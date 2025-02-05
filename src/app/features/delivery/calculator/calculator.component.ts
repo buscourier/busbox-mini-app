@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { PickupPointComponent } from '@features/delivery/common/components/pickup-point/pickup-point.component';
+import { PickupPointComponent } from '@delivery/foundation/pickup-point';
 
 @Component({
   selector: 'app-calculator',

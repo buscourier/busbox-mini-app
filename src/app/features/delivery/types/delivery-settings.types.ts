@@ -1,5 +1,5 @@
-import { Service } from '@features/delivery/types/service.types';
-import { Cargo } from '@features/delivery/types/cargo.types';
+import { Cargo } from './cargo.types';
+import { Service } from './service.types';
 
 export interface DeliverySettings {
   cargos: Cargo[];

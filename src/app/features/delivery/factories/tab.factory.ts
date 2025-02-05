@@ -1,8 +1,5 @@
-import {
-  PickupPointTab,
-  PickupPointTabType,
-} from '@features/delivery/common/components/pickup-point/types';
-import { PICKUP_POINT_TAB_CONFIG } from '@features/delivery/common/components/pickup-point/constants/tab.const';
+import { PickupPointTab, PickupPointTabType } from '@delivery/foundation/pickup-point/types';
+import { PICKUP_POINT_TAB_CONFIG } from '@delivery/foundation/pickup-point/pickup-point.const';
 
 export class TabFactory {
   static createStartPointTabs(): PickupPointTab[] {

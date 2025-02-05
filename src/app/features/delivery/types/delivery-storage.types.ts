@@ -1,4 +1,4 @@
-import { StoredPickupPointState } from '@features/delivery/common/components/pickup-point/types';
+import { StoredPickupPointState } from '@delivery/foundation/pickup-point/types';
 
 export interface DeliveryStorageSchema {
   pickupPoint: StoredPickupPointState;
