@@ -29,7 +29,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "format": "prettier --write \"src/**/*.{ts,html,css,scss,json}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,html,css,scss,json}\""
+    "format:check": "prettier --check \"src/**/*.{ts,html,css,scss,json}\"",
+    "prepare": "husky"
   },
   "lint-staged": {
     "src/**/*.{ts,html,css,scss}": [
