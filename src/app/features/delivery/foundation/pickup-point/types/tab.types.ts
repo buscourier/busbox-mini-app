@@ -1,8 +1,9 @@
-import { ApiTab } from '@shared/types';
+import { ApiTab, TabConfig } from '@shared/types';
 
-export interface PickupPointTabConfig {
+export type PickupPointApiValue = 'give' | 'pickup';
+
+export interface PickupPointTabConfig extends TabConfig {
   apiValue: PickupPointApiValue;
-  name: string;
 }
 
 export const PickupPointTabType = {
@@ -11,5 +12,4 @@ export const PickupPointTabType = {
 } as const;
 
 export type PickupPointTabType = (typeof PickupPointTabType)[keyof typeof PickupPointTabType];
-export type PickupPointApiValue = 'give' | 'pickup';
 export type PickupPointTab = ApiTab<PickupPointTabType, PickupPointApiValue>;

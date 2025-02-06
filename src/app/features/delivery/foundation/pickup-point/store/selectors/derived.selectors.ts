@@ -5,7 +5,7 @@ import { LIMITED_OFFICE } from '@delivery/constants';
 import { BaseSelectors, DerivedSelectors } from '@delivery/foundation/pickup-point/store';
 import { PickupPointTab, PickupPointTabType } from '@delivery/foundation/pickup-point/types';
 import { ErrorStatus, LoadingStatus, SelectionStatus } from '@delivery/types';
-import { PICKUP_POINT_TABS } from '@delivery/foundation/pickup-point/pickup-point.const';
+import { PICKUP_POINT_TABS } from '@delivery/foundation/pickup-point/constants';
 
 export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSelectors => {
   /**

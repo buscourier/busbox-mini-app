@@ -33,3 +33,12 @@ export interface Tab<T = string, V = string> extends BaseTab<T> {
 export interface ApiTab<T = string, V = string> extends BaseTab<T> {
   apiValue: V;
 }
+
+export interface TabConfig {
+  apiValue: string;
+  name: string;
+}
+
+export interface TabOptions<T> {
+  defaultTabType: T;
+}

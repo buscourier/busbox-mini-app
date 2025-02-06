@@ -12,4 +12,7 @@ export const PICKUP_POINT_TAB_CONFIG: Record<PickupPointTabType, PickupPointTabC
   },
 };
 
-export const PICKUP_POINT_TABS = TabFactory.createStartPointTabs();
+export const PICKUP_POINT_TABS = TabFactory.createTabs<PickupPointTabType, PickupPointTabConfig>(
+  PICKUP_POINT_TAB_CONFIG,
+  { defaultTabType: PickupPointTabType.OFFICE },
+);
