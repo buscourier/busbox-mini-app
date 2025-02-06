@@ -26,7 +26,7 @@ import { map } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { AsyncPipe } from '@angular/common';
-import { TuiError, TuiLoader } from '@taiga-ui/core';
+import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
 import {
   TuiComboBoxModule,
   TuiInputDateModule,
@@ -93,6 +93,7 @@ export class PickupPointComponent implements OnInit {
   cities$!: Observable<PickupCity[] | null>;
   protected readonly TabType = PickupPointTabType;
 
+  private readonly alerts = inject(TuiAlertService);
   private readonly store = inject(Store);
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
@@ -127,6 +128,7 @@ export class PickupPointComponent implements OnInit {
     this.setupFormSync();
     this.setupStoreSync();
     this.setupFormValidation();
+    this.setupErrorHandling();
   }
 
   onSearchChange(searchQuery: string | null): void {
@@ -172,6 +174,19 @@ export class PickupPointComponent implements OnInit {
       .subscribe();
 
     this.setupTabChangeReset();
+  }
+
+  private setupErrorHandling(): void {
+    this.vm$
+      .pipe(
+        map((vm) => vm.errorStatus),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((error) => {
+        if (error.hasAnyError) {
+          this.showErrorNotification('Не удалось загрузить данные по пункту отправки');
+        }
+      });
   }
 
   private setupTabChangeReset(): void {
@@ -307,5 +322,16 @@ export class PickupPointComponent implements OnInit {
       default:
         throw new Error(`Unexpected tab type: ${tabId}`);
     }
+  }
+
+  private showErrorNotification(message: string): void {
+    this.alerts
+      .open(message, {
+        label: 'Ошибка',
+        autoClose: 0,
+        appearance: 'error',
+      })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
   }
 }
