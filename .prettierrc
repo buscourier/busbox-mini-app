@@ -6,8 +6,5 @@
   "useTabs": false,
   "semi": true,
   "bracketSpacing": true,
-  "arrowParens": "always",
-  "functionParameters": {
-    "printWidth": 1
-  }
+  "arrowParens": "always"
 }
