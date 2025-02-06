@@ -36,14 +36,21 @@ module.exports = tseslint.config(
         },
       ],
       '@ngrx/prefix-selectors-with-select': 'off',
+      'max-len': [
+        'error',
+        {
+          code: 100,
+          ignoreUrls: true,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+          ignoreRegExpLiterals: true,
+        },
+      ],
     },
   },
   {
     files: ['**/*.html'],
-    extends: [
-      ...angular.configs.templateRecommended,
-      ...angular.configs.templateAccessibility,
-    ],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {},
   },
 );
