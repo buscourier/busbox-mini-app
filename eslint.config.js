@@ -4,6 +4,7 @@ const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 const ngrx = require('@ngrx/eslint-plugin/v9');
 const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
+const simpleImportSort = require('eslint-plugin-simple-import-sort');
 
 module.exports = tseslint.config(
   {
@@ -18,6 +19,9 @@ module.exports = tseslint.config(
       eslintPluginPrettierRecommended,
     ],
     processor: angular.processInlineTemplates,
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
     rules: {
       '@angular-eslint/directive-selector': [
         'error',
@@ -46,6 +50,32 @@ module.exports = tseslint.config(
           ignoreRegExpLiterals: true,
         },
       ],
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            // 1. Angular Core
+            ['^@angular(/.*|$)'],
+            // 2. RxJS
+            ['^rxjs$', '^rxjs/operators$'],
+            // 3. NgRx
+            ['^@ngrx(/.*|$)'],
+            // 4. Taiga UI
+            ['^@taiga-ui(/.*|$)'],
+            // 5. Константы
+            ['^@core/constants$'],
+            // 6. Компоненты
+            ['^@delivery/foundation(/.*|$)'],
+            // 7. Типы
+            ['^@delivery/types$', '^@shared/types$'],
+            // 8. Локальные модули (store, types и т.д.)
+            ['^\\./store$', '^\\./types$'],
+            // 9. Относительные пути
+            ['^\\.'],
+          ],
+        },
+      ],
+      'simple-import-sort/exports': 'error',
     },
   },
   {
