@@ -54,23 +54,23 @@ module.exports = tseslint.config(
         'error',
         {
           groups: [
-            // 1. Angular Core
+            // 1. Angular core modules
             ['^@angular(/.*|$)'],
-            // 2. RxJS
+            // 2. RxJS modules
             ['^rxjs$', '^rxjs/operators$'],
-            // 3. NgRx
+            // 3. NgRx modules
             ['^@ngrx(/.*|$)'],
-            // 4. Taiga UI
+            // 4. Taiga UI modules
             ['^@taiga-ui(/.*|$)'],
-            // 5. Константы
-            ['^@core/constants$'],
-            // 6. Компоненты
-            ['^@delivery/foundation(/.*|$)'],
-            // 7. Типы
-            ['^@delivery/types$', '^@shared/types$'],
-            // 8. Локальные модули (store, types и т.д.)
-            ['^\\./store$', '^\\./types$'],
-            // 9. Относительные пути
+            // 5. Core-level modules
+            ['^@core(/.*|$)'],
+            // 6. Everything from @shared
+            ['^@shared(/.*|$)'],
+            // 7. Everything inside a single feature
+            ['^@features/([^/]+)/.*$'],
+            // 8. All project-wide modules
+            ['^../../.*$'],
+            // 9. Local feature files
             ['^\\.'],
           ],
         },
