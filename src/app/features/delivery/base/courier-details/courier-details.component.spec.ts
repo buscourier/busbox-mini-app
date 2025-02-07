@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CourierDetailsComponent } from 'src/app/features/delivery/shared/courier-details/courier-details.component';
+import { CourierDetailsComponent } from './courier-details.component';
 
 describe('CourierDetailsComponent', () => {
   let component: CourierDetailsComponent;
