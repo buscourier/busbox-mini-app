@@ -1,17 +1,21 @@
-import { NG_EVENT_PLUGINS } from '@taiga-ui/event-plugins';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
-import { routes } from './app.routes';
-import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore } from '@ngrx/router-store';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { provideHttpClient } from '@angular/common/http';
-import { CustomDateTransformer } from '@core/transformers';
+
+import { NG_EVENT_PLUGINS } from '@taiga-ui/event-plugins';
 import { TUI_DATE_VALUE_TRANSFORMER } from '@taiga-ui/kit';
-import { PickupPointEffects, pickupPointFeature } from '@delivery/foundation/pickup-point/store';
+
+import { CustomDateTransformer } from '@core/transformers';
+
+import { PickupPointEffects, pickupPointFeature } from '@features/delivery/pickup-point/store';
+
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [

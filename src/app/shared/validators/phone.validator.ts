@@ -1,4 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
 import { PHONE_REGEX } from '@core/constants';
 
 export function phoneValidator(): ValidatorFn {

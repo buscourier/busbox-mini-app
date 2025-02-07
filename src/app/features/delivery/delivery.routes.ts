@@ -1,6 +1,8 @@
-import { DeliveryComponent } from './delivery.component';
-import { CalculatorComponent } from './calculator/calculator.component';
 import { Routes } from '@angular/router';
+
+import { CalculatorComponent } from '@features/delivery/calculator/calculator.component';
+
+import { DeliveryComponent } from './delivery.component';
 
 export const deliveryRoutes: Routes = [
   {
@@ -18,7 +20,8 @@ export const deliveryRoutes: Routes = [
       },
       {
         path: 'booking',
-        loadChildren: () => import('./booking/booking.routes').then((m) => m.bookingRoutes),
+        loadChildren: () =>
+          import('@features/delivery/booking/booking.routes').then((m) => m.bookingRoutes),
       },
     ],
   },

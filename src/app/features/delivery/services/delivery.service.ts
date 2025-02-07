@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { catchError, forkJoin, Observable, retry } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { ApiService } from '@core/services';
-import { Cargo, DeliverySettings, Service } from '@delivery/types';
+
+import { Cargo, DeliverySettings, Service } from '@features/delivery/types';
 
 const MAX_RETRIES = 3;
 

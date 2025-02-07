@@ -8,10 +8,12 @@ export class TabFactory {
    * Creates an array of tabs based on configuration
    *
    * @template T - Tab identifier type (e.g., 'OFFICE' | 'COURIER')
-   * @template K - Tab configuration type that extends base TabConfig interface {apiValue: string, name: string}
+   * @template K - Tab configuration type that extends base TabConfig interface {apiValue: string,
+   * name: string}
    *
    * @param config - Tab configuration object in Record<T, K> format
-   *                Example: { OFFICE: { apiValue: 'give', name: 'Office' }, COURIER: { apiValue: 'pickup', name: 'Courier' } }
+   *                Example: { OFFICE: { apiValue: 'give', name: 'Office' }, COURIER:
+   *                { apiValue: 'pickup', name: 'Courier' } }
    *
    * @param options - Options for creating tabs
    * @param options.defaultTabType - Tab identifier that will be marked as default (isDefault: true)

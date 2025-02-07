@@ -1,2 +1,2 @@
-export * from '../foundation/pickup-point/store/effects';
-export * from '../foundation/pickup-point/store/feature';
+export * from '../sub-features/pickup-point/store/effects';
+export * from '../sub-features/pickup-point/store/feature';

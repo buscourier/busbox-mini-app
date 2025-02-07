@@ -1,5 +1,5 @@
-import { Office } from '@shared/types/office.types';
 import { ApiError } from '@shared/types/api-error.types';
+import { Office } from '@shared/types/office.types';
 
 export interface OfficesState {
   items: Office[];
