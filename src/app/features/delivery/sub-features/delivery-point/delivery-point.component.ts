@@ -20,6 +20,7 @@ import { Store } from '@ngrx/store';
 
 import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
 import {
+  TUI_VALIDATION_ERRORS,
   TuiCheckbox,
   TuiDataListWrapper,
   TuiFieldErrorPipe,
@@ -59,6 +60,14 @@ import { ControlValues, DeliveryPointForm, DeliveryPointTabType, ResetConfig } f
   templateUrl: './delivery-point.component.html',
   styleUrl: './delivery-point.component.css',
   animations: [fadeSlideAnimation],
+  providers: [
+    {
+      provide: TUI_VALIDATION_ERRORS,
+      useValue: {
+        required: `Поле обязательно для заполнения`,
+      },
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeliveryPointComponent implements OnInit {
