@@ -11,7 +11,7 @@ import { ApiError, Office } from '@shared/types';
 
 import { DeliveryService } from '@features/delivery/services';
 
-import { PickupPointTabType } from '../../types/tab.types';
+import { PickupPointTabType } from '../../types';
 
 import { PickupPointActions } from '../actions';
 import { pickupPointFeature } from '../feature';

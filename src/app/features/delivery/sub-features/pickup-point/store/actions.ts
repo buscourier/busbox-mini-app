@@ -4,8 +4,7 @@ import { ApiError, Office, PickupCity } from '@shared/types';
 
 import { CourierDetails } from '@features/delivery/types';
 
-import { StoredPickupPointState } from '../types/storage.types';
-import { PickupPointTabType } from '../types/tab.types';
+import { PickupPointTabType, StoredPickupPointState } from '../types';
 
 export const PickupPointActions = createActionGroup({
   source: 'PickupPoint',

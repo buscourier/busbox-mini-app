@@ -44,9 +44,7 @@ import { CourierDetailsComponent } from '@features/delivery/base/courier-details
 import { CourierDetails } from '@features/delivery/types';
 
 import { PickupPointActions, pickupPointFeature, PickupPointViewModel } from './store';
-import { ControlValues, PickupPointForm } from './types/form.types';
-import { ResetConfig } from './types/reset-config.types';
-import { PickupPointTabType } from './types/tab.types';
+import { ControlValues, PickupPointForm, PickupPointTabType, ResetConfig } from './types';
 
 @Component({
   selector: 'app-pickup-point',

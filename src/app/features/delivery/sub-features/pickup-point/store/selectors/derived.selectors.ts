@@ -6,7 +6,7 @@ import { LIMITED_OFFICE } from '@features/delivery/constants';
 import { ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
 
 import { PICKUP_POINT_TABS } from '../../constants';
-import { PickupPointTab, PickupPointTabType } from '../../types/tab.types';
+import { PickupPointTab, PickupPointTabType } from '../../types';
 
 import { BaseSelectors } from './base-selectors.types';
 import { DerivedSelectors } from './derived-selectors.types';

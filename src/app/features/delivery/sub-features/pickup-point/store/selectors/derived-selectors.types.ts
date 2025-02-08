@@ -4,7 +4,7 @@ import { Office, PickupCity } from '@shared/types';
 
 import { ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
 
-import { PickupPointTab } from '../../types/tab.types';
+import { PickupPointTab } from '../../types';
 
 export interface DerivedSelectors {
   selectAvailableOffices: MemoizedSelector<object, Office[]>;

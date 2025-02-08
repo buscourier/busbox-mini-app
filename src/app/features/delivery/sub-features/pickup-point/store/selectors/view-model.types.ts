@@ -8,7 +8,7 @@ import {
   SelectionStatus,
 } from '@features/delivery/types';
 
-import { PickupPointTab } from '../../types/tab.types';
+import { PickupPointTab } from '../../types';
 
 /**
  * View model for PickupPoint component.

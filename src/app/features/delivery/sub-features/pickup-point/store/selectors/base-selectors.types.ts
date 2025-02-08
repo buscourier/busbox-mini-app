@@ -4,7 +4,7 @@ import { ApiError, Office, PickupCity } from '@shared/types';
 
 import { CourierDetails, FormState } from '@features/delivery/types';
 
-import { PickupPointTabType } from '../../types/tab.types';
+import { PickupPointTabType } from '../../types';
 
 export interface BaseSelectors {
   selectCities: MemoizedSelector<object, PickupCity[]>;

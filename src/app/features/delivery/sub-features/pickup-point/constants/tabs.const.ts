@@ -1,6 +1,6 @@
 import { TabFactory } from '@features/delivery/factories';
 
-import { PickupPointTabConfig, PickupPointTabType } from '../types/tab.types';
+import { PickupPointTabConfig, PickupPointTabType } from '../types';
 
 export const PICKUP_POINT_TAB_CONFIG: Record<PickupPointTabType, PickupPointTabConfig> = {
   [PickupPointTabType.OFFICE]: {
