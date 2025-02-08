@@ -1,1 +1,80 @@
-<p>delivery-point works!</p>
+@let vm = vm$ | async;
+
+@if (vm && form) {
+  <form [formGroup]="form">
+    <tui-loader [showLoader]="vm.loadingStatus.isCitiesLoading">
+      <tui-combo-box
+        [formControl]="city"
+        [stringify]="'name' | tuiStringify"
+        (searchChange)="onSearchChange($event)"
+        [tuiTextfieldLabelOutside]="true"
+        tuiTextfieldSize="m"
+      >
+        Выберите город
+        <tui-data-list-wrapper
+          *tuiDataList
+          [items]="cities$ | async"
+          [itemContent]="'name' | tuiStringify | tuiStringifyContent"
+        />
+      </tui-combo-box>
+    </tui-loader>
+    <tui-error [formControl]="city" [error]="[] | tuiFieldError | async" />
+
+    @if (vm.selectionStatus.selectedCity) {
+      @if (vm.tabs.length > 1) {
+        <div class="tabs">
+          @for (tab of vm.tabs; track tab.id) {
+            <button
+              type="button"
+              [class.active]="tab === vm.activeTab"
+              (click)="onTabChange(tab.id)"
+            >
+              {{ tab.name }}
+            </button>
+          }
+        </div>
+      }
+
+      <div class="tab-content">
+        @switch (vm.activeTab?.id) {
+          @case (TabType.OFFICE) {
+            <div @tabContent>
+              @if (vm.tabs.length < 2) {
+                <b>Забрать в отделении:</b>
+              }
+              <tui-select
+                [formControl]="office"
+                [stringify]="'address' | tuiStringify"
+                [tuiTextfieldLabelOutside]="true"
+                tuiTextfieldSize="m"
+              >
+                Выберите офис
+                <tui-data-list-wrapper
+                  *tuiDataList
+                  [items]="vm.offices"
+                  [itemContent]="'address' | tuiStringify | tuiStringifyContent"
+                />
+              </tui-select>
+              <tui-error [formControl]="office" [error]="[] | tuiFieldError | async" />
+            </div>
+          }
+          @case (TabType.COURIER) {
+            <div @tabContent>
+              @defer {
+                <app-courier-details [formControl]="courierDetails" />
+              } @loading (minimum 1s) {
+                <tui-loader />
+              }
+            </div>
+          }
+          @case (TabType.BUS) {
+            <label class="mt-3 flex items-center pointer-events-none">
+              <input tuiCheckbox type="checkbox" size="s" [formControl]="busPickup" />
+              <span class="inline-block ml-2">Встретить с автобуса</span>
+            </label>
+          }
+        }
+      </div>
+    }
+  </form>
+}
