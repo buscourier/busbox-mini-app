@@ -28,6 +28,7 @@ import {
 } from '@taiga-ui/kit';
 import { TuiComboBoxModule, TuiSelectModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 
+import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
 
 import { CitiesFilterSource, DeliveryCity, Office } from '@shared/types';
@@ -57,6 +58,7 @@ import { ControlValues, DeliveryPointForm, DeliveryPointTabType, ResetConfig } f
   ],
   templateUrl: './delivery-point.component.html',
   styleUrl: './delivery-point.component.css',
+  animations: [fadeSlideAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeliveryPointComponent implements OnInit {

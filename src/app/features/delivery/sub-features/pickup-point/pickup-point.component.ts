@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -36,6 +35,7 @@ import {
   TuiUnfinishedValidator,
 } from '@taiga-ui/legacy';
 
+import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
 
 import { CitiesFilterSource, Office, PickupCity } from '@shared/types';
@@ -66,17 +66,7 @@ import { ControlValues, PickupPointForm, PickupPointTabType, ResetConfig } from 
   ],
   templateUrl: './pickup-point.component.html',
   styleUrl: './pickup-point.component.css',
-  animations: [
-    trigger('tabContent', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(10px)' }),
-        animate('200ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
-      ]),
-      transition(':leave', [
-        animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(10px)' })),
-      ]),
-    ]),
-  ],
+  animations: [fadeSlideAnimation],
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
