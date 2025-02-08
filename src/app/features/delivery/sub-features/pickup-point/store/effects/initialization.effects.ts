@@ -20,7 +20,9 @@ export const initializationEffects = {
             'pickupPoint',
           );
           return restoredState
-            ? PickupPointActions.restoreState({ restoredState })
+            ? PickupPointActions.restoreState({
+                restoredState: restoredState as DeliveryStorageSchema['pickupPoint'],
+              })
             : PickupPointActions.initSkipped();
         }),
       );
