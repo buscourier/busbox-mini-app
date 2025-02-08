@@ -1,0 +1,55 @@
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+
+import { ApiError, DeliveryCity, Office } from '@shared/types';
+
+import { CourierDetails } from '@features/delivery/types';
+
+import { StoredDeliveryPointState } from '../types/storage.types';
+import { DeliveryPointTabType } from '../types/tab.types';
+
+export const DeliveryPointActions = createActionGroup({
+  source: 'DeliveryPoint',
+  events: {
+    // Cities
+    'Load Cities': props<{ startCityId: string }>(),
+    'Load Cities Success': props<{ cities: DeliveryCity[] }>(),
+    'Load Cities Failure': props<{ error: ApiError }>(),
+    'Select City': props<{ city: DeliveryCity }>(),
+
+    // Offices
+    'Load Offices': emptyProps(),
+    'Load Offices Success': props<{ offices: Office[] }>(),
+    'Load Offices Failure': props<{ error: ApiError }>(),
+    'Select Office': props<{ office: Office }>(),
+    'Reset Office': emptyProps(),
+
+    // Tabs
+    'Set Active Tab Id': props<{ activeTabId: DeliveryPointTabType }>(),
+    'Reset Active Tab Id': emptyProps(),
+
+    // Courier point
+    'Update Courier Details': props<{ courierDetails: CourierDetails }>(),
+    'Reset Courier Details': emptyProps(),
+
+    // Bus pickup
+    'Set Bus Pickup': props<{ enabled: boolean }>(),
+
+    // Form state
+    'Set Form Validity': props<{ isValid: boolean }>(),
+
+    // Persistence
+    'Init State': emptyProps(),
+    'Restore State': props<{ restoredState: StoredDeliveryPointState }>(),
+    'Init Skipped': emptyProps(),
+
+    /**
+     * Resets form data with optional parameters:
+     * @param keepCity - When true, preserves the currently selected city
+     * @param city - Optional city to set after reset
+     */
+    'Reset Form Data': props<{
+      keepCity?: boolean;
+      city?: DeliveryCity;
+    }>(),
+  },
+});

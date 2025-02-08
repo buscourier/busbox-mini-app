@@ -1,0 +1,14 @@
+import { DeliveryCity } from '@shared/types';
+
+import { CitiesState, CourierDetails, FormState, OfficesState } from '@features/delivery/types';
+
+import { DeliveryPointTabType } from '../types/tab.types';
+
+export interface DeliveryPointState {
+  cities: CitiesState<DeliveryCity>;
+  offices: OfficesState;
+  courierDetails: CourierDetails | null;
+  busPickup: boolean;
+  form: FormState;
+  activeTabId: DeliveryPointTabType | null;
+}
