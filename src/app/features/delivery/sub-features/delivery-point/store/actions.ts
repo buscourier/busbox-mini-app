@@ -4,8 +4,7 @@ import { ApiError, DeliveryCity, Office } from '@shared/types';
 
 import { CourierDetails } from '@features/delivery/types';
 
-import { StoredDeliveryPointState } from '../types/storage.types';
-import { DeliveryPointTabType } from '../types/tab.types';
+import { DeliveryPointTabType, StoredDeliveryPointState } from '../types';
 
 export const DeliveryPointActions = createActionGroup({
   source: 'DeliveryPoint',

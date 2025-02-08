@@ -5,8 +5,8 @@ import { DeliveryCity, Office } from '@shared/types';
 import { LIMITED_OFFICE } from '@features/delivery/constants';
 import { ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
 
-import { DELIVERY_POINT_TABS } from '../../constants/tabs.const';
-import { DeliveryPointTab, DeliveryPointTabType } from '../../types/tab.types';
+import { DELIVERY_POINT_TABS } from '../../constants';
+import { DeliveryPointTab, DeliveryPointTabType } from '../../types';
 
 import { BaseSelectors } from './base-selectors.types';
 import { DerivedSelectors } from './derived-selectors.types';

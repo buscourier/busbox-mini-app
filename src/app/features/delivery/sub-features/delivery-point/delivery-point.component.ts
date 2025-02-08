@@ -36,9 +36,7 @@ import { CourierDetailsComponent } from '@features/delivery/base/courier-details
 import { CourierDetails } from '@features/delivery/types';
 
 import { DeliveryPointActions, deliveryPointFeature, DeliveryPointViewModel } from './store';
-import { ControlValues, DeliveryPointForm } from './types/form.types';
-import { ResetConfig } from './types/reset-config.types';
-import { DeliveryPointTabType } from './types/tab.types';
+import { ControlValues, DeliveryPointForm, DeliveryPointTabType, ResetConfig } from './types';
 
 @Component({
   selector: 'app-delivery-point',

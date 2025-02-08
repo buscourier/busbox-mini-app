@@ -4,7 +4,7 @@ import { ApiError, DeliveryCity, Office } from '@shared/types';
 
 import { CourierDetails, FormState } from '@features/delivery/types';
 
-import { DeliveryPointTabType } from '../../types/tab.types';
+import { DeliveryPointTabType } from '../../types';
 
 export interface BaseSelectors {
   /** Cities selector group */

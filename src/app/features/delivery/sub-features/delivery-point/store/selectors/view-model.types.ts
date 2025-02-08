@@ -8,7 +8,7 @@ import {
   SelectionStatus,
 } from '@features/delivery/types';
 
-import { DeliveryPointTab } from '../../types/tab.types';
+import { DeliveryPointTab } from '../../types';
 
 /**
  * Usage example:

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeliveryPointComponent } from '@features/delivery/delivery-point/delivery-point.component';
+import { DeliveryPointComponent } from './delivery-point.component';
 
 describe('DeliveryPointComponent', () => {
   let component: DeliveryPointComponent;

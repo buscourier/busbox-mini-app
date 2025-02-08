@@ -11,7 +11,7 @@ import { ApiError, Office } from '@shared/types';
 
 import { DeliveryService } from '@features/delivery/services';
 
-import { DeliveryPointTabType } from '../../types/tab.types';
+import { DeliveryPointTabType } from '../../types';
 
 import { DeliveryPointActions } from '../actions';
 import { deliveryPointFeature } from '../feature';

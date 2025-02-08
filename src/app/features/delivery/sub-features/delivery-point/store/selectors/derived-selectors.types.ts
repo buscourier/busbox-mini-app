@@ -4,7 +4,7 @@ import { DeliveryCity, Office } from '@shared/types';
 
 import { ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
 
-import { DeliveryPointTab } from '../../types/tab.types';
+import { DeliveryPointTab } from '../../types';
 
 export interface DerivedSelectors {
   selectAvailableOffices: MemoizedSelector<object, Office[]>;

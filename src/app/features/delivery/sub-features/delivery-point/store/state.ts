@@ -2,7 +2,7 @@ import { DeliveryCity } from '@shared/types';
 
 import { CitiesState, CourierDetails, FormState, OfficesState } from '@features/delivery/types';
 
-import { DeliveryPointTabType } from '../types/tab.types';
+import { DeliveryPointTabType } from '../types';
 
 export interface DeliveryPointState {
   cities: CitiesState<DeliveryCity>;
