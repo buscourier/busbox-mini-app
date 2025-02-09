@@ -1,0 +1,16 @@
+<div class="p-5">
+  <h1 class="text-lg font-medium">{{ data.title }} ({{ data.title }})</h1>
+  <p class="mb-4 text-sm">{{ data.dimensions }}</p>
+  <div class="flex items-end space-x-2">
+    <div class="counter block flex-grow">
+      <span class="mb-1 inline-block text-xs">Сколько штук?</span>
+      <tui-input-number
+        [formControl]="quantityControl"
+        (focusedChange)="setMinQuantityOnBlur($event)"
+        [min]="DEFAULT_QUANTITY"
+        >0
+      </tui-input-number>
+    </div>
+    <button type="button" tuiButton size="m" (click)="onSubmit()">Подтвердить</button>
+  </div>
+</div>
