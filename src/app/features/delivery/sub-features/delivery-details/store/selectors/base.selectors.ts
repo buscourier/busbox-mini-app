@@ -1,7 +1,7 @@
 import { EntityAdapter } from '@ngrx/entity';
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 
-import { Order } from '@features/delivery/types';
+import { Order } from '../../types';
 
 import { DeliveryDetailsState } from '../state';
 import { BaseSelectors } from './base-selectors.types';

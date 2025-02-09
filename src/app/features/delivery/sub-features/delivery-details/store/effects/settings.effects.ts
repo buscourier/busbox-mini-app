@@ -7,7 +7,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
 
 import { DeliveryService } from '@features/delivery/services';
-import { DeliverySettings } from '@features/delivery/types';
+
+import { DeliverySettings } from '../../types';
 
 import { DeliveryDetailsActions } from '../actions';
 

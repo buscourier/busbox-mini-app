@@ -1,7 +1,7 @@
 import { Dictionary } from '@ngrx/entity';
 import { MemoizedSelector } from '@ngrx/store';
 
-import { DeliveryRestrictions, DeliverySettings, Order } from '@features/delivery/types';
+import { DeliveryRestrictions, DeliverySettings, Order } from '../../types';
 
 export interface BaseSelectors {
   // Entity selectors

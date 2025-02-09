@@ -5,7 +5,7 @@ import {
   EnhancedOrder,
   Order,
   Service,
-} from '@features/delivery/types';
+} from '../../types';
 
 export interface DeliveryDetailsViewModel {
   enhancedOrders: EnhancedOrder[];

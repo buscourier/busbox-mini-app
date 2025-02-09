@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-import { PARCEL_LIMITS, PARCELS_LIMITS } from '@features/delivery/constants';
-import { DeliveryRestrictions, DeliverySettings, Order } from '@features/delivery/types';
+import { PARCEL_LIMITS, PARCELS_LIMITS } from '../constants';
+import { DeliveryRestrictions, DeliverySettings, Order } from '../types';
 
 export interface DeliveryDetailsState extends EntityState<Order> {
   isSettingsLoading: boolean;

@@ -11,9 +11,8 @@ import {
   OtherCargoData,
   PackagingData,
   ParcelData,
-} from '@features/delivery/types';
-
-import { StoredDeliveryDetailsState } from '../types';
+  StoredDeliveryDetailsState,
+} from '../types';
 
 export const DeliveryDetailsActions = createActionGroup({
   source: 'DeliveryDetails',

@@ -1,7 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { PACKAGE_NAMES } from '@core/constants/package-names.const';
-
+import { PACKAGE_NAMES } from '../../constants';
 import {
   ActiveOrderDetails,
   CargoType,
@@ -10,13 +9,8 @@ import {
   Order,
   PackagingDetails,
   Service,
-} from '@features/delivery/types';
-import {
-  getAutoParts,
-  getDocuments,
-  getOtherCargo,
-  getParcels,
-} from '@features/delivery/utils/cargo-utils';
+} from '../../types';
+import { getAutoParts, getDocuments, getOtherCargo, getParcels } from '../../utils/cargo-utils';
 
 import { BaseSelectors } from './base-selectors.types';
 import { DerivedSelectors } from './derived-selectors.types';

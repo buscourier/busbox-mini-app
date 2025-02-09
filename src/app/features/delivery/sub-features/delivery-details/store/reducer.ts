@@ -1,8 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { PARCEL_LIMITS, PARCELS_LIMITS } from '@features/delivery/constants';
-import { CargoType, Order } from '@features/delivery/types';
-
+import { PARCEL_LIMITS, PARCELS_LIMITS } from '../constants';
+import { CargoType, Order } from '../types';
 import { DeliveryDetailsActions, OrderActions } from './actions';
 import { adapter, DeliveryDetailsState, initialState } from './state';
 

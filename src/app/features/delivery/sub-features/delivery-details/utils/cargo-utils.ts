@@ -1,10 +1,4 @@
-import {
-  AutoPartsData,
-  CargoDetails,
-  DocumentsData,
-  OtherCargoData,
-  ParcelData,
-} from '@features/delivery/types';
+import { AutoPartsData, CargoDetails, DocumentsData, OtherCargoData, ParcelData } from '../types';
 
 export function getDocuments(documents: DocumentsData | null): CargoDetails | null {
   return documents?.quantity

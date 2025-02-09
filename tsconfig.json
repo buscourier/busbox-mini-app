@@ -48,6 +48,9 @@
       "@features/delivery/delivery-point/*": [
         "src/app/features/delivery/sub-features/delivery-point/*"
       ],
+      "@features/delivery/delivery-details/*": [
+        "src/app/features/delivery/sub-features/delivery-details/*"
+      ],
       "@features/delivery/order-summary/*": [
         "src/app/features/delivery/sub-features/order-summary/*"
       ],
