@@ -1,0 +1,72 @@
+<div>
+  <div>
+    <h3>Коробка:</h3>
+    @for (box of boxes; track box.id) {
+      <label [class.selected]="isSelected(box.id)">
+        <input type="checkbox" [checked]="isSelected(box.id)" (click)="selectPackage(box)" />
+        <span>{{ box.site_name }}</span>
+        <span>{{ +box.price * getQuantity(box.id) }} руб. за {{ getQuantity(box.id) }} шт.</span>
+
+        @if (isSelected(box.id)) {
+          <button type="button" (click)="removePackage(box.id)">x</button>
+        }
+      </label>
+    }
+  </div>
+  <div>
+    <h3>Сейф-пакет:</h3>
+    @for (pack of safePacks; track pack.id) {
+      <label [class.selected]="isSelected(pack.id)">
+        <input type="checkbox" [checked]="isSelected(pack.id)" (click)="selectPackage(pack)" />
+        <span>{{ pack.site_name }}</span>
+        <span>{{ +pack.price * getQuantity(pack.id) }} руб. за {{ getQuantity(pack.id) }} шт.</span>
+
+        @if (isSelected(pack.id)) {
+          <button type="button" (click)="removePackage(pack.id)">x</button>
+        }
+      </label>
+    }
+  </div>
+  <div>
+    <h3>Полиэтиленовый пакет:</h3>
+    @for (pack of polyPacks; track pack.id) {
+      <label [class.selected]="isSelected(pack.id)">
+        <input type="checkbox" [checked]="isSelected(pack.id)" (click)="selectPackage(pack)" />
+        <span>{{ pack.site_name }}</span>
+        <span>{{ +pack.price * getQuantity(pack.id) }} руб. за {{ getQuantity(pack.id) }} шт.</span>
+
+        @if (isSelected(pack.id)) {
+          <button type="button" (click)="removePackage(pack.id)">x</button>
+        }
+      </label>
+    }
+  </div>
+  <div>
+    <h3>Пленка:</h3>
+    @for (film of films; track film.id) {
+      <label [class.selected]="isSelected(film.id)">
+        <input type="checkbox" [checked]="isSelected(film.id)" (click)="selectPackage(film)" />
+        <span>{{ film.site_name }}</span>
+        <span>{{ +film.price * getQuantity(film.id) }} руб. за {{ getQuantity(film.id) }} шт.</span>
+
+        @if (isSelected(film.id)) {
+          <button type="button" (click)="removePackage(film.id)">x</button>
+        }
+      </label>
+    }
+  </div>
+  <div>
+    <h3>Другое:</h3>
+    @for (pack of other; track pack.id) {
+      <label [class.selected]="isSelected(pack.id)">
+        <input type="checkbox" [checked]="isSelected(pack.id)" (click)="selectPackage(pack)" />
+        <span>{{ pack.site_name }}</span>
+        <span>{{ +pack.price * getQuantity(pack.id) }} руб. за {{ getQuantity(pack.id) }} шт.</span>
+
+        @if (isSelected(pack.id)) {
+          <button type="button" (click)="removePackage(pack.id)">x</button>
+        }
+      </label>
+    }
+  </div>
+</div>

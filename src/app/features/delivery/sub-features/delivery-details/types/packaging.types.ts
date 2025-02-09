@@ -17,13 +17,6 @@ export interface PackagingData {
   items: PackagingItem[];
 }
 
-export interface SelectedPackagingItem {
-  title: string;
-  description: string | null;
-  dimensions: string | null;
-  currentQuantity: number;
-}
-
 // export const PackagingGroups = {
 //   Box: '1',
 //   SafePack: '2',
