@@ -1,0 +1,104 @@
+<div class="additional-services">
+  @if (additionalServices.insurance.length) {
+    <div class="service">
+      <label>
+        <input tuiCheckbox type="checkbox" [formControl]="insurance.controls.enabled" size="m" />
+        Страхование
+      </label>
+
+      @if (insurance.controls.enabled.value) {
+        <div class="relative">
+          <tui-input-number
+            #declaredValue
+            [formControl]="insurance.controls.amount"
+            [min]="INSURANCE_MIN_AMOUNT"
+            [max]="INSURANCE_MAX_AMOUNT"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            tuiHintAppearance="error"
+          >
+            Объявленная ценность
+          </tui-input-number>
+          @if (declaredValue.focused) {
+            <span class="absolute top-1/2 -translate-y-1/2 right-2">
+              <tui-badge appearance="secondary" tuiHint="Максимальная сумма страхования" size="s"
+                >30000</tui-badge
+              >
+            </span>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  @if (additionalServices.extendedSms) {
+    <div class="service">
+      <label>
+        <input tuiCheckbox type="checkbox" [formControl]="extendedSms.controls.enabled" size="m" />
+        Расширенная СМС
+      </label>
+
+      @if (extendedSms.controls.enabled.value) {
+        <div class="service-details">
+          <tui-input-phone
+            [formControl]="extendedSms.controls.phone"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            tuiHintAppearance="error"
+          >
+            Номер телефона
+          </tui-input-phone>
+        </div>
+      }
+    </div>
+  }
+
+  @if (additionalServices.senderSms) {
+    <div class="service">
+      <label>
+        <input tuiCheckbox type="checkbox" [formControl]="senderSms.controls.enabled" size="m" />
+        СМС отправителю
+      </label>
+
+      @if (senderSms.controls.enabled.value) {
+        <div class="service-details">
+          <tui-input-phone
+            [formControl]="senderSms.controls.phone"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            tuiHintAppearance="error"
+          >
+            Номер телефона
+          </tui-input-phone>
+        </div>
+      }
+    </div>
+  }
+
+  @if (additionalServices.recipientPayment) {
+    <div class="service">
+      <label>
+        <input
+          tuiCheckbox
+          type="checkbox"
+          [formControl]="recipientPayment.controls.enabled"
+          size="m"
+        />
+        Оплата получателем
+      </label>
+
+      @if (recipientPayment.controls.enabled.value) {
+        <div class="hidden">
+          <tui-input-number
+            [formControl]="recipientPayment.controls.amount"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            [min]="1"
+            tuiHintAppearance="error"
+            >0
+          </tui-input-number>
+        </div>
+        <tui-error
+          [formControl]="recipientPayment.controls.amount"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      }
+    </div>
+  }
+</div>
