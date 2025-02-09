@@ -30,7 +30,7 @@ export class DeliveryService extends ApiService {
       .pipe(retry(MAX_RETRIES), catchError(this.handleError.bind(this)));
   }
 
-  loadDeliverySettings(pickupCityId: string, deliveryCityId: string): Observable<DeliverySettings> {
+  loadSettings(pickupCityId: string, deliveryCityId: string): Observable<DeliverySettings> {
     return forkJoin([
       this.loadCargos(pickupCityId, deliveryCityId),
       this.loadServices(pickupCityId, deliveryCityId),

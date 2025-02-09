@@ -1,3 +1,5 @@
+import { DeliveryCity } from '@shared/types';
+
 export interface ParcelsLimits {
   MAX_PARCELS: number;
   TOTAL_QUANTITY_MAX: number;
@@ -10,4 +12,10 @@ export interface ParcelLimits {
   QUANTITY: { MIN: number; MAX: number };
   WEIGHT: { MIN: number; MAX: number };
   DIMENSIONS: { MIN: number; MAX: number };
+}
+
+export interface GetParcelLimitsParams {
+  deliveryCity: DeliveryCity | null;
+  isOfficeLimited: boolean;
+  isCourierLimited: boolean;
 }

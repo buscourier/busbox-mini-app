@@ -13,6 +13,7 @@ export * from './form-state.types';
 export * from './loading-status.types';
 export * from './offices-state.types';
 export * from './order.types';
+export * from './order-details.types';
 export * from './other-cargo.types';
 export * from './packaging.types';
 export * from './parcel-limits.types';

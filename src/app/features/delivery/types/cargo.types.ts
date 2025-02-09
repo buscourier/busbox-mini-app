@@ -21,3 +21,19 @@ export interface Cargo {
   parent_id: string;
   use_dimensions: string;
 }
+
+export interface CargoTypesGroup {
+  root: Cargo[];
+  autoParts: Cargo[];
+  other: Cargo[];
+}
+
+export interface MappedCargoType {
+  value: CargoType;
+  name: string;
+}
+
+export interface CargoDetails {
+  name: string | null;
+  quantity: number;
+}

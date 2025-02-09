@@ -66,6 +66,9 @@
       "@features/delivery/factories": [
         "src/app/features/delivery/factories/index.ts"
       ],
+      "@features/delivery/utils/*": [
+        "src/app/features/delivery/utils/*"
+      ],
       "@env/*": [
         "src/environments/*"
       ]
