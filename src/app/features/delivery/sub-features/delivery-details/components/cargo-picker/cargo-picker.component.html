@@ -1,0 +1,23 @@
+<tui-radio-list
+  [formControl]="typeControl"
+  [items]="mappedTypes"
+  [identityMatcher]="identityMatcher"
+  [disabledItemHandler]="disabledHandler.bind(this)"
+  [itemContent]="content"
+  [style.flex-direction]="'row'"
+>
+  <ng-template #content let-data>
+    <span tuiTitle>
+      {{ data.name }}
+    </span>
+    @if (hasRestriction(data)) {
+      <tui-badge
+        [tuiHint]="getRestrictionMessage(data)"
+        [tuiHintShowDelay]="0"
+        appearance="info"
+        size="l"
+        iconStart="@tui.info"
+      />
+    }
+  </ng-template>
+</tui-radio-list>
