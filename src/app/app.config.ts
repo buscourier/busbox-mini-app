@@ -19,6 +19,8 @@ import {
   DeliveryPointEffects,
   deliveryPointFeature,
 } from '@features/delivery/delivery-point/store';
+import { OrderSummaryEffects } from '@features/delivery/order-summary/store/effects';
+import { orderSummaryFeature } from '@features/delivery/order-summary/store/feature';
 import { PickupPointEffects, pickupPointFeature } from '@features/delivery/pickup-point/store';
 
 import { routes } from './app.routes';
@@ -32,7 +34,13 @@ export const appConfig: ApplicationConfig = {
     provideState(pickupPointFeature),
     provideState(deliveryPointFeature),
     provideState(deliveryDetailsFeature),
-    provideEffects(PickupPointEffects, DeliveryPointEffects, DeliveryDetailsEffects),
+    provideState(orderSummaryFeature),
+    provideEffects(
+      PickupPointEffects,
+      DeliveryPointEffects,
+      DeliveryDetailsEffects,
+      OrderSummaryEffects,
+    ),
     provideRouterStore(),
     provideHttpClient(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

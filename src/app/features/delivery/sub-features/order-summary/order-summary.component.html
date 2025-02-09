@@ -1,1 +1,34 @@
-<p>order-summary works!</p>
+@let vm = vm$ | async;
+
+@if (vm) {
+  @if (!vm.isLoaded) {
+    <p>
+      Для расчета стоимости отправления, укажите место отправления и прибытия, а также тип груза.
+    </p>
+    <p>
+      Внимание! Информация, приведенная в калькуляторе справочная, точную информацию по доставкам в
+      населенные пункты вы можете уточнить в чате на сайте или у диспетчера.
+    </p>
+  } @else if (vm.isLoading) {
+    <tui-loader />
+  } @else {
+    <div class="sticky top-10">
+      <b>{{ vm.orderDirection | json }}</b>
+      <br />
+      <b>{{ vm.orderDelivery | json }}</b>
+
+      <div>
+        {{ vm.orderDetails.documents | json }}
+        {{ vm.orderDetails.parcels | json }}
+        {{ vm.orderDetails.autoParts | json }}
+        {{ vm.orderDetails.otherCargo | json }}
+        {{ vm.orderDetails.packaging | json }}
+        {{ vm.orderDetails.additionalServices | json }}
+      </div>
+
+      <h3>
+        <b>{{ vm.totalAmount }}</b>
+      </h3>
+    </div>
+  }
+}
