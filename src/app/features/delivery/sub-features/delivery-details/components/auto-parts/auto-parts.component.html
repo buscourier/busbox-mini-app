@@ -1,0 +1,35 @@
+<div class="auto-parts-form">
+  <tui-select
+    [formControl]="form.controls.item"
+    [stringify]="'name' | tuiStringify"
+    [tuiTextfieldLabelOutside]="true"
+    class="select"
+  >
+    Выберите запчасть
+    <tui-data-list-wrapper
+      *tuiDataList
+      [items]="parts"
+      [itemContent]="'name' | tuiStringify | tuiStringifyContent"
+    />
+  </tui-select>
+
+  @if (item.value) {
+    <tui-input-number
+      [formControl]="quantity"
+      [tuiTextfieldLabelOutside]="true"
+      [min]="1"
+      [max]="20"
+      (focusedChange)="setMinQuantityOnBlur($event)"
+      class="quantity"
+    >
+      0
+    </tui-input-number>
+  }
+
+  @if (form.controls.item.value) {
+    <div class="note">
+      Пожалуйста, выберите тип запчасти из списка. Если вы не нашли подходящую запчасть, рассчитайте
+      стоимость обычной посылки
+    </div>
+  }
+</div>
