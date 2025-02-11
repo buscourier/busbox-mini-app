@@ -31,15 +31,15 @@ export class BookingComponent implements OnInit {
     this.vm$ = this.store.select(bookingFeature.selectViewModel);
   }
 
-  goNextStep(nextStep: number | null): void {
+  goNextStep(nextStep: StepNumber | null): void {
     if (nextStep) {
-      this.navigateToStep(nextStep as StepNumber);
+      this.navigateToStep(nextStep);
     }
   }
 
-  goPrevStep(prevStep: number | null): void {
+  goPrevStep(prevStep: StepNumber | null): void {
     if (prevStep) {
-      this.navigateToStep(prevStep as StepNumber);
+      this.navigateToStep(prevStep);
     }
   }
 

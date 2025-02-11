@@ -20,21 +20,15 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     selectStepPath: (step: StepNumber) =>
       createSelector(baseSelectors.selectSteps, (steps) => steps[step].path),
 
-    // selectCanGoNext: createSelector(
-    //   baseSelectors.selectCurrentStep,
-    //   baseSelectors.selectSteps,
-    //   (currentStep, steps) => steps[currentStep].isValid && currentStep < 4,
-    // ),
-
     selectPrevStep: createSelector(baseSelectors.selectCurrentStep, (currentStep) =>
-      currentStep > 1 ? currentStep - 1 : null,
+      currentStep > 1 ? ((currentStep - 1) as StepNumber) : null,
     ),
 
     selectNextStep: createSelector(
       baseSelectors.selectCurrentStep,
       baseSelectors.selectSteps,
       (currentStep, steps) =>
-        steps[currentStep].isValid && currentStep < 4 ? currentStep + 1 : null,
+        steps[currentStep].isValid && currentStep < 4 ? ((currentStep + 1) as StepNumber) : null,
     ),
 
     selectCanAccessStep: (step: StepNumber) =>
