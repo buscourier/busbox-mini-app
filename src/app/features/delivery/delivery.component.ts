@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { OrderSummaryComponent } from '@features/delivery/order-summary/order-summary.component';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 @Component({
   selector: 'app-delivery',

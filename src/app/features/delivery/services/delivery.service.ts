@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { ApiService } from '@core/services';
 
-import { Cargo, DeliverySettings, Service } from '@features/delivery/delivery-details/types';
+import { Cargo, DeliverySettings, Service } from '../delivery-details/types';
 
 const MAX_RETRIES = 3;
 

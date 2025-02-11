@@ -37,22 +37,22 @@
         "src/app/features/delivery/*"
       ],
       "@features/delivery/booking/*": [
-        "src/app/features/delivery/sub-features/booking/*"
+        "src/app/features/delivery/booking/*"
       ],
       "@features/delivery/calculator/*": [
-        "src/app/features/delivery/sub-features/calculator/*"
+        "src/app/features/delivery/calculator/*"
       ],
       "@features/delivery/pickup-point/*": [
-        "src/app/features/delivery/sub-features/pickup-point/*"
+        "src/app/features/delivery/pickup-point/*"
       ],
       "@features/delivery/delivery-point/*": [
-        "src/app/features/delivery/sub-features/delivery-point/*"
+        "src/app/features/delivery/delivery-point/*"
       ],
       "@features/delivery/delivery-details/*": [
-        "src/app/features/delivery/sub-features/delivery-details/*"
+        "src/app/features/delivery/delivery-details/*"
       ],
       "@features/delivery/order-summary/*": [
-        "src/app/features/delivery/sub-features/order-summary/*"
+        "src/app/features/delivery/order-summary/*"
       ],
       "@features/delivery/base/*": [
         "src/app/features/delivery/base/*"
