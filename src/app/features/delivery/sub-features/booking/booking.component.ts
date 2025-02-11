@@ -29,6 +29,7 @@ export class BookingComponent implements OnInit {
 
   ngOnInit(): void {
     this.vm$ = this.store.select(bookingFeature.selectViewModel);
+    this.store.dispatch(BookingActions.init());
   }
 
   goNextStep(nextStep: StepNumber | null): void {

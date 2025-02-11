@@ -38,4 +38,12 @@ export const bookingReducer = createReducer(
       },
     }),
   ),
+  on(
+    BookingActions.restoreState,
+    (state, { restoredState }): BookingState => ({
+      ...state,
+      currentStep: restoredState.currentStep,
+      maxAvailableStep: restoredState.maxAvailableStep,
+    }),
+  ),
 );
