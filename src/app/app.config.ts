@@ -13,6 +13,7 @@ import { TUI_DATE_VALUE_TRANSFORMER } from '@taiga-ui/kit';
 
 import { CustomDateTransformer } from '@core/transformers';
 
+import { bookingFeature } from '@features/delivery/booking/store/feature';
 import { DeliveryDetailsEffects } from '@features/delivery/delivery-details/store/effects';
 import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
 import {
@@ -35,6 +36,7 @@ export const appConfig: ApplicationConfig = {
     provideState(deliveryPointFeature),
     provideState(deliveryDetailsFeature),
     provideState(orderSummaryFeature),
+    provideState(bookingFeature),
     provideEffects(
       PickupPointEffects,
       DeliveryPointEffects,

@@ -1,2 +1,14 @@
-<p>booking works!</p>
+@let vm = vm$ | async;
+
+@if (vm) {
+  <app-stepper [steps]="vm.steps" />
+}
 <router-outlet />
+@if (vm) {
+  <button type="button" tuiButton (click)="goPrevStep(vm.prevStep)" [disabled]="!vm.prevStep">
+    Назад
+  </button>
+  <button type="button" tuiButton [disabled]="!vm.nextStep" (click)="goNextStep(vm.nextStep)">
+    {{ vm.isLastStep ? 'Оформить' : 'Дальше' }}
+  </button>
+}

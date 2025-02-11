@@ -1,11 +1,56 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+
+import { Observable, take } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+
+import { TuiButton } from '@taiga-ui/core';
+
+import { StepperComponent } from './components/stepper/stepper.component';
+import { BookingActions } from './store/actions';
+import { bookingFeature } from './store/feature';
+import { BookingViewModel } from './store/selectors/view-model.types';
+import { StepNumber } from './types';
 
 @Component({
   selector: 'app-booking',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, TuiButton, AsyncPipe, StepperComponent],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BookingComponent {}
+export class BookingComponent implements OnInit {
+  vm$!: Observable<BookingViewModel>;
+
+  store = inject(Store);
+  router = inject(Router);
+
+  ngOnInit(): void {
+    this.vm$ = this.store.select(bookingFeature.selectViewModel);
+  }
+
+  goNextStep(nextStep: number | null): void {
+    if (nextStep) {
+      this.navigateToStep(nextStep as StepNumber);
+    }
+  }
+
+  goPrevStep(prevStep: number | null): void {
+    if (prevStep) {
+      this.navigateToStep(prevStep as StepNumber);
+    }
+  }
+
+  navigateToStep(step: StepNumber): void {
+    this.store.dispatch(BookingActions.navigateToStep({ stepNumber: step }));
+
+    this.store
+      .select(bookingFeature.selectStepPath(step))
+      .pipe(take(1))
+      .subscribe((path) => {
+        this.router.navigate(['/delivery/booking', path]);
+      });
+  }
+}
