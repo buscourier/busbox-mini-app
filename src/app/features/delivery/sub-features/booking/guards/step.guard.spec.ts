@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
 
-import { applicantCompletedGuard } from '@features/delivery/booking/guards/applicant-completed.guard';
+import { stepGuard } from './step.guard';
 
-describe('applicantCompletedGuard', () => {
+describe('stepGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
-    TestBed.runInInjectionContext(() => applicantCompletedGuard(...guardParameters));
+    TestBed.runInInjectionContext(() => stepGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
