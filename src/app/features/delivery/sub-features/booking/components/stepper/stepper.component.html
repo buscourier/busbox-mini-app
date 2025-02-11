@@ -1,0 +1,7 @@
+@if (steps && steps.length) {
+  <ul class="flex gap-4">
+    @for (step of steps; track step.path) {
+      <li class="p-4 bg-gray-200" [class.bg-green-300]="step.isActive">{{ step.title }}</li>
+    }
+  </ul>
+}
