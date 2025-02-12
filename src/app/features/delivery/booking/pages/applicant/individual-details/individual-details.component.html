@@ -1,0 +1,149 @@
+@if (form) {
+  <div [formGroup]="form" class="grid grid-cols-3 gap-5">
+    <label class="block">
+      <span class="mb-1 inline-block text-xs">
+        Фамилия
+
+        @if (lastName.errors && lastName.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <div class="relative">
+        <tui-input
+          #lastNameInput
+          [formControl]="lastName"
+          [tuiHint]="[] | tuiFieldErrorContent"
+          [minlength]="USER_VALIDATION_LIMITS.LAST_NAME.MIN_LENGTH"
+          [maxlength]="USER_VALIDATION_LIMITS.LAST_NAME.MAX_LENGTH"
+          tuiHintAppearance="error"
+        >
+          <input
+            type="text"
+            tuiTextfieldLegacy
+            [attr.maxlength]="USER_VALIDATION_LIMITS.LAST_NAME.MAX_LENGTH"
+          />
+        </tui-input>
+        @if (lastNameInput.focused) {
+          <span class="absolute top-1/2 -translate-y-1/2 right-2">
+            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
+              availableLastNameLength
+            }}</tui-badge>
+          </span>
+        }
+      </div>
+    </label>
+    <label class="block">
+      <span class="mb-1 inline-block text-xs">
+        Имя
+
+        @if (firstName.errors && firstName.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <div class="relative">
+        <tui-input
+          #firstNameInput
+          [formControl]="firstName"
+          [tuiHint]="[] | tuiFieldErrorContent"
+          [minlength]="USER_VALIDATION_LIMITS.FIRST_NAME.MIN_LENGTH"
+          [maxlength]="USER_VALIDATION_LIMITS.FIRST_NAME.MAX_LENGTH"
+          tuiHintAppearance="error"
+        >
+          <input
+            type="text"
+            tuiTextfieldLegacy
+            [attr.maxlength]="USER_VALIDATION_LIMITS.FIRST_NAME.MAX_LENGTH"
+          />
+        </tui-input>
+        @if (firstNameInput.focused) {
+          <span class="absolute top-1/2 -translate-y-1/2 right-2">
+            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
+              availableFirstNameLength
+            }}</tui-badge>
+          </span>
+        }
+      </div>
+    </label>
+    <label class="block">
+      <span class="mb-1 inline-block text-xs">
+        Отчество
+
+        @if (middleName.errors && middleName.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <div class="relative">
+        <tui-input
+          #middleNameInput
+          [formControl]="middleName"
+          [tuiHint]="[] | tuiFieldErrorContent"
+          [minlength]="USER_VALIDATION_LIMITS.MIDDLE_NAME.MIN_LENGTH"
+          [maxlength]="USER_VALIDATION_LIMITS.MIDDLE_NAME.MAX_LENGTH"
+          tuiHintAppearance="error"
+        >
+          <input
+            type="text"
+            tuiTextfieldLegacy
+            [attr.maxlength]="USER_VALIDATION_LIMITS.MIDDLE_NAME.MAX_LENGTH"
+          />
+        </tui-input>
+        @if (middleNameInput.focused) {
+          <span class="absolute top-1/2 -translate-y-1/2 right-2">
+            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
+              availableMiddleNameLength
+            }}</tui-badge>
+          </span>
+        }
+      </div>
+    </label>
+    <label class="block">
+      <span class="mb-1 inline-block text-xs">
+        Email
+
+        @if (email.errors && email.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <div class="relative">
+        <tui-input
+          [formControl]="email"
+          [tuiHint]="[] | tuiFieldErrorContent"
+          tuiHintAppearance="error"
+        >
+          <input type="email" tuiTextfieldLegacy />
+        </tui-input>
+      </div>
+    </label>
+    <div class="block">
+      <span class="mb-1 inline-block text-xs">
+        Телефон
+
+        @if (phone.errors && phone.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <tui-input-phone
+        [formControl]="phone"
+        [tuiHint]="[] | tuiFieldErrorContent"
+        tuiHintAppearance="error"
+      >
+      </tui-input-phone>
+    </div>
+    <div>
+      <span class="mb-1 inline-block text-xs">
+        Роль
+
+        @if (role.errors && role.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <tui-select [formControl]="role" [stringify]="'label' | tuiStringify">
+        <tui-data-list-wrapper
+          *tuiDataList
+          [items]="individualRoles"
+          [itemContent]="'label' | tuiStringify | tuiStringifyContent"
+        />
+      </tui-select>
+    </div>
+  </div>
+}
