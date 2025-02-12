@@ -13,6 +13,9 @@ const initialState: BookingState = {
     3: { title: 'Параметры груза', path: 'recipient', isValid: true },
     4: { title: 'Завершение', path: 'review', isValid: true },
   },
+  stepsData: {
+    applicant: null,
+  },
 };
 
 export const bookingReducer = createReducer(
@@ -26,13 +29,13 @@ export const bookingReducer = createReducer(
     }),
   ),
   on(
-    BookingActions.setStepValid,
-    (state, { stepNumber, isValid }): BookingState => ({
+    BookingActions.updateStepValidation,
+    (state, { step, isValid }): BookingState => ({
       ...state,
       steps: {
         ...state.steps,
-        [stepNumber]: {
-          ...state.steps[stepNumber],
+        [step]: {
+          ...state.steps[step],
           isValid,
         },
       },
@@ -44,6 +47,33 @@ export const bookingReducer = createReducer(
       ...state,
       currentStep: restoredState.currentStep,
       maxAvailableStep: restoredState.maxAvailableStep,
+      stepsData: restoredState.stepsData,
+    }),
+  ),
+  on(
+    BookingActions.setApplicantType,
+    (state, { applicantType }): BookingState => ({
+      ...state,
+      stepsData: {
+        ...state.stepsData,
+        applicant: {
+          ...state.stepsData.applicant,
+          applicantType,
+        },
+      },
+    }),
+  ),
+  on(
+    BookingActions.updateIndividualData,
+    (state, { data }): BookingState => ({
+      ...state,
+      stepsData: {
+        ...state.stepsData,
+        applicant: {
+          ...state.stepsData.applicant,
+          individual: data,
+        },
+      },
     }),
   ),
 );

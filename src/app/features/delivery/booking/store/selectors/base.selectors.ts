@@ -9,4 +9,6 @@ export const createBaseSelectors = (selectBookingState: BookingStateSelector): B
   selectCurrentStep: createSelector(selectBookingState, (state) => state.currentStep),
   selectSteps: createSelector(selectBookingState, (state) => state.steps),
   selectMaxAvailableStep: createSelector(selectBookingState, (state) => state.maxAvailableStep),
+  selectStepsData: createSelector(selectBookingState, (state) => state.stepsData),
+  selectApplicant: createSelector(selectBookingState, (state) => state.stepsData.applicant),
 });

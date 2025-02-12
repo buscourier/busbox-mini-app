@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { debounceTime, tap, withLatestFrom } from 'rxjs';
+import { debounceTime, filter, tap, withLatestFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -25,19 +25,29 @@ export const persistenceEffects = {
       persistenceService = inject(PersistenceService),
     ) => {
       return actions$.pipe(
-        ofType(BookingActions.navigateToStep, BookingActions.reset),
+        ofType(
+          BookingActions.navigateToStep,
+          BookingActions.reset,
+          BookingActions.updateIndividualData,
+          BookingActions.updateStepValidation,
+          BookingActions.setApplicantType,
+        ),
         debounceTime(DEBOUNCE_TIME.DEFAULT),
         withLatestFrom(
           store.select(bookingFeature.selectCurrentStep),
           store.select(bookingFeature.selectMaxAvailableStep),
+          store.select(bookingFeature.selectStepsData),
+          store.select(bookingFeature.selectCurrentStepData),
         ),
-        map(([, currentStep, maxAvailableStep]) => ({
+        filter(([, , , , currentStepData]) => currentStepData.isValid),
+        map(([, currentStep, maxAvailableStep, stepsData]) => ({
           currentStep,
           maxAvailableStep,
+          stepsData,
         })),
-        tap((state) =>
-          persistenceService.save<DeliveryStorageKey, DeliveryStorageSchema>('booking', state),
-        ),
+        tap((state) => {
+          persistenceService.save<DeliveryStorageKey, DeliveryStorageSchema>('booking', state);
+        }),
       );
     },
     { functional: true, dispatch: false },

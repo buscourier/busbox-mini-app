@@ -1,9 +1,9 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { IndividualDetails } from '../../../types';
+import { Individual } from '../../../types';
 
-export type IndividualDetailsControls = FormGroup<{
-  [K in keyof IndividualDetails]: FormControl<IndividualDetails[K]>;
+export type IndividualControls = FormGroup<{
+  [K in keyof Individual]: FormControl<Individual[K]>;
 }>;
 
 export const IndividualRole = {

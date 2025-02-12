@@ -17,6 +17,12 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
         })),
     ),
 
+    selectCurrentStepData: createSelector(
+      baseSelectors.selectSteps,
+      baseSelectors.selectCurrentStep,
+      (steps, currentStep) => steps[currentStep],
+    ),
+
     selectStepPath: (step: StepNumber) =>
       createSelector(baseSelectors.selectSteps, (steps) => steps[step].path),
 

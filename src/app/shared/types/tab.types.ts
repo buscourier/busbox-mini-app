@@ -4,7 +4,7 @@
  *
  * @template T - Type of the tab's unique identifier (default: string).
  */
-interface BaseTab<T = string> {
+export interface BaseTab<T = string> {
   id: T;
   name: string;
   order?: number /**Defines the tab's order in the UI */;

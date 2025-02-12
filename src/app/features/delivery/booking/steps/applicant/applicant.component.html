@@ -1,0 +1,30 @@
+@let currentStep = currentStep$ | async;
+@let applicant = applicant$ | async;
+
+@if (currentStep) {
+  <div class="inline-flex gap-5">
+    @for (tab of tabs; track tab.id) {
+      <button
+        type="button"
+        tuiButton
+        [class.!bg-yellow-100]="applicant?.applicantType === tab.id"
+        (click)="updateApplicantType(tab.id)"
+      >
+        {{ tab.name }}
+      </button>
+    }
+  </div>
+
+  @switch (applicant?.applicantType) {
+    @case (ApplicantType.LEGAL) {
+      <p>Даннныыыыыыыыыыыыы</p>
+    }
+    @default {
+      <app-individual
+        [data]="applicant?.individual || null"
+        (dataChange)="updateIndividual($event)"
+        (validationChange)="updateStepValidation($event, currentStep)"
+      />
+    }
+  }
+}

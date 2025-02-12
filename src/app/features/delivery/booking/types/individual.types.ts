@@ -7,7 +7,7 @@
 
 export type IndividualRole = 'sender' | 'recipient';
 
-export interface IndividualDetails {
+export interface Individual {
   lastName: string;
   firstName: string;
   middleName: string;

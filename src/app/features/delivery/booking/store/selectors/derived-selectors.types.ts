@@ -1,6 +1,6 @@
 import { MemoizedSelector } from '@ngrx/store';
 
-import { StepNumber, StepView } from '../../types';
+import { Step, StepNumber, StepView } from '../../types';
 
 export interface DerivedSelectors {
   selectStepsView: MemoizedSelector<object, StepView[]>;
@@ -9,4 +9,5 @@ export interface DerivedSelectors {
   selectNextStep: MemoizedSelector<object, StepNumber | null>;
   selectCanAccessStep: (step: StepNumber) => MemoizedSelector<object, boolean>;
   selectIsLastStep: MemoizedSelector<object, boolean>;
+  selectCurrentStepData: MemoizedSelector<object, Step>;
 }

@@ -29,12 +29,7 @@ import {
   TuiStringifyContentPipe,
   TuiStringifyPipe,
 } from '@taiga-ui/kit';
-import {
-  TuiInputModule,
-  TuiInputPhoneModule,
-  TuiSelectModule,
-  TuiTextfieldControllerModule,
-} from '@taiga-ui/legacy';
+import { TuiInputModule, TuiInputPhoneModule, TuiSelectModule } from '@taiga-ui/legacy';
 
 import { EMAIL_VALIDATION_MESSAGES } from '@core/constants/email-validation.const';
 import { PHONE_VALIDATION_MESSAGES } from '@core/constants/phone-validation.const';
@@ -51,27 +46,26 @@ import {
   middleNameValidator,
 } from '@shared/validators/user.validators';
 
-import { IndividualDetails } from '../../../types';
+import { Individual } from '../../../types';
 
-import { individualRoles } from './individual-details.const';
-import { IndividualDetailsControls } from './individual-details.types';
+import { individualRoles } from './individual.const';
+import { IndividualControls } from './individual.types';
 
 @Component({
-  selector: 'app-individual-details',
+  selector: 'app-individual',
   imports: [
     TuiBadge,
     ReactiveFormsModule,
-    TuiInputModule,
-    TuiTextfieldControllerModule,
-    TuiHintDirective,
     TuiFieldErrorContentPipe,
-    TuiInputPhoneModule,
+    TuiInputModule,
+    TuiHintDirective,
     TuiSelectModule,
-    TuiStringifyContentPipe,
     TuiStringifyPipe,
+    TuiStringifyContentPipe,
+    TuiInputPhoneModule,
   ],
-  templateUrl: './individual-details.component.html',
-  styleUrl: './individual-details.component.css',
+  templateUrl: './individual.component.html',
+  styleUrl: './individual.component.css',
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
@@ -84,15 +78,15 @@ import { IndividualDetailsControls } from './individual-details.types';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IndividualDetailsComponent implements OnInit, OnChanges {
-  @Input() data: IndividualDetails | null = null;
-  @Output() dataChange = new EventEmitter<IndividualDetails>();
+export class IndividualComponent implements OnInit, OnChanges {
+  @Input() data: Individual | null = null;
+  @Output() dataChange = new EventEmitter<Individual>();
   @Output() validationChange = new EventEmitter<boolean>();
 
-  form!: IndividualDetailsControls;
+  form!: IndividualControls;
 
-  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
   protected readonly individualRoles = individualRoles;
+  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
 
   private fb = inject(NonNullableFormBuilder);
   private destroyRef = inject(DestroyRef);
@@ -199,7 +193,7 @@ export class IndividualDetailsComponent implements OnInit, OnChanges {
         if (typeof value === 'boolean') {
           this.validationChange.emit(value);
         } else {
-          this.dataChange.emit(value as IndividualDetails);
+          this.dataChange.emit(value as Individual);
         }
       });
   }

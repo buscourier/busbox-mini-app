@@ -2,10 +2,10 @@ import { Routes } from '@angular/router';
 
 import { BookingComponent } from './booking.component';
 import { stepGuard } from './guards/step.guard';
-import { ApplicantComponent } from './pages/applicant/applicant.component';
-import { RecipientComponent } from './pages/recipient/recipient.component';
-import { ReviewComponent } from './pages/review/review.component';
-import { SenderComponent } from './pages/sender/sender.component';
+import { ApplicantComponent } from './steps/applicant/applicant.component';
+import { RecipientComponent } from './steps/recipient/recipient.component';
+import { ReviewComponent } from './steps/review/review.component';
+import { SenderComponent } from './steps/sender/sender.component';
 
 export const bookingRoutes: Routes = [
   {

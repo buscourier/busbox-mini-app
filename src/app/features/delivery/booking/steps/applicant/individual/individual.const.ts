@@ -3,7 +3,8 @@
 //   RECIPIENT: 'recipient',
 // } as const;
 //
-import { IndividualRole } from './individual-details.types';
+
+import { IndividualRole } from './individual.types';
 
 export const individualRoles = [
   {
