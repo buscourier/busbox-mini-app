@@ -1,1 +1,20 @@
-<p>destination works!</p>
+@let currentStep = currentStep$ | async;
+@let destination = destination$ | async;
+
+@if (currentStep) {
+  <div class="mt-20 mb-16">
+    <app-delivery-point />
+  </div>
+
+  <div class="mb-16">
+    <app-delivery-details />
+  </div>
+
+  <div>
+    <app-recipient
+      [data]="destination?.recipient || null"
+      (dataChange)="updateRecipient($event)"
+      (validationChange)="updateStepValidation($event, currentStep)"
+    />
+  </div>
+}

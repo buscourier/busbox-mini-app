@@ -16,6 +16,7 @@ const initialState: BookingState = {
   stepsData: {
     applicant: null,
     departure: null,
+    destination: null,
   },
 };
 
@@ -86,6 +87,19 @@ export const bookingReducer = createReducer(
         departure: {
           ...state.stepsData.departure,
           sender: data,
+        },
+      },
+    }),
+  ),
+  on(
+    BookingActions.updateRecipientData,
+    (state, { data }): BookingState => ({
+      ...state,
+      stepsData: {
+        ...state.stepsData,
+        destination: {
+          ...state.stepsData.destination,
+          recipient: data,
         },
       },
     }),
