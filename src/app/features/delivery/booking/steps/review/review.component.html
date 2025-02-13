@@ -1,1 +1,18 @@
-<p>review works!</p>
+@let review = review$ | async;
+
+@for (section of review?.sections; track $index) {
+  <h2 class="text-xl font-medium">{{ section.title }}</h2>
+
+  <div class="space-y-4">
+    @for (field of section.fields; track $index) {
+      <span class="text-gray-500 flex-1 border-b border-dotted border-gray-300">
+        {{ field.label }}
+      </span>
+      <span class="ml-2">{{ field.value }}</span>
+    }
+  </div>
+}
+
+@if (review?.order) {
+  {{ review?.order | json }}
+}

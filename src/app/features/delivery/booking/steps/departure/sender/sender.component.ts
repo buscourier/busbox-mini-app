@@ -36,9 +36,9 @@ import { isObjectsEqual } from '@core/utils/object.utils';
 import { phoneValidator } from '@shared/validators';
 import { fullNameValidator } from '@shared/validators/user.validators';
 
-import { Sender } from '../../../types';
+import { Sender, SenderDocumentOption } from '../../../types';
 
-import { senderDocuments } from './sender.const';
+import { defaultDocument, senderDocuments } from './sender.const';
 import { SenderControls } from './sender.types';
 
 @Component({
@@ -65,6 +65,9 @@ export class SenderComponent implements OnInit, OnChanges {
 
   form!: SenderControls;
 
+  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
+  protected readonly senderDocuments = senderDocuments;
+
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -72,7 +75,7 @@ export class SenderComponent implements OnInit, OnChanges {
     return this.form.controls.fullName;
   }
 
-  get document(): FormControl<string> {
+  get document(): FormControl<SenderDocumentOption> {
     return this.form.controls.document;
   }
 
@@ -117,7 +120,7 @@ export class SenderComponent implements OnInit, OnChanges {
           Validators.minLength(USER_VALIDATION_LIMITS.FULL_NAME.MAX_LENGTH),
         ],
       ],
-      document: ['', [Validators.required]],
+      document: [defaultDocument, [Validators.required]],
       documentNumber: ['', [Validators.required]],
       phone: ['', [Validators.required, phoneValidator()]],
     });
@@ -141,13 +144,10 @@ export class SenderComponent implements OnInit, OnChanges {
     this.form.patchValue(
       this.data ?? {
         fullName: '',
-        document: '',
+        document: defaultDocument,
         documentNumber: '',
         phone: '',
       },
     );
   }
-
-  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
-  protected readonly senderDocuments = senderDocuments;
 }

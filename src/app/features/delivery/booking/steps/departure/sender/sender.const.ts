@@ -1,10 +1,12 @@
-import { SenderDocument } from '../../../types';
+import { SenderDocument, SenderDocumentOption } from '../../../types';
 
-export const senderDocuments = [
-  {
-    value: SenderDocument.PASSPORT,
-    label: 'Паспорт',
-  },
+export const defaultDocument = {
+  value: SenderDocument.PASSPORT,
+  label: 'Паспорт',
+};
+
+export const senderDocuments: SenderDocumentOption[] = [
+  defaultDocument,
   {
     value: SenderDocument.DRIVER_LICENSE,
     label: 'Водительское удостоверение',

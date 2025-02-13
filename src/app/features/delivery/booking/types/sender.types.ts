@@ -6,9 +6,14 @@ export const SenderDocument = {
 
 export type SenderDocument = (typeof SenderDocument)[keyof typeof SenderDocument];
 
+export interface SenderDocumentOption {
+  value: SenderDocument;
+  label: string;
+}
+
 export interface Sender {
   fullName: string;
-  document: SenderDocument;
+  document: SenderDocumentOption;
   documentNumber: string;
   phone: string;
 }

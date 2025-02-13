@@ -14,12 +14,11 @@ import { bookingFeature } from '../../store/feature';
 import { Sender, StepNumber } from '../../types';
 import { Departure } from '../../types/departure.types';
 
-import { IndividualComponent } from '../applicant/individual/individual.component';
 import { SenderComponent } from './sender/sender.component';
 
 @Component({
   selector: 'app-departure',
-  imports: [SenderComponent, PickupPointComponent, IndividualComponent, AsyncPipe],
+  imports: [SenderComponent, PickupPointComponent, AsyncPipe],
   templateUrl: './departure.component.html',
   styleUrl: './departure.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
