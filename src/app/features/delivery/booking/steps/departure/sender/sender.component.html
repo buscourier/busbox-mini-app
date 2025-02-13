@@ -1,1 +1,85 @@
-<p>sender works!</p>
+@if (form) {
+  <div [formGroup]="form" class="grid grid-cols-3 gap-5">
+    <label class="block">
+      <span class="mb-1 inline-block text-xs">
+        ФИО
+
+        @if (fullName.errors && fullName.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <div class="relative">
+        <tui-input
+          #fullNameInput
+          [formControl]="fullName"
+          [tuiHint]="[] | tuiFieldErrorContent"
+          [minlength]="USER_VALIDATION_LIMITS.FULL_NAME.MIN_LENGTH"
+          [maxlength]="USER_VALIDATION_LIMITS.FULL_NAME.MAX_LENGTH"
+          tuiHintAppearance="error"
+        >
+          <input
+            type="text"
+            tuiTextfieldLegacy
+            [attr.maxlength]="USER_VALIDATION_LIMITS.FULL_NAME.MAX_LENGTH"
+          />
+        </tui-input>
+        @if (fullNameInput.focused) {
+          <span class="absolute top-1/2 -translate-y-1/2 right-2">
+            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
+              availableFullNameLength
+            }}</tui-badge>
+          </span>
+        }
+      </div>
+    </label>
+    <div>
+      <span class="mb-1 inline-block text-xs">
+        Документ
+
+        @if (document.errors && document.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <tui-select [formControl]="document" [stringify]="'label' | tuiStringify">
+        <tui-data-list-wrapper
+          *tuiDataList
+          [items]="senderDocuments"
+          [itemContent]="'label' | tuiStringify | tuiStringifyContent"
+        />
+      </tui-select>
+    </div>
+    <label class="block">
+      <span class="mb-1 inline-block text-xs">
+        Номер документа
+
+        @if (documentNumber.errors && documentNumber.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <div class="relative">
+        <tui-input
+          [formControl]="documentNumber"
+          [tuiHint]="[] | tuiFieldErrorContent"
+          tuiHintAppearance="error"
+        >
+          <input type="text" tuiTextfieldLegacy />
+        </tui-input>
+      </div>
+    </label>
+    <div class="block">
+      <span class="mb-1 inline-block text-xs">
+        Телефон
+
+        @if (phone.errors && phone.hasError('required')) {
+          <sup class="text-red-50">*</sup>
+        }
+      </span>
+      <tui-input-phone
+        [formControl]="phone"
+        [tuiHint]="[] | tuiFieldErrorContent"
+        tuiHintAppearance="error"
+      >
+      </tui-input-phone>
+    </div>
+  </div>
+}

@@ -1,4 +1,8 @@
 export const USER_VALIDATION_LIMITS = {
+  FULL_NAME: {
+    MIN_LENGTH: 3,
+    MAX_LENGTH: 30,
+  },
   LAST_NAME: {
     MIN_LENGTH: 3,
     MAX_LENGTH: 30,
