@@ -3,9 +3,9 @@ import { Routes } from '@angular/router';
 import { BookingComponent } from './booking.component';
 import { stepGuard } from './guards/step.guard';
 import { ApplicantComponent } from './steps/applicant/applicant.component';
-import { RecipientComponent } from './steps/recipient/recipient.component';
+import { DepartureComponent } from './steps/departure/departure.component';
+import { DestinationComponent } from './steps/destination/destination.component';
 import { ReviewComponent } from './steps/review/review.component';
-import { SenderComponent } from './steps/sender/sender.component';
 
 export const bookingRoutes: Routes = [
   {
@@ -23,13 +23,13 @@ export const bookingRoutes: Routes = [
         canActivate: [stepGuard],
       },
       {
-        path: 'sender',
-        component: SenderComponent,
+        path: 'departure',
+        component: DepartureComponent,
         canActivate: [stepGuard],
       },
       {
-        path: 'recipient',
-        component: RecipientComponent,
+        path: 'destination',
+        component: DestinationComponent,
         canActivate: [stepGuard],
       },
       {

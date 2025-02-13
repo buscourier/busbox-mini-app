@@ -9,8 +9,8 @@ const initialState: BookingState = {
   maxAvailableStep: 1,
   steps: {
     1: { title: 'Автор заявки', path: 'applicant', isValid: true },
-    2: { title: 'Отправитель груза', path: 'sender', isValid: true },
-    3: { title: 'Параметры груза', path: 'recipient', isValid: true },
+    2: { title: 'Отправитель груза', path: 'departure', isValid: true },
+    3: { title: 'Параметры груза', path: 'destination', isValid: true },
     4: { title: 'Завершение', path: 'review', isValid: true },
   },
   stepsData: {

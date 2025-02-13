@@ -31,8 +31,8 @@ export const stepGuard: CanActivateFn = (
 function getStepNumber(path: string): StepNumber {
   const pathToStep: Record<string, StepNumber> = {
     applicant: 1,
-    sender: 2,
-    recipient: 3,
+    departure: 2,
+    destination: 3,
     review: 4,
   };
 

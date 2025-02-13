@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SenderComponent } from '../../steps/sender/sender.component';
+import { SenderComponent } from './sender.component';
 
 describe('SenderComponent', () => {
   let component: SenderComponent;
