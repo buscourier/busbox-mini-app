@@ -4,11 +4,13 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { Courier } from '@features/delivery/types';
+
 import { CargoType, CargoTypeId, Order } from '../../delivery-details/types';
+import { DeliveryBaseService } from '../../services/delivery-base.service';
 
 import {
   CalculationRequestParams,
-  CourierIds,
   OrderAmountParams,
   TotalAmount,
   TotalAmountParams,
@@ -19,10 +21,12 @@ import { environment } from '@env/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class OrderSummaryService {
+export class OrderSummaryService extends DeliveryBaseService {
   private readonly url = `${environment.apiUrl}`;
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) {
+    super();
+  }
 
   calculateTotalAmount(params: TotalAmountParams): Observable<TotalAmount> {
     return forkJoin(
@@ -30,8 +34,8 @@ export class OrderSummaryService {
         this.calculateOrderAmount({
           pickupCityId: params.pickupCityId,
           deliveryCityId: params.deliveryCityId,
-          pickupPointCourierId: params.pickupPointCourierId,
-          deliveryPointCourierId: params.deliveryPointCourierId,
+          pickupPointCourier: params.pickupPointCourier,
+          deliveryPointCourier: params.deliveryPointCourier,
           order,
         }),
       ),
@@ -43,10 +47,11 @@ export class OrderSummaryService {
   }
 
   calculateOrderAmount(params: OrderAmountParams): Observable<TotalAmount> {
-    const servicesIds = this.getServicesIds(params.order, {
-      pickup: params.pickupPointCourierId,
-      delivery: params.deliveryPointCourierId,
-    });
+    const servicesIds = this.getServicesIds(
+      params.order,
+      params.pickupPointCourier,
+      params.deliveryPointCourier,
+    );
 
     return params.order.cargoType === CargoType.PARCELS
       ? this.calculateParcelsAmount(params, servicesIds)
@@ -55,7 +60,7 @@ export class OrderSummaryService {
 
   private calculateParcelsAmount(
     params: OrderAmountParams,
-    servicesIds: number[],
+    servicesIds: string[],
   ): Observable<TotalAmount> {
     if (!params.order.parcels?.items.length) {
       return of({ price: 0 });
@@ -66,7 +71,7 @@ export class OrderSummaryService {
       this.makeCalculationRequest({
         pickupCityId: params.pickupCityId,
         deliveryCityId: params.deliveryCityId,
-        cargoData: '0',
+        cargo: '0',
         servicesIds,
         weight: 0,
         dimensions: 0,
@@ -80,27 +85,16 @@ export class OrderSummaryService {
 
   private calculateCargoAmount(
     params: OrderAmountParams,
-    servicesIds: number[],
+    servicesIds: string[],
   ): Observable<TotalAmount> {
     const order = params.order;
-    let quantity = 0;
-
-    switch (order.cargoType) {
-      case CargoType.DOCUMENTS:
-        quantity = order.documents?.quantity || 0;
-        break;
-      case CargoType.AUTO_PARTS:
-        quantity = order.autoParts?.quantity || 0;
-        break;
-      case CargoType.OTHER:
-        quantity = order.otherCargo?.quantity || 0;
-        break;
-    }
 
     return this.makeCalculationRequest({
       pickupCityId: params.pickupCityId,
       deliveryCityId: params.deliveryCityId,
-      cargoData: order.cargoType ? `${CargoTypeId[order.cargoType]}, ${quantity}` : '',
+      cargo: order.cargoType
+        ? `${CargoTypeId[order.cargoType]}, ${this.getCargoQuantity(order)}`
+        : '',
       servicesIds,
       weight: 0,
       dimensions: 0,
@@ -118,7 +112,7 @@ export class OrderSummaryService {
         return this.makeCalculationRequest({
           pickupCityId: params.pickupCityId,
           deliveryCityId: params.deliveryCityId,
-          cargoData: params.order.cargoType ? CargoTypeId[params.order.cargoType] : '',
+          cargo: params.order.cargoType ? CargoTypeId[params.order.cargoType] : '',
           servicesIds: null,
           weight: parcel.weight,
           dimensions,
@@ -131,29 +125,20 @@ export class OrderSummaryService {
     );
   }
 
-  private getServicesIds(order: Order, courierIds: CourierIds): number[] {
-    const packagingIds =
-      order.packaging?.items.flatMap((item) =>
-        Array(item.quantity + 1)
-          .join(item.id + ' ')
-          .split(' '),
-      ) ?? [];
+  private getServicesIds(
+    order: Order,
+    pickupCourier: Courier | null,
+    deliveryCourier: Courier | null,
+  ): string[] {
+    const services = this.getServices(order, pickupCourier, deliveryCourier);
 
-    const additionalIds = order.additionalServices
-      ? Object.values(order.additionalServices)
-          .filter(Boolean)
-          .map((service) => service.serviceId)
-      : [];
-
-    return [courierIds.pickup, courierIds.delivery, ...packagingIds, ...additionalIds].filter(
-      Boolean,
-    );
+    return services.map((service) => service.id);
   }
 
   private makeCalculationRequest(params: CalculationRequestParams): Observable<TotalAmount> {
     return this.http.get<TotalAmount>(
       `${this.url}/calc/${params.pickupCityId}/${params.deliveryCityId}/` +
-        `${params.cargoData}/${params.servicesIds}/${params.weight}/${params.dimensions}`,
+        `${params.cargo}/${params.servicesIds}/${params.weight}/${params.dimensions}`,
     );
   }
 }

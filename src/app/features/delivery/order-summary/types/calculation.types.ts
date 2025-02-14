@@ -1,10 +1,12 @@
+import { Courier } from '@features/delivery/types';
+
 import { Order } from '../../delivery-details/types';
 
 export interface BaseCalculationParams {
   pickupCityId: string | null;
   deliveryCityId: string | null;
-  pickupPointCourierId: string | null;
-  deliveryPointCourierId: string | null;
+  pickupPointCourier: Courier | null;
+  deliveryPointCourier: Courier | null;
 }
 
 export interface OrderAmountParams extends BaseCalculationParams {
@@ -18,8 +20,8 @@ export interface TotalAmountParams extends BaseCalculationParams {
 export interface CalculationRequestParams {
   pickupCityId: string | null;
   deliveryCityId: string | null;
-  cargoData: string;
-  servicesIds: number[] | null;
+  cargo: string;
+  servicesIds: string[] | null;
   weight: number;
   dimensions: number;
 }

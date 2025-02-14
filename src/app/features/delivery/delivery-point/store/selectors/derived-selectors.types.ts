@@ -2,7 +2,7 @@ import { MemoizedSelector } from '@ngrx/store';
 
 import { DeliveryCity, Office } from '@shared/types';
 
-import { ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
+import { Courier, ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
 
 import { DeliveryPointTab } from '../../types';
 
@@ -12,6 +12,7 @@ export interface DerivedSelectors {
   selectTabs: MemoizedSelector<object, DeliveryPointTab[]>;
   selectActiveTab: MemoizedSelector<object, DeliveryPointTab | null>;
   selectIsCourierTabActive: MemoizedSelector<object, boolean>;
+  selectCourier: MemoizedSelector<object, Courier | null>;
   selectIsRestricted: MemoizedSelector<object, boolean>;
   selectLoadingStatus: MemoizedSelector<object, LoadingStatus>;
   selectErrorStatus: MemoizedSelector<object, ErrorStatus>;

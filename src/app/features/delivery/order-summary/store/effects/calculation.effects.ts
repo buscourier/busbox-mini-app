@@ -13,9 +13,7 @@ import { ApiError } from '@shared/types';
 
 import { deliveryDetailsFeature } from '../../../delivery-details/store/feature';
 import { deliveryPointFeature } from '../../../delivery-point/store';
-import { DeliveryPointTabType } from '../../../delivery-point/types';
 import { pickupPointFeature } from '../../../pickup-point/store';
-import { PickupPointTabType } from '../../../pickup-point/types';
 import { OrderSummaryService } from '../../services/order-summary.service';
 
 import { OrderSummaryActions } from '../actions';
@@ -28,8 +26,8 @@ export const calculationEffects = {
         store.select(deliveryPointFeature.selectSelectedCity),
         store.select(deliveryDetailsFeature.selectAll),
         store.select(deliveryDetailsFeature.selectIsAllOrdersValid),
-        store.select(pickupPointFeature.selectActiveTab),
-        store.select(deliveryPointFeature.selectActiveTab),
+        store.select(pickupPointFeature.selectCourier),
+        store.select(deliveryPointFeature.selectCourier),
       ]).pipe(map(() => OrderSummaryActions.loadTotalAmount()));
     },
     { functional: true },
@@ -42,8 +40,8 @@ export const calculationEffects = {
         store.select(deliveryPointFeature.selectSelectedCity),
         store.select(deliveryDetailsFeature.selectAll),
         store.select(deliveryDetailsFeature.selectIsAllOrdersValid),
-        store.select(pickupPointFeature.selectActiveTab),
-        store.select(deliveryPointFeature.selectActiveTab),
+        store.select(pickupPointFeature.selectCourier),
+        store.select(deliveryPointFeature.selectCourier),
       ]).pipe(
         debounceTime(DEBOUNCE_TIME.DEFAULT),
         filter(
@@ -51,20 +49,14 @@ export const calculationEffects = {
             !!pickupCity?.id && !!deliveryCity?.id && orders.length > 0 && isAllOrdersValid,
         ),
         switchMap(
-          ([pickupCity, deliveryCity, orders, , pickupPointActiveTab, deliveryPointActiveTab]) => {
-            const pickupPointCourierId =
-              pickupPointActiveTab?.id === PickupPointTabType.COURIER ? '1' : null;
-
-            const deliveryPointCourierId =
-              deliveryPointActiveTab?.id === DeliveryPointTabType.COURIER ? '2' : null;
-
+          ([pickupCity, deliveryCity, orders, , pickupPointCourier, deliveryPointCourier]) => {
             return orderSummaryService
               .calculateTotalAmount({
                 pickupCityId: pickupCity?.id || null,
                 deliveryCityId: deliveryCity?.id || null,
                 orders,
-                pickupPointCourierId,
-                deliveryPointCourierId,
+                pickupPointCourier,
+                deliveryPointCourier,
               })
               .pipe(
                 mapResponse({

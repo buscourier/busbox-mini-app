@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { Office, PickupCity } from '@shared/types';
 
 import { LIMITED_OFFICE } from '@features/delivery/constants';
-import { ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
+import { Courier, ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
 
 import { PICKUP_POINT_TABS } from '../../constants';
 import { PickupPointTab, PickupPointTabType } from '../../types';
@@ -74,12 +74,26 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     (isOfficeLimited, isCourierTabActive): boolean => isOfficeLimited || isCourierTabActive,
   );
 
+  const selectCourier = createSelector(
+    selectIsCourierTabActive,
+    baseSelectors.selectCourierDetails,
+    (isCourierTabActive, courierDetails): Courier | null => {
+      if (!isCourierTabActive || !courierDetails) return null;
+
+      return {
+        id: '1',
+        details: courierDetails,
+      };
+    },
+  );
+
   return {
     selectAvailableOffices,
     selectIsOfficeLimited,
     selectTabs,
     selectActiveTab,
     selectIsCourierTabActive,
+    selectCourier,
     selectIsRestricted,
     selectLoadingStatus: createSelector(
       baseSelectors.selectIsCitiesLoading,
