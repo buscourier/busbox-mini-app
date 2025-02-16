@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CargoType, Order } from '@features/delivery/delivery-details/types';
+import { CargoType, Order, ParcelData } from '@features/delivery/delivery-details/types';
 import { Courier } from '@features/delivery/types';
 
 @Injectable({
@@ -59,8 +59,19 @@ export class DeliveryBaseService {
       case CargoType.OTHER:
         quantity = order.otherCargo?.quantity || 0;
         break;
+      case CargoType.PARCELS:
+        quantity = this.getParcelsQuantity(order.parcels);
+        break;
     }
 
     return quantity;
+  }
+
+  getParcelsQuantity(data: ParcelData | null): number {
+    if (!data) return 0;
+
+    return data.items.reduce((sum, parcel) => {
+      return sum + parcel.quantity;
+    }, 0);
   }
 }

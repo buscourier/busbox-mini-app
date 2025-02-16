@@ -10,4 +10,5 @@ export interface DerivedSelectors {
   selectCanAccessStep: (step: StepNumber) => MemoizedSelector<object, boolean>;
   selectIsLastStep: MemoizedSelector<object, boolean>;
   selectCurrentStepData: MemoizedSelector<object, Step>;
+  selectStepsValid: MemoizedSelector<object, boolean>;
 }

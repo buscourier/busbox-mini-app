@@ -4,5 +4,5 @@ export const environment = {
   apiUrl: `${process.env['API_URL']}`,
   dopplerConfig: process.env['DOPPLER_CONFIG'],
   name: process.env['NODE_ENV'],
-  apiKey: ``,
+  apiKey: process.env['API_KEY'],
 };

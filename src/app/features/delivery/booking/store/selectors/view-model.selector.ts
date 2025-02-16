@@ -14,12 +14,14 @@ export const createViewModelSelector = (
     derivedSelectors.selectPrevStep,
     derivedSelectors.selectNextStep,
     derivedSelectors.selectIsLastStep,
-    (currentStep, steps, prevStep, nextStep, isLastStep): BookingViewModel => ({
+    derivedSelectors.selectStepsValid,
+    (currentStep, steps, prevStep, nextStep, isLastStep, stepsValid): BookingViewModel => ({
       currentStep,
       steps,
       prevStep,
       nextStep,
       isLastStep,
+      stepsValid,
     }),
   ),
 });

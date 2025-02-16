@@ -6,4 +6,5 @@ export interface BookingViewModel {
   prevStep: StepNumber | null;
   nextStep: StepNumber | null;
   isLastStep: boolean;
+  stepsValid: boolean;
 }

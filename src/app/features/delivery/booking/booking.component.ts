@@ -11,7 +11,6 @@ import { TuiButton } from '@taiga-ui/core';
 import { StepperComponent } from './stepper/stepper.component';
 import { BookingActions } from './store/actions';
 import { bookingFeature } from './store/feature';
-import { selectBookingRequest } from './store/selectors/booking-request.selector';
 import { BookingViewModel } from './store/selectors/view-model.types';
 import { StepNumber } from './types';
 
@@ -24,7 +23,6 @@ import { StepNumber } from './types';
 })
 export class BookingComponent implements OnInit {
   vm$!: Observable<BookingViewModel>;
-  // bookingRequest!: Observable<unknown>;
 
   store = inject(Store);
   router = inject(Router);
@@ -32,12 +30,6 @@ export class BookingComponent implements OnInit {
   ngOnInit(): void {
     this.vm$ = this.store.select(bookingFeature.selectViewModel);
     this.store.dispatch(BookingActions.init());
-
-    //test
-    // eslint-disable-next-line @ngrx/no-store-subscription
-    this.store.select(selectBookingRequest).subscribe((request) => {
-      console.log('booking request', request);
-    });
   }
 
   goNextStep(nextStep: StepNumber | null): void {
@@ -61,5 +53,9 @@ export class BookingComponent implements OnInit {
       .subscribe((path) => {
         this.router.navigate(['/delivery/booking', path]);
       });
+  }
+
+  submitOrder() {
+    this.store.dispatch(BookingActions.submitOrder());
   }
 }

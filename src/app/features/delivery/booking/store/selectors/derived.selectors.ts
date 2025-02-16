@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { StepNumber } from '../../types';
+import { Step, StepNumber } from '../../types';
 
 import { BaseSelectors } from './base-selectors.types';
 import { DerivedSelectors } from './derived-selectors.types';
@@ -46,6 +46,13 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     selectIsLastStep: createSelector(
       baseSelectors.selectCurrentStep,
       (currentStep) => currentStep === 4,
+    ),
+
+    selectStepsValid: createSelector(
+      baseSelectors.selectSteps,
+      (steps: Record<StepNumber, Step>): boolean => {
+        return Object.values(steps).every((step) => step.isValid);
+      },
     ),
   };
 };
