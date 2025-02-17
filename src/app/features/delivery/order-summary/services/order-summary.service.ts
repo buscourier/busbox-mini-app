@@ -16,16 +16,12 @@ import {
   TotalAmountParams,
 } from '../types';
 
-import { environment } from '@env/environment';
-
 @Injectable({
   providedIn: 'root',
 })
 export class OrderSummaryService extends DeliveryBaseService {
-  private readonly url = `${environment.apiUrl}`;
-
-  constructor(protected http: HttpClient) {
-    super();
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   calculateTotalAmount(params: TotalAmountParams): Observable<TotalAmount> {
@@ -137,7 +133,7 @@ export class OrderSummaryService extends DeliveryBaseService {
 
   private makeCalculationRequest(params: CalculationRequestParams): Observable<TotalAmount> {
     return this.http.get<TotalAmount>(
-      `${this.url}/calc/${params.pickupCityId}/${params.deliveryCityId}/` +
+      `${this.baseUrl}/calc/${params.pickupCityId}/${params.deliveryCityId}/` +
         `${params.cargo}/${params.servicesIds}/${params.weight}/${params.dimensions}`,
     );
   }

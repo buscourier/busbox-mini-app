@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 
+import { ApiService } from '@core/services';
+
 import { CargoType, Order, ParcelData } from '@features/delivery/delivery-details/types';
 import { Courier } from '@features/delivery/types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DeliveryBaseService {
+export class DeliveryBaseService extends ApiService {
   protected getServices(
     order: Order,
     pickupCourier: Courier | null,
