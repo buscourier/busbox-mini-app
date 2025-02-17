@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { of } from 'rxjs';
+import { tap } from 'rxjs';
 
 import { DeliveryCity, PickupCity } from '@shared/types';
 
@@ -42,17 +43,19 @@ interface ParcelDimensions {
   providedIn: 'root',
 })
 export class BookingService extends DeliveryBaseService {
-  constructor() {
-    super();
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   submitOrder(booking: Booking) {
     const requestData = this.mapToRequestData(booking);
     console.log('requestData', requestData);
 
-    // return this.http.post('/api/booking', requestData);
-
-    return of(null); // это врмененная заглушка - не обращай внимания
+    return this.http.post(`${this.baseUrl}/order/`, JSON.stringify(requestData)).pipe(
+      tap((response) => {
+        console.log('requestResponse', response);
+      }),
+    );
   }
 
   private mapToRequestData(data: Booking) {

@@ -6,7 +6,7 @@ import { pickupPointFeature } from '@features/delivery/pickup-point/store';
 
 import { bookingFeature } from '../../../store/feature';
 
-import { ReviewModel, ReviewSection } from '../types/review.types';
+import { ReviewModel, ReviewSection } from '../review.types';
 import { getDeliveryMethod } from '../utils/delivery-method';
 
 const selectSenderSection = createSelector(

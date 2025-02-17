@@ -13,4 +13,5 @@ export const createBaseSelectors = (selectBookingState: BookingStateSelector): B
   selectApplicant: createSelector(selectBookingState, (state) => state.stepsData.applicant),
   selectDeparture: createSelector(selectBookingState, (state) => state.stepsData.departure),
   selectDestination: createSelector(selectBookingState, (state) => state.stepsData.destination),
+  selectReview: createSelector(selectBookingState, (state) => state.stepsData.review),
 });

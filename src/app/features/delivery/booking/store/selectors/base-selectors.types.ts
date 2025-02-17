@@ -4,6 +4,7 @@ import { Step, StepNumber, StepsData } from '../../types';
 import { Applicant } from '../../types/applicant.types';
 import { Departure } from '../../types/departure.types';
 import { Destination } from '../../types/destination.types';
+import { Review } from '../../types/review.types';
 
 export interface BaseSelectors {
   selectCurrentStep: MemoizedSelector<object, StepNumber>;
@@ -13,4 +14,5 @@ export interface BaseSelectors {
   selectApplicant: MemoizedSelector<object, Applicant | null>;
   selectDeparture: MemoizedSelector<object, Departure | null>;
   selectDestination: MemoizedSelector<object, Destination | null>;
+  selectReview: MemoizedSelector<object, Review>;
 }

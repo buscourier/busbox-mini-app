@@ -5,16 +5,18 @@
 }
 <router-outlet />
 @if (vm) {
-  <button type="button" tuiButton (click)="goPrevStep(vm.prevStep)" [disabled]="!vm.prevStep">
-    Назад
-  </button>
-  @if (vm.isLastStep) {
-    <button type="button" tuiButton [disabled]="!vm.stepsValid" (click)="submitOrder()">
-      Оформить заказ
+  <div class="flex gap-2 mt-10">
+    <button type="button" tuiButton (click)="goPrevStep(vm.prevStep)" [disabled]="!vm.prevStep">
+      Назад
     </button>
-  } @else {
-    <button type="button" tuiButton [disabled]="!vm.nextStep" (click)="goNextStep(vm.nextStep)">
-      Дальше
-    </button>
-  }
+    @if (vm.isLastStep) {
+      <button type="button" tuiButton [disabled]="!vm.stepsValid" (click)="submitOrder()">
+        Оформить заказ
+      </button>
+    } @else {
+      <button type="button" tuiButton [disabled]="!vm.nextStep" (click)="goNextStep(vm.nextStep)">
+        Дальше
+      </button>
+    }
+  </div>
 }

@@ -1,4 +1,8 @@
+import { FormControl, FormGroup } from '@angular/forms';
+
 import { ActiveOrderDetails } from '@features/delivery/delivery-details/types';
+
+import { Review } from '../../types/review.types';
 
 export interface ReviewField {
   label: string;
@@ -14,3 +18,7 @@ export interface ReviewModel {
   sections: ReviewSection[];
   order: ActiveOrderDetails;
 }
+
+export type ReviewControls = FormGroup<{
+  [K in keyof Review]: FormControl<Review[K]>;
+}>;

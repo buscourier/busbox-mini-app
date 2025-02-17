@@ -8,15 +8,20 @@ const initialState: BookingState = {
   currentStep: 1,
   maxAvailableStep: 1,
   steps: {
-    1: { title: 'Автор заявки', path: 'applicant', isValid: true },
-    2: { title: 'Отправитель груза', path: 'departure', isValid: true },
-    3: { title: 'Параметры груза', path: 'destination', isValid: true },
-    4: { title: 'Завершение', path: 'review', isValid: true },
+    1: { title: 'Автор заявки', path: 'applicant', isValid: false },
+    2: { title: 'Отправитель груза', path: 'departure', isValid: false },
+    3: { title: 'Параметры груза', path: 'destination', isValid: false },
+    4: { title: 'Завершение', path: 'review', isValid: false },
   },
   stepsData: {
     applicant: null,
     departure: null,
     destination: null,
+    review: {
+      comment: null,
+      rulesAccepted: false,
+      processingAccepted: false,
+    },
   },
 };
 
@@ -43,15 +48,14 @@ export const bookingReducer = createReducer(
       },
     }),
   ),
-  on(
-    BookingActions.restoreState,
-    (state, { restoredState }): BookingState => ({
+  on(BookingActions.restoreState, (state, { restoredState }): BookingState => {
+    return {
       ...state,
       currentStep: restoredState.currentStep,
       maxAvailableStep: restoredState.maxAvailableStep,
       stepsData: restoredState.stepsData,
-    }),
-  ),
+    };
+  }),
   on(
     BookingActions.setApplicantType,
     (state, { applicantType }): BookingState => ({
@@ -103,5 +107,26 @@ export const bookingReducer = createReducer(
         },
       },
     }),
+  ),
+  on(
+    BookingActions.updateReview,
+    (state, { comment, rulesAccepted, processingAccepted }): BookingState => {
+      const updateData = {
+        ...(comment !== undefined && { comment }),
+        ...(rulesAccepted !== undefined && { rulesAccepted }),
+        ...(processingAccepted !== undefined && { processingAccepted }),
+      };
+
+      return {
+        ...state,
+        stepsData: {
+          ...state.stepsData,
+          review: {
+            ...state.stepsData.review,
+            ...updateData,
+          },
+        },
+      };
+    },
   ),
 );

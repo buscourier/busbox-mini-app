@@ -15,6 +15,13 @@ export const BookingActions = createActionGroup({
     'Update Individual Data': props<{ data: Individual }>(),
     'Update Sender Data': props<{ data: Sender }>(),
     'Update Recipient Data': props<{ data: Recipient }>(),
+    'Update Review': props<
+      Partial<{
+        comment: string | null;
+        rulesAccepted: boolean;
+        processingAccepted: boolean;
+      }>
+    >(),
     'Skip Restore': emptyProps(),
     'Submit Order': emptyProps(),
     'Submit Order Success': emptyProps(),
