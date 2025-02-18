@@ -37,13 +37,15 @@ export const persistenceEffects = {
           store.select(bookingFeature.selectCurrentStep),
           store.select(bookingFeature.selectMaxAvailableStep),
           store.select(bookingFeature.selectStepsData),
+          store.select(bookingFeature.selectSteps),
           store.select(bookingFeature.selectCurrentStepData),
         ),
-        filter(([, , , , currentStepData]) => currentStepData.isValid),
-        map(([, currentStep, maxAvailableStep, stepsData]) => ({
+        filter(([, , , , , currentStepData]) => currentStepData.isValid),
+        map(([, currentStep, maxAvailableStep, stepsData, steps]) => ({
           currentStep,
           maxAvailableStep,
           stepsData,
+          steps,
         })),
         tap((state) => {
           persistenceService.save<DeliveryStorageKey, DeliveryStorageSchema>('booking', state);

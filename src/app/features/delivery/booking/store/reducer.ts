@@ -53,6 +53,7 @@ export const bookingReducer = createReducer(
       ...state,
       currentStep: restoredState.currentStep,
       maxAvailableStep: restoredState.maxAvailableStep,
+      steps: restoredState.steps,
       stepsData: restoredState.stepsData,
     };
   }),

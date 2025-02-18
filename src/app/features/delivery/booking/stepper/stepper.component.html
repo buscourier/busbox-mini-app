@@ -4,6 +4,7 @@
       <li
         class="p-4 bg-gray-200"
         [class.bg-green-300]="step.isActive"
+        [class.bg-yellow-300]="step.isCompleted"
         [class.bg-red-200]="!step.isValid"
       >
         {{ step.title }}

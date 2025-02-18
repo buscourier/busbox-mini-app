@@ -14,6 +14,7 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
         Object.entries(steps).map(([key, value]) => ({
           ...value,
           isActive: currentStep === Number(key),
+          isCompleted: Number(key) < currentStep && value.isValid,
         })),
     ),
 

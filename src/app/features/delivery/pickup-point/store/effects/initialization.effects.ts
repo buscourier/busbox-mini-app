@@ -6,6 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { PersistenceService } from '@core/services';
 
+import { BookingActions } from '@features/delivery/booking/store/actions';
 import { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
 
 import { PickupPointActions } from '../actions';
@@ -14,7 +15,7 @@ export const initializationEffects = {
   restoreState: createEffect(
     (actions$ = inject(Actions), persistenceService = inject(PersistenceService)) => {
       return actions$.pipe(
-        ofType(PickupPointActions.initState),
+        ofType(PickupPointActions.initState, BookingActions.init),
         map(() => {
           const restoredState = persistenceService.load<DeliveryStorageKey, DeliveryStorageSchema>(
             'pickupPoint',

@@ -11,7 +11,7 @@ export interface Step {
   isValid: boolean;
 }
 
-export type StepView = Readonly<Step & { isActive: boolean }>;
+export type StepView = Readonly<Step & { isActive: boolean; isCompleted: boolean }>;
 
 export interface StepsData {
   applicant: Applicant | null;
