@@ -14,7 +14,7 @@
     <app-recipient
       [data]="destination?.recipient || null"
       (dataChange)="updateRecipient($event)"
-      (validationChange)="updateStepValidation($event, currentStep)"
+      (validationChange)="onRecipientValidationChange($event)"
     />
   </div>
 }

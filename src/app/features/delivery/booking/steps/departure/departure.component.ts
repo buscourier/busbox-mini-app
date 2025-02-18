@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { Observable, withLatestFrom } from 'rxjs';
+import { Observable, take, withLatestFrom } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
@@ -27,6 +27,9 @@ export class DepartureComponent implements OnInit {
   currentStep$!: Observable<StepNumber>;
   departure$!: Observable<Departure | null>;
 
+  private isSenderValid = false;
+  private isPickupPointValid = false;
+
   private readonly store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -37,21 +40,31 @@ export class DepartureComponent implements OnInit {
     this.store
       .select(pickupPointFeature.selectFormState)
       .pipe(withLatestFrom(this.currentStep$), takeUntilDestroyed(this.destroyRef))
-      .subscribe(([formState, currentStep]) =>
-        this.updateStepValidation(formState.isValid, currentStep),
-      );
+      .subscribe(([formState]) => {
+        this.isPickupPointValid = formState.isValid;
+        this.checkStepValidation();
+      });
   }
 
   updateSender(data: Sender): void {
     this.store.dispatch(BookingActions.updateSenderData({ data }));
   }
 
-  updateStepValidation(isValid: boolean, step: StepNumber): void {
-    this.store.dispatch(
-      BookingActions.updateStepValidation({
-        step,
-        isValid,
-      }),
-    );
+  onSenderValidationChange(isValid: boolean): void {
+    this.isSenderValid = isValid;
+    this.checkStepValidation();
+  }
+
+  private checkStepValidation(): void {
+    const isStepValid = this.isSenderValid && this.isPickupPointValid;
+
+    this.currentStep$.pipe(take(1)).subscribe((currentStep) => {
+      this.store.dispatch(
+        BookingActions.updateStepValidation({
+          step: currentStep,
+          isValid: isStepValid,
+        }),
+      );
+    });
   }
 }

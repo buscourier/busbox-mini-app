@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { Observable, withLatestFrom } from 'rxjs';
+import { Observable, take, withLatestFrom } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
@@ -30,6 +30,10 @@ export class DestinationComponent implements OnInit {
   currentStep$!: Observable<StepNumber>;
   destination$!: Observable<Destination | null>;
 
+  private isDeliveryPointValid = false;
+  private isDeliveryDetailsValid = false;
+  private isRecipientValid = false;
+
   private readonly store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -40,28 +44,40 @@ export class DestinationComponent implements OnInit {
     this.store
       .select(deliveryPointFeature.selectFormState)
       .pipe(withLatestFrom(this.currentStep$), takeUntilDestroyed(this.destroyRef))
-      .subscribe(([formState, currentStep]) =>
-        this.updateStepValidation(formState.isValid, currentStep),
-      );
+      .subscribe(([formState]) => {
+        this.isDeliveryPointValid = formState.isValid;
+        this.checkStepValidation();
+      });
 
     this.store
       .select(deliveryDetailsFeature.selectIsAllOrdersValid)
       .pipe(withLatestFrom(this.currentStep$), takeUntilDestroyed(this.destroyRef))
-      .subscribe(([isAllOrdersValid, currentStep]) =>
-        this.updateStepValidation(isAllOrdersValid, currentStep),
+      .subscribe(([isOrdersValid]) => {
+        this.isDeliveryDetailsValid = isOrdersValid;
+        this.checkStepValidation();
+      });
+  }
+
+  onRecipientValidationChange(isValid: boolean): void {
+    this.isRecipientValid = isValid;
+    this.checkStepValidation();
+  }
+
+  private checkStepValidation(): void {
+    const isStepValid =
+      this.isDeliveryPointValid && this.isDeliveryDetailsValid && this.isRecipientValid;
+
+    this.currentStep$.pipe(take(1)).subscribe((currentStep) => {
+      this.store.dispatch(
+        BookingActions.updateStepValidation({
+          step: currentStep,
+          isValid: isStepValid,
+        }),
       );
+    });
   }
 
   updateRecipient(data: Recipient): void {
     this.store.dispatch(BookingActions.updateRecipientData({ data }));
-  }
-
-  updateStepValidation(isValid: boolean, step: StepNumber): void {
-    this.store.dispatch(
-      BookingActions.updateStepValidation({
-        step,
-        isValid,
-      }),
-    );
   }
 }

@@ -6,7 +6,7 @@
     <app-sender
       [data]="departure?.sender || null"
       (dataChange)="updateSender($event)"
-      (validationChange)="updateStepValidation($event, currentStep)"
+      (validationChange)="onSenderValidationChange($event)"
     />
   </div>
   <app-pickup-point />
