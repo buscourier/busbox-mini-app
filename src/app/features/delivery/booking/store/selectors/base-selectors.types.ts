@@ -1,5 +1,9 @@
 import { MemoizedSelector } from '@ngrx/store';
 
+import { ApiError } from '@shared/types';
+
+import { BookingResult } from '@features/delivery/types';
+
 import { Step, StepNumber, StepsData } from '../../types';
 import { Applicant } from '../../types/applicant.types';
 import { Departure } from '../../types/departure.types';
@@ -15,4 +19,8 @@ export interface BaseSelectors {
   selectDeparture: MemoizedSelector<object, Departure | null>;
   selectDestination: MemoizedSelector<object, Destination | null>;
   selectReview: MemoizedSelector<object, Review>;
+  selectIsSubmitSuccessful: MemoizedSelector<object, boolean>;
+  selectIsSubmitFailed: MemoizedSelector<object, boolean>;
+  selectError: MemoizedSelector<object, ApiError | null>;
+  selectBookingResult: MemoizedSelector<object, BookingResult | null>;
 }

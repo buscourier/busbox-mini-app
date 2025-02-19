@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 
 import { TuiButton } from '@taiga-ui/core';
 
+import { DeliveryLayoutService } from '../services/delivery-layout.service';
 import { StepperComponent } from './stepper/stepper.component';
 import { BookingActions } from './store/actions';
 import { bookingFeature } from './store/feature';
@@ -23,12 +24,16 @@ import { StepNumber } from './types';
 })
 export class BookingComponent implements OnInit {
   vm$!: Observable<BookingViewModel>;
+  isMainLayout$!: Observable<boolean>;
 
-  store = inject(Store);
-  router = inject(Router);
+  private store = inject(Store);
+  private router = inject(Router);
+  private layoutService = inject(DeliveryLayoutService);
 
   ngOnInit(): void {
     this.vm$ = this.store.select(bookingFeature.selectViewModel);
+    this.isMainLayout$ = this.layoutService.getIsMainLayout();
+
     this.store.dispatch(BookingActions.init());
   }
 

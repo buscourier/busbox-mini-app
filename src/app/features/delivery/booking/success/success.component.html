@@ -1,0 +1,5 @@
+@let bookingResult = bookingResult$ | async;
+
+@if (bookingResult) {
+  <h1>{{ bookingResult.orderId }}</h1>
+}

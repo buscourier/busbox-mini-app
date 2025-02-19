@@ -23,6 +23,10 @@ const initialState: BookingState = {
       processingAccepted: false,
     },
   },
+  isSubmitSuccessful: false,
+  isSubmitFailed: false,
+  error: null,
+  bookingResult: null,
 };
 
 export const bookingReducer = createReducer(
@@ -48,15 +52,6 @@ export const bookingReducer = createReducer(
       },
     }),
   ),
-  on(BookingActions.restoreState, (state, { restoredState }): BookingState => {
-    return {
-      ...state,
-      currentStep: restoredState.currentStep,
-      maxAvailableStep: restoredState.maxAvailableStep,
-      steps: restoredState.steps,
-      stepsData: restoredState.stepsData,
-    };
-  }),
   on(
     BookingActions.setApplicantType,
     (state, { applicantType }): BookingState => ({
@@ -130,4 +125,40 @@ export const bookingReducer = createReducer(
       };
     },
   ),
+  on(
+    BookingActions.submitOrder,
+    (state): BookingState => ({
+      ...state,
+      isSubmitSuccessful: false,
+      isSubmitFailed: false,
+    }),
+  ),
+  on(
+    BookingActions.submitOrderSuccess,
+    (state, { bookingResult }): BookingState => ({
+      ...state,
+      isSubmitSuccessful: true,
+      isSubmitFailed: false,
+      bookingResult,
+      error: null,
+    }),
+  ),
+  on(
+    BookingActions.submitOrderFailure,
+    (state, { error }): BookingState => ({
+      ...state,
+      isSubmitSuccessful: false,
+      isSubmitFailed: true,
+      error,
+    }),
+  ),
+  on(BookingActions.restoreState, (state, { restoredState }): BookingState => {
+    return {
+      ...state,
+      currentStep: restoredState.currentStep,
+      maxAvailableStep: restoredState.maxAvailableStep,
+      steps: restoredState.steps,
+      stepsData: restoredState.stepsData,
+    };
+  }),
 );

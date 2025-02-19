@@ -1,11 +1,14 @@
 import { Routes } from '@angular/router';
 
 import { BookingComponent } from './booking.component';
+import { FailureComponent } from './failure/failure.component';
+import { bookingResultGuard } from './guards/booking-result.guard';
 import { stepGuard } from './guards/step.guard';
 import { ApplicantComponent } from './steps/applicant/applicant.component';
 import { DepartureComponent } from './steps/departure/departure.component';
 import { DestinationComponent } from './steps/destination/destination.component';
 import { ReviewComponent } from './steps/review/review.component';
+import { SuccessComponent } from './success/success.component';
 
 export const bookingRoutes: Routes = [
   {
@@ -36,6 +39,16 @@ export const bookingRoutes: Routes = [
         path: 'review',
         component: ReviewComponent,
         canActivate: [stepGuard],
+      },
+      {
+        path: 'success',
+        component: SuccessComponent,
+        canActivate: [bookingResultGuard],
+      },
+      {
+        path: 'failure',
+        component: FailureComponent,
+        canActivate: [bookingResultGuard],
       },
     ],
   },

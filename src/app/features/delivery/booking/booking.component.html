@@ -1,10 +1,11 @@
 @let vm = vm$ | async;
+@let isMainLayout = isMainLayout$ | async;
 
-@if (vm) {
+@if (vm && isMainLayout) {
   <app-stepper [steps]="vm.steps" />
 }
 <router-outlet />
-@if (vm) {
+@if (vm && isMainLayout) {
   <div class="flex gap-2 mt-10">
     <button type="button" tuiButton (click)="goPrevStep(vm.prevStep)" [disabled]="!vm.prevStep">
       Назад

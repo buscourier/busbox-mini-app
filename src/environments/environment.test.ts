@@ -3,4 +3,5 @@ export const environment = {
   apiUrl: '$API_URL',
   dopplerConfig: '$DOPPLER_CONFIG',
   name: 'test',
+  apiKey: '',
 };

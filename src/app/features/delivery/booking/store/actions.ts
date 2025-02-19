@@ -1,5 +1,9 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
+import { ApiError } from '@shared/types';
+
+import { BookingResult } from '@features/delivery/types';
+
 import { Individual, Sender, StepNumber } from '../types';
 import { ApplicantType } from '../types/applicant.types';
 import { Recipient } from '../types/recipient.types';
@@ -24,8 +28,8 @@ export const BookingActions = createActionGroup({
     >(),
     'Skip Restore': emptyProps(),
     'Submit Order': emptyProps(),
-    'Submit Order Success': emptyProps(),
-    'Submit Order Failure': emptyProps(),
+    'Submit Order Success': props<{ bookingResult: BookingResult }>(),
+    'Submit Order Failure': props<{ error: ApiError }>(),
     Init: emptyProps(),
     Reset: emptyProps(),
   },

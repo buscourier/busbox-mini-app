@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { tap } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DeliveryCity, PickupCity } from '@shared/types';
 
@@ -11,7 +12,7 @@ import {
   Order,
   ParcelData,
 } from '@features/delivery/delivery-details/types';
-import { Courier } from '@features/delivery/types';
+import { BookingResult, Courier } from '@features/delivery/types';
 
 import { DeliveryBaseService } from '../../services/delivery-base.service';
 
@@ -29,6 +30,7 @@ interface Booking {
   departure: Departure | null;
   destination: Destination | null;
   order: Order;
+  note: string;
 }
 
 interface ParcelDimensions {
@@ -39,6 +41,10 @@ interface ParcelDimensions {
   length: number;
 }
 
+interface OrderResponse {
+  order_id: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -47,15 +53,18 @@ export class BookingService extends DeliveryBaseService {
     super(http);
   }
 
-  submitOrder(booking: Booking) {
+  submitOrder(booking: Booking): Observable<BookingResult> {
     const requestData = this.mapToRequestData(booking);
+
     console.log('requestData', requestData);
 
-    return this.http.post(`${this.baseUrl}/order/`, JSON.stringify(requestData)).pipe(
-      tap((response) => {
-        console.log('requestResponse', response);
-      }),
-    );
+    return this.http
+      .post<OrderResponse>(`${this.baseUrl}/order/`, JSON.stringify(requestData))
+      .pipe(
+        map((response) => ({
+          orderId: response.order_id,
+        })),
+      );
   }
 
   private mapToRequestData(data: Booking) {
@@ -66,6 +75,7 @@ export class BookingService extends DeliveryBaseService {
       departure,
       destination,
       order,
+      note,
       pickupCourier,
       deliveryCourier,
     } = data;
@@ -92,7 +102,8 @@ export class BookingService extends DeliveryBaseService {
           services: this.getServices(order, pickupCourier, deliveryCourier),
         },
       ],
-      note: 'Место отправления: Владивосток , ул. Русская 2А строение 3',
+      note,
+      server: 'test',
     };
   }
 

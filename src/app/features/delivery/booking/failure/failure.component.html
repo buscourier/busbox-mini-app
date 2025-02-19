@@ -1,0 +1,6 @@
+@let error = error$ | async;
+
+@if (error) {
+  <h1>{{ error.statusCode }}</h1>
+  <p>{{ error.message }}</p>
+}
