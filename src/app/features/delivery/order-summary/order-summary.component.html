@@ -1,4 +1,5 @@
 @let vm = vm$ | async;
+@let isCalculatorLayout = isCalculatorLayout$ | async;
 
 @if (vm) {
   @if (!vm.isLoaded) {
@@ -29,6 +30,20 @@
       <h3>
         <b>{{ vm.totalAmount }}</b>
       </h3>
+
+      @if (isCalculatorLayout) {
+        <button type="button" tuiButton [routerLink]="['/delivery', 'booking']">
+          Перейти к оформлению
+        </button>
+
+        <button
+          type="button"
+          class="block mt-4 text-red-400 cursor-pointer"
+          (click)="resetDelivery()"
+        >
+          Сбросить расчеты
+        </button>
+      }
     </div>
   }
 }
