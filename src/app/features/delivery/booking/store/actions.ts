@@ -31,6 +31,6 @@ export const BookingActions = createActionGroup({
     'Submit Order Success': props<{ bookingResult: BookingResult }>(),
     'Submit Order Failure': props<{ error: ApiError }>(),
     Init: emptyProps(),
-    Reset: emptyProps(),
+    'Reset State': emptyProps(),
   },
 });

@@ -197,7 +197,7 @@ export const deliveryPointReducer = createReducer(
     }),
   ),
   on(
-    DeliveryPointActions.resetFormData,
+    DeliveryPointActions.resetState,
     (state, { keepCity, city }): DeliveryPointState => ({
       ...state,
       cities: {

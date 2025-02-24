@@ -193,7 +193,7 @@ export const pickupPointReducer = createReducer(
    * @param city - the new city to set after the reset
    */
   on(
-    PickupPointActions.resetFormData,
+    PickupPointActions.resetState,
     (state, { keepCity, city }): PickupPointState => ({
       ...state,
       cities: {

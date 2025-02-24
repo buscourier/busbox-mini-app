@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { debounceTime, switchMap, tap, withLatestFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
@@ -15,6 +16,7 @@ import { deliveryDetailsFeature } from '@features/delivery/delivery-details/stor
 import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
 import { pickupPointFeature } from '@features/delivery/pickup-point/store';
 
+import { DeliveryActions } from '../../../store/actions';
 import { BookingService } from '../../services/booking.service';
 
 import { BookingActions } from '../actions';
@@ -106,6 +108,16 @@ export const bookingEffects = {
       );
     },
     { functional: true, dispatch: false },
+  ),
+
+  resetOnSuccess: createEffect(
+    (actions$ = inject(Actions)) => {
+      return actions$.pipe(
+        ofType(BookingActions.submitOrderSuccess),
+        map(() => DeliveryActions.resetDelivery()),
+      );
+    },
+    { functional: true },
   ),
   goToFailure: createEffect(
     (actions$ = inject(Actions), router = inject(Router)) => {

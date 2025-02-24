@@ -27,7 +27,7 @@ export const persistenceEffects = {
       return actions$.pipe(
         ofType(
           BookingActions.navigateToStep,
-          BookingActions.reset,
+          BookingActions.resetState,
           BookingActions.updateIndividualData,
           BookingActions.updateStepValidation,
           BookingActions.setApplicantType,
@@ -57,7 +57,7 @@ export const persistenceEffects = {
   removeState: createEffect(
     (actions$ = inject(Actions), persistenceService = inject(PersistenceService)) => {
       return actions$.pipe(
-        ofType(BookingActions.reset),
+        ofType(BookingActions.resetState),
         tap(() => persistenceService.remove<DeliveryStorageKey, DeliveryStorageSchema>('booking')),
       );
     },

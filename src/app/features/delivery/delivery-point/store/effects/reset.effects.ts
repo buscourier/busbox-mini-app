@@ -8,22 +8,22 @@ import { PickupPointActions } from '../../../pickup-point/store';
 
 import { DeliveryPointActions } from '../actions';
 
-export const formEffects = {
-  resetForm: createEffect(
+export const resetEffects = {
+  resetOnCityChange: createEffect(
     (actions$ = inject(Actions)) => {
       return actions$.pipe(
         ofType(DeliveryPointActions.selectCity),
-        map(({ city }) => DeliveryPointActions.resetFormData({ keepCity: true, city })),
+        map(({ city }) => DeliveryPointActions.resetState({ keepCity: true, city })),
       );
     },
     { functional: true },
   ),
 
-  resetFullForm: createEffect(
+  resetOnPickupReset: createEffect(
     (actions$ = inject(Actions)) => {
       return actions$.pipe(
-        ofType(PickupPointActions.resetFormData),
-        map(() => DeliveryPointActions.resetFormData({ keepCity: false })),
+        ofType(PickupPointActions.resetState),
+        map(() => DeliveryPointActions.resetState({ keepCity: false })),
       );
     },
     { functional: true },

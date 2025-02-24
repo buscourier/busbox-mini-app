@@ -46,7 +46,7 @@ export const DeliveryPointActions = createActionGroup({
      * @param keepCity - When true, preserves the currently selected city
      * @param city - Optional city to set after reset
      */
-    'Reset Form Data': props<{
+    'Reset State': props<{
       keepCity?: boolean;
       city?: DeliveryCity;
     }>(),

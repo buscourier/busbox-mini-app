@@ -9,11 +9,11 @@ import { PickupPointActions } from '../../../pickup-point/store';
 
 import { DeliveryDetailsActions } from '../actions';
 
-export const formEffects = {
-  resetFullForm: createEffect(
+export const resetEffects = {
+  resetOnPointsReset: createEffect(
     (actions$ = inject(Actions)) => {
       return actions$.pipe(
-        ofType(PickupPointActions.resetFormData, DeliveryPointActions.resetFormData),
+        ofType(PickupPointActions.resetState, DeliveryPointActions.resetState),
         map(() => DeliveryDetailsActions.resetSettings()),
       );
     },

@@ -58,7 +58,7 @@ export const persistenceEffects = {
   removeState: createEffect(
     (actions$ = inject(Actions), persistenceService = inject(PersistenceService)) => {
       return actions$.pipe(
-        ofType(PickupPointActions.resetFormData),
+        ofType(PickupPointActions.resetState),
         map(({ keepCity }) => {
           if (!keepCity) {
             return persistenceService.remove<DeliveryStorageKey, DeliveryStorageSchema>(
