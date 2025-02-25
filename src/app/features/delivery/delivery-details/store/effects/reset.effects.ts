@@ -19,4 +19,14 @@ export const resetEffects = {
     },
     { functional: true },
   ),
+
+  afterReset: createEffect(
+    (actions$ = inject(Actions)) => {
+      return actions$.pipe(
+        ofType(DeliveryDetailsActions.resetSettings),
+        map(() => PickupPointActions.initState()),
+      );
+    },
+    { functional: true },
+  ),
 };

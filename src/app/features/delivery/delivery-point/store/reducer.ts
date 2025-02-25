@@ -1,5 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
+import { FormStatus } from '@shared/types/form.types';
+
 import { DeliveryPointActions } from './actions';
 import { DeliveryPointState } from './state';
 
@@ -20,6 +22,10 @@ export const initialState: DeliveryPointState = {
   busPickup: false,
   form: {
     isValid: false,
+    status: FormStatus.INVALID,
+    pristine: true,
+    touched: false,
+    dirty: false,
   },
   activeTabId: null,
 };
@@ -167,17 +173,21 @@ export const deliveryPointReducer = createReducer(
       busPickup: enabled,
     }),
   ),
-
-  // Form management
   on(
-    DeliveryPointActions.setFormValidity,
-    (state, { isValid }): DeliveryPointState => ({
-      ...state,
-      form: {
-        ...state.form,
-        isValid,
-      },
-    }),
+    DeliveryPointActions.setFormState,
+    (state, { isValid, status, pristine, touched, dirty }): DeliveryPointState => {
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          isValid,
+          status,
+          pristine,
+          touched,
+          dirty,
+        },
+      };
+    },
   ),
   on(
     DeliveryPointActions.restoreState,
@@ -196,28 +206,23 @@ export const deliveryPointReducer = createReducer(
       busPickup: restoredState.busPickup,
     }),
   ),
-  on(
-    DeliveryPointActions.resetState,
-    (state, { keepCity, city }): DeliveryPointState => ({
-      ...state,
-      cities: {
-        ...state.cities,
-        selected: keepCity ? city || state.cities.selected : null,
-      },
-      offices: {
-        ...state.offices,
-        selected: null,
-      },
-      courierDetails: null,
-      busPickup: false,
-      activeTabId: null,
-      form: {
-        isValid: false,
-        // validationErrors: undefined,
-        // touched: {},
-        // isSubmitting: false,
-        // isDirty: false,
-      },
-    }),
-  ),
+  on(DeliveryPointActions.resetState, (state, { keepCity, city }): DeliveryPointState => {
+    const savedData = keepCity
+      ? {
+          cities: {
+            ...state.cities,
+            selected: city || state.cities.selected,
+          },
+          offices: {
+            ...state.offices,
+            selected: null,
+          },
+        }
+      : {};
+
+    return {
+      ...initialState,
+      ...savedData,
+    };
+  }),
 );

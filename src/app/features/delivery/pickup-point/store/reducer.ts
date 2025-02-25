@@ -1,5 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
+import { FormStatus } from '@shared/types/form.types';
+
 import { PickupPointActions } from './actions';
 import { PickupPointState } from './state';
 
@@ -20,6 +22,10 @@ export const initialState: PickupPointState = {
   departureDate: new Date().toISOString(),
   form: {
     isValid: false,
+    status: FormStatus.INVALID,
+    pristine: true,
+    touched: false,
+    dirty: false,
   },
   activeTabId: null,
 };
@@ -151,14 +157,20 @@ export const pickupPointReducer = createReducer(
     }),
   ),
   on(
-    PickupPointActions.setFormValidity,
-    (state, { isValid }): PickupPointState => ({
-      ...state,
-      form: {
-        ...state.form,
-        isValid,
-      },
-    }),
+    PickupPointActions.setFormState,
+    (state, { isValid, status, pristine, touched, dirty }): PickupPointState => {
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          isValid,
+          status,
+          pristine,
+          touched,
+          dirty,
+        },
+      };
+    },
   ),
   on(
     PickupPointActions.setDepartureDate,
@@ -192,28 +204,23 @@ export const pickupPointReducer = createReducer(
    * @param keepCity - whether to keep the current city
    * @param city - the new city to set after the reset
    */
-  on(
-    PickupPointActions.resetState,
-    (state, { keepCity, city }): PickupPointState => ({
-      ...state,
-      cities: {
-        ...state.cities,
-        selected: keepCity ? city || state.cities.selected : null,
-      },
-      offices: {
-        ...state.offices,
-        selected: null,
-      },
-      courierDetails: null,
-      departureDate: new Date().toISOString(),
-      activeTabId: null,
-      form: {
-        isValid: false,
-        // validationErrors: undefined,
-        // touched: {},
-        // isSubmitting: false,
-        // isDirty: false,
-      },
-    }),
-  ),
+  on(PickupPointActions.resetState, (state, { keepCity, city }): PickupPointState => {
+    const savedData = keepCity
+      ? {
+          cities: {
+            ...state.cities,
+            selected: city || state.cities.selected,
+          },
+          offices: {
+            ...state.offices,
+            selected: null,
+          },
+        }
+      : {};
+
+    return {
+      ...initialState,
+      ...savedData,
+    };
+  }),
 );

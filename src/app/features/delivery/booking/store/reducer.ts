@@ -161,5 +161,11 @@ export const bookingReducer = createReducer(
       stepsData: restoredState.stepsData,
     };
   }),
-  on(BookingActions.resetState, (): BookingState => initialState),
+  on(
+    BookingActions.resetState,
+    (state): BookingState => ({
+      ...initialState,
+      bookingResult: state.bookingResult,
+    }),
+  ),
 );

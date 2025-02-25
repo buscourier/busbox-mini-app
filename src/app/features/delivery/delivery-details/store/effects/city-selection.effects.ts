@@ -3,27 +3,27 @@ import { inject } from '@angular/core';
 import { combineLatest, debounceTime } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { createEffect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 
-import { DeliveryPointActions, deliveryPointFeature } from '../../../delivery-point/store';
-import { PickupPointActions, pickupPointFeature } from '../../../pickup-point/store';
+import { deliveryPointFeature } from '../../../delivery-point/store';
+import { pickupPointFeature } from '../../../pickup-point/store';
 
 import { DeliveryDetailsActions } from '../actions';
 
 // а нужен ли тут ofType и actions?
 export const citySelectionEffects = {
-  resetSettingsOnCityChange: createEffect(
-    (actions$ = inject(Actions)) => {
-      return actions$.pipe(
-        ofType(PickupPointActions.selectCity, DeliveryPointActions.selectCity),
-        map(() => DeliveryDetailsActions.resetSettings()),
-      );
-    },
-    { functional: true },
-  ),
+  // resetSettingsOnCityChange: createEffect(
+  //   (actions$ = inject(Actions)) => {
+  //     return actions$.pipe(
+  //       ofType(PickupPointActions.selectCity, DeliveryPointActions.selectCity),
+  //       map(() => DeliveryDetailsActions.resetSettings()),
+  //     );
+  //   },
+  //   { functional: true },
+  // ),
 
   loadSettingsOnCitiesSelected: createEffect(
     (store = inject(Store)) => {

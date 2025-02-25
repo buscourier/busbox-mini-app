@@ -10,18 +10,24 @@ import {
   filter,
   merge,
   Observable,
+  of,
   startWith,
   Subject,
+  switchMap,
   tap,
+  withLatestFrom,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 
+import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
 import {
+  TUI_CONFIRM,
   TUI_VALIDATION_ERRORS,
   TuiCheckbox,
+  TuiConfirmData,
   TuiDataListWrapper,
   TuiFieldErrorPipe,
   TuiStringifyContentPipe,
@@ -33,8 +39,10 @@ import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
 
 import { CitiesFilterSource, DeliveryCity, Office } from '@shared/types';
+import { FormStatus } from '@shared/types/form.types';
 
 import { CourierDetailsComponent } from '@features/delivery/base/courier-details';
+import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
 import { CourierDetails } from '@features/delivery/types';
 
 import { DeliveryPointActions, deliveryPointFeature, DeliveryPointViewModel } from './store';
@@ -81,6 +89,7 @@ export class DeliveryPointComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly searchQuery$ = new Subject<string | null>();
+  private readonly dialogs = inject(TuiResponsiveDialogService);
 
   get city(): FormControl<DeliveryCity | null> {
     return this.form.controls.city;
@@ -106,7 +115,8 @@ export class DeliveryPointComponent implements OnInit {
     this.initForm();
     this.setupFormSync();
     this.setupStoreSync();
-    this.setupFormValidation();
+    this.setupFormState();
+    this.syncFormWithStore();
     this.setupErrorHandling();
   }
 
@@ -188,11 +198,7 @@ export class DeliveryPointComponent implements OnInit {
 
   private setupFormSync(): void {
     const formChanges$ = merge(
-      this.city.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
-        filter(Boolean),
-        map((city) => DeliveryPointActions.selectCity({ city })),
-      ),
+      this.handleCityChanges(),
       this.office.valueChanges.pipe(
         takeUntilDestroyed(this.destroyRef),
         filter(Boolean),
@@ -242,7 +248,7 @@ export class DeliveryPointComponent implements OnInit {
       .subscribe();
   }
 
-  private setupFormValidation(): void {
+  private setupFormState(): void {
     const formChanges$ = this.form.statusChanges.pipe(startWith(this.form.status));
     const tabChanges$ = this.vm$.pipe(
       map((vm) => vm.activeTab?.id),
@@ -252,13 +258,68 @@ export class DeliveryPointComponent implements OnInit {
     combineLatest([formChanges$, tabChanges$])
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        map(([, activeTabId]) => this.getRequiredControls(activeTabId)),
-        map((controls) => controls.every((control) => control.valid)),
-        distinctUntilChanged(),
+        map(([, activeTabId]) => {
+          const requiredControls = this.getRequiredControls(activeTabId);
+
+          const hasPending = requiredControls.some((control) => control.pending);
+          const hasDisabled = requiredControls.some((control) => control.disabled);
+
+          let status;
+
+          if (hasDisabled) {
+            status = FormStatus.DISABLED;
+          } else if (hasPending) {
+            status = FormStatus.PENDING;
+          } else {
+            status = requiredControls.every((control) => control.valid)
+              ? FormStatus.VALID
+              : FormStatus.INVALID;
+          }
+
+          const isValid = status === FormStatus.VALID;
+
+          return { isValid, status };
+        }),
+        distinctUntilChanged(
+          (prev, curr) => prev.isValid === curr.isValid && prev.status === curr.status,
+        ),
       )
-      .subscribe((isValid) =>
-        this.store.dispatch(DeliveryPointActions.setFormValidity({ isValid })),
+      .subscribe(({ isValid, status }) =>
+        this.store.dispatch(
+          DeliveryPointActions.setFormState({
+            isValid,
+            status,
+            pristine: this.form.pristine,
+            touched: this.form.touched,
+            dirty: this.form.dirty,
+          }),
+        ),
       );
+  }
+
+  private syncFormWithStore(): void {
+    this.store
+      .select(deliveryPointFeature.selectFormState)
+      .pipe(
+        distinctUntilChanged(
+          (prev, curr) =>
+            prev.pristine === curr.pristine &&
+            prev.touched === curr.touched &&
+            prev.dirty === curr.dirty,
+        ),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((formStatus) => {
+        if (formStatus.pristine && !this.form.pristine) {
+          this.form.markAsPristine();
+        }
+        if (!formStatus.touched && this.form.touched) {
+          this.form.markAsUntouched();
+        }
+        if (!formStatus.dirty && this.form.dirty) {
+          this.form.markAsPristine();
+        }
+      });
   }
 
   private filterCities(
@@ -335,5 +396,43 @@ export class DeliveryPointComponent implements OnInit {
       })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
+  }
+
+  private handleCityChanges(): Observable<ReturnType<typeof DeliveryPointActions.selectCity>> {
+    return this.city.valueChanges.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      withLatestFrom(
+        this.vm$.pipe(map((vm) => vm.selectionStatus.selectedCity)),
+        this.store.select(deliveryDetailsFeature.selectIsActiveOrderValid),
+      ),
+      switchMap(([newCity, currentCity, isActiveOrderValid]) => {
+        if (!isActiveOrderValid) {
+          return of(DeliveryPointActions.selectCity({ city: newCity! }));
+        }
+
+        const confirmData: TuiConfirmData = {
+          content: 'Информация о деталях заказа будет удалена!',
+          yes: 'Да',
+          no: 'Нет',
+        };
+
+        return this.dialogs
+          .open<boolean>(TUI_CONFIRM, {
+            label: 'Вы уверены?',
+            size: 's',
+            data: confirmData,
+          })
+          .pipe(
+            map((confirmed) => {
+              if (!confirmed) {
+                this.city.patchValue(currentCity, { emitEvent: false });
+              }
+              return DeliveryPointActions.selectCity({
+                city: confirmed ? newCity! : currentCity!,
+              });
+            }),
+          );
+      }),
+    );
   }
 }

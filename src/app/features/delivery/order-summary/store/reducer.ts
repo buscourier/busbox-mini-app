@@ -37,4 +37,5 @@ export const orderSummaryReducer = createReducer(
       error,
     }),
   ),
+  on(OrderSummaryActions.resetState, (): OrderSummaryState => initialState),
 );

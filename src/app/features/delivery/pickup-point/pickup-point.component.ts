@@ -10,18 +10,24 @@ import {
   filter,
   merge,
   Observable,
+  of,
   startWith,
   Subject,
+  switchMap,
   tap,
+  withLatestFrom,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 
+import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiDay } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
 import {
+  TUI_CONFIRM,
   TUI_VALIDATION_ERRORS,
+  TuiConfirmData,
   TuiDataListWrapper,
   TuiFieldErrorPipe,
   TuiStringifyContentPipe,
@@ -39,8 +45,10 @@ import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
 
 import { CitiesFilterSource, Office, PickupCity } from '@shared/types';
+import { FormStatus } from '@shared/types/form.types';
 
 import { CourierDetailsComponent } from '@features/delivery/base/courier-details';
+import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
 import { CourierDetails } from '@features/delivery/types';
 
 import { PickupPointActions, pickupPointFeature, PickupPointViewModel } from './store';
@@ -88,6 +96,7 @@ export class PickupPointComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly searchCity$ = new Subject<string | null>();
+  private readonly dialogs = inject(TuiResponsiveDialogService);
 
   get city(): FormControl<PickupCity | null> {
     return this.form.controls.city;
@@ -117,7 +126,8 @@ export class PickupPointComponent implements OnInit {
     this.initForm();
     this.setupFormSync();
     this.setupStoreSync();
-    this.setupFormValidation();
+    this.setupFormState();
+    this.syncFormWithStore();
     this.setupErrorHandling();
   }
 
@@ -197,11 +207,7 @@ export class PickupPointComponent implements OnInit {
 
   private setupFormSync(): void {
     const formChanges$ = merge(
-      this.city.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
-        filter(Boolean),
-        map((city) => PickupPointActions.selectCity({ city })),
-      ),
+      this.handleCityChanges(),
       this.office.valueChanges.pipe(
         takeUntilDestroyed(this.destroyRef),
         filter(Boolean),
@@ -251,7 +257,7 @@ export class PickupPointComponent implements OnInit {
       .subscribe();
   }
 
-  private setupFormValidation(): void {
+  private setupFormState(): void {
     const formChanges$ = this.form.statusChanges.pipe(startWith(this.form.status));
     const tabChanges$ = this.vm$.pipe(
       map((vm) => vm.activeTab?.id),
@@ -261,11 +267,70 @@ export class PickupPointComponent implements OnInit {
     combineLatest([formChanges$, tabChanges$])
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        map(([, activeTabId]) => this.getRequiredControls(activeTabId)),
-        map((controls) => controls.every((control) => control.valid)),
-        distinctUntilChanged(),
+        map(([, activeTabId]) => {
+          const requiredControls = this.getRequiredControls(activeTabId);
+
+          const hasPending = requiredControls.some((control) => control.pending);
+          const hasDisabled = requiredControls.some((control) => control.disabled);
+
+          let status;
+
+          if (hasDisabled) {
+            status = FormStatus.DISABLED;
+          } else if (hasPending) {
+            status = FormStatus.PENDING;
+          } else {
+            status = requiredControls.every((control) => control.valid)
+              ? FormStatus.VALID
+              : FormStatus.INVALID;
+          }
+
+          const isValid = status === FormStatus.VALID;
+
+          return { isValid, status };
+        }),
+        distinctUntilChanged(
+          (prev, curr) => prev.isValid === curr.isValid && prev.status === curr.status,
+        ),
       )
-      .subscribe((isValid) => this.store.dispatch(PickupPointActions.setFormValidity({ isValid })));
+      .subscribe(({ isValid, status }) => {
+        console.log('this.form.touched', this.form.touched);
+
+        return this.store.dispatch(
+          PickupPointActions.setFormState({
+            isValid,
+            status,
+            pristine: this.form.pristine,
+            touched: this.form.touched,
+            dirty: this.form.dirty,
+          }),
+        );
+      });
+  }
+
+  private syncFormWithStore(): void {
+    this.store
+      .select(pickupPointFeature.selectFormState)
+      .pipe(
+        distinctUntilChanged(
+          (prev, curr) =>
+            prev.pristine === curr.pristine &&
+            prev.touched === curr.touched &&
+            prev.dirty === curr.dirty,
+        ),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((formStatus) => {
+        if (formStatus.pristine && !this.form.pristine) {
+          this.form.markAsPristine();
+        }
+        if (!formStatus.touched && this.form.touched) {
+          this.form.markAsUntouched();
+        }
+        if (!formStatus.dirty && this.form.dirty) {
+          this.form.markAsPristine();
+        }
+      });
   }
 
   private filterCities(
@@ -323,5 +388,43 @@ export class PickupPointComponent implements OnInit {
       })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
+  }
+
+  private handleCityChanges(): Observable<ReturnType<typeof PickupPointActions.selectCity>> {
+    return this.city.valueChanges.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      withLatestFrom(
+        this.vm$.pipe(map((vm) => vm.selectionStatus.selectedCity)),
+        this.store.select(deliveryPointFeature.selectFormState),
+      ),
+      switchMap(([newCity, currentCity, deliveryPointForm]) => {
+        if (!deliveryPointForm.isValid) {
+          return of(PickupPointActions.selectCity({ city: newCity! }));
+        }
+
+        const confirmData: TuiConfirmData = {
+          content: 'Информация о заказе будет удалена!',
+          yes: 'Да',
+          no: 'Нет',
+        };
+
+        return this.dialogs
+          .open<boolean>(TUI_CONFIRM, {
+            label: 'Вы уверены?',
+            size: 's',
+            data: confirmData,
+          })
+          .pipe(
+            map((confirmed) => {
+              if (!confirmed) {
+                this.city.patchValue(currentCity, { emitEvent: false });
+              }
+              return PickupPointActions.selectCity({
+                city: confirmed ? newCity! : currentCity!,
+              });
+            }),
+          );
+      }),
+    );
   }
 }

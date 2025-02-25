@@ -1,7 +1,9 @@
+import { FormStatus } from '@shared/types/form.types';
+
 export interface FormState {
   isValid: boolean;
-  // validationErrors?: TuiValidationError;
-  // touched: Record<string, boolean>;
-  // isSubmitting: boolean;
-  // isDirty?: boolean;
+  status: FormStatus;
+  pristine: boolean;
+  touched: boolean;
+  dirty: boolean;
 }

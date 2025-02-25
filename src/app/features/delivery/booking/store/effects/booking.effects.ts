@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { debounceTime, switchMap, tap, withLatestFrom } from 'rxjs';
+import { debounceTime, delay, switchMap, tap, withLatestFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -114,6 +114,7 @@ export const bookingEffects = {
     (actions$ = inject(Actions)) => {
       return actions$.pipe(
         ofType(BookingActions.submitOrderSuccess),
+        delay(0),
         map(() => DeliveryActions.resetDelivery()),
       );
     },
