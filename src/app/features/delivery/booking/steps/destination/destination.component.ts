@@ -45,7 +45,7 @@ export class DestinationComponent implements OnInit {
       .select(deliveryPointFeature.selectFormState)
       .pipe(withLatestFrom(this.currentStep$), takeUntilDestroyed(this.destroyRef))
       .subscribe(([formState]) => {
-        this.isDeliveryPointValid = formState.isValid;
+        this.isDeliveryPointValid = formState.valid;
         this.checkStepValidation();
       });
 

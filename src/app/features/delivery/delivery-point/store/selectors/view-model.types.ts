@@ -1,9 +1,9 @@
 import { DeliveryCity, Office } from '@shared/types';
+import { FormValidationState } from '@shared/types/form.types';
 
 import {
   CourierDetails,
   ErrorStatus,
-  FormState,
   LoadingStatus,
   SelectionStatus,
 } from '@features/delivery/types';
@@ -40,5 +40,5 @@ export interface DeliveryPointViewModel {
   selectionStatus: SelectionStatus<DeliveryCity>;
   loadingStatus: LoadingStatus;
   errorStatus: ErrorStatus;
-  formState: FormState;
+  formState: FormValidationState;
 }

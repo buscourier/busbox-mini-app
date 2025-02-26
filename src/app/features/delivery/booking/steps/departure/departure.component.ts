@@ -41,7 +41,7 @@ export class DepartureComponent implements OnInit {
       .select(pickupPointFeature.selectFormState)
       .pipe(withLatestFrom(this.currentStep$), takeUntilDestroyed(this.destroyRef))
       .subscribe(([formState]) => {
-        this.isPickupPointValid = formState.isValid;
+        this.isPickupPointValid = formState.valid;
         this.checkStepValidation();
       });
   }

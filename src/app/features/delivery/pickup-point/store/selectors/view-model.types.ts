@@ -1,9 +1,9 @@
 import { Office, PickupCity } from '@shared/types';
+import { FormValidationState } from '@shared/types/form.types';
 
 import {
   CourierDetails,
   ErrorStatus,
-  FormState,
   LoadingStatus,
   SelectionStatus,
 } from '@features/delivery/types';
@@ -47,5 +47,5 @@ export interface PickupPointViewModel {
   departureDate: string | null;
   loadingStatus: LoadingStatus;
   errorStatus: ErrorStatus;
-  formState: FormState;
+  formState: FormValidationState;
 }

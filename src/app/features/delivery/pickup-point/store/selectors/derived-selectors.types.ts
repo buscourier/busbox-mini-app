@@ -1,6 +1,7 @@
 import { MemoizedSelector } from '@ngrx/store';
 
 import { Office, PickupCity } from '@shared/types';
+import { FormControlValidationStatus, FormValidationState } from '@shared/types/form.types';
 
 import { Courier, ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
 
@@ -17,4 +18,6 @@ export interface DerivedSelectors {
   selectLoadingStatus: MemoizedSelector<object, LoadingStatus>;
   selectErrorStatus: MemoizedSelector<object, ErrorStatus>;
   selectSelectionStatus: MemoizedSelector<object, SelectionStatus<PickupCity>>;
+  selectFormControlStatus?: MemoizedSelector<object, FormControlValidationStatus>;
+  selectFormState: MemoizedSelector<object, FormValidationState>;
 }

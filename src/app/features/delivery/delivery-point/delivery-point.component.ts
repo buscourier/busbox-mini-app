@@ -39,7 +39,7 @@ import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
 
 import { CitiesFilterSource, DeliveryCity, Office } from '@shared/types';
-import { FormStatus } from '@shared/types/form.types';
+import { FormControlStatus } from '@shared/types/form.types';
 
 import { CourierDetailsComponent } from '@features/delivery/base/courier-details';
 import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
@@ -267,16 +267,16 @@ export class DeliveryPointComponent implements OnInit {
           let status;
 
           if (hasDisabled) {
-            status = FormStatus.DISABLED;
+            status = FormControlStatus.DISABLED;
           } else if (hasPending) {
-            status = FormStatus.PENDING;
+            status = FormControlStatus.PENDING;
           } else {
             status = requiredControls.every((control) => control.valid)
-              ? FormStatus.VALID
-              : FormStatus.INVALID;
+              ? FormControlStatus.VALID
+              : FormControlStatus.INVALID;
           }
 
-          const isValid = status === FormStatus.VALID;
+          const isValid = status === FormControlStatus.VALID;
 
           return { isValid, status };
         }),
@@ -284,10 +284,9 @@ export class DeliveryPointComponent implements OnInit {
           (prev, curr) => prev.isValid === curr.isValid && prev.status === curr.status,
         ),
       )
-      .subscribe(({ isValid, status }) =>
+      .subscribe(({ status }) =>
         this.store.dispatch(
           DeliveryPointActions.setFormState({
-            isValid,
             status,
             pristine: this.form.pristine,
             touched: this.form.touched,

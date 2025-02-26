@@ -32,5 +32,5 @@ export const createBaseSelectors = (
   // Additional details
   selectCourierDetails: createSelector(selectDeliveryPointState, (state) => state.courierDetails),
   selectBusPickup: createSelector(selectDeliveryPointState, (state) => state.busPickup),
-  selectFormState: createSelector(selectDeliveryPointState, (state) => state.form),
+  selectForm: createSelector(selectDeliveryPointState, (state) => state.form),
 });

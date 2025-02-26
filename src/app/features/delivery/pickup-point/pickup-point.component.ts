@@ -45,7 +45,7 @@ import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
 
 import { CitiesFilterSource, Office, PickupCity } from '@shared/types';
-import { FormStatus } from '@shared/types/form.types';
+import { FormControlStatus } from '@shared/types/form.types';
 
 import { CourierDetailsComponent } from '@features/delivery/base/courier-details';
 import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
@@ -276,29 +276,26 @@ export class PickupPointComponent implements OnInit {
           let status;
 
           if (hasDisabled) {
-            status = FormStatus.DISABLED;
+            status = FormControlStatus.DISABLED;
           } else if (hasPending) {
-            status = FormStatus.PENDING;
+            status = FormControlStatus.PENDING;
           } else {
             status = requiredControls.every((control) => control.valid)
-              ? FormStatus.VALID
-              : FormStatus.INVALID;
+              ? FormControlStatus.VALID
+              : FormControlStatus.INVALID;
           }
 
-          const isValid = status === FormStatus.VALID;
+          // const isValid = status === FormControlStatus.VALID;
 
-          return { isValid, status };
+          return { status };
         }),
-        distinctUntilChanged(
-          (prev, curr) => prev.isValid === curr.isValid && prev.status === curr.status,
-        ),
+        distinctUntilChanged((prev, curr) => prev.status === curr.status),
       )
-      .subscribe(({ isValid, status }) => {
+      .subscribe(({ status }) => {
         console.log('this.form.touched', this.form.touched);
 
         return this.store.dispatch(
           PickupPointActions.setFormState({
-            isValid,
             status,
             pristine: this.form.pristine,
             touched: this.form.touched,
@@ -398,7 +395,7 @@ export class PickupPointComponent implements OnInit {
         this.store.select(deliveryPointFeature.selectFormState),
       ),
       switchMap(([newCity, currentCity, deliveryPointForm]) => {
-        if (!deliveryPointForm.isValid) {
+        if (!deliveryPointForm.valid) {
           return of(PickupPointActions.selectCity({ city: newCity! }));
         }
 

@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
 
 import { DeliveryCity, Office } from '@shared/types';
+import { FormControlStatus } from '@shared/types/form.types';
 
 import { LIMITED_OFFICE } from '@features/delivery/constants';
 import { Courier, ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
@@ -112,6 +113,24 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     (isOfficeLimited, isCourierTabActive): boolean => isOfficeLimited || isCourierTabActive,
   );
 
+  const selectFormControlStatus = createSelector(baseSelectors.selectForm, (state) => ({
+    valid: state.status === FormControlStatus.VALID,
+    invalid: state.status === FormControlStatus.INVALID,
+    disabled: state.status === FormControlStatus.DISABLED,
+    pending: state.status === FormControlStatus.PENDING,
+  }));
+
+  const selectFormState = createSelector(
+    baseSelectors.selectForm,
+    selectFormControlStatus,
+    (form, status) => ({
+      ...status,
+      dirty: form.dirty,
+      touched: form.touched,
+      pristine: form.pristine,
+    }),
+  );
+
   return {
     selectAvailableOffices,
     selectIsOfficeLimited,
@@ -120,6 +139,7 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     selectIsCourierTabActive,
     selectCourier,
     selectIsRestricted,
+    selectFormState,
     selectLoadingStatus: createSelector(
       baseSelectors.selectIsCitiesLoading,
       baseSelectors.selectIsOfficesLoading,

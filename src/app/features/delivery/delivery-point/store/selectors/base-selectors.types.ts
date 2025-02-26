@@ -1,8 +1,9 @@
 import { MemoizedSelector } from '@ngrx/store';
 
 import { ApiError, DeliveryCity, Office } from '@shared/types';
+import { FormState } from '@shared/types/form.types';
 
-import { CourierDetails, FormState } from '@features/delivery/types';
+import { CourierDetails } from '@features/delivery/types';
 
 import { DeliveryPointTabType } from '../../types';
 
@@ -24,5 +25,5 @@ export interface BaseSelectors {
 
   selectCourierDetails: MemoizedSelector<object, CourierDetails | null>;
   selectBusPickup: MemoizedSelector<object, boolean>;
-  selectFormState: MemoizedSelector<object, FormState>;
+  selectForm: MemoizedSelector<object, FormState>;
 }

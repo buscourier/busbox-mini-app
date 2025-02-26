@@ -1,7 +1,7 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 import { ApiError, Office, PickupCity } from '@shared/types';
-import { FormStatus } from '@shared/types/form.types';
+import { FormControlStatus } from '@shared/types/form.types';
 
 import { CourierDetails } from '@features/delivery/types';
 
@@ -27,8 +27,7 @@ export const PickupPointActions = createActionGroup({
     'Update Courier Details': props<{ courierDetails: CourierDetails }>(),
     'Reset Courier Details': emptyProps(),
     'Set Form State': props<{
-      isValid: boolean;
-      status: FormStatus;
+      status: FormControlStatus;
       pristine: boolean;
       touched: boolean;
       dirty: boolean;

@@ -18,7 +18,7 @@ export const createViewModelSelector = (
     baseSelectors.selectDepartureDate,
     derivedSelectors.selectLoadingStatus,
     derivedSelectors.selectErrorStatus,
-    baseSelectors.selectFormState,
+    derivedSelectors.selectFormState,
     (
       cities,
       offices,

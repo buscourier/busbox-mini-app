@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { FormStatus } from '@shared/types/form.types';
+import { FormControlStatus } from '@shared/types/form.types';
 
 import { DeliveryPointActions } from './actions';
 import { DeliveryPointState } from './state';
@@ -21,8 +21,7 @@ export const initialState: DeliveryPointState = {
   courierDetails: null,
   busPickup: false,
   form: {
-    isValid: false,
-    status: FormStatus.INVALID,
+    status: FormControlStatus.INVALID,
     pristine: true,
     touched: false,
     dirty: false,
@@ -175,12 +174,11 @@ export const deliveryPointReducer = createReducer(
   ),
   on(
     DeliveryPointActions.setFormState,
-    (state, { isValid, status, pristine, touched, dirty }): DeliveryPointState => {
+    (state, { status, pristine, touched, dirty }): DeliveryPointState => {
       return {
         ...state,
         form: {
           ...state.form,
-          isValid,
           status,
           pristine,
           touched,

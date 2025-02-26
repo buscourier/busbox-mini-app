@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { FormStatus } from '@shared/types/form.types';
+import { FormControlStatus } from '@shared/types/form.types';
 
 import { PickupPointActions } from './actions';
 import { PickupPointState } from './state';
@@ -21,8 +21,7 @@ export const initialState: PickupPointState = {
   courierDetails: null,
   departureDate: new Date().toISOString(),
   form: {
-    isValid: false,
-    status: FormStatus.INVALID,
+    status: FormControlStatus.INVALID,
     pristine: true,
     touched: false,
     dirty: false,
@@ -158,12 +157,11 @@ export const pickupPointReducer = createReducer(
   ),
   on(
     PickupPointActions.setFormState,
-    (state, { isValid, status, pristine, touched, dirty }): PickupPointState => {
+    (state, { status, pristine, touched, dirty }): PickupPointState => {
       return {
         ...state,
         form: {
           ...state.form,
-          isValid,
           status,
           pristine,
           touched,

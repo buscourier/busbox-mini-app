@@ -40,7 +40,7 @@ export const persistenceEffects = {
           store.select(pickupPointFeature.selectDepartureDate),
           store.select(pickupPointFeature.selectFormState),
         ),
-        filter(([, , , , , , formState]) => formState.isValid),
+        filter(([, , , , , , formState]) => formState.valid),
         map(([, activeTabId, city, office, courierDetails, departureDate]) => ({
           activeTabId,
           cities: { selected: city },

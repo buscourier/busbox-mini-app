@@ -1,6 +1,7 @@
 import { PickupCity } from '@shared/types';
+import { FormState } from '@shared/types/form.types';
 
-import { CitiesState, CourierDetails, FormState, OfficesState } from '@features/delivery/types';
+import { CitiesState, CourierDetails, OfficesState } from '@features/delivery/types';
 
 import { PickupPointTabType } from '../types';
 

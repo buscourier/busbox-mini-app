@@ -1,8 +1,9 @@
 import { MemoizedSelector } from '@ngrx/store';
 
 import { ApiError, Office, PickupCity } from '@shared/types';
+import { FormState } from '@shared/types/form.types';
 
-import { CourierDetails, FormState } from '@features/delivery/types';
+import { CourierDetails } from '@features/delivery/types';
 
 import { PickupPointTabType } from '../../types';
 
@@ -19,7 +20,7 @@ export interface BaseSelectors {
 
   selectCourierDetails: MemoizedSelector<object, CourierDetails | null>;
   selectDepartureDate: MemoizedSelector<object, string | null>;
-  selectFormState: MemoizedSelector<object, FormState>;
+  selectForm: MemoizedSelector<object, FormState>;
 
   selectActiveTabId: MemoizedSelector<object, PickupPointTabType | null>;
 }
