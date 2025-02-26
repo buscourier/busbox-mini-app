@@ -4,7 +4,7 @@
 <!--<br>-->
 <!--<b>allOrdersValid: {{vm?.isAllOrdersValid}}</b>-->
 
-@if (vm && vm.isLoaded) {
+@if (vm && vm.settingsLoaded) {
   <app-order-tabs
     [tabs]="vm.enhancedOrders"
     [isActiveOrderValid]="vm.isActiveOrderValid"
@@ -89,6 +89,6 @@
       />
     </div>
   }
-} @else if (vm?.isLoading) {
+} @else if (vm?.settingsLoading) {
   <tui-loader />
 }

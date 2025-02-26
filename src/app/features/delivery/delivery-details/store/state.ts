@@ -1,11 +1,12 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
+import { LoadingStatus } from '@shared/types';
+
 import { PARCEL_LIMITS, PARCELS_LIMITS } from '../constants';
 import { DeliveryRestrictions, DeliverySettings, Order } from '../types';
 
 export interface DeliveryDetailsState extends EntityState<Order> {
-  isSettingsLoading: boolean;
-  isSettingsLoaded: boolean;
+  settingsStatus: LoadingStatus;
   settings: DeliverySettings | null;
   activeOrderId: string | null;
   restrictions: DeliveryRestrictions; // По-факту тут сейчас cargoRestrictions,
@@ -17,8 +18,7 @@ export const adapter: EntityAdapter<Order> = createEntityAdapter<Order>({
 });
 
 export const initialState: DeliveryDetailsState = adapter.getInitialState({
-  isSettingsLoading: false,
-  isSettingsLoaded: false,
+  settingsStatus: LoadingStatus.IDLE,
   settings: null,
   activeOrderId: null,
   restrictions: {

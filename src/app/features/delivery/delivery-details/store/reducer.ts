@@ -1,5 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
+import { LoadingStatus } from '@shared/types';
+
 import { PARCEL_LIMITS, PARCELS_LIMITS } from '../constants';
 import { CargoType, Order } from '../types';
 import { DeliveryDetailsActions, OrderActions } from './actions';
@@ -15,7 +17,7 @@ export const deliveryDetailsReducer = createReducer(
     DeliveryDetailsActions.loadSettings,
     (state): DeliveryDetailsState => ({
       ...state,
-      isSettingsLoading: true,
+      settingsStatus: LoadingStatus.LOADING,
       error: null,
     }),
   ),
@@ -23,8 +25,7 @@ export const deliveryDetailsReducer = createReducer(
     DeliveryDetailsActions.loadSettingsSuccess,
     (state, { settings }): DeliveryDetailsState => ({
       ...state,
-      isSettingsLoading: false,
-      isSettingsLoaded: true,
+      settingsStatus: LoadingStatus.LOADED,
       settings,
     }),
   ),
@@ -32,8 +33,7 @@ export const deliveryDetailsReducer = createReducer(
     DeliveryDetailsActions.loadSettingsFailure,
     (state, { error }): DeliveryDetailsState => ({
       ...state,
-      isSettingsLoading: false,
-      isSettingsLoaded: false,
+      settingsStatus: LoadingStatus.ERROR,
       error,
     }),
   ),
@@ -48,8 +48,7 @@ export const deliveryDetailsReducer = createReducer(
   on(DeliveryDetailsActions.resetSettings, (): DeliveryDetailsState => {
     return adapter.getInitialState({
       activeOrderId: null,
-      isSettingsLoading: false,
-      isSettingsLoaded: false,
+      settingsStatus: LoadingStatus.IDLE,
       settings: null,
       restrictions: {
         autoParts: null,

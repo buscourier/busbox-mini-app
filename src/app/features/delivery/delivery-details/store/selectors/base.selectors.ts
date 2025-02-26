@@ -1,6 +1,8 @@
 import { EntityAdapter } from '@ngrx/entity';
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 
+import { LoadingStatus } from '@shared/types';
+
 import { Order } from '../../types';
 
 import { DeliveryDetailsState } from '../state';
@@ -21,14 +23,19 @@ export const createBaseSelectors = (
   const selectTotal = entitySelectors.selectTotal;
 
   // State selectors
-  const selectIsSettingsLoading = createSelector(
+  const selectSettingsLoading = createSelector(
     selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.isSettingsLoading,
+    (state: DeliveryDetailsState) => state.settingsStatus === LoadingStatus.LOADING,
   );
 
-  const selectIsSettingsLoaded = createSelector(
+  const selectSettingsLoaded = createSelector(
     selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.isSettingsLoaded,
+    (state: DeliveryDetailsState) => state.settingsStatus === LoadingStatus.LOADED,
+  );
+
+  const selectSettingsError = createSelector(
+    selectDeliveryDetailsState,
+    (state: DeliveryDetailsState) => state.settingsStatus === LoadingStatus.ERROR,
   );
 
   const selectSettings = createSelector(
@@ -59,8 +66,9 @@ export const createBaseSelectors = (
     selectTotal,
 
     // State selectors
-    selectIsSettingsLoading,
-    selectIsSettingsLoaded,
+    selectSettingsLoading,
+    selectSettingsLoaded,
+    selectSettingsError,
     selectSettings,
     selectActiveOrderId,
     selectRestrictions,

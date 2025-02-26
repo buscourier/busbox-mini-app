@@ -15,8 +15,9 @@ export interface DeliveryDetailsViewModel {
   cargoTypes: CargoTypesGroup;
   additionalServices: Service[];
   restrictions: DeliveryRestrictions;
-  isLoading: boolean;
-  isLoaded: boolean;
+  settingsLoading: boolean;
+  settingsLoaded: boolean;
+  settingsError: boolean;
   settings: DeliverySettings | null;
   error: string | null;
 }
