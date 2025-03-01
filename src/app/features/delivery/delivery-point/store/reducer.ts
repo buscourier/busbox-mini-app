@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
+import { LoadingStatus } from '@shared/types';
 import { FormControlStatus } from '@shared/types/form.types';
 
 import { DeliveryPointActions } from './actions';
@@ -8,13 +9,13 @@ import { DeliveryPointState } from './state';
 export const initialState: DeliveryPointState = {
   cities: {
     items: [],
-    isLoading: false,
+    status: LoadingStatus.IDLE,
     error: null,
     selected: null,
   },
   offices: {
     items: [],
-    isLoading: false,
+    status: LoadingStatus.IDLE,
     error: null,
     selected: null,
   },
@@ -39,7 +40,7 @@ export const deliveryPointReducer = createReducer(
       ...state,
       cities: {
         ...state.cities,
-        isLoading: true,
+        status: LoadingStatus.LOADING,
         error: null,
       },
     }),
@@ -51,7 +52,7 @@ export const deliveryPointReducer = createReducer(
       cities: {
         ...state.cities,
         items: cities,
-        isLoading: false,
+        status: LoadingStatus.LOADED,
       },
     }),
   ),
@@ -62,7 +63,7 @@ export const deliveryPointReducer = createReducer(
       cities: {
         ...state.cities,
         error,
-        isLoading: false,
+        status: LoadingStatus.ERROR,
       },
     }),
   ),
@@ -84,7 +85,7 @@ export const deliveryPointReducer = createReducer(
       ...state,
       offices: {
         ...state.offices,
-        isLoading: true,
+        status: LoadingStatus.LOADING,
       },
     }),
   ),
@@ -96,7 +97,7 @@ export const deliveryPointReducer = createReducer(
       offices: {
         ...state.offices,
         items: offices,
-        isLoading: false,
+        status: LoadingStatus.LOADED,
       },
     }),
   ),
@@ -107,7 +108,7 @@ export const deliveryPointReducer = createReducer(
       offices: {
         ...state.offices,
         error,
-        isLoading: false,
+        status: LoadingStatus.ERROR,
       },
     }),
   ),

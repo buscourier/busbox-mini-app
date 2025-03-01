@@ -154,10 +154,10 @@ export class AutoPartsComponent implements OnInit, OnChanges {
     }
 
     return !!(
-      this.restrictions.startPointCourier ||
-      this.restrictions.endPointCourier ||
-      this.restrictions.startPointOffice ||
-      this.restrictions.endPointOffice
+      this.restrictions.pickupCourier ||
+      this.restrictions.deliveryCourier ||
+      this.restrictions.pickupOffice ||
+      this.restrictions.deliveryOffice
     );
   }
 }

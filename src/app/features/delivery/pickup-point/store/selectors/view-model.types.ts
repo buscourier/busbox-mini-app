@@ -1,11 +1,11 @@
-import { Office, PickupCity } from '@shared/types';
+import { PickupCity } from '@shared/types';
 import { FormValidationState } from '@shared/types/form.types';
 
 import {
+  CitiesViewModel,
   CourierDetails,
   ErrorStatus,
-  LoadingStatus,
-  SelectionStatus,
+  OfficesViewModel,
 } from '@features/delivery/types';
 
 import { PickupPointTab } from '../../types';
@@ -38,14 +38,12 @@ import { PickupPointTab } from '../../types';
  * ```
  */
 export interface PickupPointViewModel {
-  cities: PickupCity[];
-  offices: Office[];
+  cities: CitiesViewModel<PickupCity>;
+  offices: OfficesViewModel;
   tabs: PickupPointTab[];
   activeTab: PickupPointTab | null;
-  selectionStatus: SelectionStatus<PickupCity>;
   courierDetails: CourierDetails | null;
   departureDate: string | null;
-  loadingStatus: LoadingStatus;
-  errorStatus: ErrorStatus;
-  formState: FormValidationState;
+  form: FormValidationState;
+  error: ErrorStatus;
 }

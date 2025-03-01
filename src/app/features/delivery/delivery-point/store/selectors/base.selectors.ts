@@ -1,5 +1,7 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 
+import { LoadingStatus } from '@shared/types';
+
 import { DeliveryPointState } from '../state';
 import { BaseSelectors } from './base-selectors.types';
 
@@ -7,30 +9,39 @@ type DeliveryPointStateSelector = MemoizedSelector<object, DeliveryPointState>;
 
 export const createBaseSelectors = (
   selectDeliveryPointState: DeliveryPointStateSelector,
-): BaseSelectors => ({
-  // Cities
-  selectCities: createSelector(selectDeliveryPointState, (state) => state.cities.items),
-  selectIsCitiesLoading: createSelector(
-    selectDeliveryPointState,
-    (state) => state.cities.isLoading,
-  ),
-  selectCitiesError: createSelector(selectDeliveryPointState, (state) => state.cities.error),
-  selectSelectedCity: createSelector(selectDeliveryPointState, (state) => state.cities.selected),
+): BaseSelectors => {
+  const selectCitiesState = createSelector(selectDeliveryPointState, (state) => state.cities);
+  const selectOfficesState = createSelector(selectDeliveryPointState, (state) => state.offices);
 
-  // Offices
-  selectOffices: createSelector(selectDeliveryPointState, (state) => state.offices.items),
-  selectIsOfficesLoading: createSelector(
-    selectDeliveryPointState,
-    (state) => state.offices.isLoading,
-  ),
-  selectOfficesError: createSelector(selectDeliveryPointState, (state) => state.offices.error),
-  selectSelectedOffice: createSelector(selectDeliveryPointState, (state) => state.offices.selected),
+  return {
+    selectCities: createSelector(selectCitiesState, (cities) => cities.items),
+    selectIsCitiesLoading: createSelector(
+      selectCitiesState,
+      (cities) => cities.status === LoadingStatus.LOADING,
+    ),
+    selectIsCitiesLoaded: createSelector(
+      selectCitiesState,
+      (cities) => cities.status === LoadingStatus.LOADED,
+    ),
+    selectCitiesError: createSelector(selectCitiesState, (cities) => cities.error),
+    selectSelectedCity: createSelector(selectCitiesState, (cities) => cities.selected),
 
-  // Tabs
-  selectActiveTabId: createSelector(selectDeliveryPointState, (state) => state.activeTabId),
+    selectOffices: createSelector(selectOfficesState, (offices) => offices.items),
+    selectIsOfficesLoading: createSelector(
+      selectOfficesState,
+      (offices) => offices.status === LoadingStatus.LOADING,
+    ),
+    selectIsOfficesLoaded: createSelector(
+      selectOfficesState,
+      (offices) => offices.status === LoadingStatus.LOADED,
+    ),
+    selectOfficesError: createSelector(selectOfficesState, (offices) => offices.error),
+    selectSelectedOffice: createSelector(selectOfficesState, (offices) => offices.selected),
 
-  // Additional details
-  selectCourierDetails: createSelector(selectDeliveryPointState, (state) => state.courierDetails),
-  selectBusPickup: createSelector(selectDeliveryPointState, (state) => state.busPickup),
-  selectForm: createSelector(selectDeliveryPointState, (state) => state.form),
-});
+    selectActiveTabId: createSelector(selectDeliveryPointState, (state) => state.activeTabId),
+
+    selectCourierDetails: createSelector(selectDeliveryPointState, (state) => state.courierDetails),
+    selectBusPickup: createSelector(selectDeliveryPointState, (state) => state.busPickup),
+    selectForm: createSelector(selectDeliveryPointState, (state) => state.form),
+  };
+};

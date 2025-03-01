@@ -60,14 +60,14 @@ export class CargoPickerComponent implements OnInit, OnChanges {
     if (!this.isRestrictedType(data.value)) return false;
 
     return !!(
-      this.restrictions.autoParts?.startPointCourier ||
-      this.restrictions.autoParts?.endPointCourier ||
-      this.restrictions.autoParts?.startPointOffice ||
-      this.restrictions.autoParts?.endPointOffice ||
-      this.restrictions.otherCargo?.startPointCourier ||
-      this.restrictions.otherCargo?.endPointCourier ||
-      this.restrictions.otherCargo?.startPointOffice ||
-      this.restrictions.otherCargo?.endPointOffice
+      this.restrictions.autoParts?.pickupCourier ||
+      this.restrictions.autoParts?.deliveryCourier ||
+      this.restrictions.autoParts?.pickupOffice ||
+      this.restrictions.autoParts?.deliveryOffice ||
+      this.restrictions.otherCargo?.pickupCourier ||
+      this.restrictions.otherCargo?.deliveryCourier ||
+      this.restrictions.otherCargo?.pickupOffice ||
+      this.restrictions.otherCargo?.deliveryOffice
     );
   }
 
@@ -75,14 +75,14 @@ export class CargoPickerComponent implements OnInit, OnChanges {
     if (!this.hasRestriction(data)) return null;
 
     return (
-      this.restrictions?.autoParts?.startPointCourier?.message ||
-      this.restrictions?.autoParts?.endPointCourier?.message ||
-      this.restrictions?.autoParts?.startPointOffice?.message ||
-      this.restrictions?.autoParts?.endPointOffice?.message ||
-      this.restrictions?.otherCargo?.startPointCourier?.message ||
-      this.restrictions?.otherCargo?.endPointCourier?.message ||
-      this.restrictions?.otherCargo?.startPointOffice?.message ||
-      this.restrictions?.otherCargo?.endPointOffice?.message ||
+      this.restrictions?.autoParts?.pickupCourier?.message ||
+      this.restrictions?.autoParts?.deliveryCourier?.message ||
+      this.restrictions?.autoParts?.pickupOffice?.message ||
+      this.restrictions?.autoParts?.deliveryOffice?.message ||
+      this.restrictions?.otherCargo?.pickupCourier?.message ||
+      this.restrictions?.otherCargo?.deliveryCourier?.message ||
+      this.restrictions?.otherCargo?.pickupOffice?.message ||
+      this.restrictions?.otherCargo?.deliveryOffice?.message ||
       null
     );
   }

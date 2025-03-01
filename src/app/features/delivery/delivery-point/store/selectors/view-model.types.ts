@@ -1,11 +1,11 @@
-import { DeliveryCity, Office } from '@shared/types';
+import { DeliveryCity } from '@shared/types';
 import { FormValidationState } from '@shared/types/form.types';
 
 import {
+  CitiesViewModel,
   CourierDetails,
   ErrorStatus,
-  LoadingStatus,
-  SelectionStatus,
+  OfficesViewModel,
 } from '@features/delivery/types';
 
 import { DeliveryPointTab } from '../../types';
@@ -31,14 +31,12 @@ import { DeliveryPointTab } from '../../types';
  */
 
 export interface DeliveryPointViewModel {
-  cities: DeliveryCity[];
-  offices: Office[];
-  courierDetails: CourierDetails | null;
-  busPickup: boolean;
+  cities: CitiesViewModel<DeliveryCity>;
+  offices: OfficesViewModel;
   tabs: DeliveryPointTab[];
   activeTab: DeliveryPointTab | null;
-  selectionStatus: SelectionStatus<DeliveryCity>;
-  loadingStatus: LoadingStatus;
-  errorStatus: ErrorStatus;
-  formState: FormValidationState;
+  courierDetails: CourierDetails | null;
+  busPickup: boolean;
+  form: FormValidationState;
+  error: ErrorStatus;
 }

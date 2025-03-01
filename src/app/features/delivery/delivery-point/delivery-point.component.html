@@ -2,7 +2,7 @@
 
 @if (vm && form) {
   <form [formGroup]="form">
-    <tui-loader [showLoader]="vm.loadingStatus.isCitiesLoading">
+    <tui-loader [showLoader]="vm.cities.isLoading">
       <tui-combo-box
         [formControl]="city"
         [stringify]="'name' | tuiStringify"
@@ -20,7 +20,7 @@
     </tui-loader>
     <tui-error [formControl]="city" [error]="[] | tuiFieldError | async" />
 
-    @if (vm.selectionStatus.selectedCity) {
+    @if (vm.cities.selected) {
       @if (vm.tabs.length > 1) {
         <div class="tabs">
           @for (tab of vm.tabs; track tab.id) {
@@ -51,7 +51,7 @@
                 Выберите офис
                 <tui-data-list-wrapper
                   *tuiDataList
-                  [items]="vm.offices"
+                  [items]="vm.offices.items"
                   [itemContent]="'address' | tuiStringify | tuiStringifyContent"
                 />
               </tui-select>

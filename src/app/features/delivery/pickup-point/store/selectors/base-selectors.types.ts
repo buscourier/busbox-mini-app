@@ -10,11 +10,13 @@ import { PickupPointTabType } from '../../types';
 export interface BaseSelectors {
   selectCities: MemoizedSelector<object, PickupCity[]>;
   selectIsCitiesLoading: MemoizedSelector<object, boolean>;
+  selectIsCitiesLoaded: MemoizedSelector<object, boolean>;
   selectCitiesError: MemoizedSelector<object, ApiError | null>;
   selectSelectedCity: MemoizedSelector<object, PickupCity | null>;
 
   selectOffices: MemoizedSelector<object, Office[]>;
   selectIsOfficesLoading: MemoizedSelector<object, boolean>;
+  selectIsOfficesLoaded: MemoizedSelector<object, boolean>;
   selectOfficesError: MemoizedSelector<object, ApiError | null>;
   selectSelectedOffice: MemoizedSelector<object, Office | null>;
 

@@ -3,11 +3,11 @@ import { DeliveryCity } from '@shared/types';
 import { ParcelLimits, ParcelsLimits } from './parcel-limits.types';
 
 export interface GetCargoRestrictionsParams {
-  endCity: DeliveryCity | null;
-  isStartPointOfficeLimited: boolean;
-  isEndPointOfficeLimited: boolean;
-  isStartPointCourierTabActive: boolean;
-  isEndPointCourierTabActive: boolean;
+  deliveryCity: DeliveryCity | null;
+  isPickupOfficeLimited: boolean;
+  isDeliveryOfficeLimited: boolean;
+  isPickupCourierSelected: boolean;
+  isDeliveryCourierSelected: boolean;
 }
 
 export interface CargoPointRestriction {
@@ -16,10 +16,10 @@ export interface CargoPointRestriction {
 }
 
 export interface CargoItemRestrictions {
-  startPointOffice: CargoPointRestriction | null;
-  endPointOffice: CargoPointRestriction | null;
-  startPointCourier: CargoPointRestriction | null;
-  endPointCourier: CargoPointRestriction | null;
+  pickupOffice: CargoPointRestriction | null;
+  deliveryOffice: CargoPointRestriction | null;
+  pickupCourier: CargoPointRestriction | null;
+  deliveryCourier: CargoPointRestriction | null;
 }
 
 export interface CargoRestrictions {

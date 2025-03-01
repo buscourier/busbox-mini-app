@@ -26,20 +26,19 @@ export class CargoRestrictionsService {
   }
 
   getRestrictions(params: GetCargoRestrictionsParams): CargoRestrictions {
-    const isOfficeLimited = params.isStartPointOfficeLimited || params.isEndPointOfficeLimited;
-    const isCourierLimited =
-      params.isStartPointCourierTabActive || params.isEndPointCourierTabActive;
+    const isOfficeLimited = params.isPickupOfficeLimited || params.isDeliveryOfficeLimited;
+    const isCourierLimited = params.isPickupCourierSelected || params.isDeliveryCourierSelected;
 
     return {
       autoParts: this.getCargoItemRestrictions(params),
       otherCargo: this.getCargoItemRestrictions(params),
       parcels: this.getParcelsLimits({
-        deliveryCity: params.endCity,
+        deliveryCity: params.deliveryCity,
         isOfficeLimited,
         isCourierLimited,
       }),
       parcel: this.getParcelLimits({
-        deliveryCity: params.endCity,
+        deliveryCity: params.deliveryCity,
         isOfficeLimited,
         isCourierLimited,
       }),
@@ -128,16 +127,16 @@ export class CargoRestrictionsService {
 
   getCargoItemRestrictions(params: GetCargoRestrictionsParams): CargoItemRestrictions {
     return {
-      startPointOffice: params.isStartPointOfficeLimited
+      pickupOffice: params.isPickupOfficeLimited
         ? this.createCargoPointRestriction(RESTRICTION_MESSAGES.START_OFFICE)
         : null,
-      endPointOffice: params.isEndPointOfficeLimited
+      deliveryOffice: params.isDeliveryOfficeLimited
         ? this.createCargoPointRestriction(RESTRICTION_MESSAGES.END_OFFICE)
         : null,
-      startPointCourier: params.isStartPointCourierTabActive
+      pickupCourier: params.isPickupCourierSelected
         ? this.createCargoPointRestriction(RESTRICTION_MESSAGES.START_COURIER)
         : null,
-      endPointCourier: params.isEndPointCourierTabActive
+      deliveryCourier: params.isDeliveryCourierSelected
         ? this.createCargoPointRestriction(RESTRICTION_MESSAGES.END_COURIER)
         : null,
     };

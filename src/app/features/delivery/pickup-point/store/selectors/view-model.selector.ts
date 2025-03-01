@@ -7,40 +7,66 @@ import { PickupPointViewModel } from './view-model.types';
 export const createViewModelSelector = (
   baseSelectors: BaseSelectors,
   derivedSelectors: DerivedSelectors,
-) => ({
-  selectViewModel: createSelector(
+) => {
+  const selectCitiesViewModel = createSelector(
     baseSelectors.selectCities,
-    derivedSelectors.selectAvailableOffices,
-    derivedSelectors.selectTabs,
-    derivedSelectors.selectActiveTab,
-    derivedSelectors.selectSelectionStatus,
-    baseSelectors.selectCourierDetails,
-    baseSelectors.selectDepartureDate,
-    derivedSelectors.selectLoadingStatus,
-    derivedSelectors.selectErrorStatus,
-    derivedSelectors.selectFormState,
-    (
-      cities,
-      offices,
-      tabs,
-      activeTab,
-      selectionStatus,
-      courierDetails,
-      departureDate,
-      loadingStatus,
-      errorStatus,
-      formState,
-    ): PickupPointViewModel => ({
-      cities,
-      offices,
-      tabs,
-      activeTab,
-      selectionStatus,
-      courierDetails,
-      departureDate,
-      loadingStatus,
-      errorStatus,
-      formState,
+    baseSelectors.selectIsCitiesLoading,
+    baseSelectors.selectIsCitiesLoaded,
+    baseSelectors.selectCitiesError,
+    baseSelectors.selectSelectedCity,
+    (items, isLoading, isLoaded, error, selected) => ({
+      items,
+      isLoading,
+      isLoaded,
+      error,
+      selected,
     }),
-  ),
-});
+  );
+
+  const selectOfficesViewModel = createSelector(
+    derivedSelectors.selectAvailableOffices,
+    baseSelectors.selectIsOfficesLoading,
+    baseSelectors.selectIsOfficesLoaded,
+    baseSelectors.selectOfficesError,
+    baseSelectors.selectSelectedOffice,
+    (items, isLoading, isLoaded, error, selected) => ({
+      items,
+      isLoading,
+      isLoaded,
+      error,
+      selected,
+    }),
+  );
+
+  return {
+    selectViewModel: createSelector(
+      selectCitiesViewModel,
+      selectOfficesViewModel,
+      derivedSelectors.selectTabs,
+      derivedSelectors.selectActiveTab,
+      baseSelectors.selectCourierDetails,
+      baseSelectors.selectDepartureDate,
+      derivedSelectors.selectFormState,
+      derivedSelectors.selectErrorStatus,
+      (
+        cities,
+        offices,
+        tabs,
+        activeTab,
+        courierDetails,
+        departureDate,
+        form,
+        error,
+      ): PickupPointViewModel => ({
+        cities,
+        offices,
+        tabs,
+        activeTab,
+        courierDetails,
+        departureDate,
+        form,
+        error,
+      }),
+    ),
+  };
+};

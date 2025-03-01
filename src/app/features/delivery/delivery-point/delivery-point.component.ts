@@ -131,7 +131,7 @@ export class DeliveryPointComponent implements OnInit {
   private initValues(): void {
     this.cities$ = this.filterCities(
       combineLatest([
-        this.vm$.pipe(map((vm) => vm.cities)),
+        this.vm$.pipe(map((vm) => vm.cities.items)),
         this.searchQuery$.pipe(
           startWith(''),
           filter((searchQuery: string | null) => searchQuery !== null),
@@ -154,7 +154,7 @@ export class DeliveryPointComponent implements OnInit {
     this.vm$
       .pipe(
         map((vm) => vm.cities),
-        map((cities) => cities.length > 0),
+        map((cities) => cities.items.length > 0),
         distinctUntilChanged(),
         tap((hasCities) =>
           hasCities
@@ -171,7 +171,7 @@ export class DeliveryPointComponent implements OnInit {
   private setupErrorHandling(): void {
     this.vm$
       .pipe(
-        map((vm) => vm.errorStatus),
+        map((vm) => vm.error),
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((error) => {
@@ -224,12 +224,12 @@ export class DeliveryPointComponent implements OnInit {
   private setupStoreSync(): void {
     merge(
       this.vm$.pipe(
-        map((vm) => vm.selectionStatus.selectedCity),
+        map((vm) => vm.cities.selected),
         distinctUntilChanged(),
         tap((city) => this.patchFormControl('city', city)),
       ),
       this.vm$.pipe(
-        map((vm) => vm.selectionStatus.selectedOffice),
+        map((vm) => vm.offices.selected),
         distinctUntilChanged(),
         tap((office) => this.patchFormControl('office', office)),
       ),
@@ -401,7 +401,7 @@ export class DeliveryPointComponent implements OnInit {
     return this.city.valueChanges.pipe(
       takeUntilDestroyed(this.destroyRef),
       withLatestFrom(
-        this.vm$.pipe(map((vm) => vm.selectionStatus.selectedCity)),
+        this.vm$.pipe(map((vm) => vm.cities.selected)),
         this.store.select(deliveryDetailsFeature.selectIsActiveOrderValid),
       ),
       switchMap(([newCity, currentCity, isActiveOrderValid]) => {

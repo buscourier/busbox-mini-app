@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
+import { LoadingStatus } from '@shared/types';
 import { FormControlStatus } from '@shared/types/form.types';
 
 import { PickupPointActions } from './actions';
@@ -8,13 +9,13 @@ import { PickupPointState } from './state';
 export const initialState: PickupPointState = {
   cities: {
     items: [],
-    isLoading: false,
+    status: LoadingStatus.IDLE,
     error: null,
     selected: null,
   },
   offices: {
     items: [],
-    isLoading: false,
+    status: LoadingStatus.IDLE,
     error: null,
     selected: null,
   },
@@ -37,7 +38,7 @@ export const pickupPointReducer = createReducer(
       ...state,
       cities: {
         ...state.cities,
-        isLoading: true,
+        status: LoadingStatus.LOADING,
         error: null,
       },
     }),
@@ -49,7 +50,7 @@ export const pickupPointReducer = createReducer(
       cities: {
         ...state.cities,
         items: cities,
-        isLoading: false,
+        status: LoadingStatus.LOADED,
       },
     }),
   ),
@@ -60,7 +61,7 @@ export const pickupPointReducer = createReducer(
       cities: {
         ...state.cities,
         error,
-        isLoading: false,
+        status: LoadingStatus.ERROR,
       },
     }),
   ),
@@ -80,7 +81,7 @@ export const pickupPointReducer = createReducer(
       ...state,
       offices: {
         ...state.offices,
-        isLoading: true,
+        status: LoadingStatus.LOADING,
         error: null,
       },
     }),
@@ -92,7 +93,7 @@ export const pickupPointReducer = createReducer(
       offices: {
         ...state.offices,
         items: offices,
-        isLoading: false,
+        status: LoadingStatus.LOADED,
       },
     }),
   ),
@@ -103,7 +104,7 @@ export const pickupPointReducer = createReducer(
       offices: {
         ...state.offices,
         error,
-        isLoading: false,
+        status: LoadingStatus.ERROR,
       },
     }),
   ),

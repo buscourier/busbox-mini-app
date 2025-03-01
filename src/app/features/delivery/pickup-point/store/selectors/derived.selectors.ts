@@ -4,7 +4,7 @@ import { Office, PickupCity } from '@shared/types';
 import { FormControlStatus } from '@shared/types/form.types';
 
 import { LIMITED_OFFICE } from '@features/delivery/constants';
-import { Courier, ErrorStatus, LoadingStatus, SelectionStatus } from '@features/delivery/types';
+import { Courier, ErrorStatus } from '@features/delivery/types';
 
 import { PICKUP_POINT_TABS } from '../../constants';
 import { PickupPointTab, PickupPointTabType } from '../../types';
@@ -24,6 +24,15 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
         return [];
       }
       return offices.filter((office) => office.office_id === selectedCity.office_id);
+    },
+  );
+
+  const selectIsOfficeLimited = createSelector(
+    baseSelectors.selectSelectedOffice,
+    (selectedOffice: Office | null): boolean => {
+      if (!selectedOffice) return false;
+
+      return [LIMITED_OFFICE.ALEUTSKAYA, LIMITED_OFFICE.GOGOLYA].includes(selectedOffice.home_id);
     },
   );
 
@@ -51,16 +60,7 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     },
   );
 
-  const selectIsOfficeLimited = createSelector(
-    baseSelectors.selectSelectedOffice,
-    (selectedOffice: Office | null): boolean => {
-      if (!selectedOffice) return false;
-
-      return [LIMITED_OFFICE.ALEUTSKAYA, LIMITED_OFFICE.GOGOLYA].includes(selectedOffice.home_id);
-    },
-  );
-
-  const selectIsCourierTabActive = createSelector(
+  const selectIsCourierSelected = createSelector(
     baseSelectors.selectActiveTabId,
     (activeTabId: string | null): boolean => {
       if (!activeTabId) return false;
@@ -69,17 +69,11 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     },
   );
 
-  const selectIsRestricted = createSelector(
-    selectIsOfficeLimited,
-    selectIsCourierTabActive,
-    (isOfficeLimited, isCourierTabActive): boolean => isOfficeLimited || isCourierTabActive,
-  );
-
   const selectCourier = createSelector(
-    selectIsCourierTabActive,
+    selectIsCourierSelected,
     baseSelectors.selectCourierDetails,
-    (isCourierTabActive, courierDetails): Courier | null => {
-      if (!isCourierTabActive || !courierDetails) return null;
+    (isCourierSelected, courierDetails): Courier | null => {
+      if (!isCourierSelected || !courierDetails) return null;
 
       return {
         id: '1',
@@ -106,43 +100,31 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     }),
   );
 
+  const selectErrorStatus = createSelector(
+    baseSelectors.selectCitiesError,
+    baseSelectors.selectOfficesError,
+    (citiesError, officesError): ErrorStatus => ({
+      citiesError,
+      officesError,
+      hasAnyError: !!citiesError || !!officesError,
+    }),
+  );
+
+  const selectIsPickupLimited = createSelector(
+    selectIsOfficeLimited,
+    selectIsCourierSelected,
+    (isOfficeLimited, isCourierSelected): boolean => isOfficeLimited || isCourierSelected,
+  );
+
   return {
     selectAvailableOffices,
     selectIsOfficeLimited,
     selectTabs,
     selectActiveTab,
-    selectIsCourierTabActive,
+    selectIsCourierSelected,
     selectCourier,
-    selectIsRestricted,
     selectFormState,
-    selectLoadingStatus: createSelector(
-      baseSelectors.selectIsCitiesLoading,
-      baseSelectors.selectIsOfficesLoading,
-      (isCitiesLoading, isOfficesLoading): LoadingStatus => ({
-        isCitiesLoading,
-        isOfficesLoading,
-        isAnyLoading: isCitiesLoading || isOfficesLoading,
-      }),
-    ),
-
-    selectErrorStatus: createSelector(
-      baseSelectors.selectCitiesError,
-      baseSelectors.selectOfficesError,
-      (citiesError, officesError): ErrorStatus => ({
-        citiesError,
-        officesError,
-        hasAnyError: !!citiesError || !!officesError,
-      }),
-    ),
-
-    selectSelectionStatus: createSelector(
-      baseSelectors.selectSelectedCity,
-      baseSelectors.selectSelectedOffice,
-      (selectedCity, selectedOffice): SelectionStatus<PickupCity> => ({
-        selectedCity,
-        selectedOffice,
-        isFullySelected: !!selectedCity && !!selectedOffice,
-      }),
-    ),
+    selectErrorStatus,
+    selectIsPickupLimited,
   };
 };
