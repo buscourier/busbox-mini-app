@@ -30,8 +30,8 @@ export class OrderSummaryService extends DeliveryBaseService {
         this.calculateOrderAmount({
           pickupCityId: params.pickupCityId,
           deliveryCityId: params.deliveryCityId,
-          pickupPointCourier: params.pickupPointCourier,
-          deliveryPointCourier: params.deliveryPointCourier,
+          pickupCourier: params.pickupCourier,
+          deliveryCourier: params.deliveryCourier,
           order,
         }),
       ),
@@ -45,8 +45,8 @@ export class OrderSummaryService extends DeliveryBaseService {
   calculateOrderAmount(params: OrderAmountParams): Observable<TotalAmount> {
     const servicesIds = this.getServicesIds(
       params.order,
-      params.pickupPointCourier,
-      params.deliveryPointCourier,
+      params.pickupCourier,
+      params.deliveryCourier,
     );
 
     return params.order.cargoType === CargoType.PARCELS

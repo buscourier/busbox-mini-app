@@ -48,25 +48,23 @@ export const calculationEffects = {
           ([pickupCity, deliveryCity, orders, isAllOrdersValid]) =>
             !!pickupCity?.id && !!deliveryCity?.id && orders.length > 0 && isAllOrdersValid,
         ),
-        switchMap(
-          ([pickupCity, deliveryCity, orders, , pickupPointCourier, deliveryPointCourier]) => {
-            return orderSummaryService
-              .calculateTotalAmount({
-                pickupCityId: pickupCity?.id || null,
-                deliveryCityId: deliveryCity?.id || null,
-                orders,
-                pickupPointCourier,
-                deliveryPointCourier,
-              })
-              .pipe(
-                mapResponse({
-                  next: ({ price }) =>
-                    OrderSummaryActions.loadTotalAmountSuccess({ totalAmount: price }),
-                  error: (error: ApiError) => OrderSummaryActions.loadTotalAmountFailure({ error }),
-                }),
-              );
-          },
-        ),
+        switchMap(([pickupCity, deliveryCity, orders, , pickupCourier, deliveryCourier]) => {
+          return orderSummaryService
+            .calculateTotalAmount({
+              pickupCityId: pickupCity?.id || null,
+              deliveryCityId: deliveryCity?.id || null,
+              orders,
+              pickupCourier,
+              deliveryCourier,
+            })
+            .pipe(
+              mapResponse({
+                next: ({ price }) =>
+                  OrderSummaryActions.loadTotalAmountSuccess({ totalAmount: price }),
+                error: (error: ApiError) => OrderSummaryActions.loadTotalAmountFailure({ error }),
+              }),
+            );
+        }),
       );
     },
     { functional: true },

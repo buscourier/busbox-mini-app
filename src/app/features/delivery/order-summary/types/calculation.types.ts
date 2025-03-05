@@ -5,8 +5,8 @@ import { Order } from '../../delivery-details/types';
 export interface BaseCalculationParams {
   pickupCityId: string | null;
   deliveryCityId: string | null;
-  pickupPointCourier: Courier | null;
-  deliveryPointCourier: Courier | null;
+  pickupCourier: Courier | null;
+  deliveryCourier: Courier | null;
 }
 
 export interface OrderAmountParams extends BaseCalculationParams {
