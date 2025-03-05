@@ -1,7 +1,6 @@
 import { citySelectionEffects } from './city-selection.effects';
 import { optionsEffects } from './options.effects';
 import { persistenceEffects } from './persistence.effects';
-import { resetEffects } from './reset.effects';
 import { restrictionsEffects } from './restrictions.effects';
 
 export const DeliveryDetailsEffects = {
@@ -9,5 +8,4 @@ export const DeliveryDetailsEffects = {
   ...persistenceEffects,
   ...optionsEffects,
   ...restrictionsEffects,
-  ...resetEffects,
 };

@@ -7,7 +7,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { isObjectsEqual } from '@core/utils/object.utils';
 
-import { DeliveryActions } from '../../../store/actions';
+import { DeliveryPointActions } from '@features/delivery/delivery-point/store';
+import { OrderSummaryActions } from '@features/delivery/order-summary/store/actions';
 
 import { PickupPointActions } from '../actions';
 
@@ -24,11 +25,21 @@ export const resetEffects = {
     },
     { functional: true },
   ),
-  resetOnGlobalReset: createEffect(
+  resetDeliveryPoint: createEffect(
     (actions$ = inject(Actions)) => {
       return actions$.pipe(
-        ofType(DeliveryActions.resetDelivery),
-        map(() => PickupPointActions.resetState({ keepCity: false })),
+        ofType(PickupPointActions.resetState),
+        // delay(0),
+        map(() => DeliveryPointActions.resetState({ keepCity: false })),
+      );
+    },
+    { functional: true },
+  ),
+  resetOrderSummary: createEffect(
+    (actions$ = inject(Actions)) => {
+      return actions$.pipe(
+        ofType(PickupPointActions.resetState),
+        map(() => OrderSummaryActions.resetState()),
       );
     },
     { functional: true },
