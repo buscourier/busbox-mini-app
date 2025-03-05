@@ -1,11 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 
-import { TuiLoader } from '@taiga-ui/core';
+import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
 
 import { AdditionalServicesComponent } from './components/additional-services/additional-services.component';
 import { AutoPartsComponent } from './components/auto-parts/auto-parts.component';
@@ -41,13 +43,17 @@ type OrderDataKeys = Exclude<keyof Order, 'id' | 'cargoType' | 'validation'>;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeliveryDetailsComponent implements OnInit {
-  private store = inject(Store);
+  vm$!: Observable<DeliveryDetailsViewModel>;
+
   protected readonly MAX_ORDERS = 4;
 
-  vm$!: Observable<DeliveryDetailsViewModel>;
+  private store = inject(Store);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly alerts = inject(TuiAlertService);
 
   ngOnInit(): void {
     this.vm$ = this.store.select(deliveryDetailsFeature.selectViewModel);
+    this.setupErrorHandling();
   }
 
   addOrder(): void {
@@ -82,6 +88,30 @@ export class DeliveryDetailsComponent implements OnInit {
         validation: { [type]: isValid },
       }),
     );
+  }
+
+  private setupErrorHandling(): void {
+    this.vm$
+      .pipe(
+        map((vm) => vm.options.error),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((error) => {
+        if (error) {
+          this.showErrorNotification('Не удалось загрузить параметры заказа');
+        }
+      });
+  }
+
+  private showErrorNotification(message: string): void {
+    this.alerts
+      .open(message, {
+        label: 'Ошибка',
+        autoClose: 0,
+        appearance: 'error',
+      })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
   }
 
   protected readonly CargoType = CargoType;
