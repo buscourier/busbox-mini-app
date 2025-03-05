@@ -15,7 +15,7 @@ import { DeliveryDetailsActions } from '../actions';
 
 // а нужен ли тут ofType и actions?
 export const citySelectionEffects = {
-  // resetSettingsOnCityChange: createEffect(
+  // resetOptionsOnCityChange: createEffect(
   //   (actions$ = inject(Actions)) => {
   //     return actions$.pipe(
   //       ofType(PickupPointActions.selectCity, DeliveryPointActions.selectCity),
@@ -25,7 +25,7 @@ export const citySelectionEffects = {
   //   { functional: true },
   // ),
 
-  loadSettingsOnCitiesSelected: createEffect(
+  loadOptionsOnCitiesSelected: createEffect(
     (store = inject(Store)) => {
       return combineLatest([
         store.select(pickupPointFeature.selectSelectedCity),
@@ -34,13 +34,13 @@ export const citySelectionEffects = {
         debounceTime(DEBOUNCE_TIME.DEFAULT),
         map(([pickupCity, deliveryCity]) => {
           if (pickupCity?.id && deliveryCity?.id) {
-            return DeliveryDetailsActions.loadSettings({
+            return DeliveryDetailsActions.loadOptions({
               pickupCityId: pickupCity.id,
               deliveryCityId: deliveryCity.id,
             });
           }
 
-          return DeliveryDetailsActions.skipLoadSettings();
+          return DeliveryDetailsActions.skipLoadOptions();
         }),
       );
     },

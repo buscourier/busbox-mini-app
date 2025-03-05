@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { ApiService } from '@core/services';
 
-import { Cargo, DeliverySettings, Service } from '../delivery-details/types';
+import { Cargo, DeliveryOptions, Service } from '../delivery-details/types';
 
 const MAX_RETRIES = 3;
 
@@ -30,7 +30,7 @@ export class DeliveryService extends ApiService {
       .pipe(retry(MAX_RETRIES), catchError(this.handleError.bind(this)));
   }
 
-  loadSettings(pickupCityId: string, deliveryCityId: string): Observable<DeliverySettings> {
+  loadOptions(pickupCityId: string, deliveryCityId: string): Observable<DeliveryOptions> {
     return forkJoin([
       this.loadCargos(pickupCityId, deliveryCityId),
       this.loadServices(pickupCityId, deliveryCityId),

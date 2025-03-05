@@ -12,28 +12,27 @@ import { v4 as uuidv4 } from 'uuid';
 export const deliveryDetailsReducer = createReducer(
   initialState,
 
-  // Settings actions
   on(
-    DeliveryDetailsActions.loadSettings,
+    DeliveryDetailsActions.loadOptions,
     (state): DeliveryDetailsState => ({
       ...state,
-      settingsStatus: LoadingStatus.LOADING,
+      optionsStatus: LoadingStatus.LOADING,
       error: null,
     }),
   ),
   on(
-    DeliveryDetailsActions.loadSettingsSuccess,
-    (state, { settings }): DeliveryDetailsState => ({
+    DeliveryDetailsActions.loadOptionsSuccess,
+    (state, { options }): DeliveryDetailsState => ({
       ...state,
-      settingsStatus: LoadingStatus.LOADED,
-      settings,
+      optionsStatus: LoadingStatus.LOADED,
+      options,
     }),
   ),
   on(
-    DeliveryDetailsActions.loadSettingsFailure,
+    DeliveryDetailsActions.loadOptionsFailure,
     (state, { error }): DeliveryDetailsState => ({
       ...state,
-      settingsStatus: LoadingStatus.ERROR,
+      optionsStatus: LoadingStatus.ERROR,
       error,
     }),
   ),
@@ -45,11 +44,11 @@ export const deliveryDetailsReducer = createReducer(
       restrictions: restrictions,
     }),
   ),
-  on(DeliveryDetailsActions.resetSettings, (): DeliveryDetailsState => {
+  on(DeliveryDetailsActions.resetOptions, (): DeliveryDetailsState => {
     return adapter.getInitialState({
       activeOrderId: null,
-      settingsStatus: LoadingStatus.IDLE,
-      settings: null,
+      optionsStatus: LoadingStatus.IDLE,
+      options: null,
       restrictions: {
         autoParts: null,
         otherCargo: null,

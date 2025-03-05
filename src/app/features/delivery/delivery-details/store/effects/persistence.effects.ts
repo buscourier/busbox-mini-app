@@ -57,7 +57,7 @@ export const persistenceEffects = {
   removeState: createEffect(
     (actions$ = inject(Actions), persistenceService = inject(PersistenceService)) => {
       return actions$.pipe(
-        ofType(DeliveryDetailsActions.resetSettings),
+        ofType(DeliveryDetailsActions.resetOptions),
         tap(() =>
           persistenceService.remove<DeliveryStorageKey, DeliveryStorageSchema>('deliveryDetails'),
         ),
@@ -69,7 +69,7 @@ export const persistenceEffects = {
   restoreState: createEffect(
     (actions$ = inject(Actions), persistenceService = inject(PersistenceService)) => {
       return actions$.pipe(
-        ofType(DeliveryDetailsActions.loadSettingsSuccess),
+        ofType(DeliveryDetailsActions.loadOptionsSuccess),
         map(() => {
           const restoredState = persistenceService.load<DeliveryStorageKey, DeliveryStorageSchema>(
             'deliveryDetails',

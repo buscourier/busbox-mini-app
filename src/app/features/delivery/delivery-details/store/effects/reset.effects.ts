@@ -14,7 +14,7 @@ export const resetEffects = {
     (actions$ = inject(Actions)) => {
       return actions$.pipe(
         ofType(PickupPointActions.resetState, DeliveryPointActions.resetState),
-        map(() => DeliveryDetailsActions.resetSettings()),
+        map(() => DeliveryDetailsActions.resetOptions()),
       );
     },
     { functional: true },

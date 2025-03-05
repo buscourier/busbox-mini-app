@@ -1,13 +1,13 @@
 import { citySelectionEffects } from './city-selection.effects';
+import { optionsEffects } from './options.effects';
 import { persistenceEffects } from './persistence.effects';
 import { resetEffects } from './reset.effects';
 import { restrictionsEffects } from './restrictions.effects';
-import { settingsEffects } from './settings.effects';
 
 export const DeliveryDetailsEffects = {
   ...citySelectionEffects,
   ...persistenceEffects,
-  ...settingsEffects,
+  ...optionsEffects,
   ...restrictionsEffects,
   ...resetEffects,
 };

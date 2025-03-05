@@ -53,7 +53,7 @@ type OtherCargoForm = FormGroup<{
 })
 export class OtherCargoComponent implements OnInit, OnChanges {
   @Input() data: OtherCargoData | null = null;
-  @Input() parts!: Cargo[];
+  @Input({ required: true }) options!: Cargo[];
   @Input() restrictions: CargoItemRestrictions | null = null;
   @Output() dataChange = new EventEmitter<OtherCargoData>();
   @Output() validationChange = new EventEmitter<boolean>();

@@ -1,16 +1,16 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-import { LoadingStatus } from '@shared/types';
+import { ApiError, LoadingStatus } from '@shared/types';
 
 import { PARCEL_LIMITS, PARCELS_LIMITS } from '../constants';
-import { DeliveryRestrictions, DeliverySettings, Order } from '../types';
+import { DeliveryOptions, DeliveryRestrictions, Order } from '../types';
 
 export interface DeliveryDetailsState extends EntityState<Order> {
-  settingsStatus: LoadingStatus;
-  settings: DeliverySettings | null;
+  optionsStatus: LoadingStatus;
+  options: DeliveryOptions | null;
   activeOrderId: string | null;
   restrictions: DeliveryRestrictions; // По-факту тут сейчас cargoRestrictions,
-  error: string | null;
+  error: ApiError | null;
 }
 
 export const adapter: EntityAdapter<Order> = createEntityAdapter<Order>({
@@ -18,8 +18,8 @@ export const adapter: EntityAdapter<Order> = createEntityAdapter<Order>({
 });
 
 export const initialState: DeliveryDetailsState = adapter.getInitialState({
-  settingsStatus: LoadingStatus.IDLE,
-  settings: null,
+  optionsStatus: LoadingStatus.IDLE,
+  options: null,
   activeOrderId: null,
   restrictions: {
     autoParts: null,

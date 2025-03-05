@@ -23,24 +23,24 @@ export const createBaseSelectors = (
   const selectTotal = entitySelectors.selectTotal;
 
   // State selectors
-  const selectSettingsLoading = createSelector(
+  const selectIsOptionsLoading = createSelector(
     selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.settingsStatus === LoadingStatus.LOADING,
+    (state: DeliveryDetailsState) => state.optionsStatus === LoadingStatus.LOADING,
   );
 
-  const selectSettingsLoaded = createSelector(
+  const selectIsOptionsLoaded = createSelector(
     selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.settingsStatus === LoadingStatus.LOADED,
+    (state: DeliveryDetailsState) => state.optionsStatus === LoadingStatus.LOADED,
   );
 
-  const selectSettingsError = createSelector(
+  const selectOptionsError = createSelector(
     selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.settingsStatus === LoadingStatus.ERROR,
+    (state: DeliveryDetailsState) => state.optionsStatus === LoadingStatus.ERROR,
   );
 
-  const selectSettings = createSelector(
+  const selectOptions = createSelector(
     selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.settings,
+    (state: DeliveryDetailsState) => state.options,
   );
 
   const selectActiveOrderId = createSelector(
@@ -66,10 +66,10 @@ export const createBaseSelectors = (
     selectTotal,
 
     // State selectors
-    selectSettingsLoading,
-    selectSettingsLoaded,
-    selectSettingsError,
-    selectSettings,
+    selectIsOptionsLoading,
+    selectIsOptionsLoaded,
+    selectOptionsError,
+    selectOptions,
     selectActiveOrderId,
     selectRestrictions,
     selectError,

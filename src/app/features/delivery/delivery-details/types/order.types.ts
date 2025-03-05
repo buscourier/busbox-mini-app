@@ -33,3 +33,10 @@ export interface EnhancedOrder extends Order {
   isActiveInvalid: boolean;
   isDisabled: boolean;
 }
+
+export interface OrdersViewModel {
+  items: EnhancedOrder[];
+  active: Order | null;
+  isActiveValid: boolean;
+  isAllValid: boolean;
+}

@@ -1,11 +1,13 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
+import { ApiError } from '@shared/types';
+
 import {
   AdditionalServicesData,
   AutoPartsData,
   CargoType,
+  DeliveryOptions,
   DeliveryRestrictions,
-  DeliverySettings,
   DocumentsData,
   OrderValidationState,
   OtherCargoData,
@@ -17,22 +19,22 @@ import {
 export const DeliveryDetailsActions = createActionGroup({
   source: 'DeliveryDetails',
   events: {
-    'Load Settings': props<{
+    'Load Options': props<{
       pickupCityId: string;
       deliveryCityId: string;
     }>(),
-    'Load Settings Success': props<{
-      settings: DeliverySettings;
+    'Load Options Success': props<{
+      options: DeliveryOptions;
     }>(),
-    'Load Settings Failure': props<{
-      error: string;
+    'Load Options Failure': props<{
+      error: ApiError;
     }>(),
-    'Skip Load Settings': emptyProps(),
+    'Skip Load Options': emptyProps(),
     'Set Restrictions': props<{
       restrictions: DeliveryRestrictions;
     }>(),
     // 'Clear Parcel Restrictions': emptyProps(),
-    'Reset Settings': emptyProps(),
+    'Reset Options': emptyProps(),
     'Restore State': props<{
       restoredState: StoredDeliveryDetailsState;
     }>(),

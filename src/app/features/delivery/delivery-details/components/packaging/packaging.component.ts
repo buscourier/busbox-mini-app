@@ -23,20 +23,18 @@ import { OtherIds, PACKAGING_DEFAULT_QUANTITY, PackagingId } from './constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PackagingComponent implements OnChanges {
-  @Input({ required: true }) services!: Service[];
+  @Input({ required: true }) options!: Service[];
   @Input() data: PackagingData | null = null;
   @Output() dataChange = new EventEmitter<PackagingData>();
   @Output() validationChange = new EventEmitter<boolean>();
 
-  /** Packaging groups */
   boxes: Service[] = [];
   safePacks: Service[] = [];
   polyPacks: Service[] = [];
   films: Service[] = [];
   other: Service[] = [];
 
-  /** Selected packages */
-  selectedItems = new Map<string, number>();
+  selectedPackages = new Map<string, number>();
 
   dialog = tuiDialog(PackagingDialogComponent, {
     label: 'Heading',
@@ -45,25 +43,25 @@ export class PackagingComponent implements OnChanges {
   });
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['services']) {
+    if (changes['options']) {
       this.initializeGroups();
     }
 
     if (changes['data']) {
-      this.initializeSelectedItems();
+      this.initializeSelectedPackages();
     }
   }
 
-  selectPackage(service: Service): void {
+  selectPackage(option: Service): void {
     this.dialog({
-      title: service.name,
-      description: service.property,
-      dimensions: service.property,
-      currentQuantity: this.selectedItems.get(service.id) || PACKAGING_DEFAULT_QUANTITY,
+      title: option.name,
+      description: option.property,
+      dimensions: option.property,
+      currentQuantity: this.selectedPackages.get(option.id) || PACKAGING_DEFAULT_QUANTITY,
     }).subscribe({
       next: (quantity) => {
         if (quantity) {
-          this.selectedItems.set(service.id, quantity);
+          this.selectedPackages.set(option.id, quantity);
           this.emitChange();
         }
       },
@@ -74,37 +72,35 @@ export class PackagingComponent implements OnChanges {
   }
 
   removePackage(id: string): void {
-    this.selectedItems.delete(id);
+    this.selectedPackages.delete(id);
     this.emitChange();
   }
 
   isSelected(id: string): boolean {
-    return this.selectedItems.has(id);
+    return this.selectedPackages.has(id);
   }
 
   getQuantity(id: string): number {
-    return this.selectedItems.get(id) || PACKAGING_DEFAULT_QUANTITY;
+    return this.selectedPackages.get(id) || PACKAGING_DEFAULT_QUANTITY;
   }
 
   private initializeGroups(): void {
-    this.boxes = this.filterServices(PackagingId.BOXES);
-    this.safePacks = this.filterServices(PackagingId.SAFE_PACKS);
-    this.polyPacks = this.filterServices(PackagingId.POLY_PACKS);
-    this.films = this.filterServices(PackagingId.FILMS);
-    this.other = this.services.filter(
-      (service) =>
-        service.group_id === PackagingId.ROOT &&
-        PackagingId.OTHER.includes(service.subgroup_id as OtherIds),
+    this.boxes = this.filterOptions(PackagingId.BOXES);
+    this.safePacks = this.filterOptions(PackagingId.SAFE_PACKS);
+    this.polyPacks = this.filterOptions(PackagingId.POLY_PACKS);
+    this.films = this.filterOptions(PackagingId.FILMS);
+    this.other = this.options.filter((option) =>
+      PackagingId.OTHER.includes(option.subgroup_id as OtherIds),
     );
   }
 
-  private initializeSelectedItems() {
+  private initializeSelectedPackages() {
     if (this.data) {
       const { items } = this.data;
 
-      this.selectedItems = this.createItemsMap(items);
+      this.selectedPackages = this.createItemsMap(items);
     } else {
-      this.selectedItems = new Map<string, number>();
+      this.selectedPackages = new Map<string, number>();
     }
   }
 
@@ -112,14 +108,12 @@ export class PackagingComponent implements OnChanges {
     return new Map(items.map((item) => [item.id, item.quantity]));
   }
 
-  private filterServices(subgroupId: string): Service[] {
-    return this.services.filter(
-      (service) => service.group_id === PackagingId.ROOT && service.subgroup_id === subgroupId,
-    );
+  private filterOptions(subgroupId: string): Service[] {
+    return this.options.filter((option) => option.subgroup_id === subgroupId);
   }
 
   private emitChange() {
-    const items = Array.from(this.selectedItems.entries()).map(([id, quantity]) => ({
+    const items = Array.from(this.selectedPackages.entries()).map(([id, quantity]) => ({
       id,
       quantity,
     }));

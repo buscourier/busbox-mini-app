@@ -1,7 +1,9 @@
 import { Dictionary } from '@ngrx/entity';
 import { MemoizedSelector } from '@ngrx/store';
 
-import { DeliveryRestrictions, DeliverySettings, Order } from '../../types';
+import { ApiError } from '@shared/types';
+
+import { DeliveryOptions, DeliveryRestrictions, Order } from '../../types';
 
 export interface BaseSelectors {
   // Entity selectors
@@ -11,11 +13,11 @@ export interface BaseSelectors {
   selectTotal: MemoizedSelector<object, number>;
 
   // State selectors
-  selectSettingsLoading: MemoizedSelector<object, boolean>;
-  selectSettingsLoaded: MemoizedSelector<object, boolean>;
-  selectSettingsError: MemoizedSelector<object, boolean>;
-  selectSettings: MemoizedSelector<object, DeliverySettings | null>;
+  selectIsOptionsLoading: MemoizedSelector<object, boolean>;
+  selectIsOptionsLoaded: MemoizedSelector<object, boolean>;
+  selectOptionsError: MemoizedSelector<object, boolean>;
+  selectOptions: MemoizedSelector<object, DeliveryOptions | null>;
   selectActiveOrderId: MemoizedSelector<object, string | null>;
   selectRestrictions: MemoizedSelector<object, DeliveryRestrictions>;
-  selectError: MemoizedSelector<object, string | null>;
+  selectError: MemoizedSelector<object, ApiError | null>;
 }

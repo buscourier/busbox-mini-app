@@ -84,7 +84,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdditionalServicesComponent implements OnChanges, OnInit {
-  @Input({ required: true }) services!: Service[];
+  @Input({ required: true }) options!: Service[];
   @Input() data: AdditionalServicesData | null = null;
   @Output() validationChange = new EventEmitter<boolean>();
   @Output() dataChange = new EventEmitter<AdditionalServicesData>();
@@ -129,7 +129,7 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['services']) {
+    if (changes['options']) {
       this.initializeServices();
     }
 
@@ -162,31 +162,16 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
 
   private initializeServices(): void {
     this.additionalServices = {
-      insurance: this.services
-        .filter(
-          (service) =>
-            service.group_id === AdditionalServiceId.ROOT &&
-            service.subgroup_id === AdditionalServiceId.INSURANCE,
-        )
+      insurance: this.options
+        .filter((service) => service.subgroup_id === AdditionalServiceId.INSURANCE)
         .sort((a, b) => Number(a.price || 0) - Number(b.price || 0)),
       recipientPayment:
-        this.services.find(
-          (service) =>
-            service.group_id === AdditionalServiceId.ROOT &&
-            service.name === AdditionalServiceName.RECIPIENT_PAYMENT,
-        ) || null,
+        this.options.find((service) => service.name === AdditionalServiceName.RECIPIENT_PAYMENT) ||
+        null,
       extendedSms:
-        this.services.find(
-          (service) =>
-            service.group_id === AdditionalServiceId.ROOT &&
-            service.name === AdditionalServiceName.EXTENDED_SMS,
-        ) || null,
+        this.options.find((service) => service.name === AdditionalServiceName.EXTENDED_SMS) || null,
       senderSms:
-        this.services.find(
-          (service) =>
-            service.group_id === AdditionalServiceId.ROOT &&
-            service.name === AdditionalServiceName.SENDER_SMS,
-        ) || null,
+        this.options.find((service) => service.name === AdditionalServiceName.SENDER_SMS) || null,
     };
   }
 
@@ -412,6 +397,6 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
   }
 
   private getServicePrice(serviceId: string | null): string {
-    return this.services.find((service) => service.id === serviceId)?.price || '';
+    return this.options.find((option) => option.id === serviceId)?.price || '';
   }
 }

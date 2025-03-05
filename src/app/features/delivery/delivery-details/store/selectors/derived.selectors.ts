@@ -5,7 +5,6 @@ import {
   ActiveOrderDetails,
   CargoType,
   CargoTypeId,
-  CargoTypesGroup,
   Order,
   PackagingDetails,
   Service,
@@ -71,43 +70,46 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
   );
 
   const selectIsAllOrdersValid = createSelector(baseSelectors.selectAll, (orders): boolean => {
-    // Если нет заказов - считаем что все валидно
     if (!orders.length) return true;
 
-    // Проверяем что все заказы валидны
     return orders.every((order) => isOrderValid(order));
   });
 
-  const selectCargoTypes = createSelector(
-    baseSelectors.selectSettings,
-    (settings): CargoTypesGroup => {
-      const cargos = Array.isArray(settings?.cargos) ? settings.cargos : [];
+  const selectCargoTypes = createSelector(baseSelectors.selectOptions, (options) => {
+    const cargos = Array.isArray(options?.cargos) ? options.cargos : [];
 
-      return {
-        root: cargos.filter((cargo) => cargo.parent_id === CargoTypeId.ROOT),
-        autoParts: cargos.filter((cargo) => cargo.parent_id === CargoTypeId.AUTO_PARTS),
-        other: cargos.filter((cargo) => cargo.parent_id === CargoTypeId.OTHER),
-      };
+    return cargos.filter((cargo) => cargo.parent_id === CargoTypeId.ROOT);
+  });
+
+  const selectAutoPartsOptions = createSelector(baseSelectors.selectOptions, (options) => {
+    const cargos = Array.isArray(options?.cargos) ? options.cargos : [];
+
+    return cargos.filter((cargo) => cargo.parent_id === CargoTypeId.AUTO_PARTS);
+  });
+
+  const selectOtherCargosOptions = createSelector(baseSelectors.selectOptions, (options) => {
+    const cargos = Array.isArray(options?.cargos) ? options.cargos : [];
+
+    return cargos.filter((cargo) => cargo.parent_id === CargoTypeId.OTHER);
+  });
+
+  const selectAdditionalServicesOptions = createSelector(
+    baseSelectors.selectOptions,
+    (options): Service[] => {
+      const services = options?.services || [];
+
+      return services.filter((service) => service.group_id === '3') || [];
     },
   );
 
-  const selectAdditionalServices = createSelector(
-    baseSelectors.selectSettings,
-    (settings): Service[] => {
-      const services = settings?.services || [];
-
-      return services.filter((service) => service.group_id === '3');
-    },
-  );
-
-  const selectPackaging = createSelector(
-    baseSelectors.selectSettings,
-    (settings) => settings?.services.filter((s) => s.group_id === '1') || [],
+  const selectPackagingOptions = createSelector(
+    baseSelectors.selectOptions,
+    (options) => options?.services.filter((service) => service.group_id === '1') || [],
   );
 
   const selectActiveOrderPackaging = createSelector(
     selectActiveOrder,
-    selectPackaging,
+    selectPackagingOptions,
     (order, packaging): { items: PackagingDetails[] } | null => {
       if (!order?.packaging?.items.length) return null;
 
@@ -145,8 +147,10 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     selectIsAllOrdersValid,
     selectEnhancedOrders,
     selectCargoTypes,
-    selectAdditionalServices,
-    selectPackaging,
+    selectAutoPartsOptions,
+    selectOtherCargosOptions,
+    selectAdditionalServicesOptions,
+    selectPackagingOptions,
     selectActiveOrderDetails,
   };
 };

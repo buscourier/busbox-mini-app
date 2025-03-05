@@ -53,8 +53,8 @@ type AutoPartsForm = FormGroup<{
 })
 export class AutoPartsComponent implements OnInit, OnChanges {
   @Input() data: AutoPartsData | null = null;
-  @Input() parts!: Cargo[];
-  @Input() restrictions!: CargoItemRestrictions | null;
+  @Input({ required: true }) options!: Cargo[];
+  @Input({ required: true }) restrictions!: CargoItemRestrictions | null;
   @Output() dataChange = new EventEmitter<AutoPartsData>();
   @Output() validationChange = new EventEmitter<boolean>();
 

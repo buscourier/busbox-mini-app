@@ -4,19 +4,19 @@
 <!--<br>-->
 <!--<b>allOrdersValid: {{vm?.isAllOrdersValid}}</b>-->
 
-@if (vm && vm.settingsLoaded) {
+@if (vm && vm.options.isLoaded) {
   <app-order-tabs
-    [tabs]="vm.enhancedOrders"
-    [isActiveOrderValid]="vm.isActiveOrderValid"
+    [tabs]="vm.orders.items"
+    [isActiveOrderValid]="vm.orders.isActiveValid"
     [maxTabs]="MAX_ORDERS"
     (add)="addOrder()"
     (remove)="removeOrder($event)"
     (select)="setActiveOrder($event)"
   />
-  @if (vm?.activeOrder; as order) {
+  @if (vm?.orders?.active; as order) {
     <app-cargo-picker
       [activeType]="order.cargoType"
-      [types]="vm.cargoTypes.root"
+      [types]="vm.options.cargoTypes"
       [restrictions]="vm.restrictions"
       (typeChange)="setCargoType(order.id, $event)"
     />
@@ -39,8 +39,8 @@
         @defer {
           <app-auto-parts
             [data]="order.autoParts"
+            [options]="vm.options.autoParts"
             [restrictions]="vm.restrictions.autoParts"
-            [parts]="vm.cargoTypes.autoParts"
             (dataChange)="updateOrderData(order.id, 'autoParts', $event)"
             (validationChange)="updateOrderValidation(order.id, 'autoParts', $event)"
           />
@@ -52,8 +52,8 @@
         @defer {
           <app-other-cargo
             [data]="order.otherCargo"
+            [options]="vm.options.otherCargos"
             [restrictions]="vm.restrictions.otherCargo"
-            [parts]="vm.cargoTypes.other"
             (dataChange)="updateOrderData(order.id, 'otherCargo', $event)"
             (validationChange)="updateOrderValidation(order.id, 'otherCargo', $event)"
           />
@@ -77,18 +77,18 @@
     <div>
       <app-packaging
         [data]="order.packaging"
-        [services]="vm.settings?.services ?? []"
+        [options]="vm.options.packaging"
         (dataChange)="updateOrderData(order.id, 'packaging', $event)"
         (validationChange)="updateOrderValidation(order.id, 'packaging', $event)"
       />
       <app-additional-services
         [data]="order.additionalServices"
-        [services]="vm.settings?.services ?? []"
+        [options]="vm.options?.additionalServices ?? []"
         (dataChange)="updateOrderData(order.id, 'additionalServices', $event)"
         (validationChange)="updateOrderValidation(order.id, 'additionalServices', $event)"
       />
     </div>
   }
-} @else if (vm?.settingsLoading) {
+} @else if (vm?.options?.isLoading) {
   <tui-loader />
 }

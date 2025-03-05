@@ -7,46 +7,60 @@ import { DeliveryDetailsViewModel } from './view-model.types';
 export const createViewModelSelector = (
   baseSelectors: BaseSelectors,
   derivedSelectors: DerivedSelectors,
-) => ({
-  selectViewModel: createSelector(
+) => {
+  const selectOptionsViewModel = createSelector(
+    baseSelectors.selectIsOptionsLoading,
+    baseSelectors.selectIsOptionsLoaded,
+    baseSelectors.selectError,
+    derivedSelectors.selectCargoTypes,
+    derivedSelectors.selectAutoPartsOptions,
+    derivedSelectors.selectOtherCargosOptions,
+    derivedSelectors.selectAdditionalServicesOptions,
+    derivedSelectors.selectPackagingOptions,
+    (
+      isLoading,
+      isLoaded,
+      error,
+      cargoTypes,
+      autoParts,
+      otherCargos,
+      additionalServices,
+      packaging,
+    ) => ({
+      isLoading,
+      isLoaded,
+      error,
+      cargoTypes,
+      autoParts,
+      otherCargos,
+      additionalServices,
+      packaging,
+    }),
+  );
+
+  const selectOrdersViewModel = createSelector(
     derivedSelectors.selectEnhancedOrders,
     derivedSelectors.selectActiveOrder,
     derivedSelectors.selectIsActiveOrderValid,
     derivedSelectors.selectIsAllOrdersValid,
-    derivedSelectors.selectCargoTypes,
-    derivedSelectors.selectAdditionalServices,
-    baseSelectors.selectRestrictions,
-    baseSelectors.selectSettingsLoading,
-    baseSelectors.selectSettingsLoaded,
-    baseSelectors.selectSettingsError,
-    baseSelectors.selectSettings,
-    baseSelectors.selectError,
-    (
-      enhancedOrders,
-      activeOrder,
-      isActiveOrderValid,
-      isAllOrdersValid,
-      cargoTypes,
-      additionalServices,
-      restrictions,
-      settingsLoading,
-      settingsLoaded,
-      settingsError,
-      settings,
-      error,
-    ): DeliveryDetailsViewModel => ({
-      enhancedOrders,
-      activeOrder,
-      isActiveOrderValid,
-      isAllOrdersValid,
-      cargoTypes,
-      additionalServices,
-      restrictions,
-      settingsLoading,
-      settingsLoaded,
-      settingsError,
-      settings,
-      error,
+    (items, active, isActiveValid, isAllValid) => ({
+      items,
+      active,
+      isActiveValid,
+      isAllValid,
     }),
-  ),
-});
+  );
+
+  return {
+    selectViewModel: createSelector(
+      selectOrdersViewModel,
+      selectOptionsViewModel,
+      baseSelectors.selectRestrictions,
+      (orders, options, restrictions): DeliveryDetailsViewModel => ({
+        orders,
+        options,
+        restrictions,
+      }),
+    ),
+  };
+};
