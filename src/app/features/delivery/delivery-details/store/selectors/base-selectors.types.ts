@@ -15,9 +15,8 @@ export interface BaseSelectors {
   // State selectors
   selectIsOptionsLoading: MemoizedSelector<object, boolean>;
   selectIsOptionsLoaded: MemoizedSelector<object, boolean>;
-  selectOptionsError: MemoizedSelector<object, boolean>;
   selectOptions: MemoizedSelector<object, DeliveryOptions | null>;
   selectActiveOrderId: MemoizedSelector<object, string | null>;
   selectRestrictions: MemoizedSelector<object, DeliveryRestrictions>;
-  selectError: MemoizedSelector<object, ApiError | null>;
+  selectOptionsError: MemoizedSelector<object, ApiError | null>;
 }

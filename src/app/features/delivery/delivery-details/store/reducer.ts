@@ -2,7 +2,6 @@ import { createReducer, on } from '@ngrx/store';
 
 import { LoadingStatus } from '@shared/types';
 
-import { PARCEL_LIMITS, PARCELS_LIMITS } from '../constants';
 import { CargoType, Order } from '../types';
 import { DeliveryDetailsActions, OrderActions } from './actions';
 import { adapter, DeliveryDetailsState, initialState } from './state';
@@ -16,24 +15,33 @@ export const deliveryDetailsReducer = createReducer(
     DeliveryDetailsActions.loadOptions,
     (state): DeliveryDetailsState => ({
       ...state,
-      optionsStatus: LoadingStatus.LOADING,
-      error: null,
+      options: {
+        status: LoadingStatus.LOADING,
+        data: null,
+        error: null,
+      },
     }),
   ),
   on(
     DeliveryDetailsActions.loadOptionsSuccess,
     (state, { options }): DeliveryDetailsState => ({
       ...state,
-      optionsStatus: LoadingStatus.LOADED,
-      options,
+      options: {
+        ...state.options,
+        status: LoadingStatus.LOADED,
+        data: options,
+      },
     }),
   ),
   on(
     DeliveryDetailsActions.loadOptionsFailure,
     (state, { error }): DeliveryDetailsState => ({
       ...state,
-      optionsStatus: LoadingStatus.ERROR,
-      error,
+      options: {
+        ...state.options,
+        status: LoadingStatus.ERROR,
+        error,
+      },
     }),
   ),
 
@@ -44,20 +52,7 @@ export const deliveryDetailsReducer = createReducer(
       restrictions: restrictions,
     }),
   ),
-  on(DeliveryDetailsActions.resetOptions, (): DeliveryDetailsState => {
-    return adapter.getInitialState({
-      activeOrderId: null,
-      optionsStatus: LoadingStatus.IDLE,
-      options: null,
-      restrictions: {
-        autoParts: null,
-        otherCargo: null,
-        parcels: PARCELS_LIMITS.DEFAULT,
-        parcel: PARCEL_LIMITS.DEFAULT,
-      },
-      error: null,
-    });
-  }),
+  on(DeliveryDetailsActions.resetOptions, (): DeliveryDetailsState => initialState),
   on(DeliveryDetailsActions.restoreState, (state, { restoredState }) => {
     const orders = Object.values(restoredState.entities).filter((order): order is Order => !!order);
 

@@ -3,7 +3,7 @@ import { createSelector, MemoizedSelector } from '@ngrx/store';
 
 import { LoadingStatus } from '@shared/types';
 
-import { Order } from '../../types';
+import { OptionsState, Order } from '../../types';
 
 import { DeliveryDetailsState } from '../state';
 import { BaseSelectors } from './base-selectors.types';
@@ -22,35 +22,32 @@ export const createBaseSelectors = (
   const selectIds = entitySelectors.selectIds;
   const selectTotal = entitySelectors.selectTotal;
 
-  // State selectors
-  const selectIsOptionsLoading = createSelector(
-    selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.optionsStatus === LoadingStatus.LOADING,
-  );
-
-  const selectIsOptionsLoaded = createSelector(
-    selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.optionsStatus === LoadingStatus.LOADED,
-  );
-
-  const selectOptionsError = createSelector(
-    selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.optionsStatus === LoadingStatus.ERROR,
-  );
-
-  const selectOptions = createSelector(
+  const selectOptionsState = createSelector(
     selectDeliveryDetailsState,
     (state: DeliveryDetailsState) => state.options,
   );
 
+  // State selectors
+  const selectIsOptionsLoading = createSelector(
+    selectOptionsState,
+    (options: OptionsState) => options.status === LoadingStatus.LOADING,
+  );
+
+  const selectIsOptionsLoaded = createSelector(
+    selectOptionsState,
+    (options: OptionsState) => options.status === LoadingStatus.LOADED,
+  );
+
+  const selectOptionsError = createSelector(
+    selectOptionsState,
+    (options: OptionsState) => options.error,
+  );
+
+  const selectOptions = createSelector(selectOptionsState, (options: OptionsState) => options.data);
+
   const selectActiveOrderId = createSelector(
     selectDeliveryDetailsState,
     (state: DeliveryDetailsState) => state.activeOrderId,
-  );
-
-  const selectError = createSelector(
-    selectDeliveryDetailsState,
-    (state: DeliveryDetailsState) => state.error,
   );
 
   const selectRestrictions = createSelector(
@@ -72,6 +69,5 @@ export const createBaseSelectors = (
     selectOptions,
     selectActiveOrderId,
     selectRestrictions,
-    selectError,
   };
 };

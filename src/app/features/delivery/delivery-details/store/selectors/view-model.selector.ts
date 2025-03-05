@@ -11,7 +11,7 @@ export const createViewModelSelector = (
   const selectOptionsViewModel = createSelector(
     baseSelectors.selectIsOptionsLoading,
     baseSelectors.selectIsOptionsLoaded,
-    baseSelectors.selectError,
+    baseSelectors.selectOptionsError,
     derivedSelectors.selectCargoTypes,
     derivedSelectors.selectAutoPartsOptions,
     derivedSelectors.selectOtherCargosOptions,
