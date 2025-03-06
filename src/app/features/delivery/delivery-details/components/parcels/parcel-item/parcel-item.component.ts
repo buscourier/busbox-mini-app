@@ -39,22 +39,12 @@ import { isObjectsEqual } from '@core/utils/object.utils';
 
 import { customMaxValidator, customMinValidator } from '@shared/validators';
 
-import { DimensionsGroup, Parcel, ParcelLimits } from '../../../../types';
-import { PARCEL_DEFAULTS, PARCEL_VALIDATION_MESSAGES } from '../../constants';
-import { ParcelsErrors } from '../../types';
+import { DimensionsGroup, Parcel, ParcelLimits } from '../../../types';
 
-type ParcelItemForm = FormGroup<{
-  quantity: FormControl<number>;
-  weight: FormControl<number>;
-  dimensions: FormGroup<{
-    [K in keyof DimensionsGroup]: FormControl<number>;
-  }>;
-}>;
-
-const limitKeyMap: Record<Exclude<keyof Parcel, 'dimensions'>, keyof ParcelLimits> = {
-  quantity: 'QUANTITY',
-  weight: 'WEIGHT',
-};
+import { PARCEL_DEFAULTS } from '../constants';
+import { ParcelsErrors } from '../types';
+import { limitKeyMap, PARCEL_VALIDATION_MESSAGES } from './parcel-item.constants';
+import { ParcelItemForm } from './parcel-item.types';
 
 @Component({
   selector: 'app-parcel-item',

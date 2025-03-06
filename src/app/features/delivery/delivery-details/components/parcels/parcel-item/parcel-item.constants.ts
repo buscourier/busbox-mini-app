@@ -1,4 +1,11 @@
-import { DimensionsError, LimitError } from '../types';
+import { Parcel, ParcelLimits } from '../../../types';
+
+import { DimensionsError } from './parcel-item.types';
+
+export const limitKeyMap: Record<Exclude<keyof Parcel, 'dimensions'>, keyof ParcelLimits> = {
+  quantity: 'QUANTITY',
+  weight: 'WEIGHT',
+};
 
 export const PARCEL_VALIDATION_MESSAGES = {
   required: 'Все поля обязательны для заполнения',
@@ -14,17 +21,4 @@ export const PARCEL_VALIDATION_MESSAGES = {
   heightMax: (context: { max: number }): string => `Максимальная высота: ${context.max} см.`,
   lengthMin: (context: { min: number }): string => `Минимальная длина:  ${context.min} см.`,
   lengthMax: (context: { max: number }): string => `Максимальная длина: ${context.max} см.`,
-} as const;
-
-export const PARCELS_VALIDATION_MESSAGES = {
-  maxItems: ({ max }: LimitError) => `Максимальное количество посылок: ${max}`,
-
-  totalQuantityMax: ({ max, actual }: LimitError) =>
-    `Превышено общее количество мест: ${actual} из ${max} (на ${actual - max})`,
-
-  totalDimensionsMax: ({ max, actual }: LimitError) =>
-    `Превышены общие габариты: ${actual} см из ${max} см (на ${actual - max} см)`,
-
-  totalWeightMax: ({ max, actual }: LimitError) =>
-    `Превышен общий вес: ${actual} кг из ${max} кг (на ${actual - max} кг)`,
 } as const;

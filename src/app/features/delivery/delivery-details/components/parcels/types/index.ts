@@ -1,1 +1,1 @@
-export * from './parcels-error.types';
+export * from './parcels-errors.types';

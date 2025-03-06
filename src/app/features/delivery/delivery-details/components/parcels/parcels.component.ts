@@ -24,10 +24,11 @@ import { isObjectsEqual } from '@core/utils/object.utils';
 
 import { Parcel, ParcelData, ParcelLimits, ParcelsLimits } from '../../types';
 
-import { ParcelItemComponent } from './components/parcel-item/parcel-item.component';
-import { PARCEL_DEFAULTS, PARCELS_VALIDATION_MESSAGES } from './constants';
+import { PARCEL_DEFAULTS } from './constants';
+import { ParcelItemComponent } from './parcel-item/parcel-item.component';
+import { PARCELS_VALIDATION_MESSAGES } from './parcels.constants';
+import { parcelsValidator } from './parcels.validator';
 import { ParcelsErrors } from './types';
-import { parcelsValidator } from './validators/parcels.validator';
 
 @Component({
   selector: 'app-parcels',
