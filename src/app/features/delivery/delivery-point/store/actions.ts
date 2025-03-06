@@ -1,7 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { ApiError, DeliveryCity, Office } from '@shared/types';
-import { FormControlStatus } from '@shared/types/form.types';
+import { ApiError, DeliveryCity, FormControlStatus, Office } from '@shared/types';
 
 import { CourierDetails } from '@features/delivery/types';
 

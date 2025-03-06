@@ -1,7 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { DeliveryCity, Office } from '@shared/types';
-import { FormControlStatus } from '@shared/types/form.types';
+import { DeliveryCity, FormControlStatus, Office } from '@shared/types';
 
 import { LIMITED_OFFICE } from '@features/delivery/constants';
 import { Courier, ErrorStatus } from '@features/delivery/types';

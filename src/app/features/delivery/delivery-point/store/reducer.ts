@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { LoadingStatus } from '@shared/types';
-import { FormControlStatus } from '@shared/types/form.types';
+import { FormControlStatus, LoadingStatus } from '@shared/types';
 
 import { DeliveryPointActions } from './actions';
 import { DeliveryPointState } from './state';

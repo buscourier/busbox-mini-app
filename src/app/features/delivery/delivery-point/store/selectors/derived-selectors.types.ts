@@ -1,7 +1,6 @@
 import { MemoizedSelector } from '@ngrx/store';
 
-import { Office } from '@shared/types';
-import { FormValidationState } from '@shared/types/form.types';
+import { FormValidationState, Office } from '@shared/types';
 
 import { Courier, ErrorStatus } from '@features/delivery/types';
 

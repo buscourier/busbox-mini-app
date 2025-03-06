@@ -38,15 +38,15 @@ import { TuiComboBoxModule, TuiSelectModule, TuiTextfieldControllerModule } from
 import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
 
-import { CitiesFilterSource, DeliveryCity, Office } from '@shared/types';
-import { FormControlStatus } from '@shared/types/form.types';
+import { CitiesFilterSource, DeliveryCity, FormControlStatus, Office } from '@shared/types';
 
 import { CourierDetailsComponent } from '@features/delivery/base/courier-details';
 import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
 import { CourierDetails } from '@features/delivery/types';
 
+import { DeliveryPointControlValues, DeliveryPointForm, ResetConfig } from './delivery-point.types';
 import { DeliveryPointActions, deliveryPointFeature, DeliveryPointViewModel } from './store';
-import { ControlValues, DeliveryPointForm, DeliveryPointTabType, ResetConfig } from './types';
+import { DeliveryPointTabType } from './types';
 
 @Component({
   selector: 'app-delivery-point',
@@ -343,11 +343,11 @@ export class DeliveryPointComponent implements OnInit {
     return [this.city, tabControl];
   }
 
-  private patchFormControl<K extends keyof ControlValues>(
+  private patchFormControl<K extends keyof DeliveryPointControlValues>(
     controlName: K,
-    value: ControlValues[K],
+    value: DeliveryPointControlValues[K],
   ): void {
-    const control = this.form.controls[controlName] as FormControl<ControlValues[K]>;
+    const control = this.form.controls[controlName] as FormControl<DeliveryPointControlValues[K]>;
 
     if (control.value !== value) {
       control.patchValue(value, { emitEvent: false });
