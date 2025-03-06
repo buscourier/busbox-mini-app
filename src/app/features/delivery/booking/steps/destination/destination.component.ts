@@ -13,9 +13,7 @@ import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
 
 import { BookingActions } from '../../store/actions';
 import { bookingFeature } from '../../store/feature';
-import { StepNumber } from '../../types';
-import { Destination } from '../../types/destination.types';
-import { Recipient } from '../../types/recipient.types';
+import { Destination, Recipient, StepNumber } from '../../types';
 
 import { RecipientComponent } from './recipient/recipient.component';
 

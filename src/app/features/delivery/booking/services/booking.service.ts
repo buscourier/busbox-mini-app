@@ -12,12 +12,10 @@ import {
   Order,
   ParcelData,
 } from '@features/delivery/delivery-details/types';
+import { DeliveryBaseService } from '@features/delivery/services';
 import { BookingResult, Courier } from '@features/delivery/types';
 
-import { DeliveryBaseService } from '../../services/delivery-base.service';
-
-import { Departure } from '../types/departure.types';
-import { Destination } from '../types/destination.types';
+import { Departure, Destination } from '../types';
 
 import { environment } from '@env/environment';
 

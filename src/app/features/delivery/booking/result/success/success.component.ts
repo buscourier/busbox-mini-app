@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 
 import { BookingResult } from '@features/delivery/types';
 
-import { bookingFeature } from '../store/feature';
+import { bookingFeature } from '../../store/feature';
 
 @Component({
   selector: 'app-success',

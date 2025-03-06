@@ -4,11 +4,15 @@ import { ApiError } from '@shared/types';
 
 import { BookingResult } from '@features/delivery/types';
 
-import { Step, StepNumber, StepsData } from '../../types';
-import { Applicant } from '../../types/applicant.types';
-import { Departure } from '../../types/departure.types';
-import { Destination } from '../../types/destination.types';
-import { Review } from '../../types/review.types';
+import {
+  Applicant,
+  Departure,
+  Destination,
+  Review,
+  Step,
+  StepNumber,
+  StepsData,
+} from '../../types';
 
 export interface BaseSelectors {
   selectCurrentStep: MemoizedSelector<object, StepNumber>;

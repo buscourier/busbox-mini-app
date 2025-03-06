@@ -8,7 +8,8 @@ import { Store } from '@ngrx/store';
 
 import { TuiButton } from '@taiga-ui/core';
 
-import { DeliveryLayoutService } from '../services/delivery-layout.service';
+import { DeliveryLayoutService } from '@features/delivery/services';
+
 import { StepperComponent } from './stepper/stepper.component';
 import { BookingActions } from './store/actions';
 import { bookingFeature } from './store/feature';

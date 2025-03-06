@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 
 import { ApiError } from '@shared/types';
 
-import { bookingFeature } from '../store/feature';
+import { bookingFeature } from '../../store/feature';
 
 @Component({
   selector: 'app-failure',

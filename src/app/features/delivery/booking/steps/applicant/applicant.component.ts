@@ -9,8 +9,7 @@ import { TuiButton } from '@taiga-ui/core';
 
 import { BookingActions } from '../../store/actions';
 import { bookingFeature } from '../../store/feature';
-import { Individual, StepNumber } from '../../types';
-import { Applicant, ApplicantType } from '../../types/applicant.types';
+import { Applicant, ApplicantType, Individual, StepNumber } from '../../types';
 
 import { ApplicantTabs } from './applicant.const';
 import { IndividualComponent } from './individual/individual.component';

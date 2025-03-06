@@ -12,7 +12,7 @@ import { PersistenceService } from '@core/services';
 
 import { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
 
-import { StoredBookingState } from '../../types/storage.types';
+import { StoredBookingState } from '../../types';
 
 import { BookingActions } from '../actions';
 import { bookingFeature } from '../feature';

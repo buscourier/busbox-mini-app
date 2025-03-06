@@ -21,8 +21,7 @@ import { TuiTextareaModule } from '@taiga-ui/legacy';
 
 import { BookingActions } from '../../store/actions';
 import { bookingFeature } from '../../store/feature';
-import { StepNumber } from '../../types';
-import { Review } from '../../types/review.types';
+import { Review, StepNumber } from '../../types';
 
 import { ReviewControls, ReviewModel } from './review.types';
 import { selectReviewModel } from './selectors/review.selector';

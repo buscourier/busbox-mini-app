@@ -31,7 +31,7 @@ import { isObjectsEqual } from '@core/utils/object.utils';
 import { phoneValidator } from '@shared/validators';
 import { fullNameValidator } from '@shared/validators/user.validators';
 
-import { Recipient } from '../../../types/recipient.types';
+import { Recipient } from '../../../types';
 
 import { RecipientControls } from './recipient.types';
 

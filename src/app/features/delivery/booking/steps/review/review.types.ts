@@ -2,7 +2,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ActiveOrderDetails } from '@features/delivery/delivery-details/types';
 
-import { Review } from '../../types/review.types';
+import { Review } from '../../types';
 
 export interface ReviewField {
   label: string;

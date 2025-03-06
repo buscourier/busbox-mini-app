@@ -1,6 +1,6 @@
 import { BaseTab } from '@shared/types';
 
-import { ApplicantType } from '../../types/applicant.types';
+import { ApplicantType } from '../../types';
 
 export const ApplicantTabs: BaseTab<ApplicantType>[] = [
   {

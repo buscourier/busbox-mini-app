@@ -17,7 +17,7 @@ import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
 import { pickupPointFeature } from '@features/delivery/pickup-point/store';
 
 import { DeliveryActions } from '../../../store/actions';
-import { BookingService } from '../../services/booking.service';
+import { BookingService } from '../../services';
 
 import { BookingActions } from '../actions';
 import { bookingFeature } from '../feature';

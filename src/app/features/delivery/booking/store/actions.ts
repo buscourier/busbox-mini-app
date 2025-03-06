@@ -4,10 +4,14 @@ import { ApiError } from '@shared/types';
 
 import { BookingResult } from '@features/delivery/types';
 
-import { Individual, Sender, StepNumber } from '../types';
-import { ApplicantType } from '../types/applicant.types';
-import { Recipient } from '../types/recipient.types';
-import { StoredBookingState } from '../types/storage.types';
+import {
+  ApplicantType,
+  Individual,
+  Recipient,
+  Sender,
+  StepNumber,
+  StoredBookingState,
+} from '../types';
 
 export const BookingActions = createActionGroup({
   source: 'Booking',
