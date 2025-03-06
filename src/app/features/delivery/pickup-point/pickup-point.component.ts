@@ -44,15 +44,15 @@ import {
 import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
 
-import { CitiesFilterSource, Office, PickupCity } from '@shared/types';
-import { FormControlStatus } from '@shared/types/form.types';
+import { CitiesFilterSource, FormControlStatus, Office, PickupCity } from '@shared/types';
 
 import { CourierDetailsComponent } from '@features/delivery/base/courier-details';
 import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
 import { CourierDetails } from '@features/delivery/types';
 
+import { PickupPointControlValues, PickupPointForm, ResetConfig } from './pickup-point.types';
 import { PickupPointActions, pickupPointFeature, PickupPointViewModel } from './store';
-import { ControlValues, PickupPointForm, PickupPointTabType, ResetConfig } from './types';
+import { PickupPointTabType } from './types';
 
 @Component({
   selector: 'app-pickup-point',
@@ -348,11 +348,11 @@ export class PickupPointComponent implements OnInit {
     return [...baseControls, tabControl];
   }
 
-  private patchFormControl<K extends keyof ControlValues>(
+  private patchFormControl<K extends keyof PickupPointControlValues>(
     controlName: K,
-    value: ControlValues[K],
+    value: PickupPointControlValues[K],
   ): void {
-    const control = this.form.controls[controlName] as FormControl<ControlValues[K]>;
+    const control = this.form.controls[controlName] as FormControl<PickupPointControlValues[K]>;
 
     if (control.value !== value) {
       control.patchValue(value, { emitEvent: false });

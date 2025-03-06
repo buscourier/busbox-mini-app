@@ -1,5 +1,4 @@
-import { PickupCity } from '@shared/types';
-import { FormValidationState } from '@shared/types/form.types';
+import { FormValidationState, PickupCity } from '@shared/types';
 
 import {
   CitiesViewModel,

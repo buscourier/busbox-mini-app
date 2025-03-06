@@ -1,7 +1,6 @@
 import { MemoizedSelector } from '@ngrx/store';
 
-import { ApiError, Office, PickupCity } from '@shared/types';
-import { FormState } from '@shared/types/form.types';
+import { ApiError, FormState, Office, PickupCity } from '@shared/types';
 
 import { CourierDetails } from '@features/delivery/types';
 

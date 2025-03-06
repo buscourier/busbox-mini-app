@@ -1,8 +1,16 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
+import { Action } from '@ngrx/store';
+
 import { Office, PickupCity } from '@shared/types';
 
 import { CourierDetails } from '@features/delivery/types';
+
+export interface ResetConfig {
+  control: FormControl;
+  action: Action;
+  cleanup?: () => void;
+}
 
 export type PickupPointForm = FormGroup<{
   city: FormControl<PickupCity | null>;
@@ -11,6 +19,6 @@ export type PickupPointForm = FormGroup<{
   departureDate: FormControl<string | null>;
 }>;
 
-export type ControlValues = {
+export type PickupPointControlValues = {
   [K in keyof PickupPointForm['controls']]: PickupPointForm['controls'][K]['value'];
 };
