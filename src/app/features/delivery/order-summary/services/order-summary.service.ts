@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { DeliveryBaseService } from '@features/delivery/services';
 import { Courier } from '@features/delivery/types';
 
 import { CargoType, CargoTypeId, Order } from '../../delivery-details/types';
-import { DeliveryBaseService } from '../../services/delivery-base.service';
 
 import {
   CalculationRequestParams,

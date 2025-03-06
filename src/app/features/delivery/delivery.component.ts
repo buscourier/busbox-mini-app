@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
-import { DeliveryLayoutService } from './services/delivery-layout.service';
+import { DeliveryLayoutService } from './services';
 
 @Component({
   selector: 'app-delivery',

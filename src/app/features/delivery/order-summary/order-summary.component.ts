@@ -10,7 +10,7 @@ import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiButton, TuiLoader } from '@taiga-ui/core';
 import { TUI_CONFIRM, TuiConfirmData } from '@taiga-ui/kit';
 
-import { DeliveryLayoutService } from '../services/delivery-layout.service';
+import { DeliveryLayoutService } from '../services';
 import { DeliveryActions } from '../store/actions';
 import { selectOrderSummaryViewModel } from './store/selectors/view-model.selector';
 import { OrderSummaryViewModel } from './store/selectors/view-model.types';
