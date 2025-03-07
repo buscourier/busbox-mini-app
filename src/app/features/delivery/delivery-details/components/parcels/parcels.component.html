@@ -1,8 +1,12 @@
 <div class="parcels">
-  @for (parcel of parcels.controls; track $index) {
-    <app-parcel-item [parcelsErrors]="errors" [limits]="parcelLimits" [formControl]="parcel">
+  @for (parcelItem of parcels.controls; track $index) {
+    <app-parcel-item
+      [parcelsErrors]="errors"
+      [limits]="parcelItemLimits"
+      [formControl]="parcelItem"
+    >
       @if (parcels.length > 1) {
-        <button type="button" tuiIconButton icon="tuiIconTrash" (click)="removeParcel($index)">
+        <button type="button" tuiIconButton icon="tuiIconTrash" (click)="removeParcelItem($index)">
           Удалить
         </button>
       }
@@ -15,8 +19,8 @@
     tuiButton
     appearance="secondary"
     class="add-button"
-    [disabled]="!canAddParcel"
-    (click)="addParcel()"
+    [disabled]="!canAddParcelItem"
+    (click)="addParcelItem()"
   >
     Добавить еще 1 позицию
   </button>

@@ -1,4 +1,4 @@
-import { ParcelLimits, ParcelsLimits } from '../types/parcel-limits.types';
+import { ParcelItemLimits, ParcelsLimits } from '../types/parcel-limits.types';
 
 /**
  * Groups of city IDs where the same city might have different IDs
@@ -32,7 +32,7 @@ const PARCELS_BASE_LIMITS: ParcelsLimits = {
 };
 
 /** Limits for single parcel without special conditions */
-const PARCEL_DEFAULT_LIMITS: ParcelLimits = {
+const PARCEL_ITEM_DEFAULT_LIMITS: ParcelItemLimits = {
   QUANTITY: {
     MIN: 1,
     MAX: 8,
@@ -51,7 +51,7 @@ const PARCEL_DEFAULT_LIMITS: ParcelLimits = {
  * Limits for a single parcel under special conditions (office, courier, city).
  * Currently, the restrictions are the same for offices, couriers, and cities.
  */
-const PARCEL_BASE_LIMITS: ParcelLimits = {
+const PARCEL_ITEM_BASE_LIMITS: ParcelItemLimits = {
   QUANTITY: {
     MIN: 1,
     MAX: 5,
@@ -72,8 +72,8 @@ function createParcelsLimits(overrides: Partial<typeof PARCELS_BASE_LIMITS> = {}
 }
 
 /** Creates limits for a single parcel with optional base values override */
-function createParcelLimits(overrides: Partial<typeof PARCEL_BASE_LIMITS> = {}) {
-  return { ...PARCEL_BASE_LIMITS, ...overrides };
+function createParcelLimits(overrides: Partial<typeof PARCEL_ITEM_BASE_LIMITS> = {}) {
+  return { ...PARCEL_ITEM_BASE_LIMITS, ...overrides };
 }
 
 /**
@@ -96,7 +96,7 @@ function createCityParcelsLimits(): ReadonlyMap<readonly string[], ParcelsLimits
  * Each city is represented by a set of IDs, as a city with the same name may
  * have different IDs depending on the departure city.
  */
-function createParcelLimitsByCity(): ReadonlyMap<readonly string[], ParcelLimits> {
+function createParcelLimitsByCity(): ReadonlyMap<readonly string[], ParcelItemLimits> {
   return new Map([
     [CITY_GROUPS.VANINO, { ...createParcelLimits() }],
     [CITY_GROUPS.SOVGAVAN, { ...createParcelLimits() }],
@@ -112,8 +112,8 @@ export const PARCELS_LIMITS = {
   CITY: createCityParcelsLimits(),
 };
 
-export const PARCEL_LIMITS = {
-  DEFAULT: PARCEL_DEFAULT_LIMITS,
+export const PARCEL_ITEM_LIMITS = {
+  DEFAULT: PARCEL_ITEM_DEFAULT_LIMITS,
   OFFICE: createParcelLimits(),
   COURIER: createParcelLimits(),
   CITY: createParcelLimitsByCity(),

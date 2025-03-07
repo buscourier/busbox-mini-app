@@ -7,14 +7,13 @@ export interface ParcelsLimits {
   TOTAL_DIMENSIONS_MAX: number;
 }
 
-/** Defines limits for a single parcel */
-export interface ParcelLimits {
+export interface ParcelItemLimits {
   QUANTITY: { MIN: number; MAX: number };
   WEIGHT: { MIN: number; MAX: number };
   DIMENSIONS: { MIN: number; MAX: number };
 }
 
-export interface GetParcelLimitsParams {
+export interface GetParcelItemLimitsParams {
   deliveryCity: DeliveryCity | null;
   isOfficeLimited: boolean;
   isCourierLimited: boolean;

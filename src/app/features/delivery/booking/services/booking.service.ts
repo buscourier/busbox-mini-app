@@ -6,12 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { DeliveryCity, PickupCity } from '@shared/types';
 
-import {
-  CargoType,
-  CargoTypeId,
-  Order,
-  ParcelData,
-} from '@features/delivery/delivery-details/types';
+import { CargoType, CargoTypeId, Order, Parcels } from '@features/delivery/delivery-details/types';
 import { DeliveryBaseService } from '@features/delivery/services';
 import { BookingResult, Courier } from '@features/delivery/types';
 
@@ -105,7 +100,7 @@ export class BookingService extends DeliveryBaseService {
     };
   }
 
-  mapParcelsDimensions(data: ParcelData | null): ParcelDimensions[] | null {
+  mapParcelsDimensions(data: Parcels | null): ParcelDimensions[] | null {
     if (!data?.items.length) return null;
 
     return data.items.map((item) => ({

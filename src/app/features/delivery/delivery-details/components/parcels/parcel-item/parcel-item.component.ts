@@ -39,11 +39,11 @@ import { isObjectsEqual } from '@core/utils/object.utils';
 
 import { customMaxValidator, customMinValidator } from '@shared/validators';
 
-import { DimensionsGroup, Parcel, ParcelLimits } from '../../../types';
+import { ParcelItem, ParcelItemDimensions, ParcelItemLimits } from '../../../types';
 
-import { PARCEL_DEFAULTS } from '../constants';
+import { PARCEL_ITEM_DEFAULTS } from '../constants';
 import { ParcelsErrors } from '../types';
-import { limitKeyMap, PARCEL_VALIDATION_MESSAGES } from './parcel-item.constants';
+import { limitKeyMap, PARCEL_ITEM_VALIDATION_MESSAGES } from './parcel-item.constants';
 import { ParcelItemForm } from './parcel-item.types';
 
 @Component({
@@ -75,13 +75,13 @@ import { ParcelItemForm } from './parcel-item.types';
     },
     {
       provide: TUI_VALIDATION_ERRORS,
-      useValue: PARCEL_VALIDATION_MESSAGES,
+      useValue: PARCEL_ITEM_VALIDATION_MESSAGES,
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ParcelItemComponent implements OnInit, OnChanges {
-  @Input({ required: true }) limits!: ParcelLimits;
+  @Input({ required: true }) limits!: ParcelItemLimits;
   @Input() parcelsErrors: ParcelsErrors | null = null;
 
   form!: ParcelItemForm;
@@ -90,7 +90,7 @@ export class ParcelItemComponent implements OnInit, OnChanges {
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly destroyRef = inject(DestroyRef);
 
-  private onChange!: (value: Parcel) => void;
+  private onChange!: (value: ParcelItem) => void;
   private onTouched!: () => void;
 
   get quantity(): FormControl<number> {
@@ -157,7 +157,7 @@ export class ParcelItemComponent implements OnInit, OnChanges {
   setMinDimensionOnBlur(
     isFocused: boolean,
     controlValue: number,
-    controlName: keyof DimensionsGroup,
+    controlName: keyof ParcelItemDimensions,
   ): void {
     if (!isFocused && !controlValue) {
       this.dimensions.controls[controlName].setValue(this.limits.DIMENSIONS.MIN);
@@ -167,7 +167,7 @@ export class ParcelItemComponent implements OnInit, OnChanges {
   setMinValueOnBlur(
     isFocused: boolean,
     controlValue: number,
-    controlName: Exclude<keyof Parcel, 'dimensions'>,
+    controlName: Exclude<keyof ParcelItem, 'dimensions'>,
   ): void {
     const limitKey = limitKeyMap[controlName];
 
@@ -176,18 +176,18 @@ export class ParcelItemComponent implements OnInit, OnChanges {
     }
   }
 
-  writeValue(value: Parcel | null) {
+  writeValue(value: ParcelItem | null) {
     if (value) {
       this.form.patchValue(value, { emitEvent: false });
     } else {
       this.form.reset(
         {
-          quantity: PARCEL_DEFAULTS.QUANTITY,
-          weight: PARCEL_DEFAULTS.WEIGHT,
+          quantity: PARCEL_ITEM_DEFAULTS.QUANTITY,
+          weight: PARCEL_ITEM_DEFAULTS.WEIGHT,
           dimensions: {
-            width: PARCEL_DEFAULTS.DIMENSIONS,
-            height: PARCEL_DEFAULTS.DIMENSIONS,
-            length: PARCEL_DEFAULTS.DIMENSIONS,
+            width: PARCEL_ITEM_DEFAULTS.DIMENSIONS,
+            height: PARCEL_ITEM_DEFAULTS.DIMENSIONS,
+            length: PARCEL_ITEM_DEFAULTS.DIMENSIONS,
           },
         },
         { emitEvent: false },
@@ -195,7 +195,7 @@ export class ParcelItemComponent implements OnInit, OnChanges {
     }
   }
 
-  registerOnChange(fn: (value: Parcel) => void) {
+  registerOnChange(fn: (value: ParcelItem) => void) {
     this.onChange = fn;
   }
 
@@ -213,12 +213,12 @@ export class ParcelItemComponent implements OnInit, OnChanges {
 
   private initializeForm(): void {
     this.form = this.fb.group({
-      quantity: [PARCEL_DEFAULTS.QUANTITY],
-      weight: [PARCEL_DEFAULTS.WEIGHT],
+      quantity: [PARCEL_ITEM_DEFAULTS.QUANTITY],
+      weight: [PARCEL_ITEM_DEFAULTS.WEIGHT],
       dimensions: this.fb.group({
-        width: [PARCEL_DEFAULTS.DIMENSIONS],
-        height: [PARCEL_DEFAULTS.DIMENSIONS],
-        length: [PARCEL_DEFAULTS.DIMENSIONS],
+        width: [PARCEL_ITEM_DEFAULTS.DIMENSIONS],
+        height: [PARCEL_ITEM_DEFAULTS.DIMENSIONS],
+        length: [PARCEL_ITEM_DEFAULTS.DIMENSIONS],
       }),
     });
 
@@ -226,7 +226,7 @@ export class ParcelItemComponent implements OnInit, OnChanges {
       .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(DEBOUNCE_TIME.NONE))
       .subscribe((value) => {
         if (this.onChange) {
-          this.onChange(value as Parcel);
+          this.onChange(value as ParcelItem);
         }
 
         if (this.onTouched) {

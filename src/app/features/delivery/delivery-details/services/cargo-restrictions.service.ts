@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { DeliveryCity } from '@shared/types';
 
-import { PARCEL_LIMITS, PARCELS_LIMITS, RESTRICTION_MESSAGES } from '../constants';
+import { PARCEL_ITEM_LIMITS, PARCELS_LIMITS, RESTRICTION_MESSAGES } from '../constants';
 import {
   CargoItemRestrictions,
   CargoPointRestriction,
   CargoRestrictions,
   GetCargoRestrictionsParams,
-  GetParcelLimitsParams,
-  ParcelLimits,
+  GetParcelItemLimitsParams,
+  ParcelItemLimits,
   ParcelsLimits,
 } from '../types';
 
@@ -18,11 +18,11 @@ import {
 })
 export class CargoRestrictionsService {
   private readonly cityParcelsLimits = new Map<string, ParcelsLimits>();
-  private readonly cityParcelLimits = new Map<string, ParcelLimits>();
+  private readonly cityParcelItemLimits = new Map<string, ParcelItemLimits>();
 
   constructor() {
     this.cityParcelsLimits = this.initCityParcelsLimits();
-    this.cityParcelLimits = this.initCityParcelLimits();
+    this.cityParcelItemLimits = this.initCityParcelItemLimits();
   }
 
   getRestrictions(params: GetCargoRestrictionsParams): CargoRestrictions {
@@ -37,7 +37,7 @@ export class CargoRestrictionsService {
         isOfficeLimited,
         isCourierLimited,
       }),
-      parcel: this.getParcelLimits({
+      parcelItem: this.getParcelItemLimits({
         deliveryCity: params.deliveryCity,
         isOfficeLimited,
         isCourierLimited,
@@ -49,9 +49,9 @@ export class CargoRestrictionsService {
     deliveryCity,
     isOfficeLimited,
     isCourierLimited,
-  }: GetParcelLimitsParams): ParcelsLimits {
-    const cityParcelLimits = this.getCityParcelsLimits(deliveryCity);
-    if (cityParcelLimits) return cityParcelLimits;
+  }: GetParcelItemLimitsParams): ParcelsLimits {
+    const cityParcelItemLimits = this.getCityParcelsLimits(deliveryCity);
+    if (cityParcelItemLimits) return cityParcelItemLimits;
 
     if (isOfficeLimited) {
       return { ...PARCELS_LIMITS.OFFICE };
@@ -64,23 +64,23 @@ export class CargoRestrictionsService {
     return { ...PARCELS_LIMITS.DEFAULT };
   }
 
-  private getParcelLimits({
+  private getParcelItemLimits({
     deliveryCity,
     isOfficeLimited,
     isCourierLimited,
-  }: GetParcelLimitsParams): ParcelLimits {
-    const limitsByCity = this.getCityParcelLimits(deliveryCity);
+  }: GetParcelItemLimitsParams): ParcelItemLimits {
+    const limitsByCity = this.getCityParcelItemLimits(deliveryCity);
     if (limitsByCity) return limitsByCity;
 
     if (isOfficeLimited) {
-      return { ...PARCEL_LIMITS.OFFICE };
+      return { ...PARCEL_ITEM_LIMITS.OFFICE };
     }
 
     if (isCourierLimited) {
-      return { ...PARCEL_LIMITS.COURIER };
+      return { ...PARCEL_ITEM_LIMITS.COURIER };
     }
 
-    return { ...PARCEL_LIMITS.DEFAULT };
+    return { ...PARCEL_ITEM_LIMITS.DEFAULT };
   }
 
   private initCityParcelsLimits(): Map<string, ParcelsLimits> {
@@ -95,10 +95,10 @@ export class CargoRestrictionsService {
     return map;
   }
 
-  private initCityParcelLimits(): Map<string, ParcelLimits> {
-    const map = new Map<string, ParcelLimits>();
+  private initCityParcelItemLimits(): Map<string, ParcelItemLimits> {
+    const map = new Map<string, ParcelItemLimits>();
 
-    PARCEL_LIMITS.CITY.forEach((limit, ids) => {
+    PARCEL_ITEM_LIMITS.CITY.forEach((limit, ids) => {
       ids.forEach((id) => {
         map.set(id, limit);
       });
@@ -107,10 +107,10 @@ export class CargoRestrictionsService {
     return map;
   }
 
-  private getCityParcelLimits(city: DeliveryCity | null): ParcelLimits | null {
+  private getCityParcelItemLimits(city: DeliveryCity | null): ParcelItemLimits | null {
     if (!city) return null;
 
-    const limits = this.cityParcelLimits.get(city.id);
+    const limits = this.cityParcelItemLimits.get(city.id);
     if (!limits) return null;
 
     return limits;

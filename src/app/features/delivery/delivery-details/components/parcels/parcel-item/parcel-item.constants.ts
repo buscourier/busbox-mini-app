@@ -1,13 +1,16 @@
-import { Parcel, ParcelLimits } from '../../../types';
+import { ParcelItem, ParcelItemLimits } from '../../../types';
 
 import { DimensionsError } from './parcel-item.types';
 
-export const limitKeyMap: Record<Exclude<keyof Parcel, 'dimensions'>, keyof ParcelLimits> = {
+export const limitKeyMap: Record<
+  Exclude<keyof ParcelItem, 'dimensions'>,
+  keyof ParcelItemLimits
+> = {
   quantity: 'QUANTITY',
   weight: 'WEIGHT',
 };
 
-export const PARCEL_VALIDATION_MESSAGES = {
+export const PARCEL_ITEM_VALIDATION_MESSAGES = {
   required: 'Все поля обязательны для заполнения',
   dimensions: (error: DimensionsError) =>
     `Габариты посылки превышают допустимые размеры на ${error.diff} см.`,

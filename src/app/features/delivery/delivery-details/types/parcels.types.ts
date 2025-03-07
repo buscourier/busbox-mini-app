@@ -1,15 +1,15 @@
-export interface DimensionsGroup {
+export interface ParcelItemDimensions {
   width: number;
   height: number;
   length: number;
 }
 
-export interface Parcel {
+export interface ParcelItem {
   quantity: number;
   weight: number;
-  dimensions: DimensionsGroup;
+  dimensions: ParcelItemDimensions;
 }
 
-export interface ParcelData {
-  items: Parcel[];
+export interface Parcels {
+  items: ParcelItem[];
 }

@@ -2,7 +2,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 import { LoadingStatus } from '@shared/types';
 
-import { PARCEL_LIMITS, PARCELS_LIMITS } from '../constants';
+import { PARCEL_ITEM_LIMITS, PARCELS_LIMITS } from '../constants';
 import { DeliveryRestrictions, OptionsState, Order } from '../types';
 
 export interface DeliveryDetailsState extends EntityState<Order> {
@@ -26,6 +26,6 @@ export const initialState: DeliveryDetailsState = adapter.getInitialState({
     autoParts: null,
     otherCargo: null,
     parcels: PARCELS_LIMITS.DEFAULT,
-    parcel: PARCEL_LIMITS.DEFAULT,
+    parcelItem: PARCEL_ITEM_LIMITS.DEFAULT,
   },
 });

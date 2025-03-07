@@ -27,7 +27,7 @@
           <app-parcels
             [data]="order.parcels"
             [parcelsLimits]="vm.restrictions.parcels"
-            [parcelLimits]="vm.restrictions.parcel"
+            [parcelItemLimits]="vm.restrictions.parcelItem"
             (dataChange)="updateOrderData(order.id, 'parcels', $event)"
             (validationChange)="updateOrderValidation(order.id, 'parcels', $event)"
           />

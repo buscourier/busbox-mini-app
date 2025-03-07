@@ -12,7 +12,7 @@ import {
   OrderValidationState,
   OtherCargoData,
   PackagingData,
-  ParcelData,
+  Parcels,
   StoredDeliveryDetailsState,
 } from '../types';
 
@@ -59,7 +59,7 @@ export const OrderActions = createActionGroup({
       orderId: string;
       data: Partial<{
         documents: DocumentsData;
-        parcels: ParcelData;
+        parcels: Parcels;
         autoParts: AutoPartsData;
         otherCargo: OtherCargoData;
         packaging: PackagingData;

@@ -1,12 +1,12 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { DimensionsGroup } from '../../../types';
+import { ParcelItemDimensions } from '../../../types';
 
 export type ParcelItemForm = FormGroup<{
   quantity: FormControl<number>;
   weight: FormControl<number>;
   dimensions: FormGroup<{
-    [K in keyof DimensionsGroup]: FormControl<number>;
+    [K in keyof ParcelItemDimensions]: FormControl<number>;
   }>;
 }>;
 

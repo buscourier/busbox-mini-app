@@ -101,18 +101,18 @@ export class OrderSummaryService extends DeliveryBaseService {
     const parcels = params.order.parcels!.items;
 
     return forkJoin(
-      parcels.map((parcel) => {
+      parcels.map((parcelItem) => {
         const dimensions =
-          parcel.dimensions.width + parcel.dimensions.height + parcel.dimensions.length;
+          parcelItem.dimensions.width + parcelItem.dimensions.height + parcelItem.dimensions.length;
 
         return this.makeCalculationRequest({
           pickupCityId: params.pickupCityId,
           deliveryCityId: params.deliveryCityId,
           cargo: params.order.cargoType ? CargoTypeId[params.order.cargoType] : '',
           servicesIds: null,
-          weight: parcel.weight,
+          weight: parcelItem.weight,
           dimensions,
-        }).pipe(map(({ price }) => price * parcel.quantity));
+        }).pipe(map(({ price }) => price * parcelItem.quantity));
       }),
     ).pipe(
       map((prices) => ({

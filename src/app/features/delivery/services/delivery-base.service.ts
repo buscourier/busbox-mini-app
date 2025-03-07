@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { ApiService } from '@core/services';
 
-import { CargoType, Order, ParcelData } from '@features/delivery/delivery-details/types';
+import { CargoType, Order, Parcels } from '@features/delivery/delivery-details/types';
 import { Courier } from '@features/delivery/types';
 
 @Injectable({
@@ -69,7 +69,7 @@ export class DeliveryBaseService extends ApiService {
     return quantity;
   }
 
-  getParcelsQuantity(data: ParcelData | null): number {
+  getParcelsQuantity(data: Parcels | null): number {
     if (!data) return 0;
 
     return data.items.reduce((sum, parcel) => {

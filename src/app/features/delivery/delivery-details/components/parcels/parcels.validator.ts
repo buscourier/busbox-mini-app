@@ -1,6 +1,6 @@
 import { AbstractControl, FormArray, Validators } from '@angular/forms';
 
-import { Parcel, ParcelsLimits } from '../../types';
+import { ParcelItem, ParcelsLimits } from '../../types';
 
 import { ParcelsErrors } from './types';
 
@@ -17,8 +17,8 @@ export function parcelsValidator(limits: ParcelsLimits) {
     }
 
     const totalQuantity = parcels.controls.reduce((sum, control) => {
-      const parcel = control.value as Parcel;
-      return sum + parcel.quantity;
+      const parcelItem = control.value as ParcelItem;
+      return sum + parcelItem.quantity;
     }, 0);
 
     if (totalQuantity > limits.TOTAL_QUANTITY_MAX) {
@@ -29,8 +29,8 @@ export function parcelsValidator(limits: ParcelsLimits) {
     }
 
     const totalWeight = parcels.controls.reduce((sum, control) => {
-      const parcel = control.value as Parcel;
-      return sum + parcel.weight * parcel.quantity;
+      const parcelItem = control.value as ParcelItem;
+      return sum + parcelItem.weight * parcelItem.quantity;
     }, 0);
 
     if (totalWeight > limits.TOTAL_WEIGHT_MAX) {
@@ -41,8 +41,8 @@ export function parcelsValidator(limits: ParcelsLimits) {
     }
 
     const totalDimensions = parcels.controls.reduce((sum, control) => {
-      const parcel = control.value as Parcel;
-      const { width, height, length } = parcel.dimensions;
+      const parcelItem = control.value as ParcelItem;
+      const { width, height, length } = parcelItem.dimensions;
       return sum + (width + height + length);
     }, 0);
 

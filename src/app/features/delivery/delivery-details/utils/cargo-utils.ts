@@ -1,4 +1,4 @@
-import { AutoPartsData, CargoDetails, DocumentsData, OtherCargoData, ParcelData } from '../types';
+import { AutoPartsData, CargoDetails, DocumentsData, OtherCargoData, Parcels } from '../types';
 
 export function getDocuments(documents: DocumentsData | null): CargoDetails | null {
   return documents?.quantity
@@ -9,7 +9,7 @@ export function getDocuments(documents: DocumentsData | null): CargoDetails | nu
     : null;
 }
 
-export function getParcels(parcels: ParcelData | null): CargoDetails | null {
+export function getParcels(parcels: Parcels | null): CargoDetails | null {
   return parcels?.items.length
     ? {
         name: 'Посылки',

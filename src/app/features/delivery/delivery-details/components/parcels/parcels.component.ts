@@ -22,9 +22,9 @@ import { TUI_VALIDATION_ERRORS, TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { isObjectsEqual } from '@core/utils/object.utils';
 
-import { Parcel, ParcelData, ParcelLimits, ParcelsLimits } from '../../types';
+import { ParcelItem, ParcelItemLimits, Parcels, ParcelsLimits } from '../../types';
 
-import { PARCEL_DEFAULTS } from './constants';
+import { PARCEL_ITEM_DEFAULTS } from './constants';
 import { ParcelItemComponent } from './parcel-item/parcel-item.component';
 import { PARCELS_VALIDATION_MESSAGES } from './parcels.constants';
 import { parcelsValidator } from './parcels.validator';
@@ -51,23 +51,23 @@ import { ParcelsErrors } from './types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ParcelsComponent implements OnChanges, OnInit {
-  @Input() data: ParcelData | null = null;
+  @Input() data: Parcels | null = null;
   @Input() parcelsLimits!: ParcelsLimits;
-  @Input() parcelLimits!: ParcelLimits;
-  @Output() dataChange = new EventEmitter<ParcelData>();
+  @Input() parcelItemLimits!: ParcelItemLimits;
+  @Output() dataChange = new EventEmitter<Parcels>();
   @Output() validationChange = new EventEmitter<boolean>();
 
   private readonly alerts = inject(TuiAlertService);
 
   /** Protected properties */
-  protected canAddParcel = true;
+  protected canAddParcelItem = true;
 
   /** Private properties */
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly destroyRef = inject(DestroyRef);
 
   /** Public properties */
-  parcels = this.fb.array<Parcel>([]);
+  parcels = this.fb.array<ParcelItem>([]);
   parcelsError = new FormControl(null);
 
   /** Getters */
@@ -78,7 +78,7 @@ export class ParcelsComponent implements OnChanges, OnInit {
   /** Lifecycle hooks */
   ngOnChanges(changes: SimpleChanges): void {
     const parcelsLimits = changes['parcelsLimits']?.currentValue;
-    const parcelLimits = changes['parcelLimits']?.currentValue;
+    const parcelItemLimits = changes['parcelItemLimits']?.currentValue;
 
     if (
       changes['data'] &&
@@ -92,8 +92,8 @@ export class ParcelsComponent implements OnChanges, OnInit {
       this.updateValidator();
     }
 
-    if (parcelLimits) {
-      this.showNotification(parcelLimits);
+    if (parcelItemLimits) {
+      this.showNotification(parcelItemLimits);
     }
   }
 
@@ -105,34 +105,34 @@ export class ParcelsComponent implements OnChanges, OnInit {
   }
 
   /** Public methods */
-  addParcel(parcel?: Parcel): void {
+  addParcelItem(item?: ParcelItem): void {
     this.parcels.push(
       this.fb.control(
-        parcel ?? {
-          quantity: PARCEL_DEFAULTS.QUANTITY,
-          weight: PARCEL_DEFAULTS.WEIGHT,
+        item ?? {
+          quantity: PARCEL_ITEM_DEFAULTS.QUANTITY,
+          weight: PARCEL_ITEM_DEFAULTS.WEIGHT,
           dimensions: {
-            width: PARCEL_DEFAULTS.DIMENSIONS,
-            height: PARCEL_DEFAULTS.DIMENSIONS,
-            length: PARCEL_DEFAULTS.DIMENSIONS,
+            width: PARCEL_ITEM_DEFAULTS.DIMENSIONS,
+            height: PARCEL_ITEM_DEFAULTS.DIMENSIONS,
+            length: PARCEL_ITEM_DEFAULTS.DIMENSIONS,
           },
         },
       ),
     );
   }
 
-  removeParcel(index: number): void {
+  removeParcelItem(index: number): void {
     this.parcels.removeAt(index);
   }
 
   /** Private methods */
   private initializeForm(): void {
     if (!this.data?.items.length) {
-      this.addParcel();
+      this.addParcelItem();
     }
 
     if (this.data?.items) {
-      this.data.items.forEach((parcel) => this.addParcel(parcel));
+      this.data.items.forEach((parcelItem) => this.addParcelItem(parcelItem));
     }
   }
 
@@ -159,13 +159,13 @@ export class ParcelsComponent implements OnChanges, OnInit {
     this.parcels.statusChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.parcelsError.setErrors(this.parcels.errors);
       this.parcelsError.markAsTouched();
-      this.canAddParcel =
+      this.canAddParcelItem =
         !this.parcels.invalid && this.parcels.length < (this.parcelsLimits?.MAX_PARCELS || 0);
       this.validationChange.emit(!this.parcels.invalid);
     });
   }
 
-  protected showNotification(limits: ParcelLimits): void {
+  protected showNotification(limits: ParcelItemLimits): void {
     this.alerts
       .open(
         `Cумма (Д + Ш + В) ≤ <strong>${limits.DIMENSIONS.MAX} см.</strong><br />Вес: <strong>${limits.WEIGHT.MAX} кг.</strong>`,

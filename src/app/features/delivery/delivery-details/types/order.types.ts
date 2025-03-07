@@ -4,7 +4,7 @@ import { CargoType } from './cargo.types';
 import { DocumentsData } from './documents.types';
 import { OtherCargoData } from './other-cargo.types';
 import { PackagingData } from './packaging.types';
-import { ParcelData } from './parcels.types';
+import { Parcels } from './parcels.types';
 
 export interface OrderValidationState {
   documents?: boolean;
@@ -19,7 +19,7 @@ export interface Order {
   id: string;
   cargoType: CargoType | null;
   documents: DocumentsData | null;
-  parcels: ParcelData | null;
+  parcels: Parcels | null;
   autoParts: AutoPartsData | null;
   otherCargo: OtherCargoData | null;
   packaging: PackagingData | null;
