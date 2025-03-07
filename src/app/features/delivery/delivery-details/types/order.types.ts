@@ -1,9 +1,9 @@
-import { AdditionalServicesData } from './additional-services.types';
-import { AutoPartsData } from './auto-parts.types';
+import { AdditionalServices } from './additional-services.types';
+import { AutoParts } from './auto-parts.types';
 import { CargoType } from './cargo.types';
-import { DocumentsData } from './documents.types';
-import { OtherCargoData } from './other-cargo.types';
-import { PackagingData } from './packaging.types';
+import { Documents } from './documents.types';
+import { OtherCargo } from './other-cargo.types';
+import { Packaging } from './packaging.types';
 import { Parcels } from './parcels.types';
 
 export interface OrderValidationState {
@@ -18,12 +18,12 @@ export interface OrderValidationState {
 export interface Order {
   id: string;
   cargoType: CargoType | null;
-  documents: DocumentsData | null;
+  documents: Documents | null;
   parcels: Parcels | null;
-  autoParts: AutoPartsData | null;
-  otherCargo: OtherCargoData | null;
-  packaging: PackagingData | null;
-  additionalServices: AdditionalServicesData | null;
+  autoParts: AutoParts | null;
+  otherCargo: OtherCargo | null;
+  packaging: Packaging | null;
+  additionalServices: AdditionalServices | null;
   validation: OrderValidationState;
 }
 

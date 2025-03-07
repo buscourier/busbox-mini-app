@@ -28,7 +28,7 @@ import { TuiInputNumberModule, TuiInputPhoneModule } from '@taiga-ui/legacy';
 
 import { phoneValidator } from '@shared/validators';
 
-import { AdditionalServicesData, Service } from '../../types';
+import { AdditionalServices, Service } from '../../types';
 
 import {
   AdditionalServiceId,
@@ -85,9 +85,9 @@ import {
 })
 export class AdditionalServicesComponent implements OnChanges, OnInit {
   @Input({ required: true }) options!: Service[];
-  @Input() data: AdditionalServicesData | null = null;
+  @Input() data: AdditionalServices | null = null;
   @Output() validationChange = new EventEmitter<boolean>();
-  @Output() dataChange = new EventEmitter<AdditionalServicesData>();
+  @Output() dataChange = new EventEmitter<AdditionalServices>();
 
   protected readonly INSURANCE_MIN_AMOUNT = INSURANCE_MIN_AMOUNT;
   protected readonly INSURANCE_MAX_AMOUNT = INSURANCE_MAX_AMOUNT;
@@ -319,7 +319,7 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
     });
   }
 
-  private mapFormValueToData(formValue: ServicesGroup): AdditionalServicesData {
+  private mapFormValueToData(formValue: ServicesGroup): AdditionalServices {
     return {
       insurance: formValue.insurance?.enabled
         ? {

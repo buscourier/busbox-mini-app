@@ -31,10 +31,10 @@ import {
 
 import { isObjectsEqual } from '@core/utils/object.utils';
 
-import { AutoPartsData, Cargo, CargoItemRestrictions } from '../../types';
+import { AutoParts, Cargo, CargoItemRestrictions } from '../../types';
 
 type AutoPartsForm = FormGroup<{
-  [K in keyof AutoPartsData]: FormControl<AutoPartsData[K]>;
+  [K in keyof AutoParts]: FormControl<AutoParts[K]>;
 }>;
 
 @Component({
@@ -52,10 +52,10 @@ type AutoPartsForm = FormGroup<{
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoPartsComponent implements OnInit, OnChanges {
-  @Input() data: AutoPartsData | null = null;
+  @Input() data: AutoParts | null = null;
   @Input({ required: true }) options!: Cargo[];
   @Input({ required: true }) restrictions!: CargoItemRestrictions | null;
-  @Output() dataChange = new EventEmitter<AutoPartsData>();
+  @Output() dataChange = new EventEmitter<AutoParts>();
   @Output() validationChange = new EventEmitter<boolean>();
 
   /** Public properties */
@@ -91,7 +91,7 @@ export class AutoPartsComponent implements OnInit, OnChanges {
         if (typeof value === 'boolean') {
           this.validationChange.emit(value);
         } else {
-          this.dataChange.emit(value as AutoPartsData);
+          this.dataChange.emit(value as AutoParts);
         }
       });
   }

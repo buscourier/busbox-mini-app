@@ -22,7 +22,7 @@ import { TuiInputNumberModule, tuiInputNumberOptionsProvider } from '@taiga-ui/l
 import { DEBOUNCE_TIME } from '@core/constants';
 import { isObjectsEqual } from '@core/utils/object.utils';
 
-import { DocumentsData } from '../../types';
+import { Documents } from '../../types';
 
 @Component({
   selector: 'app-documents',
@@ -40,8 +40,8 @@ import { DocumentsData } from '../../types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentsComponent implements OnInit, OnChanges {
-  @Input() data: DocumentsData | null = null;
-  @Output() dataChange = new EventEmitter<DocumentsData>();
+  @Input() data: Documents | null = null;
+  @Output() dataChange = new EventEmitter<Documents>();
   @Output() validationChange = new EventEmitter<boolean>();
 
   quantityControl = new FormControl<number>(1, {

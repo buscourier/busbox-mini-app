@@ -31,10 +31,10 @@ import {
 
 import { isObjectsEqual } from '@core/utils/object.utils';
 
-import { Cargo, CargoItemRestrictions, OtherCargoData } from '../../types';
+import { Cargo, CargoItemRestrictions, OtherCargo } from '../../types';
 
 type OtherCargoForm = FormGroup<{
-  [K in keyof OtherCargoData]: FormControl<OtherCargoData[K]>;
+  [K in keyof OtherCargo]: FormControl<OtherCargo[K]>;
 }>;
 
 @Component({
@@ -52,10 +52,10 @@ type OtherCargoForm = FormGroup<{
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OtherCargoComponent implements OnInit, OnChanges {
-  @Input() data: OtherCargoData | null = null;
+  @Input() data: OtherCargo | null = null;
   @Input({ required: true }) options!: Cargo[];
   @Input() restrictions: CargoItemRestrictions | null = null;
-  @Output() dataChange = new EventEmitter<OtherCargoData>();
+  @Output() dataChange = new EventEmitter<OtherCargo>();
   @Output() validationChange = new EventEmitter<boolean>();
 
   form!: OtherCargoForm;
@@ -87,7 +87,7 @@ export class OtherCargoComponent implements OnInit, OnChanges {
         if (typeof value === 'boolean') {
           this.validationChange.emit(value);
         } else {
-          this.dataChange.emit(value as OtherCargoData);
+          this.dataChange.emit(value as OtherCargo);
         }
       });
   }

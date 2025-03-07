@@ -1,4 +1,4 @@
-import { AdditionalServicesData } from './additional-services.types';
+import { AdditionalServices } from './additional-services.types';
 import { CargoDetails, CargoType } from './cargo.types';
 import { PackagingDetails } from './packaging.types';
 
@@ -15,5 +15,5 @@ export interface ActiveOrderDetails {
   autoParts: CargoDetails | null;
   otherCargo: CargoDetails | null;
   packaging: { items: PackagingDetails[] } | null;
-  additionalServices: AdditionalServicesData | null;
+  additionalServices: AdditionalServices | null;
 }

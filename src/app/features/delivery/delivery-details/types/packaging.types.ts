@@ -13,7 +13,7 @@ export interface PackagingItem {
   quantity: number;
 }
 
-export interface PackagingData {
+export interface Packaging {
   items: PackagingItem[];
 }
 

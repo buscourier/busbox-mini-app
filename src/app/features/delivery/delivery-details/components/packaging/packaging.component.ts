@@ -10,7 +10,7 @@ import {
 
 import { tuiDialog } from '@taiga-ui/core';
 
-import { PackagingData, PackagingItem, Service } from '../../types';
+import { Packaging, PackagingItem, Service } from '../../types';
 
 import { PackagingDialogComponent } from './components/packaging-dialog';
 import { OtherIds, PACKAGING_DEFAULT_QUANTITY, PackagingId } from './constants';
@@ -24,8 +24,8 @@ import { OtherIds, PACKAGING_DEFAULT_QUANTITY, PackagingId } from './constants';
 })
 export class PackagingComponent implements OnChanges {
   @Input({ required: true }) options!: Service[];
-  @Input() data: PackagingData | null = null;
-  @Output() dataChange = new EventEmitter<PackagingData>();
+  @Input() data: Packaging | null = null;
+  @Output() dataChange = new EventEmitter<Packaging>();
   @Output() validationChange = new EventEmitter<boolean>();
 
   boxes: Service[] = [];

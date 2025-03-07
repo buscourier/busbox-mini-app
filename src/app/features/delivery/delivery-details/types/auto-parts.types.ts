@@ -1,6 +1,6 @@
 import { Cargo } from './cargo.types';
 
-export interface AutoPartsData {
+export interface AutoParts {
   item: Cargo | null;
   quantity: number;
 }

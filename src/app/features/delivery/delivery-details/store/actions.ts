@@ -3,15 +3,15 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { ApiError } from '@shared/types';
 
 import {
-  AdditionalServicesData,
-  AutoPartsData,
+  AdditionalServices,
+  AutoParts,
   CargoType,
   DeliveryOptions,
   DeliveryRestrictions,
-  DocumentsData,
+  Documents,
   OrderValidationState,
-  OtherCargoData,
-  PackagingData,
+  OtherCargo,
+  Packaging,
   Parcels,
   StoredDeliveryDetailsState,
 } from '../types';
@@ -58,12 +58,12 @@ export const OrderActions = createActionGroup({
     'Update Data': props<{
       orderId: string;
       data: Partial<{
-        documents: DocumentsData;
+        documents: Documents;
         parcels: Parcels;
-        autoParts: AutoPartsData;
-        otherCargo: OtherCargoData;
-        packaging: PackagingData;
-        additionalServices: AdditionalServicesData;
+        autoParts: AutoParts;
+        otherCargo: OtherCargo;
+        packaging: Packaging;
+        additionalServices: AdditionalServices;
       }>;
     }>(),
     'Update Validation': props<{

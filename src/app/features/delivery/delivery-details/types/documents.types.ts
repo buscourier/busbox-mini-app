@@ -1,3 +1,3 @@
-export interface DocumentsData {
+export interface Documents {
   quantity: number;
 }

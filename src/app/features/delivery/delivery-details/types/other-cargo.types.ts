@@ -1,6 +1,6 @@
 import { Cargo } from './cargo.types';
 
-export interface OtherCargoData {
+export interface OtherCargo {
   item: Cargo | null;
   quantity: number;
 }

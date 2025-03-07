@@ -1,6 +1,6 @@
-import { AutoPartsData, CargoDetails, DocumentsData, OtherCargoData, Parcels } from '../types';
+import { AutoParts, CargoDetails, Documents, OtherCargo, Parcels } from '../types';
 
-export function getDocuments(documents: DocumentsData | null): CargoDetails | null {
+export function getDocuments(documents: Documents | null): CargoDetails | null {
   return documents?.quantity
     ? {
         name: 'Документы',
@@ -18,7 +18,7 @@ export function getParcels(parcels: Parcels | null): CargoDetails | null {
     : null;
 }
 
-export function getAutoParts(data: AutoPartsData | null): CargoDetails | null {
+export function getAutoParts(data: AutoParts | null): CargoDetails | null {
   return data?.item?.name && data.quantity
     ? {
         name: data?.item?.name || null,
@@ -27,7 +27,7 @@ export function getAutoParts(data: AutoPartsData | null): CargoDetails | null {
     : null;
 }
 
-export function getOtherCargo(data: OtherCargoData | null): CargoDetails | null {
+export function getOtherCargo(data: OtherCargo | null): CargoDetails | null {
   return data?.item?.name && data.quantity
     ? {
         name: data?.item?.name || null,

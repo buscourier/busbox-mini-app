@@ -12,7 +12,7 @@ interface SmsServiceData extends BaseServiceData {
   readonly phone: string;
 }
 
-export interface AdditionalServicesData {
+export interface AdditionalServices {
   readonly insurance: MonetaryServiceData | null;
   readonly recipientPayment: MonetaryServiceData | null;
   readonly extendedSms: SmsServiceData | null;
