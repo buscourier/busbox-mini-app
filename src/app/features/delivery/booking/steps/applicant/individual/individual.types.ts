@@ -2,7 +2,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { Individual } from '../../../types';
 
-export type IndividualControls = FormGroup<{
+export type IndividualForm = FormGroup<{
   [K in keyof Individual]: FormControl<Individual[K]>;
 }>;
 

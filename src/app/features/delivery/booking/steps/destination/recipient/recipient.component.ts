@@ -33,7 +33,7 @@ import { fullNameValidator } from '@shared/validators/user.validators';
 
 import { Recipient } from '../../../types';
 
-import { RecipientControls } from './recipient.types';
+import { RecipientForm } from './recipient.types';
 
 @Component({
   selector: 'app-recipient',
@@ -54,7 +54,7 @@ export class RecipientComponent implements OnInit, OnChanges {
   @Output() dataChange = new EventEmitter<Recipient>();
   @Output() validationChange = new EventEmitter<boolean>();
 
-  form!: RecipientControls;
+  form!: RecipientForm;
 
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly destroyRef = inject(DestroyRef);

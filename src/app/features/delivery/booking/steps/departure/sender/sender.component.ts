@@ -38,8 +38,8 @@ import { fullNameValidator } from '@shared/validators/user.validators';
 
 import { Sender, SenderDocumentOption } from '../../../types';
 
-import { defaultDocument, senderDocuments } from './sender.const';
-import { SenderControls } from './sender.types';
+import { defaultDocument, senderDocuments } from './sender.constants';
+import { SenderForm } from './sender.types';
 
 @Component({
   selector: 'app-sender',
@@ -63,10 +63,10 @@ export class SenderComponent implements OnInit, OnChanges {
   @Output() dataChange = new EventEmitter<Sender>();
   @Output() validationChange = new EventEmitter<boolean>();
 
-  form!: SenderControls;
+  form!: SenderForm;
 
-  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
   protected readonly senderDocuments = senderDocuments;
+  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
 
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly destroyRef = inject(DestroyRef);

@@ -48,8 +48,8 @@ import {
 
 import { Individual } from '../../../types';
 
-import { individualRoles } from './individual.const';
-import { IndividualControls } from './individual.types';
+import { individualRoles } from './individual.constants';
+import { IndividualForm } from './individual.types';
 
 @Component({
   selector: 'app-individual',
@@ -83,7 +83,7 @@ export class IndividualComponent implements OnInit, OnChanges {
   @Output() dataChange = new EventEmitter<Individual>();
   @Output() validationChange = new EventEmitter<boolean>();
 
-  form!: IndividualControls;
+  form!: IndividualForm;
 
   protected readonly individualRoles = individualRoles;
   protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;

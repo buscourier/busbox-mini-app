@@ -23,12 +23,8 @@ import { BookingActions } from '../../store/actions';
 import { bookingFeature } from '../../store/feature';
 import { Review, StepNumber } from '../../types';
 
-import { ReviewControls, ReviewModel } from './review.types';
+import { ReviewControlValues, ReviewForm, ReviewModel } from './review.types';
 import { selectReviewModel } from './selectors/review.selector';
-
-export type ControlValues = {
-  [K in keyof ReviewControls['controls']]: ReviewControls['controls'][K]['value'];
-};
 
 @Component({
   selector: 'app-review',
@@ -42,7 +38,7 @@ export class ReviewComponent implements OnInit {
   reviewView$!: Observable<ReviewModel>;
   reviewData$!: Observable<Review>;
 
-  form!: ReviewControls;
+  form!: ReviewForm;
 
   private readonly fb = inject(FormBuilder);
   private readonly store = inject(Store);
@@ -161,11 +157,11 @@ export class ReviewComponent implements OnInit {
     );
   }
 
-  private patchFormControl<K extends keyof ControlValues>(
+  private patchFormControl<K extends keyof ReviewControlValues>(
     controlName: K,
-    value: ControlValues[K],
+    value: ReviewControlValues[K],
   ): void {
-    const control = this.form.controls[controlName] as FormControl<ControlValues[K]>;
+    const control = this.form.controls[controlName] as FormControl<ReviewControlValues[K]>;
 
     if (control.value !== value) {
       control.patchValue(value, { emitEvent: false });

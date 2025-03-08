@@ -11,7 +11,7 @@ import { BookingActions } from '../../store/actions';
 import { bookingFeature } from '../../store/feature';
 import { Applicant, ApplicantType, Individual, StepNumber } from '../../types';
 
-import { ApplicantTabs } from './applicant.const';
+import { ApplicantTabs } from './applicant.constants';
 import { IndividualComponent } from './individual/individual.component';
 
 @Component({
