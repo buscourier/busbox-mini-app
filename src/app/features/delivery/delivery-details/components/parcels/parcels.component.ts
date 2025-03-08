@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,10 +7,7 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -20,15 +18,15 @@ import { TuiAlertService, TuiButton, TuiError } from '@taiga-ui/core';
 import { TUI_VALIDATION_ERRORS, TuiFieldErrorPipe } from '@taiga-ui/kit';
 
 import { DEBOUNCE_TIME } from '@core/constants';
-import { isObjectsEqual } from '@core/utils/object.utils';
+import { isObjectsEqual } from '@core/utils';
 
-import { ParcelItem, ParcelItemLimits, Parcels, ParcelsLimits } from '../../types';
+import type { ParcelItem, ParcelItemLimits, Parcels, ParcelsLimits } from '../../types';
 
 import { PARCEL_ITEM_DEFAULTS } from './constants';
 import { ParcelItemComponent } from './parcel-item/parcel-item.component';
 import { PARCELS_VALIDATION_MESSAGES } from './parcels.constants';
 import { parcelsValidator } from './parcels.validator';
-import { ParcelsErrors } from './types';
+import type { ParcelsErrors } from './types';
 
 @Component({
   selector: 'app-parcels',

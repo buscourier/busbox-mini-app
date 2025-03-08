@@ -3,10 +3,10 @@ import { createSelector } from '@ngrx/store';
 import { deliveryDetailsFeature } from '../../../delivery-details/store/feature';
 import { deliveryPointFeature } from '../../../delivery-point/store';
 import { pickupPointFeature } from '../../../pickup-point/store';
-import { OrderDelivery, OrderDirection } from '../../types';
+import type { OrderDelivery, OrderDirection } from '../../types';
 
 import { orderSummaryFeature } from '../feature';
-import { OrderSummaryViewModel } from './view-model.types';
+import type { OrderSummaryViewModel } from './view-model.types';
 
 const selectOrderDirection = createSelector(
   pickupPointFeature.selectSelectedCity,

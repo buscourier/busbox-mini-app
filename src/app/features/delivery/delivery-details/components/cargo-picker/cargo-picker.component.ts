@@ -1,3 +1,4 @@
+import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,21 +6,19 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { filter } from 'rxjs';
 
-import { TuiBooleanHandler } from '@taiga-ui/cdk';
+import type { TuiBooleanHandler } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiHintDirective, TuiTitle } from '@taiga-ui/core';
 import { TuiBadge, TuiRadioList } from '@taiga-ui/kit';
 
-import { Cargo, CargoRestrictions, CargoType, CargoTypeId, MappedCargoType } from '../../types';
+import type { Cargo, CargoRestrictions, MappedCargoType } from '../../types';
+import { CargoType, CargoTypeId } from '../../types';
 
 @Component({
   selector: 'app-cargo-picker',

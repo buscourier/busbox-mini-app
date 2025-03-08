@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import type { AbstractControl, ValidationErrors } from '@angular/forms';
 
 export function customMaxValidator(max: number, prefix: string) {
   return (control: AbstractControl): ValidationErrors | null => {

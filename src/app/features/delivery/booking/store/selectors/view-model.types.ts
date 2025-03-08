@@ -1,4 +1,4 @@
-import { StepNumber, StepView } from '../../types';
+import type { StepNumber, StepView } from '../../types';
 
 export interface BookingViewModel {
   currentStep: StepNumber;

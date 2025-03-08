@@ -1,4 +1,4 @@
-import { Cargo } from './cargo.types';
+import type { Cargo } from './cargo.types';
 
 export interface AutoParts {
   item: Cargo | null;

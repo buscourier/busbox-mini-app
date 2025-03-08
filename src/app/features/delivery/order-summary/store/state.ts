@@ -1,4 +1,4 @@
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
 export interface OrderSummaryState {
   totalAmount: number;

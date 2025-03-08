@@ -1,15 +1,17 @@
 import { createSelector } from '@ngrx/store';
 
-import { FormControlStatus, Office, PickupCity } from '@shared/types';
+import type { Office, PickupCity } from '@shared/types';
+import { FormControlStatus } from '@shared/types';
 
 import { LIMITED_OFFICE } from '@features/delivery/constants';
-import { Courier, ErrorStatus } from '@features/delivery/types';
+import type { Courier, ErrorStatus } from '@features/delivery/types';
 
 import { PICKUP_POINT_TABS } from '../../constants';
-import { PickupPointTab, PickupPointTabType } from '../../types';
+import type { PickupPointTab } from '../../types';
+import { PickupPointTabType } from '../../types';
 
-import { BaseSelectors } from './base-selectors.types';
-import { DerivedSelectors } from './derived-selectors.types';
+import type { BaseSelectors } from './base-selectors.types';
+import type { DerivedSelectors } from './derived-selectors.types';
 
 export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSelectors => {
   /**

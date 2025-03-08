@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
 
-import { ApiError, PickupCity } from '@shared/types';
+import type { ApiError, PickupCity } from '@shared/types';
 
 import { DeliveryService } from '@features/delivery/services';
 

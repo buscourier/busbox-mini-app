@@ -1,4 +1,4 @@
-import { ApiError, DeliveryCity, LoadingStatus, PickupCity } from '@shared/types';
+import type { ApiError, DeliveryCity, LoadingStatus, PickupCity } from '@shared/types';
 
 export interface CitiesState<T extends PickupCity | DeliveryCity> {
   items: T[];

@@ -1,8 +1,8 @@
-import { Office, PickupCity } from '@shared/types';
+import type { Office, PickupCity } from '@shared/types';
 
-import { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@features/delivery/types';
 
-import { PickupPointTabType } from './tab.types';
+import type { PickupPointTabType } from './tab.types';
 
 export interface StoredPickupPointState {
   activeTabId: PickupPointTabType | null;

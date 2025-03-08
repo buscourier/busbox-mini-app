@@ -1,4 +1,4 @@
-import { PreferredTimeSlot } from '@shared/types';
+import type { PreferredTimeSlot } from '@shared/types';
 
 export type CourierId = '1' | '2';
 

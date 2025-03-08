@@ -1,7 +1,8 @@
-import { createSelector, MemoizedSelector } from '@ngrx/store';
+import type { MemoizedSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 
-import { OrderSummaryState } from '../state';
-import { BaseSelectors } from './base-selectors.types';
+import type { OrderSummaryState } from '../state';
+import type { BaseSelectors } from './base-selectors.types';
 
 type OrderSummaryStateSelector = MemoizedSelector<object, OrderSummaryState>;
 

@@ -1,4 +1,4 @@
-import { ApiTab, TabConfig } from '@shared/types';
+import type { ApiTab, TabConfig } from '@shared/types';
 
 export type DeliveryPointApiValue = 'get' | 'delivery' | 'need_to_meet';
 

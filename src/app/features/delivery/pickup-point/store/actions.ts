@@ -1,10 +1,10 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { ApiError, FormControlStatus, Office, PickupCity } from '@shared/types';
+import type { ApiError, FormControlStatus, Office, PickupCity } from '@shared/types';
 
-import { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@features/delivery/types';
 
-import { PickupPointTabType, StoredPickupPointState } from '../types';
+import type { PickupPointTabType, StoredPickupPointState } from '../types';
 
 export const PickupPointActions = createActionGroup({
   source: 'PickupPoint',

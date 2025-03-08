@@ -1,6 +1,6 @@
-import { Office } from '@shared/types';
+import type { Office } from '@shared/types';
 
-import { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@features/delivery/types';
 
 export const getDeliveryMethod = (
   office: Office | null,

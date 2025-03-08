@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 
 import { BookingComponent } from './booking.component';
 import { bookingResultGuard, stepGuard } from './guards';

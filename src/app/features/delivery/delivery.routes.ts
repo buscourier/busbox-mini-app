@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 
 import { CalculatorComponent } from './calculator/calculator.component';
 import { DeliveryComponent } from './delivery.component';

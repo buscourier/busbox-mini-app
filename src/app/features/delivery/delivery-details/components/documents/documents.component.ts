@@ -1,3 +1,4 @@
+import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,10 +6,7 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,7 +20,7 @@ import { TuiInputNumberModule, tuiInputNumberOptionsProvider } from '@taiga-ui/l
 import { DEBOUNCE_TIME } from '@core/constants';
 import { isObjectsEqual } from '@core/utils/object.utils';
 
-import { Documents } from '../../types';
+import type { Documents } from '../../types';
 
 @Component({
   selector: 'app-documents',

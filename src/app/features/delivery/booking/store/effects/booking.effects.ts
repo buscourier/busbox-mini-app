@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
 import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
 import { deliveryPointFeature } from '@features/delivery/delivery-point/store';

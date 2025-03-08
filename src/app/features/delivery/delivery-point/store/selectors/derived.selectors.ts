@@ -1,15 +1,17 @@
 import { createSelector } from '@ngrx/store';
 
-import { DeliveryCity, FormControlStatus, Office } from '@shared/types';
+import type { DeliveryCity, Office } from '@shared/types';
+import { FormControlStatus } from '@shared/types';
 
 import { LIMITED_OFFICE } from '@features/delivery/constants';
-import { Courier, ErrorStatus } from '@features/delivery/types';
+import type { Courier, ErrorStatus } from '@features/delivery/types';
 
 import { DELIVERY_POINT_TABS } from '../../constants';
-import { DeliveryPointTab, DeliveryPointTabType } from '../../types';
+import type { DeliveryPointTab } from '../../types';
+import { DeliveryPointTabType } from '../../types';
 
-import { BaseSelectors } from './base-selectors.types';
-import { DerivedSelectors } from './derived-selectors.types';
+import type { BaseSelectors } from './base-selectors.types';
+import type { DerivedSelectors } from './derived-selectors.types';
 
 export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSelectors => {
   /**

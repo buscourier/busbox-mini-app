@@ -1,7 +1,7 @@
-import { Applicant } from './applicant.types';
-import { Departure } from './departure.types';
-import { Destination } from './destination.types';
-import { Review } from './review.types';
+import type { Applicant } from './applicant.types';
+import type { Departure } from './departure.types';
+import type { Destination } from './destination.types';
+import type { Review } from './review.types';
 
 export type StepNumber = 1 | 2 | 3 | 4;
 

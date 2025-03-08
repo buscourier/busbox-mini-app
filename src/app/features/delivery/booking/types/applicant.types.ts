@@ -1,4 +1,4 @@
-import { Individual } from './individual.types';
+import type { Individual } from './individual.types';
 
 export const ApplicantType = {
   INDIVIDUAL: 'INDIVIDUAL',

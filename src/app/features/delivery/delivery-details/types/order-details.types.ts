@@ -1,6 +1,6 @@
-import { AdditionalServices } from './additional-services.types';
-import { CargoDetails, CargoType } from './cargo.types';
-import { PackagingDetails } from './packaging.types';
+import type { AdditionalServices } from './additional-services.types';
+import type { CargoDetails, CargoType } from './cargo.types';
+import type { PackagingDetails } from './packaging.types';
 
 /**
  * UI representation interfaces for order details.

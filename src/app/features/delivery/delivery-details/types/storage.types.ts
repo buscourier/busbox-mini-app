@@ -1,6 +1,6 @@
-import { Dictionary } from '@ngrx/entity';
+import type { Dictionary } from '@ngrx/entity';
 
-import { Order } from './order.types';
+import type { Order } from './order.types';
 
 export interface StoredDeliveryDetailsState {
   activeOrderId: string | null;

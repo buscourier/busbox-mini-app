@@ -1,8 +1,8 @@
-import { AbstractControl, FormArray, Validators } from '@angular/forms';
+import type { AbstractControl, FormArray, Validators } from '@angular/forms';
 
-import { ParcelItem, ParcelsLimits } from '../../types';
+import type { ParcelItem, ParcelsLimits } from '../../types';
 
-import { ParcelsErrors } from './types';
+import type { ParcelsErrors } from './types';
 
 export function parcelsValidator(limits: ParcelsLimits) {
   return function (control: AbstractControl): Validators | null {

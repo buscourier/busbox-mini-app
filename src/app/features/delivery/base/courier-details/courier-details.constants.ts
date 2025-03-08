@@ -1,4 +1,4 @@
-import { PreferredTimeSlot } from '@shared/types';
+import type { PreferredTimeSlot } from '@shared/types';
 
 export const PREFERRED_COURIER_TIME: PreferredTimeSlot[] = [
   {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { DeliveryCity } from '@shared/types';
+import type { DeliveryCity } from '@shared/types';
 
 import { PARCEL_ITEM_LIMITS, PARCELS_LIMITS, RESTRICTION_MESSAGES } from '../constants';
-import {
+import type {
   CargoItemRestrictions,
   CargoPointRestriction,
   CargoRestrictions,

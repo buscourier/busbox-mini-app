@@ -1,6 +1,6 @@
-import { Courier } from '@features/delivery/types';
+import type { Courier } from '@features/delivery/types';
 
-import { Order } from '../../delivery-details/types';
+import type { Order } from '../../delivery-details/types';
 
 export interface BaseCalculationParams {
   pickupCityId: string | null;

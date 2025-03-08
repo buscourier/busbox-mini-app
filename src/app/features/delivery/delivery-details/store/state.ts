@@ -1,9 +1,10 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import type { EntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter } from '@ngrx/entity';
 
 import { LoadingStatus } from '@shared/types';
 
 import { PARCEL_ITEM_LIMITS, PARCELS_LIMITS } from '../constants';
-import { DeliveryRestrictions, OptionsState, Order } from '../types';
+import type { DeliveryRestrictions, OptionsState, Order } from '../types';
 
 export interface DeliveryDetailsState extends EntityState<Order> {
   activeOrderId: string | null;

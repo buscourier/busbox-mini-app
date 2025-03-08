@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { TuiDay, TuiValueTransformer } from '@taiga-ui/cdk';
+import type { TuiValueTransformer } from '@taiga-ui/cdk';
+import { TuiDay } from '@taiga-ui/cdk';
 
 /**
  * Transforms dates between TuiDay and ISO string formats for form controls.

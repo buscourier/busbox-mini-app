@@ -1,5 +1,5 @@
-import { CargoItemRestrictions } from './cargo-restrictions.types';
-import { ParcelItemLimits, ParcelsLimits } from './parcel-limits.types';
+import type { CargoItemRestrictions } from './cargo-restrictions.types';
+import type { ParcelItemLimits, ParcelsLimits } from './parcel-limits.types';
 
 export interface DeliveryRestrictions {
   autoParts: CargoItemRestrictions | null;

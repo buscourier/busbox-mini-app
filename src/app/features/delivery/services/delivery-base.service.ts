@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { ApiService } from '@core/services';
 
-import { CargoType, Order, Parcels } from '@features/delivery/delivery-details/types';
-import { Courier } from '@features/delivery/types';
+import type { Order, Parcels } from '@features/delivery/delivery-details/types';
+import { CargoType } from '@features/delivery/delivery-details/types';
+import type { Courier } from '@features/delivery/types';
 
 @Injectable({
   providedIn: 'root',

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,13 +7,11 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import type { FormGroup } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { startWith } from 'rxjs';
 
@@ -28,7 +27,7 @@ import { TuiInputNumberModule, TuiInputPhoneModule } from '@taiga-ui/legacy';
 
 import { phoneValidator } from '@shared/validators';
 
-import { AdditionalServices, Service } from '../../types';
+import type { AdditionalServices, Service } from '../../types';
 
 import {
   AdditionalServiceId,
@@ -42,7 +41,7 @@ import {
   SERVICES_VALIDATION_MESSAGES,
   SMS_SERVICES,
 } from './additional-services.constants';
-import {
+import type {
   MonetaryService,
   MonetaryServiceType,
   ServiceName,

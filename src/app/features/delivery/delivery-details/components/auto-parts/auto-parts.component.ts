@@ -1,3 +1,4 @@
+import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,19 +6,11 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import type { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -31,7 +24,7 @@ import {
 
 import { isObjectsEqual } from '@core/utils/object.utils';
 
-import { AutoParts, Cargo, CargoItemRestrictions } from '../../types';
+import type { AutoParts, Cargo, CargoItemRestrictions } from '../../types';
 
 type AutoPartsForm = FormGroup<{
   [K in keyof AutoParts]: FormControl<AutoParts[K]>;

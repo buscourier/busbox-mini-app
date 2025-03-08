@@ -1,6 +1,6 @@
-import { DeliveryPointState } from '@features/delivery/delivery-point/store';
+import type { DeliveryPointState } from '@features/delivery/delivery-point/store';
 
-import { Recipient } from './recipient.types';
+import type { Recipient } from './recipient.types';
 
 export interface Destination {
   recipient: Recipient;

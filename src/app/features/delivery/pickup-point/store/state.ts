@@ -1,8 +1,8 @@
-import { FormState, PickupCity } from '@shared/types';
+import type { FormState, PickupCity } from '@shared/types';
 
-import { CitiesState, CourierDetails, OfficesState } from '@features/delivery/types';
+import type { CitiesState, CourierDetails, OfficesState } from '@features/delivery/types';
 
-import { PickupPointTabType } from '../types';
+import type { PickupPointTabType } from '../types';
 
 export interface PickupPointState {
   cities: CitiesState<PickupCity>;

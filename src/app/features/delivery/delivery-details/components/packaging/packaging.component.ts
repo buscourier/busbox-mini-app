@@ -1,18 +1,12 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import type { OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { tuiDialog } from '@taiga-ui/core';
 
-import { Packaging, PackagingItem, Service } from '../../types';
+import type { Packaging, PackagingItem, Service } from '../../types';
 
-import { OtherIds, PACKAGING_DEFAULT_QUANTITY, PackagingGroupId } from './packaging.constants';
+import type { OtherIds } from './packaging.constants';
+import { PACKAGING_DEFAULT_QUANTITY, PackagingGroupId } from './packaging.constants';
 import { PackagingDialogComponent } from './packaging-dialog/packaging-dialog.component';
 
 @Component({

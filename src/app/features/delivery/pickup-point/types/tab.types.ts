@@ -1,4 +1,4 @@
-import { ApiTab, TabConfig } from '@shared/types';
+import type { ApiTab, TabConfig } from '@shared/types';
 
 export type PickupPointApiValue = 'give' | 'pickup';
 

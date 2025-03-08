@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { OrderSummaryActions } from './actions';
-import { OrderSummaryState } from './state';
+import type { OrderSummaryState } from './state';
 
 export const initialState: OrderSummaryState = {
   isLoading: false,

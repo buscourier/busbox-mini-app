@@ -1,5 +1,6 @@
 import { provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
+import type { ApplicationConfig } from '@angular/core';
+import { isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 

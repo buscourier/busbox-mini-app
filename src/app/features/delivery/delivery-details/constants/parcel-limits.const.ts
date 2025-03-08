@@ -1,4 +1,4 @@
-import { ParcelItemLimits, ParcelsLimits } from '../types/parcel-limits.types';
+import type { ParcelItemLimits, ParcelsLimits } from '../types/parcel-limits.types';
 
 /**
  * Groups of city IDs where the same city might have different IDs

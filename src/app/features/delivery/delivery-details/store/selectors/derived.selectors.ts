@@ -1,18 +1,12 @@
 import { createSelector } from '@ngrx/store';
 
 import { PACKAGE_NAMES } from '../../constants';
-import {
-  ActiveOrderDetails,
-  CargoType,
-  CargoTypeId,
-  Order,
-  PackagingDetails,
-  Service,
-} from '../../types';
+import type { ActiveOrderDetails, Order, PackagingDetails, Service } from '../../types';
+import { CargoType, CargoTypeId } from '../../types';
 import { getAutoParts, getDocuments, getOtherCargo, getParcels } from '../../utils/cargo-utils';
 
-import { BaseSelectors } from './base-selectors.types';
-import { DerivedSelectors } from './derived-selectors.types';
+import type { BaseSelectors } from './base-selectors.types';
+import type { DerivedSelectors } from './derived-selectors.types';
 
 export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSelectors => {
   const isOrderValid = (order: Order): boolean => {

@@ -9,9 +9,9 @@ import { Store } from '@ngrx/store';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
+import type { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
 
-import { StoredDeliveryDetailsState } from '../../types';
+import type { StoredDeliveryDetailsState } from '../../types';
 
 import { DeliveryDetailsActions, OrderActions } from '../actions';
 import { deliveryDetailsFeature } from '../feature';

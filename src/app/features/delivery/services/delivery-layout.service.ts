@@ -1,8 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { filter, Observable, shareReplay, startWith } from 'rxjs';
+import { filter, shareReplay, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import type { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

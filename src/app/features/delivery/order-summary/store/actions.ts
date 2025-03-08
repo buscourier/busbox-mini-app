@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
 export const OrderSummaryActions = createActionGroup({
   source: 'OrderSummary',

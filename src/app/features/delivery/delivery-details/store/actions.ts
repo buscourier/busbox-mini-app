@@ -1,8 +1,8 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
-import {
+import type {
   AdditionalServices,
   AutoParts,
   CargoType,

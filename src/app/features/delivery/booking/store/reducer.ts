@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { StepNumber } from '../types';
+import type { StepNumber } from '../types';
 import { BookingActions } from './actions';
-import { BookingState } from './state';
+import type { BookingState } from './state';
 
 const initialState: BookingState = {
   currentStep: 1,

@@ -1,7 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-
-import { Observable } from 'rxjs';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
@@ -9,10 +8,13 @@ import { TuiButton } from '@taiga-ui/core';
 
 import { BookingActions } from '../../store/actions';
 import { bookingFeature } from '../../store/feature';
-import { Applicant, ApplicantType, Individual, StepNumber } from '../../types';
+import type { Applicant, Individual, StepNumber } from '../../types';
+import { ApplicantType } from '../../types';
 
 import { ApplicantTabs } from './applicant.constants';
 import { IndividualComponent } from './individual/individual.component';
+
+import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-applicant',

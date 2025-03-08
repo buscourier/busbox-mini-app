@@ -1,4 +1,4 @@
-import { LimitError } from './types';
+import type { LimitError } from './types';
 
 export const PARCELS_VALIDATION_MESSAGES = {
   maxItems: ({ max }: LimitError) => `Максимальное количество посылок: ${max}`,

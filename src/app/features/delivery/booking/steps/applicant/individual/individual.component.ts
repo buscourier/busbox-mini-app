@@ -1,3 +1,4 @@
+import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,18 +6,11 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  FormControl,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import type { FormControl } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -46,10 +40,10 @@ import {
   middleNameValidator,
 } from '@shared/validators/user.validators';
 
-import { Individual } from '../../../types';
+import type { Individual } from '../../../types';
 
 import { individualRoles } from './individual.constants';
-import { IndividualForm } from './individual.types';
+import type { IndividualForm } from './individual.types';
 
 @Component({
   selector: 'app-individual',

@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import { FormControlStatus, LoadingStatus } from '@shared/types';
 
 import { PickupPointActions } from './actions';
-import { PickupPointState } from './state';
+import type { PickupPointState } from './state';
 
 export const initialState: PickupPointState = {
   cities: {

@@ -1,4 +1,4 @@
-import { BaseTab } from '@shared/types';
+import type { BaseTab } from '@shared/types';
 
 import { ApplicantType } from '../../types';
 

@@ -7,7 +7,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { PersistenceService } from '@core/services';
 
 import { BookingActions } from '@features/delivery/booking/store/actions';
-import { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
+import type { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
 
 import { DeliveryPointActions } from '../actions';
 

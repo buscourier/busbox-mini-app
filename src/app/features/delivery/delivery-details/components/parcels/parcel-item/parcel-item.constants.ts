@@ -1,6 +1,6 @@
-import { ParcelItem, ParcelItemLimits } from '../../../types';
+import type { ParcelItem, ParcelItemLimits } from '../../../types';
 
-import { DimensionsError } from './parcel-item.types';
+import type { DimensionsError } from './parcel-item.types';
 
 export const limitKeyMap: Record<
   Exclude<keyof ParcelItem, 'dimensions'>,

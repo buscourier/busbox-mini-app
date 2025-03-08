@@ -1,17 +1,11 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import type { FormControl } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  merge,
-  Observable,
-  tap,
-  withLatestFrom,
-} from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, merge, tap, withLatestFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
@@ -21,10 +15,12 @@ import { TuiTextareaModule } from '@taiga-ui/legacy';
 
 import { BookingActions } from '../../store/actions';
 import { bookingFeature } from '../../store/feature';
-import { Review, StepNumber } from '../../types';
+import type { Review, StepNumber } from '../../types';
 
-import { ReviewControlValues, ReviewForm, ReviewModel } from './review.types';
+import type { ReviewControlValues, ReviewForm, ReviewModel } from './review.types';
 import { selectReviewModel } from './selectors/review.selector';
+
+import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-review',

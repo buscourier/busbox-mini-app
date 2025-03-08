@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
 
-import { ApiError, DeliveryCity } from '@shared/types';
+import type { ApiError, DeliveryCity } from '@shared/types';
 
 import { DeliveryService } from '@features/delivery/services';
 

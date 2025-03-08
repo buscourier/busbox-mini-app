@@ -7,7 +7,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom, mapResponse } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 
-import { ApiError, Office } from '@shared/types';
+import type { ApiError, Office } from '@shared/types';
 
 import { DeliveryService } from '@features/delivery/services';
 

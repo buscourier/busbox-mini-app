@@ -1,20 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DeliveryBaseService } from '@features/delivery/services';
-import { Courier } from '@features/delivery/types';
+import type { Courier } from '@features/delivery/types';
 
-import { CargoType, CargoTypeId, Order } from '../../delivery-details/types';
+import type { Order } from '../../delivery-details/types';
+import { CargoType, CargoTypeId } from '../../delivery-details/types';
 
-import {
+import type {
   CalculationRequestParams,
   OrderAmountParams,
   TotalAmount,
   TotalAmountParams,
 } from '../types';
+
+import type { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

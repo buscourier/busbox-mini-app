@@ -1,9 +1,9 @@
-import { Dictionary } from '@ngrx/entity';
-import { MemoizedSelector } from '@ngrx/store';
+import type { Dictionary } from '@ngrx/entity';
+import type { MemoizedSelector } from '@ngrx/store';
 
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
-import { DeliveryOptions, DeliveryRestrictions, Order } from '../../types';
+import type { DeliveryOptions, DeliveryRestrictions, Order } from '../../types';
 
 export interface BaseSelectors {
   // Entity selectors

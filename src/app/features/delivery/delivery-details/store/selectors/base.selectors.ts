@@ -1,12 +1,13 @@
-import { EntityAdapter } from '@ngrx/entity';
-import { createSelector, MemoizedSelector } from '@ngrx/store';
+import type { EntityAdapter } from '@ngrx/entity';
+import type { MemoizedSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 
 import { LoadingStatus } from '@shared/types';
 
-import { OptionsState, Order } from '../../types';
+import type { OptionsState, Order } from '../../types';
 
-import { DeliveryDetailsState } from '../state';
-import { BaseSelectors } from './base-selectors.types';
+import type { DeliveryDetailsState } from '../state';
+import type { BaseSelectors } from './base-selectors.types';
 
 type DeliveryDetailsStateSelector = MemoizedSelector<object, DeliveryDetailsState>;
 

@@ -1,19 +1,12 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  forwardRef,
-  inject,
-  OnInit,
-} from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import type { FormControl, ValidationErrors } from '@angular/forms';
 import {
-  FormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 
@@ -30,14 +23,14 @@ import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 
 import { ADDRESS_VALIDATION_LIMITS, ADDRESS_VALIDATION_MESSAGES } from '@core/constants';
 
-import { PreferredTimeSlot } from '@shared/types';
+import type { PreferredTimeSlot } from '@shared/types';
 import { identityMatcherById } from '@shared/utils';
 import { apartmentValidator, buildingValidator, streetValidator } from '@shared/validators';
 
-import { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@features/delivery/types';
 
 import { PREFERRED_COURIER_TIME } from './courier-details.constants';
-import { CourierDetailsForm } from './courier-details.types';
+import type { CourierDetailsForm } from './courier-details.types';
 
 @Component({
   selector: 'app-courier-details',

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,20 +7,15 @@ import {
   forwardRef,
   inject,
   Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import type { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import {
-  AbstractControl,
   FormControl,
-  FormGroup,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 
@@ -35,16 +31,16 @@ import {
 import { TuiInputNumberModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 
 import { DEBOUNCE_TIME } from '@core/constants';
-import { isObjectsEqual } from '@core/utils/object.utils';
+import { isObjectsEqual } from '@core/utils';
 
 import { customMaxValidator, customMinValidator } from '@shared/validators';
 
-import { ParcelItem, ParcelItemDimensions, ParcelItemLimits } from '../../../types';
+import type { ParcelItem, ParcelItemDimensions, ParcelItemLimits } from '../../../types';
 
 import { PARCEL_ITEM_DEFAULTS } from '../constants';
-import { ParcelsErrors } from '../types';
+import type { ParcelsErrors } from '../types';
 import { limitKeyMap, PARCEL_ITEM_VALIDATION_MESSAGES } from './parcel-item.constants';
-import { ParcelItemForm } from './parcel-item.types';
+import type { ParcelItemForm } from './parcel-item.types';
 
 @Component({
   selector: 'app-parcel-item',

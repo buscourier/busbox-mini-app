@@ -1,13 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-
-import { Observable } from 'rxjs';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
 import { bookingFeature } from '../../store/feature';
+
+import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-failure',

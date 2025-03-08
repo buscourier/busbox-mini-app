@@ -1,6 +1,6 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import type { FormControl, FormGroup } from '@angular/forms';
 
-import { Individual } from '../../../types';
+import type { Individual } from '../../../types';
 
 export type IndividualForm = FormGroup<{
   [K in keyof Individual]: FormControl<Individual[K]>;

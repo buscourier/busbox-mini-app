@@ -1,8 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
-import { Observable, take } from 'rxjs';
+import { take } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
@@ -13,8 +14,10 @@ import { DeliveryLayoutService } from '@features/delivery/services';
 import { StepperComponent } from './stepper/stepper.component';
 import { BookingActions } from './store/actions';
 import { bookingFeature } from './store/feature';
-import { BookingViewModel } from './store/selectors/view-model.types';
-import { StepNumber } from './types';
+import type { BookingViewModel } from './store/selectors/view-model.types';
+import type { StepNumber } from './types';
+
+import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-booking',

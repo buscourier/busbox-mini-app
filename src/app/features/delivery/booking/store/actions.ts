@@ -1,10 +1,10 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
-import { BookingResult } from '@features/delivery/types';
+import type { BookingResult } from '@features/delivery/types';
 
-import {
+import type {
   ApplicantType,
   Individual,
   Recipient,

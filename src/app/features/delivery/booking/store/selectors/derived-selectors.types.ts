@@ -1,6 +1,6 @@
-import { MemoizedSelector } from '@ngrx/store';
+import type { MemoizedSelector } from '@ngrx/store';
 
-import { Step, StepNumber, StepView } from '../../types';
+import type { Step, StepNumber, StepView } from '../../types';
 
 export interface DerivedSelectors {
   selectStepsView: MemoizedSelector<object, StepView[]>;

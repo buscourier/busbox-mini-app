@@ -1,6 +1,6 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import type { FormControl, FormGroup } from '@angular/forms';
 
-import { ParcelItemDimensions } from '../../../types';
+import type { ParcelItemDimensions } from '../../../types';
 
 export type ParcelItemForm = FormGroup<{
   quantity: FormControl<number>;

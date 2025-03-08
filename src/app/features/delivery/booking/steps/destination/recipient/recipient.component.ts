@@ -1,3 +1,4 @@
+import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,18 +6,11 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  FormControl,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import type { FormControl } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -31,9 +25,9 @@ import { isObjectsEqual } from '@core/utils/object.utils';
 import { phoneValidator } from '@shared/validators';
 import { fullNameValidator } from '@shared/validators/user.validators';
 
-import { Recipient } from '../../../types';
+import type { Recipient } from '../../../types';
 
-import { RecipientForm } from './recipient.types';
+import type { RecipientForm } from './recipient.types';
 
 @Component({
   selector: 'app-recipient',

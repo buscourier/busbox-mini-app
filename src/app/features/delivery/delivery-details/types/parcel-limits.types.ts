@@ -1,4 +1,4 @@
-import { DeliveryCity } from '@shared/types';
+import type { DeliveryCity } from '@shared/types';
 
 export interface ParcelsLimits {
   MAX_PARCELS: number;

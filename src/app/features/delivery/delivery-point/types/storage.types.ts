@@ -1,8 +1,8 @@
-import { DeliveryCity, Office } from '@shared/types';
+import type { DeliveryCity, Office } from '@shared/types';
 
-import { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@features/delivery/types';
 
-import { DeliveryPointTabType } from './tab.types';
+import type { DeliveryPointTabType } from './tab.types';
 
 export interface StoredDeliveryPointState {
   activeTabId: DeliveryPointTabType | null;

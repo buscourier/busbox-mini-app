@@ -1,10 +1,10 @@
-import { AdditionalServices } from './additional-services.types';
-import { AutoParts } from './auto-parts.types';
-import { CargoType } from './cargo.types';
-import { Documents } from './documents.types';
-import { OtherCargo } from './other-cargo.types';
-import { Packaging } from './packaging.types';
-import { Parcels } from './parcels.types';
+import type { AdditionalServices } from './additional-services.types';
+import type { AutoParts } from './auto-parts.types';
+import type { CargoType } from './cargo.types';
+import type { Documents } from './documents.types';
+import type { OtherCargo } from './other-cargo.types';
+import type { Packaging } from './packaging.types';
+import type { Parcels } from './parcels.types';
 
 export interface OrderValidationState {
   documents?: boolean;

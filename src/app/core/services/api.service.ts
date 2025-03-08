@@ -1,14 +1,17 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import type { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { catchError, concatAll, filter, Observable, shareReplay, throwError, toArray } from 'rxjs';
+import { catchError, concatAll, filter, shareReplay, throwError, toArray } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ERROR_MESSAGES, ErrorCode } from '@core/constants';
+import type { ErrorCode } from '@core/constants';
+import { ERROR_MESSAGES } from '@core/constants';
 
-import { DeliveryCity, Office, PickupCity } from '@shared/types';
+import type { DeliveryCity, Office, PickupCity } from '@shared/types';
 
 import { environment } from '@env/environment';
+import type { Observable } from 'rxjs';
 
 const EXCLUDED_CITY_ID = '249';
 

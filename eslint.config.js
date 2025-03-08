@@ -76,11 +76,25 @@ module.exports = tseslint.config(
         },
       ],
       'simple-import-sort/exports': 'error',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          disallowTypeAnnotations: false,
+          fixStyle: 'separate-type-imports',
+        },
+      ],
     },
   },
   {
     files: ['**/*.html'],
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {},
+  },
+  {
+    files: ['**/*.service.ts', '**/services/**/*.ts'],
+    rules: {
+      '@typescript-eslint/consistent-type-imports': 'off',
+    },
   },
 );

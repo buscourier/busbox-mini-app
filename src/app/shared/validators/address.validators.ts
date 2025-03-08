@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import type { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 import { ADDRESS_REGEX } from '@shared/regex';
 

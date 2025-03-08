@@ -10,9 +10,9 @@ import { Store } from '@ngrx/store';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
+import type { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
 
-import { StoredBookingState } from '../../types';
+import type { StoredBookingState } from '../../types';
 
 import { BookingActions } from '../actions';
 import { bookingFeature } from '../feature';

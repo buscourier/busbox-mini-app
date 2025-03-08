@@ -5,11 +5,11 @@ import { switchMap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
 
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
 import { DeliveryService } from '@features/delivery/services';
 
-import { DeliveryOptions } from '../../types';
+import type { DeliveryOptions } from '../../types';
 
 import { DeliveryDetailsActions } from '../actions';
 

@@ -1,13 +1,13 @@
-import { DeliveryCity, FormValidationState } from '@shared/types';
+import type { DeliveryCity, FormValidationState } from '@shared/types';
 
-import {
+import type {
   CitiesViewModel,
   CourierDetails,
   ErrorStatus,
   OfficesViewModel,
 } from '@features/delivery/types';
 
-import { DeliveryPointTab } from '../../types';
+import type { DeliveryPointTab } from '../../types';
 
 /**
  * Usage example:

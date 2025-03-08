@@ -1,6 +1,6 @@
-import { MemoizedSelector } from '@ngrx/store';
+import type { MemoizedSelector } from '@ngrx/store';
 
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
 export interface BaseSelectors {
   selectIsLoading: MemoizedSelector<object, boolean>;

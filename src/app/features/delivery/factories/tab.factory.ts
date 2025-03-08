@@ -1,4 +1,4 @@
-import { TabConfig, TabOptions } from '@shared/types';
+import type { TabConfig, TabOptions } from '@shared/types';
 
 /**
  * Factory for creating tabs with typed configuration

@@ -1,13 +1,15 @@
 import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, Router, UrlTree } from '@angular/router';
+import type { ActivatedRouteSnapshot, CanActivateFn, UrlTree } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 
 import { bookingFeature } from '../store/feature';
-import { StepNumber } from '../types';
+import type { StepNumber } from '../types';
+
+import type { Observable } from 'rxjs';
 
 export const stepGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

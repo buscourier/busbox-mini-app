@@ -1,10 +1,10 @@
-import { MemoizedSelector } from '@ngrx/store';
+import type { MemoizedSelector } from '@ngrx/store';
 
-import { FormValidationState, Office } from '@shared/types';
+import type { FormValidationState, Office } from '@shared/types';
 
-import { Courier, ErrorStatus } from '@features/delivery/types';
+import type { Courier, ErrorStatus } from '@features/delivery/types';
 
-import { DeliveryPointTab } from '../../types';
+import type { DeliveryPointTab } from '../../types';
 
 export interface DerivedSelectors {
   selectAvailableOffices: MemoizedSelector<object, Office[]>;

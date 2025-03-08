@@ -1,9 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
-import { Step, StepNumber } from '../../types';
+import type { Step, StepNumber } from '../../types';
 
-import { BaseSelectors } from './base-selectors.types';
-import { DerivedSelectors } from './derived-selectors.types';
+import type { BaseSelectors } from './base-selectors.types';
+import type { DerivedSelectors } from './derived-selectors.types';
 
 export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSelectors => {
   return {

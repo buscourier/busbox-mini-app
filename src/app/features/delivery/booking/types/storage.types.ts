@@ -1,4 +1,4 @@
-import { Step, StepNumber, StepsData } from './step.types';
+import type { Step, StepNumber, StepsData } from './step.types';
 
 export interface StoredBookingState {
   currentStep: StepNumber;

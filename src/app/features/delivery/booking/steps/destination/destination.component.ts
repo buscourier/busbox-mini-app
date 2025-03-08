@@ -1,8 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { Observable, take, withLatestFrom } from 'rxjs';
+import { take, withLatestFrom } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
@@ -13,9 +14,11 @@ import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
 
 import { BookingActions } from '../../store/actions';
 import { bookingFeature } from '../../store/feature';
-import { Destination, Recipient, StepNumber } from '../../types';
+import type { Destination, Recipient, StepNumber } from '../../types';
 
 import { RecipientComponent } from './recipient/recipient.component';
+
+import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-destination',

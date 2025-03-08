@@ -1,6 +1,7 @@
 import { TabFactory } from '@features/delivery/factories';
 
-import { DeliveryPointTabConfig, DeliveryPointTabType } from '../types';
+import type { DeliveryPointTabConfig } from '../types';
+import { DeliveryPointTabType } from '../types';
 
 export const DELIVERY_POINT_TAB_CONFIG: Record<DeliveryPointTabType, DeliveryPointTabConfig> = {
   [DeliveryPointTabType.OFFICE]: {

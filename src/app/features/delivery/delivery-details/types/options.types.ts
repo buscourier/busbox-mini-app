@@ -1,8 +1,8 @@
-import { ApiError, LoadingStatus } from '@shared/types';
+import type { ApiError, LoadingStatus } from '@shared/types';
 
-import { Cargo } from './cargo.types';
-import { DeliveryOptions } from './delivery-options.types';
-import { Service } from './service.types';
+import type { Cargo } from './cargo.types';
+import type { DeliveryOptions } from './delivery-options.types';
+import type { Service } from './service.types';
 
 export interface OptionsState {
   status: LoadingStatus;

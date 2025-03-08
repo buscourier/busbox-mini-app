@@ -1,8 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
@@ -19,10 +19,12 @@ import {
   PackagingComponent,
   ParcelsComponent,
 } from './components';
-import { OrderActions } from './store/actions';
-import { deliveryDetailsFeature } from './store/feature';
-import { DeliveryDetailsViewModel } from './store/selectors/view-model.types';
-import { CargoType, Order, OrderValidationState } from './types';
+import type { DeliveryDetailsViewModel } from './store';
+import { deliveryDetailsFeature, OrderActions } from './store';
+import type { Order, OrderValidationState } from './types';
+import { CargoType } from './types';
+
+import type { Observable } from 'rxjs';
 
 type OrderDataKeys = Exclude<keyof Order, 'id' | 'cargoType' | 'validation'>;
 
@@ -48,6 +50,7 @@ export class DeliveryDetailsComponent implements OnInit {
   vm$!: Observable<DeliveryDetailsViewModel>;
 
   protected readonly MAX_ORDERS = 4;
+  protected readonly CargoType = CargoType;
 
   private store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
@@ -115,6 +118,4 @@ export class DeliveryDetailsComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
-
-  protected readonly CargoType = CargoType;
 }

@@ -1,10 +1,10 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import type { FormControl, FormGroup } from '@angular/forms';
 
-import { Action } from '@ngrx/store';
+import type { Action } from '@ngrx/store';
 
-import { DeliveryCity, Office } from '@shared/types';
+import type { DeliveryCity, Office } from '@shared/types';
 
-import { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@features/delivery/types';
 
 export interface ResetConfig {
   controls: FormControl[];

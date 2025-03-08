@@ -1,7 +1,7 @@
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
-import { ActiveOrderDetails } from '../../../delivery-details/types';
-import { OrderDelivery, OrderDirection } from '../../types';
+import type { ActiveOrderDetails } from '../../../delivery-details/types';
+import type { OrderDelivery, OrderDirection } from '../../types';
 
 export interface OrderSummaryViewModel {
   orderDirection: OrderDirection | null;

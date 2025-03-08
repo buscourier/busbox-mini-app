@@ -1,7 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import type { FormControl } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import {
   combineLatest,
@@ -9,7 +11,6 @@ import {
   distinctUntilChanged,
   filter,
   merge,
-  Observable,
   of,
   startWith,
   Subject,
@@ -23,11 +24,11 @@ import { Store } from '@ngrx/store';
 
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
+import type { TuiConfirmData } from '@taiga-ui/kit';
 import {
   TUI_CONFIRM,
   TUI_VALIDATION_ERRORS,
   TuiCheckbox,
-  TuiConfirmData,
   TuiDataListWrapper,
   TuiFieldErrorPipe,
   TuiStringifyContentPipe,
@@ -38,15 +39,26 @@ import { TuiComboBoxModule, TuiSelectModule, TuiTextfieldControllerModule } from
 import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
 
-import { CitiesFilterSource, DeliveryCity, FormControlStatus, Office } from '@shared/types';
+import {
+  type CitiesFilterSource,
+  type DeliveryCity,
+  FormControlStatus,
+  type Office,
+} from '@shared/types';
 
 import { CourierDetailsComponent } from '@features/delivery/base/courier-details/courier-details.component';
 import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
-import { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@features/delivery/types';
 
-import { DeliveryPointControlValues, DeliveryPointForm, ResetConfig } from './delivery-point.types';
-import { DeliveryPointActions, deliveryPointFeature, DeliveryPointViewModel } from './store';
+import type {
+  DeliveryPointControlValues,
+  DeliveryPointForm,
+  ResetConfig,
+} from './delivery-point.types';
+import { DeliveryPointActions, deliveryPointFeature, type DeliveryPointViewModel } from './store';
 import { DeliveryPointTabType } from './types';
+
+import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-delivery-point',

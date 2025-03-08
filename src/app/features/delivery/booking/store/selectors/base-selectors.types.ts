@@ -1,10 +1,10 @@
-import { MemoizedSelector } from '@ngrx/store';
+import type { MemoizedSelector } from '@ngrx/store';
 
-import { ApiError } from '@shared/types';
+import type { ApiError } from '@shared/types';
 
-import { BookingResult } from '@features/delivery/types';
+import type { BookingResult } from '@features/delivery/types';
 
-import {
+import type {
   Applicant,
   Departure,
   Destination,
