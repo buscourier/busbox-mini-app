@@ -1,4 +1,4 @@
-export interface SelectedPackage {
+export interface SelectedPackagingItem {
   title: string;
   description: string | null;
   dimensions: string | null;

@@ -12,8 +12,8 @@ import { tuiDialog } from '@taiga-ui/core';
 
 import { Packaging, PackagingItem, Service } from '../../types';
 
-import { PackagingDialogComponent } from './components/packaging-dialog';
-import { OtherIds, PACKAGING_DEFAULT_QUANTITY, PackagingId } from './constants';
+import { OtherIds, PACKAGING_DEFAULT_QUANTITY, PackagingGroupId } from './packaging.constants';
+import { PackagingDialogComponent } from './packaging-dialog/packaging-dialog.component';
 
 @Component({
   selector: 'app-packaging',
@@ -34,7 +34,7 @@ export class PackagingComponent implements OnChanges {
   films: Service[] = [];
   other: Service[] = [];
 
-  selectedPackages = new Map<string, number>();
+  selectedPackagingItems = new Map<string, number>();
 
   dialog = tuiDialog(PackagingDialogComponent, {
     label: 'Heading',
@@ -48,20 +48,20 @@ export class PackagingComponent implements OnChanges {
     }
 
     if (changes['data']) {
-      this.initializeSelectedPackages();
+      this.initializeSelectedPackagingItems();
     }
   }
 
-  selectPackage(option: Service): void {
+  selectPackagingItem(option: Service): void {
     this.dialog({
       title: option.name,
       description: option.property,
       dimensions: option.property,
-      currentQuantity: this.selectedPackages.get(option.id) || PACKAGING_DEFAULT_QUANTITY,
+      currentQuantity: this.selectedPackagingItems.get(option.id) || PACKAGING_DEFAULT_QUANTITY,
     }).subscribe({
       next: (quantity) => {
         if (quantity) {
-          this.selectedPackages.set(option.id, quantity);
+          this.selectedPackagingItems.set(option.id, quantity);
           this.emitChange();
         }
       },
@@ -71,36 +71,36 @@ export class PackagingComponent implements OnChanges {
     });
   }
 
-  removePackage(id: string): void {
-    this.selectedPackages.delete(id);
+  removePackagingItem(id: string): void {
+    this.selectedPackagingItems.delete(id);
     this.emitChange();
   }
 
   isSelected(id: string): boolean {
-    return this.selectedPackages.has(id);
+    return this.selectedPackagingItems.has(id);
   }
 
   getQuantity(id: string): number {
-    return this.selectedPackages.get(id) || PACKAGING_DEFAULT_QUANTITY;
+    return this.selectedPackagingItems.get(id) || PACKAGING_DEFAULT_QUANTITY;
   }
 
   private initializeGroups(): void {
-    this.boxes = this.filterOptions(PackagingId.BOXES);
-    this.safePacks = this.filterOptions(PackagingId.SAFE_PACKS);
-    this.polyPacks = this.filterOptions(PackagingId.POLY_PACKS);
-    this.films = this.filterOptions(PackagingId.FILMS);
+    this.boxes = this.filterOptions(PackagingGroupId.BOXES);
+    this.safePacks = this.filterOptions(PackagingGroupId.SAFE_PACKS);
+    this.polyPacks = this.filterOptions(PackagingGroupId.POLY_PACKS);
+    this.films = this.filterOptions(PackagingGroupId.FILMS);
     this.other = this.options.filter((option) =>
-      PackagingId.OTHER.includes(option.subgroup_id as OtherIds),
+      PackagingGroupId.OTHER.includes(option.subgroup_id as OtherIds),
     );
   }
 
-  private initializeSelectedPackages() {
+  private initializeSelectedPackagingItems() {
     if (this.data) {
       const { items } = this.data;
 
-      this.selectedPackages = this.createItemsMap(items);
+      this.selectedPackagingItems = this.createItemsMap(items);
     } else {
-      this.selectedPackages = new Map<string, number>();
+      this.selectedPackagingItems = new Map<string, number>();
     }
   }
 
@@ -113,7 +113,7 @@ export class PackagingComponent implements OnChanges {
   }
 
   private emitChange() {
-    const items = Array.from(this.selectedPackages.entries()).map(([id, quantity]) => ({
+    const items = Array.from(this.selectedPackagingItems.entries()).map(([id, quantity]) => ({
       id,
       quantity,
     }));

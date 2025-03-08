@@ -5,8 +5,8 @@ import { TuiButton, TuiDialogContext, tuiNumberFormatProvider } from '@taiga-ui/
 import { TuiInputNumberModule, tuiInputNumberOptionsProvider } from '@taiga-ui/legacy';
 import { injectContext } from '@taiga-ui/polymorpheus';
 
-import { PACKAGING_DEFAULT_QUANTITY } from '../../constants';
-import { SelectedPackage } from '../../types';
+import { PACKAGING_DEFAULT_QUANTITY } from '../packaging.constants';
+import { SelectedPackagingItem } from '../packaging.types';
 
 @Component({
   selector: 'app-packaging-dialog',
@@ -24,14 +24,16 @@ import { SelectedPackage } from '../../types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PackagingDialogComponent {
-  readonly context = injectContext<TuiDialogContext<number, SelectedPackage>>();
+  readonly context = injectContext<TuiDialogContext<number, SelectedPackagingItem>>();
 
   quantityControl = new FormControl(this.data.currentQuantity, {
     nonNullable: true,
     validators: [Validators.required, Validators.min(PACKAGING_DEFAULT_QUANTITY)],
   });
 
-  protected get data(): SelectedPackage {
+  protected readonly DEFAULT_QUANTITY = PACKAGING_DEFAULT_QUANTITY;
+
+  protected get data(): SelectedPackagingItem {
     return this.context.data;
   }
 
@@ -46,6 +48,4 @@ export class PackagingDialogComponent {
       this.context.completeWith(this.quantityControl.value);
     }
   }
-
-  protected readonly DEFAULT_QUANTITY = PACKAGING_DEFAULT_QUANTITY;
 }

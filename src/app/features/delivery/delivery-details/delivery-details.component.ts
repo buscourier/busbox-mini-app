@@ -15,7 +15,7 @@ import { CargoPickerComponent } from './components/cargo-picker/cargo-picker.com
 import { DocumentsComponent } from './components/documents/documents.component';
 import { OrderTabsComponent } from './components/order-tabs/order-tabs.component';
 import { OtherCargoComponent } from './components/other-cargo/other-cargo.component';
-import { PackagingComponent } from './components/packaging';
+import { PackagingComponent } from './components/packaging/packaging.component';
 import { ParcelsComponent } from './components/parcels/parcels.component';
 import { OrderActions } from './store/actions';
 import { deliveryDetailsFeature } from './store/feature';
@@ -35,8 +35,8 @@ type OrderDataKeys = Exclude<keyof Order, 'id' | 'cargoType' | 'validation'>;
     AutoPartsComponent,
     OtherCargoComponent,
     DocumentsComponent,
-    PackagingComponent,
     AdditionalServicesComponent,
+    PackagingComponent,
   ],
   templateUrl: './delivery-details.component.html',
   styleUrl: './delivery-details.component.css',

@@ -1,7 +1,6 @@
 export type OtherIds = '4' | '5';
 
-export const PackagingId = {
-  ROOT: '1',
+export const PackagingGroupId = {
   BOXES: '1',
   SAFE_PACKS: '2',
   POLY_PACKS: '3',
