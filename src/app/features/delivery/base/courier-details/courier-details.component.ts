@@ -36,7 +36,7 @@ import { apartmentValidator, buildingValidator, streetValidator } from '@shared/
 
 import { CourierDetails } from '@features/delivery/types';
 
-import { PREFERRED_COURIER_TIME } from './courier-details.const';
+import { PREFERRED_COURIER_TIME } from './courier-details.constants';
 import { CourierDetailsForm } from './courier-details.types';
 
 @Component({

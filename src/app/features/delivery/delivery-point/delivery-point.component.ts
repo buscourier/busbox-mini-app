@@ -40,7 +40,7 @@ import { DEBOUNCE_TIME } from '@core/constants';
 
 import { CitiesFilterSource, DeliveryCity, FormControlStatus, Office } from '@shared/types';
 
-import { CourierDetailsComponent } from '@features/delivery/base/courier-details';
+import { CourierDetailsComponent } from '@features/delivery/base/courier-details/courier-details.component';
 import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
 import { CourierDetails } from '@features/delivery/types';
 

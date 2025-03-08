@@ -46,7 +46,7 @@ import { DEBOUNCE_TIME } from '@core/constants';
 
 import { CitiesFilterSource, FormControlStatus, Office, PickupCity } from '@shared/types';
 
-import { CourierDetailsComponent } from '@features/delivery/base/courier-details';
+import { CourierDetailsComponent } from '@features/delivery/base/courier-details/courier-details.component';
 import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
 import { CourierDetails } from '@features/delivery/types';
 
