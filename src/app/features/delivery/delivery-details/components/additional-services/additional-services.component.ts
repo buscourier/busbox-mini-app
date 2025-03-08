@@ -41,7 +41,7 @@ import {
   RECIPIENT_PAYMENT_MIN_AMOUNT,
   SERVICES_VALIDATION_MESSAGES,
   SMS_SERVICES,
-} from './constants';
+} from './additional-services.constants';
 import {
   MonetaryService,
   MonetaryServiceType,
@@ -50,7 +50,7 @@ import {
   SmsService,
   SmsServiceType,
   ValueType,
-} from './types';
+} from './additional-services.types';
 
 /**
  * Component for managing additional shipping services including:

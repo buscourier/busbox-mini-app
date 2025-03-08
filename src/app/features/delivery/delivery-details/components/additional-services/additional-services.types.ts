@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
-import { MONETARY_SERVICES, SMS_SERVICES } from '../constants';
+import { MONETARY_SERVICES, SMS_SERVICES } from './additional-services.constants';
 
 export type SmsServiceType = (typeof SMS_SERVICES)[number];
 export type MonetaryServiceType = (typeof MONETARY_SERVICES)[number];
