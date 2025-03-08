@@ -9,14 +9,16 @@ import { Store } from '@ngrx/store';
 
 import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
 
-import { AdditionalServicesComponent } from './components/additional-services/additional-services.component';
-import { AutoPartsComponent } from './components/auto-parts/auto-parts.component';
-import { CargoPickerComponent } from './components/cargo-picker/cargo-picker.component';
-import { DocumentsComponent } from './components/documents/documents.component';
-import { OrderTabsComponent } from './components/order-tabs/order-tabs.component';
-import { OtherCargoComponent } from './components/other-cargo/other-cargo.component';
-import { PackagingComponent } from './components/packaging/packaging.component';
-import { ParcelsComponent } from './components/parcels/parcels.component';
+import {
+  AdditionalServicesComponent,
+  AutoPartsComponent,
+  CargoPickerComponent,
+  DocumentsComponent,
+  OrderTabsComponent,
+  OtherCargoComponent,
+  PackagingComponent,
+  ParcelsComponent,
+} from './components';
 import { OrderActions } from './store/actions';
 import { deliveryDetailsFeature } from './store/feature';
 import { DeliveryDetailsViewModel } from './store/selectors/view-model.types';
