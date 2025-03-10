@@ -1,4 +1,3 @@
-export * from './booking-result.types';
 export * from './cities.types';
 export * from './courier-details.types';
 export * from './delivery-storage.types';

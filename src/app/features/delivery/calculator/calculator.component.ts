@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { DeliveryDetailsComponent } from '../delivery-details/delivery-details.component';
-import { DeliveryPointComponent } from '../delivery-point/delivery-point.component';
-import { PickupPointComponent } from '../pickup-point/pickup-point.component';
+import { DeliveryDetailsComponent } from '@delivery/delivery-details/';
+import { DeliveryPointComponent } from '@delivery/delivery-point';
+import { PickupPointComponent } from '@delivery/pickup-point';
 
 @Component({
   selector: 'app-calculator',

@@ -2,17 +2,16 @@ import type { MemoizedSelector } from '@ngrx/store';
 
 import type { ApiError } from '@shared/types';
 
-import type { BookingResult } from '@features/delivery/types';
-
 import type {
   Applicant,
+  BookingResult,
   Departure,
   Destination,
   Review,
   Step,
   StepNumber,
   StepsData,
-} from '../../types';
+} from '@delivery/booking/types';
 
 export interface BaseSelectors {
   selectCurrentStep: MemoizedSelector<object, StepNumber>;

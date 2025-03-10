@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 
 import type { DeliveryCity } from '@shared/types';
 
-import { PARCEL_ITEM_LIMITS, PARCELS_LIMITS, RESTRICTION_MESSAGES } from '../constants';
+import {
+  PARCEL_ITEM_LIMITS,
+  PARCELS_LIMITS,
+  RESTRICTION_MESSAGES,
+} from '@delivery/delivery-details/constants';
 import type {
   CargoItemRestrictions,
   CargoPointRestriction,
@@ -11,7 +15,7 @@ import type {
   GetParcelItemLimitsParams,
   ParcelItemLimits,
   ParcelsLimits,
-} from '../types';
+} from '@delivery/delivery-details/types';
 
 @Injectable({
   providedIn: 'root',

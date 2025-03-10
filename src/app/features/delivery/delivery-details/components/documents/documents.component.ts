@@ -18,9 +18,9 @@ import { tuiNumberFormatProvider } from '@taiga-ui/core';
 import { TuiInputNumberModule, tuiInputNumberOptionsProvider } from '@taiga-ui/legacy';
 
 import { DEBOUNCE_TIME } from '@core/constants';
-import { isObjectsEqual } from '@core/utils/object.utils';
+import { isObjectsEqual } from '@core/utils';
 
-import type { Documents } from '../../types';
+import type { Documents } from '@delivery/delivery-details/types';
 
 @Component({
   selector: 'app-documents',

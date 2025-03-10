@@ -27,7 +27,7 @@ import type { PreferredTimeSlot } from '@shared/types';
 import { identityMatcherById } from '@shared/utils';
 import { apartmentValidator, buildingValidator, streetValidator } from '@shared/validators';
 
-import type { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@delivery/types';
 
 import { PREFERRED_COURIER_TIME } from './courier-details.constants';
 import type { CourierDetailsForm } from './courier-details.types';

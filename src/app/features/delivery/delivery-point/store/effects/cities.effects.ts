@@ -8,11 +8,9 @@ import { mapResponse } from '@ngrx/operators';
 
 import type { ApiError, DeliveryCity } from '@shared/types';
 
-import { DeliveryService } from '@features/delivery/services';
-
-import { PickupPointActions } from '../../../pickup-point/store';
-
-import { DeliveryPointActions } from '../actions';
+import { DeliveryPointActions } from '@delivery/delivery-point/store';
+import { PickupPointActions } from '@delivery/pickup-point';
+import { DeliveryService } from '@delivery/services';
 
 export const citiesEffects = {
   initCitiesLoad: createEffect(

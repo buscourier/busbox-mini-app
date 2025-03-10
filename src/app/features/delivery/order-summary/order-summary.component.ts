@@ -12,10 +12,12 @@ import { TuiButton, TuiLoader } from '@taiga-ui/core';
 import type { TuiConfirmData } from '@taiga-ui/kit';
 import { TUI_CONFIRM } from '@taiga-ui/kit';
 
-import { DeliveryLayoutService } from '../services';
-import { DeliveryActions } from '../store/actions';
-import { selectOrderSummaryViewModel } from './store/selectors/view-model.selector';
-import type { OrderSummaryViewModel } from './store/selectors/view-model.types';
+import {
+  type OrderSummaryViewModel,
+  selectOrderSummaryViewModel,
+} from '@delivery/order-summary/store';
+import { DeliveryLayoutService } from '@delivery/services';
+import { DeliveryActions } from '@delivery/store';
 
 import type { Observable } from 'rxjs';
 

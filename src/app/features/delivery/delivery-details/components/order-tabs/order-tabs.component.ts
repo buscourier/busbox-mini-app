@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, output } from '@angular/core
 import { TuiButton } from '@taiga-ui/core';
 import { TuiChip } from '@taiga-ui/kit';
 
-import type { EnhancedOrder } from '../../types';
+import type { EnhancedOrder } from '@delivery/delivery-details/types';
 
 @Component({
   selector: 'app-order-tabs',

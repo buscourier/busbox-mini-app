@@ -1,9 +1,20 @@
 import { createSelector } from '@ngrx/store';
 
-import { PACKAGE_NAMES } from '../../constants';
-import type { ActiveOrderDetails, Order, PackagingDetails, Service } from '../../types';
-import { CargoType, CargoTypeId } from '../../types';
-import { getAutoParts, getDocuments, getOtherCargo, getParcels } from '../../utils/cargo-utils';
+import { PACKAGE_NAMES } from '@delivery/delivery-details/constants';
+import {
+  type ActiveOrderDetails,
+  CargoType,
+  CargoTypeId,
+  type Order,
+  type PackagingDetails,
+  type Service,
+} from '@delivery/delivery-details/types';
+import {
+  getAutoParts,
+  getDocuments,
+  getOtherCargo,
+  getParcels,
+} from '@delivery/delivery-details/utils';
 
 import type { BaseSelectors } from './base-selectors.types';
 import type { DerivedSelectors } from './derived-selectors.types';

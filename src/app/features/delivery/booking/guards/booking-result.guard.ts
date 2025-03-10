@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 
-import { bookingFeature } from '../store/feature';
+import { bookingFeature } from '@delivery/booking/store';
 
 import type { Observable } from 'rxjs';
 

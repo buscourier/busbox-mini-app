@@ -25,22 +25,22 @@ import {
 } from '@taiga-ui/kit';
 import { TuiInputModule, TuiInputPhoneModule, TuiSelectModule } from '@taiga-ui/legacy';
 
-import { EMAIL_VALIDATION_MESSAGES } from '@core/constants/email-validation.const';
-import { PHONE_VALIDATION_MESSAGES } from '@core/constants/phone-validation.const';
 import {
+  EMAIL_VALIDATION_MESSAGES,
+  PHONE_VALIDATION_MESSAGES,
   USER_VALIDATION_LIMITS,
   USER_VALIDATION_MESSAGES,
-} from '@core/constants/user-validation.const';
-import { isObjectsEqual } from '@core/utils/object.utils';
+} from '@core/constants';
+import { isObjectsEqual } from '@core/utils';
 
-import { phoneValidator } from '@shared/validators';
 import {
   firstNameValidator,
   lastNameValidator,
   middleNameValidator,
-} from '@shared/validators/user.validators';
+  phoneValidator,
+} from '@shared/validators';
 
-import type { Individual } from '../../../types';
+import type { Individual } from '@delivery/booking/types';
 
 import { individualRoles } from './individual.constants';
 import type { IndividualForm } from './individual.types';
@@ -80,7 +80,6 @@ export class IndividualComponent implements OnInit, OnChanges {
   form!: IndividualForm;
 
   protected readonly individualRoles = individualRoles;
-  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
 
   private fb = inject(NonNullableFormBuilder);
   private destroyRef = inject(DestroyRef);
@@ -204,4 +203,6 @@ export class IndividualComponent implements OnInit, OnChanges {
       },
     );
   }
+
+  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
 }

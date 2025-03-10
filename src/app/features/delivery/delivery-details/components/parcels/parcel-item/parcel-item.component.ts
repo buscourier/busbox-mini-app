@@ -35,7 +35,11 @@ import { isObjectsEqual } from '@core/utils';
 
 import { customMaxValidator, customMinValidator } from '@shared/validators';
 
-import type { ParcelItem, ParcelItemDimensions, ParcelItemLimits } from '../../../types';
+import type {
+  ParcelItem,
+  ParcelItemDimensions,
+  ParcelItemLimits,
+} from '@delivery/delivery-details/types';
 
 import { PARCEL_ITEM_DEFAULTS } from '../constants';
 import type { ParcelsErrors } from '../types';

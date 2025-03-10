@@ -9,7 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import type { FormControl, FormGroup } from '@angular/forms';
+import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { merge } from 'rxjs';
@@ -22,13 +22,11 @@ import {
   TuiTextfieldControllerModule,
 } from '@taiga-ui/legacy';
 
-import { isObjectsEqual } from '@core/utils/object.utils';
+import { isObjectsEqual } from '@core/utils';
 
-import type { AutoParts, Cargo, CargoItemRestrictions } from '../../types';
+import type { AutoParts, Cargo, CargoItemRestrictions } from '@delivery/delivery-details/types';
 
-type AutoPartsForm = FormGroup<{
-  [K in keyof AutoParts]: FormControl<AutoParts[K]>;
-}>;
+import type { AutoPartsForm } from './auto-parts.types';
 
 @Component({
   selector: 'app-auto-parts',
@@ -51,15 +49,12 @@ export class AutoPartsComponent implements OnInit, OnChanges {
   @Output() dataChange = new EventEmitter<AutoParts>();
   @Output() validationChange = new EventEmitter<boolean>();
 
-  /** Public properties */
   form!: AutoPartsForm;
 
-  /** Private properties */
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly DEFAULT_QUANTITY = 1;
 
-  /** Form control getters */
   get item(): FormControl<Cargo | null> {
     return this.form.controls.item;
   }
@@ -68,7 +63,6 @@ export class AutoPartsComponent implements OnInit, OnChanges {
     return this.form.controls.quantity;
   }
 
-  /** Lifecycle hooks */
   ngOnInit(): void {
     this.initializeForm();
 
@@ -112,14 +106,12 @@ export class AutoPartsComponent implements OnInit, OnChanges {
     }
   }
 
-  /** Public methods */
   setMinQuantityOnBlur(isFocused: boolean): void {
     if (!isFocused && !this.quantity.value) {
       this.quantity.setValue(this.DEFAULT_QUANTITY);
     }
   }
 
-  /** Private methods */
   initializeForm(): void {
     this.form = this.fb.group({
       item: this.fb.control<Cargo | null>(null, [Validators.required]),

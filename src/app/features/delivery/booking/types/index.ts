@@ -3,6 +3,7 @@ export * from './departure.types';
 export * from './destination.types';
 export * from './individual.types';
 export * from './recipient.types';
+export * from './result.types';
 export * from './review.types';
 export * from './sender.types';
 export * from './step.types';

@@ -9,12 +9,13 @@ import { Store } from '@ngrx/store';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import type { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
-
-import type { StoredDeliveryDetailsState } from '../../types';
-
-import { DeliveryDetailsActions, OrderActions } from '../actions';
-import { deliveryDetailsFeature } from '../feature';
+import {
+  DeliveryDetailsActions,
+  deliveryDetailsFeature,
+  OrderActions,
+} from '@delivery/delivery-details/store';
+import type { StoredDeliveryDetailsState } from '@delivery/delivery-details/types';
+import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
 
 export const persistenceEffects = {
   saveState: createEffect(

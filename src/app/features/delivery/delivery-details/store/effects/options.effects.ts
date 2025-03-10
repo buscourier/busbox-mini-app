@@ -7,11 +7,9 @@ import { mapResponse } from '@ngrx/operators';
 
 import type { ApiError } from '@shared/types';
 
-import { DeliveryService } from '@features/delivery/services';
-
-import type { DeliveryOptions } from '../../types';
-
-import { DeliveryDetailsActions } from '../actions';
+import { DeliveryDetailsActions } from '@delivery/delivery-details/store';
+import type { DeliveryOptions } from '@delivery/delivery-details/types';
+import { DeliveryService } from '@delivery/services';
 
 export const optionsEffects = {
   loadOptions: createEffect(

@@ -2,16 +2,15 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 import type { ApiError } from '@shared/types';
 
-import type { BookingResult } from '@features/delivery/types';
-
 import type {
   ApplicantType,
+  BookingResult,
   Individual,
   Recipient,
   Sender,
   StepNumber,
   StoredBookingState,
-} from '../types';
+} from '@delivery/booking/types';
 
 export const BookingActions = createActionGroup({
   source: 'Booking',

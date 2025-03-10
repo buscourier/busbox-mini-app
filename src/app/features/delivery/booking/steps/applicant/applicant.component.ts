@@ -6,15 +6,18 @@ import { Store } from '@ngrx/store';
 
 import { TuiButton } from '@taiga-ui/core';
 
-import { BookingActions } from '../../store/actions';
-import { bookingFeature } from '../../store/feature';
-import type { Applicant, Individual, StepNumber } from '../../types';
-import { ApplicantType } from '../../types';
+import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import {
+  type Applicant,
+  ApplicantType,
+  type Individual,
+  type StepNumber,
+} from '@delivery/booking/types';
+
+import type { Observable } from 'rxjs';
 
 import { ApplicantTabs } from './applicant.constants';
 import { IndividualComponent } from './individual/individual.component';
-
-import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-applicant',
@@ -27,7 +30,6 @@ export class ApplicantComponent implements OnInit {
   currentStep$!: Observable<StepNumber>;
   applicant$!: Observable<Applicant | null>;
 
-  protected readonly ApplicantType = ApplicantType;
   protected readonly tabs = ApplicantTabs;
 
   store = inject(Store);
@@ -53,4 +55,6 @@ export class ApplicantComponent implements OnInit {
       }),
     );
   }
+
+  protected readonly ApplicantType = ApplicantType;
 }

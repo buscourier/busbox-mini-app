@@ -56,8 +56,8 @@ module.exports = tseslint.config(
           groups: [
             // 1. Angular core modules
             ['^@angular(/.*|$)'],
-            // 2. RxJS modules
-            ['^rxjs$', '^rxjs/operators$'],
+            // 2. RxJS modules (расширено для поддержки импортов типов)
+            ['^rxjs(/.*|$)', '^rxjs$', '^rxjs/operators$', '^type.*rxjs(/.*|$)'],
             // 3. NgRx modules
             ['^@ngrx(/.*|$)'],
             // 4. Taiga UI modules
@@ -66,16 +66,17 @@ module.exports = tseslint.config(
             ['^@core(/.*|$)'],
             // 6. Everything from @shared
             ['^@shared(/.*|$)'],
-            // 7. Everything inside a single feature
-            ['^@features/([^/]+)/.*$'],
-            // 8. All project-wide modules
-            ['^../../.*$'],
-            // 9. Local feature files
+            // 7. Все импорты из @delivery
+            ['^@delivery(/.*|$)'],
+            // 8. Relative imports from other modules
+            ['^[^.].*$', '^@/.*$'],
+            // 9. Local feature files (импорты, начинающиеся с точки)
             ['^\\.'],
           ],
         },
       ],
       'simple-import-sort/exports': 'error',
+
       '@typescript-eslint/consistent-type-imports': [
         'error',
         {

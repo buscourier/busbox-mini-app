@@ -1,10 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
-import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
-import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
-import { pickupPointFeature } from '@features/delivery/pickup-point/store';
-
-import { bookingFeature } from '../../../store/feature';
+import { bookingFeature } from '@delivery/booking/store';
+import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
+import { deliveryPointFeature } from '@delivery/delivery-point/store';
+import { pickupPointFeature } from '@delivery/pickup-point/store';
 
 import type { ReviewModel, ReviewSection } from '../review.types';
 import { getDeliveryMethod } from '../utils/delivery-method';

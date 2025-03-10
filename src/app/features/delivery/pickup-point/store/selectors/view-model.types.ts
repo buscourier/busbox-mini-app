@@ -1,13 +1,12 @@
 import type { FormValidationState, PickupCity } from '@shared/types';
 
+import type { PickupPointTab } from '@delivery/pickup-point/types';
 import type {
   CitiesViewModel,
   CourierDetails,
   ErrorStatus,
   OfficesViewModel,
-} from '@features/delivery/types';
-
-import type { PickupPointTab } from '../../types';
+} from '@delivery/types';
 
 /**
  * View model for PickupPoint component.

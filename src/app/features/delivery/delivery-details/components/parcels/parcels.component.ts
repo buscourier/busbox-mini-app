@@ -20,7 +20,12 @@ import { TUI_VALIDATION_ERRORS, TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { isObjectsEqual } from '@core/utils';
 
-import type { ParcelItem, ParcelItemLimits, Parcels, ParcelsLimits } from '../../types';
+import type {
+  ParcelItem,
+  ParcelItemLimits,
+  Parcels,
+  ParcelsLimits,
+} from '@delivery/delivery-details/types';
 
 import { PARCEL_ITEM_DEFAULTS } from './constants';
 import { ParcelItemComponent } from './parcel-item/parcel-item.component';

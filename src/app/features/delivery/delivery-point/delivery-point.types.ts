@@ -4,7 +4,7 @@ import type { Action } from '@ngrx/store';
 
 import type { DeliveryCity, Office } from '@shared/types';
 
-import type { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@delivery/types';
 
 export interface ResetConfig {
   controls: FormControl[];

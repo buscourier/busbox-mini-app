@@ -1,4 +1,8 @@
-import type { DeliveryRestrictions, OptionsViewModel, OrdersViewModel } from '../../types';
+import type {
+  DeliveryRestrictions,
+  OptionsViewModel,
+  OrdersViewModel,
+} from '@delivery/delivery-details/types';
 
 export interface DeliveryDetailsViewModel {
   orders: OrdersViewModel;

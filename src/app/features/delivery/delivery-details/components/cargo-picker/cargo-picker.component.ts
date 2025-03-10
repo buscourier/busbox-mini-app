@@ -17,8 +17,13 @@ import type { TuiBooleanHandler } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiHintDirective, TuiTitle } from '@taiga-ui/core';
 import { TuiBadge, TuiRadioList } from '@taiga-ui/kit';
 
-import type { Cargo, CargoRestrictions, MappedCargoType } from '../../types';
-import { CargoType, CargoTypeId } from '../../types';
+import {
+  type Cargo,
+  type CargoRestrictions,
+  CargoType,
+  CargoTypeId,
+  type MappedCargoType,
+} from '@delivery/delivery-details/types';
 
 @Component({
   selector: 'app-cargo-picker',

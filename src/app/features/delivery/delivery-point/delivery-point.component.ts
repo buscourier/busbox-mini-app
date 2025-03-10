@@ -46,9 +46,11 @@ import {
   type Office,
 } from '@shared/types';
 
-import { CourierDetailsComponent } from '@features/delivery/base/courier-details/courier-details.component';
-import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
-import type { CourierDetails } from '@features/delivery/types';
+import { CourierDetailsComponent } from '@delivery/base/courier-details';
+import { deliveryDetailsFeature } from '@delivery/delivery-details';
+import type { CourierDetails } from '@delivery/types';
+
+import type { Observable } from 'rxjs';
 
 import type {
   DeliveryPointControlValues,
@@ -57,8 +59,6 @@ import type {
 } from './delivery-point.types';
 import { DeliveryPointActions, deliveryPointFeature, type DeliveryPointViewModel } from './store';
 import { DeliveryPointTabType } from './types';
-
-import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-delivery-point',

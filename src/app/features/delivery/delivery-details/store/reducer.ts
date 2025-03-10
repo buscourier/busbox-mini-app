@@ -2,13 +2,13 @@ import { createReducer, on } from '@ngrx/store';
 
 import { LoadingStatus } from '@shared/types';
 
-import type { Order } from '../types';
-import { CargoType } from '../types';
+import { CargoType, type Order } from '@delivery/delivery-details/types';
+
+import { v4 as uuidv4 } from 'uuid';
+
 import { DeliveryDetailsActions, OrderActions } from './actions';
 import type { DeliveryDetailsState } from './state';
 import { adapter, initialState } from './state';
-
-import { v4 as uuidv4 } from 'uuid';
 
 export const deliveryDetailsReducer = createReducer(
   initialState,

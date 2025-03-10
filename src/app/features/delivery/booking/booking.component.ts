@@ -9,15 +9,13 @@ import { Store } from '@ngrx/store';
 
 import { TuiButton } from '@taiga-ui/core';
 
-import { DeliveryLayoutService } from '@features/delivery/services';
-
-import { StepperComponent } from './stepper/stepper.component';
-import { BookingActions } from './store/actions';
-import { bookingFeature } from './store/feature';
-import type { BookingViewModel } from './store/selectors/view-model.types';
-import type { StepNumber } from './types';
+import { DeliveryLayoutService } from '@delivery/services';
 
 import type { Observable } from 'rxjs';
+
+import { StepperComponent } from './stepper/stepper.component';
+import { BookingActions, bookingFeature, type BookingViewModel } from './store';
+import type { StepNumber } from './types';
 
 @Component({
   selector: 'app-booking',
