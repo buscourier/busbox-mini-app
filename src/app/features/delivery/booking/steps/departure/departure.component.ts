@@ -7,16 +7,14 @@ import { take, withLatestFrom } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
-import { PickupPointComponent } from '@features/delivery/pickup-point/pickup-point.component';
-import { pickupPointFeature } from '@features/delivery/pickup-point/store';
-
-import { BookingActions } from '../../store/actions';
-import { bookingFeature } from '../../store/feature';
-import type { Departure, Sender, StepNumber } from '../../types';
-
-import { SenderComponent } from './sender/sender.component';
+import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import type { Departure, Sender, StepNumber } from '@delivery/booking/types';
+import { PickupPointComponent } from '@delivery/pickup-point/pickup-point.component';
+import { pickupPointFeature } from '@delivery/pickup-point/store';
 
 import type { Observable } from 'rxjs';
+
+import { SenderComponent } from './sender/sender.component';
 
 @Component({
   selector: 'app-departure',

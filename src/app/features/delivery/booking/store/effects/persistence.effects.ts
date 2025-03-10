@@ -10,12 +10,9 @@ import { Store } from '@ngrx/store';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import type { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
-
-import type { StoredBookingState } from '../../types';
-
-import { BookingActions } from '../actions';
-import { bookingFeature } from '../feature';
+import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import type { StoredBookingState } from '@delivery/booking/types';
+import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
 
 export const persistenceEffects = {
   saveState: createEffect(

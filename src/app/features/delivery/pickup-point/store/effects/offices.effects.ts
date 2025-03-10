@@ -9,12 +9,9 @@ import { Store } from '@ngrx/store';
 
 import type { ApiError, Office } from '@shared/types';
 
-import { DeliveryService } from '@features/delivery/services';
-
-import { PickupPointTabType } from '../../types';
-
-import { PickupPointActions } from '../actions';
-import { pickupPointFeature } from '../feature';
+import { PickupPointActions, pickupPointFeature } from '@delivery/pickup-point/store';
+import { PickupPointTabType } from '@delivery/pickup-point/types';
+import { DeliveryService } from '@delivery/services';
 
 export const officesEffects = {
   initOfficesLoad: createEffect(

@@ -1,4 +1,4 @@
-import type { ParcelItem, ParcelItemLimits } from '../../../types';
+import type { ParcelItem, ParcelItemLimits } from '@delivery/delivery-details/types';
 
 import type { DimensionsError } from './parcel-item.types';
 

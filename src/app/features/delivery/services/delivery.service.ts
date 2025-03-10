@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { ApiService } from '@core/services';
 
-import type { Cargo, DeliveryOptions, Service } from '../delivery-details/types';
+import type { Cargo, DeliveryOptions, Service } from '@delivery/delivery-details/types';
 
 import type { Observable } from 'rxjs';
 

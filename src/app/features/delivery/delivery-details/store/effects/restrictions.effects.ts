@@ -6,11 +6,10 @@ import { map } from 'rxjs/operators';
 import { createEffect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
-import { deliveryPointFeature } from '../../../delivery-point/store';
-import { pickupPointFeature } from '../../../pickup-point/store';
-import { CargoRestrictionsService } from '../../services';
-
-import { DeliveryDetailsActions } from '../actions';
+import { CargoRestrictionsService } from '@delivery/delivery-details/services';
+import { DeliveryDetailsActions } from '@delivery/delivery-details/store';
+import { deliveryPointFeature } from '@delivery/delivery-point';
+import { pickupPointFeature } from '@delivery/pickup-point';
 
 export const restrictionsEffects = {
   setRestrictions: createEffect(

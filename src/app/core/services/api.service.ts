@@ -5,8 +5,7 @@ import { Injectable } from '@angular/core';
 import { catchError, concatAll, filter, shareReplay, throwError, toArray } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import type { ErrorCode } from '@core/constants';
-import { ERROR_MESSAGES } from '@core/constants';
+import { ERROR_MESSAGES, type ErrorCode } from '@core/constants';
 
 import type { DeliveryCity, Office, PickupCity } from '@shared/types';
 

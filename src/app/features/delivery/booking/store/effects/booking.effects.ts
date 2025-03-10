@@ -12,15 +12,12 @@ import { DEBOUNCE_TIME } from '@core/constants';
 
 import type { ApiError } from '@shared/types';
 
-import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
-import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
-import { pickupPointFeature } from '@features/delivery/pickup-point/store';
-
-import { DeliveryActions } from '../../../store/actions';
-import { BookingService } from '../../services';
-
-import { BookingActions } from '../actions';
-import { bookingFeature } from '../feature';
+import { BookingService } from '@delivery/booking/services';
+import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import { deliveryDetailsFeature } from '@delivery/delivery-details/store';
+import { deliveryPointFeature } from '@delivery/delivery-point/store';
+import { pickupPointFeature } from '@delivery/pickup-point/store';
+import { DeliveryActions } from '@delivery/store';
 
 export const bookingEffects = {
   submitOrder: createEffect(

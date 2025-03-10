@@ -48,16 +48,16 @@ import { DEBOUNCE_TIME } from '@core/constants';
 import type { CitiesFilterSource, Office, PickupCity } from '@shared/types';
 import { FormControlStatus } from '@shared/types';
 
-import { CourierDetailsComponent } from '@features/delivery/base/courier-details/courier-details.component';
-import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
-import type { CourierDetails } from '@features/delivery/types';
+import { CourierDetailsComponent } from '@delivery/base/courier-details';
+import { deliveryPointFeature } from '@delivery/delivery-point/store';
+import type { CourierDetails } from '@delivery/types';
+
+import type { Observable } from 'rxjs';
 
 import type { PickupPointControlValues, PickupPointForm, ResetConfig } from './pickup-point.types';
 import type { PickupPointViewModel } from './store';
 import { PickupPointActions, pickupPointFeature } from './store';
 import { PickupPointTabType } from './types';
-
-import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-pickup-point',

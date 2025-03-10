@@ -1,4 +1,4 @@
-import type { Courier } from '@features/delivery/types';
+import type { Courier } from '@delivery/types';
 
 import type { Order } from '../../delivery-details/types';
 

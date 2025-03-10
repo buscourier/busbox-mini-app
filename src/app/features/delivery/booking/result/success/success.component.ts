@@ -4,9 +4,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
-import type { BookingResult } from '@features/delivery/types';
-
-import { bookingFeature } from '../../store/feature';
+import { bookingFeature } from '@delivery/booking/store';
+import type { BookingResult } from '@delivery/booking/types';
 
 import type { Observable } from 'rxjs';
 

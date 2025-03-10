@@ -14,7 +14,7 @@ import type {
   Packaging,
   Parcels,
   StoredDeliveryDetailsState,
-} from '../types';
+} from '@delivery/delivery-details/types';
 
 export const DeliveryDetailsActions = createActionGroup({
   source: 'DeliveryDetails',

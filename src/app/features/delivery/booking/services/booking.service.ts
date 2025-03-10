@@ -5,12 +5,11 @@ import { map } from 'rxjs/operators';
 
 import type { DeliveryCity, PickupCity } from '@shared/types';
 
-import type { Order, Parcels } from '@features/delivery/delivery-details/types';
-import { CargoType, CargoTypeId } from '@features/delivery/delivery-details/types';
-import { DeliveryBaseService } from '@features/delivery/services';
-import type { BookingResult, Courier } from '@features/delivery/types';
-
-import type { Departure, Destination } from '../types';
+import type { BookingResult, Departure, Destination } from '@delivery/booking/types';
+import type { Order, Parcels } from '@delivery/delivery-details/types';
+import { CargoType, CargoTypeId } from '@delivery/delivery-details/types';
+import { DeliveryBaseService } from '@delivery/services';
+import type { Courier } from '@delivery/types';
 
 import { environment } from '@env/environment';
 import type { Observable } from 'rxjs';

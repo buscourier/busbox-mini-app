@@ -8,10 +8,9 @@ import { Store } from '@ngrx/store';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 
-import { deliveryPointFeature } from '../../../delivery-point/store';
-import { pickupPointFeature } from '../../../pickup-point/store';
-
-import { DeliveryDetailsActions } from '../actions';
+import { DeliveryDetailsActions } from '@delivery/delivery-details/store';
+import { deliveryPointFeature } from '@delivery/delivery-point';
+import { pickupPointFeature } from '@delivery/pickup-point';
 
 // а нужен ли тут ofType и actions?
 export const citySelectionEffects = {

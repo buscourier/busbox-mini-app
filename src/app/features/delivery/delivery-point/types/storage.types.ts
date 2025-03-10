@@ -1,6 +1,6 @@
 import type { DeliveryCity, Office } from '@shared/types';
 
-import type { CourierDetails } from '@features/delivery/types';
+import type { CourierDetails } from '@delivery/types';
 
 import type { DeliveryPointTabType } from './tab.types';
 

@@ -4,9 +4,9 @@ import { createSelector } from '@ngrx/store';
 
 import { LoadingStatus } from '@shared/types';
 
-import type { OptionsState, Order } from '../../types';
+import type { DeliveryDetailsState } from '@delivery/delivery-details/store';
+import type { OptionsState, Order } from '@delivery/delivery-details/types';
 
-import type { DeliveryDetailsState } from '../state';
 import type { BaseSelectors } from './base-selectors.types';
 
 type DeliveryDetailsStateSelector = MemoizedSelector<object, DeliveryDetailsState>;

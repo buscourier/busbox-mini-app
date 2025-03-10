@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 
 import { tuiDialog } from '@taiga-ui/core';
 
-import type { Packaging, PackagingItem, Service } from '../../types';
+import type { Packaging, PackagingItem, Service } from '@delivery/delivery-details/types';
 
 import type { OtherIds } from './packaging.constants';
 import { PACKAGING_DEFAULT_QUANTITY, PackagingGroupId } from './packaging.constants';

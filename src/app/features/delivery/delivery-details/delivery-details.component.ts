@@ -9,6 +9,8 @@ import { Store } from '@ngrx/store';
 
 import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
 
+import type { Observable } from 'rxjs';
+
 import {
   AdditionalServicesComponent,
   AutoPartsComponent,
@@ -23,8 +25,6 @@ import type { DeliveryDetailsViewModel } from './store';
 import { deliveryDetailsFeature, OrderActions } from './store';
 import type { Order, OrderValidationState } from './types';
 import { CargoType } from './types';
-
-import type { Observable } from 'rxjs';
 
 type OrderDataKeys = Exclude<keyof Order, 'id' | 'cargoType' | 'validation'>;
 

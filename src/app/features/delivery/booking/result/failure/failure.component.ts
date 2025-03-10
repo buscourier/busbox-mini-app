@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import type { ApiError } from '@shared/types';
 
-import { bookingFeature } from '../../store/feature';
+import { bookingFeature } from '@delivery/booking/store';
 
 import type { Observable } from 'rxjs';
 

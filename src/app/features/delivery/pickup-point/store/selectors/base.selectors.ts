@@ -3,7 +3,8 @@ import { createSelector } from '@ngrx/store';
 
 import { LoadingStatus } from '@shared/types';
 
-import type { PickupPointState } from '../state';
+import type { PickupPointState } from '@delivery/pickup-point/store';
+
 import type { BaseSelectors } from './base-selectors.types';
 
 type PickupPointStateSelector = MemoizedSelector<object, PickupPointState>;

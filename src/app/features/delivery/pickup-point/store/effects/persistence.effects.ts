@@ -9,10 +9,8 @@ import { Store } from '@ngrx/store';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import type { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
-
-import { PickupPointActions } from '../actions';
-import { pickupPointFeature } from '../feature';
+import { PickupPointActions, pickupPointFeature } from '@delivery/pickup-point/store';
+import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
 
 export const persistenceEffects = {
   saveState: createEffect(

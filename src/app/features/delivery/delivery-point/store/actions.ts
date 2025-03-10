@@ -2,9 +2,11 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 import type { ApiError, DeliveryCity, FormControlStatus, Office } from '@shared/types';
 
-import type { CourierDetails } from '@features/delivery/types';
-
-import type { DeliveryPointTabType, StoredDeliveryPointState } from '../types';
+import type {
+  DeliveryPointTabType,
+  StoredDeliveryPointState,
+} from '@delivery/delivery-point/types';
+import type { CourierDetails } from '@delivery/types';
 
 export const DeliveryPointActions = createActionGroup({
   source: 'DeliveryPoint',

@@ -1,6 +1,6 @@
 // import { ComponentFixture, TestBed } from '@angular/core/testing';
 //
-// import { OrderSummaryComponent } from '@features/delivery/order-summary/order-summary.component';
+// import { OrderSummaryComponent } from '@delivery/order-summary/order-summary.component';
 //
 // describe('OrderSummaryComponent', () => {
 //   let component: OrderSummaryComponent;

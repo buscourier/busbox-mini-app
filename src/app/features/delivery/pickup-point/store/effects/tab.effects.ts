@@ -6,8 +6,7 @@ import { map } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
-import { PickupPointActions } from '../actions';
-import { pickupPointFeature } from '../feature';
+import { PickupPointActions, pickupPointFeature } from '@delivery/pickup-point/store';
 
 export const tabEffects = {
   selectDefaultTab: createEffect(

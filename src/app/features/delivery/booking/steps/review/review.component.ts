@@ -13,14 +13,13 @@ import { Store } from '@ngrx/store';
 import { TuiCheckbox } from '@taiga-ui/kit';
 import { TuiTextareaModule } from '@taiga-ui/legacy';
 
-import { BookingActions } from '../../store/actions';
-import { bookingFeature } from '../../store/feature';
-import type { Review, StepNumber } from '../../types';
+import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import type { Review, StepNumber } from '@delivery/booking/types';
+
+import type { Observable } from 'rxjs';
 
 import type { ReviewControlValues, ReviewForm, ReviewModel } from './review.types';
 import { selectReviewModel } from './selectors/review.selector';
-
-import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-review',

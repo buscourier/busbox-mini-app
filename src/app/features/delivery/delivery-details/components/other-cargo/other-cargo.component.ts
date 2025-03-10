@@ -9,7 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import type { FormControl, FormGroup } from '@angular/forms';
+import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { merge } from 'rxjs';
@@ -22,13 +22,11 @@ import {
   TuiTextfieldControllerModule,
 } from '@taiga-ui/legacy';
 
-import { isObjectsEqual } from '@core/utils/object.utils';
+import { isObjectsEqual } from '@core/utils';
 
-import type { Cargo, CargoItemRestrictions, OtherCargo } from '../../types';
+import type { Cargo, CargoItemRestrictions, OtherCargo } from '@delivery/delivery-details/types';
 
-type OtherCargoForm = FormGroup<{
-  [K in keyof OtherCargo]: FormControl<OtherCargo[K]>;
-}>;
+import type { OtherCargoForm } from './other-cargo.types';
 
 @Component({
   selector: 'app-other-cargo',

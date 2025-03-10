@@ -2,9 +2,8 @@ import type { MemoizedSelector } from '@ngrx/store';
 
 import type { ApiError, FormState, Office, PickupCity } from '@shared/types';
 
-import type { CourierDetails } from '@features/delivery/types';
-
-import type { PickupPointTabType } from '../../types';
+import type { PickupPointTabType } from '@delivery/pickup-point/types';
+import type { CourierDetails } from '@delivery/types';
 
 export interface BaseSelectors {
   selectCities: MemoizedSelector<object, PickupCity[]>;

@@ -7,18 +7,16 @@ import { take, withLatestFrom } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
-import { DeliveryDetailsComponent } from '@features/delivery/delivery-details/delivery-details.component';
-import { deliveryDetailsFeature } from '@features/delivery/delivery-details/store/feature';
-import { DeliveryPointComponent } from '@features/delivery/delivery-point/delivery-point.component';
-import { deliveryPointFeature } from '@features/delivery/delivery-point/store';
-
-import { BookingActions } from '../../store/actions';
-import { bookingFeature } from '../../store/feature';
-import type { Destination, Recipient, StepNumber } from '../../types';
-
-import { RecipientComponent } from './recipient/recipient.component';
+import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import type { Destination, Recipient, StepNumber } from '@delivery/booking/types';
+import { DeliveryDetailsComponent } from '@delivery/delivery-details/delivery-details.component';
+import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
+import { DeliveryPointComponent } from '@delivery/delivery-point/delivery-point.component';
+import { deliveryPointFeature } from '@delivery/delivery-point/store';
 
 import type { Observable } from 'rxjs';
+
+import { RecipientComponent } from './recipient/recipient.component';
 
 @Component({
   selector: 'app-destination',

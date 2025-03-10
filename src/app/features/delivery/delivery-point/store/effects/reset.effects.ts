@@ -5,11 +5,10 @@ import { map } from 'rxjs/operators';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { isObjectsEqual } from '@core/utils/object.utils';
+import { isObjectsEqual } from '@core/utils';
 
-import { DeliveryDetailsActions } from '@features/delivery/delivery-details/store/actions';
-
-import { DeliveryPointActions } from '../actions';
+import { DeliveryDetailsActions } from '@delivery/delivery-details/store';
+import { DeliveryPointActions } from '@delivery/delivery-point/store';
 
 export const resetEffects = {
   resetOnCityChange: createEffect(

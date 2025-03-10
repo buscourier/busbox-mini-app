@@ -3,7 +3,11 @@ import type { MemoizedSelector } from '@ngrx/store';
 
 import type { ApiError } from '@shared/types';
 
-import type { DeliveryOptions, DeliveryRestrictions, Order } from '../../types';
+import type {
+  DeliveryOptions,
+  DeliveryRestrictions,
+  Order,
+} from '@delivery/delivery-details/types';
 
 export interface BaseSelectors {
   // Entity selectors

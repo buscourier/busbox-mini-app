@@ -24,13 +24,12 @@ import {
 } from '@taiga-ui/kit';
 import { TuiInputModule, TuiInputPhoneModule, TuiSelectModule } from '@taiga-ui/legacy';
 
-import { USER_VALIDATION_LIMITS } from '@core/constants/user-validation.const';
-import { isObjectsEqual } from '@core/utils/object.utils';
+import { USER_VALIDATION_LIMITS } from '@core/constants';
+import { isObjectsEqual } from '@core/utils';
 
-import { phoneValidator } from '@shared/validators';
-import { fullNameValidator } from '@shared/validators/user.validators';
+import { fullNameValidator, phoneValidator } from '@shared/validators';
 
-import type { Sender, SenderDocumentOption } from '../../../types';
+import type { Sender, SenderDocumentOption } from '@delivery/booking/types';
 
 import { defaultDocument, senderDocuments } from './sender.constants';
 import type { SenderForm } from './sender.types';
@@ -60,7 +59,6 @@ export class SenderComponent implements OnInit, OnChanges {
   form!: SenderForm;
 
   protected readonly senderDocuments = senderDocuments;
-  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
 
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly destroyRef = inject(DestroyRef);
@@ -144,4 +142,6 @@ export class SenderComponent implements OnInit, OnChanges {
       },
     );
   }
+
+  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
 }

@@ -34,45 +34,15 @@
       "@utils/*": [
         "src/app/utils/*"
       ],
-      "@features/delivery/*": [
-        "src/app/features/delivery/*"
+      "@delivery": [
+        "./src/app/features/delivery/index.ts"
       ],
-      "@features/delivery/booking/*": [
-        "src/app/features/delivery/booking/*"
+      "@delivery/*": [
+        "./src/app/features/delivery/*"
       ],
-      "@features/delivery/calculator/*": [
-        "src/app/features/delivery/calculator/*"
-      ],
-      "@features/delivery/pickup-point/*": [
-        "src/app/features/delivery/pickup-point/*"
-      ],
-      "@features/delivery/delivery-point/*": [
-        "src/app/features/delivery/delivery-point/*"
-      ],
-      "@features/delivery/delivery-details/*": [
-        "src/app/features/delivery/delivery-details/*"
-      ],
-      "@features/delivery/order-summary/*": [
-        "src/app/features/delivery/order-summary/*"
-      ],
-      "@features/delivery/base/*": [
-        "src/app/features/delivery/base/*"
-      ],
-      "@features/delivery/types": [
-        "src/app/features/delivery/types/index.ts"
-      ],
-      "@features/delivery/constants": [
-        "src/app/features/delivery/constants/index.ts"
-      ],
-      "@features/delivery/services": [
-        "src/app/features/delivery/services/index.ts"
-      ],
-      "@features/delivery/factories": [
-        "src/app/features/delivery/factories/index.ts"
-      ],
-      "@features/delivery/utils/*": [
-        "src/app/features/delivery/utils/*"
-      ],
+      //      "@booking": [
+      //        "./src/app/features/booking/index.ts"
+      //      ],
       "@env/*": [
         "src/environments/*"
       ]

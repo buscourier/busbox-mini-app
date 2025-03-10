@@ -27,7 +27,7 @@ import { TuiInputNumberModule, TuiInputPhoneModule } from '@taiga-ui/legacy';
 
 import { phoneValidator } from '@shared/validators';
 
-import type { AdditionalServices, Service } from '../../types';
+import type { AdditionalServices, Service } from '@delivery/delivery-details/types';
 
 import {
   AdditionalServiceId,

@@ -3,12 +3,11 @@ import { createSelector } from '@ngrx/store';
 import type { Office, PickupCity } from '@shared/types';
 import { FormControlStatus } from '@shared/types';
 
-import { LIMITED_OFFICE } from '@features/delivery/constants';
-import type { Courier, ErrorStatus } from '@features/delivery/types';
-
-import { PICKUP_POINT_TABS } from '../../constants';
-import type { PickupPointTab } from '../../types';
-import { PickupPointTabType } from '../../types';
+import { LIMITED_OFFICE } from '@delivery/constants';
+import { PICKUP_POINT_TABS } from '@delivery/pickup-point/constants';
+import type { PickupPointTab } from '@delivery/pickup-point/types';
+import { PickupPointTabType } from '@delivery/pickup-point/types';
+import type { Courier, ErrorStatus } from '@delivery/types';
 
 import type { BaseSelectors } from './base-selectors.types';
 import type { DerivedSelectors } from './derived-selectors.types';

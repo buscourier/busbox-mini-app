@@ -6,10 +6,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { PersistenceService } from '@core/services';
 
-import { BookingActions } from '@features/delivery/booking/store/actions';
-import type { DeliveryStorageKey, DeliveryStorageSchema } from '@features/delivery/types';
-
-import { PickupPointActions } from '../actions';
+import { BookingActions } from '@delivery/booking/store';
+import { PickupPointActions } from '@delivery/pickup-point/store';
+import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
 
 export const initializationEffects = {
   restoreState: createEffect(

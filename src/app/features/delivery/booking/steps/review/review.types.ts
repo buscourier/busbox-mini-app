@@ -1,8 +1,7 @@
 import type { FormControl, FormGroup } from '@angular/forms';
 
-import type { ActiveOrderDetails } from '@features/delivery/delivery-details/types';
-
-import type { Review } from '../../types';
+import type { Review } from '@delivery/booking/types';
+import type { ActiveOrderDetails } from '@delivery/delivery-details/types';
 
 export interface ReviewField {
   label: string;

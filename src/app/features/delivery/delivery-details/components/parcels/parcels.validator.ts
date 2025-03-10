@@ -1,6 +1,6 @@
 import type { AbstractControl, FormArray, Validators } from '@angular/forms';
 
-import type { ParcelItem, ParcelsLimits } from '../../types';
+import type { ParcelItem, ParcelsLimits } from '@delivery/delivery-details/types';
 
 import type { ParcelsErrors } from './types';
 

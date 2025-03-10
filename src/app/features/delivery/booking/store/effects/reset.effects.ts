@@ -4,9 +4,8 @@ import { map } from 'rxjs/operators';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { DeliveryActions } from '../../../store/actions';
-
-import { BookingActions } from '../actions';
+import { BookingActions } from '@delivery/booking/store';
+import { DeliveryActions } from '@delivery/store';
 
 export const resetEffects = {
   resetOnGlobalReset: createEffect(

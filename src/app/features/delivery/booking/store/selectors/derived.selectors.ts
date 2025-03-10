@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import type { Step, StepNumber } from '../../types';
+import type { Step, StepNumber } from '@delivery/booking/types';
 
 import type { BaseSelectors } from './base-selectors.types';
 import type { DerivedSelectors } from './derived-selectors.types';
