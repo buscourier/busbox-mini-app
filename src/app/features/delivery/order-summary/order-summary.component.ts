@@ -3,9 +3,10 @@ import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { of, switchMap } from 'rxjs';
-
 import { Store } from '@ngrx/store';
+
+import { of, switchMap } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiButton, TuiLoader } from '@taiga-ui/core';
@@ -18,8 +19,6 @@ import {
 } from '@delivery/order-summary/store';
 import { DeliveryLayoutService } from '@delivery/services';
 import { DeliveryActions } from '@delivery/store';
-
-import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-order-summary',

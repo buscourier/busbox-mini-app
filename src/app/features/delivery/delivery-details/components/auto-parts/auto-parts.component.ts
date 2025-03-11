@@ -12,8 +12,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { merge } from 'rxjs';
 
 import { TuiStringifyContentPipe, TuiStringifyPipe } from '@taiga-ui/kit';
 import {

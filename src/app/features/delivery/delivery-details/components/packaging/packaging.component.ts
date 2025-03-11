@@ -5,9 +5,9 @@ import { tuiDialog } from '@taiga-ui/core';
 
 import type { Packaging, PackagingItem, Service } from '@delivery/delivery-details/types';
 
+import { PackagingDialogComponent } from './packaging-dialog/packaging-dialog.component';
 import type { OtherIds } from './packaging.constants';
 import { PACKAGING_DEFAULT_QUANTITY, PackagingGroupId } from './packaging.constants';
-import { PackagingDialogComponent } from './packaging-dialog/packaging-dialog.component';
 
 @Component({
   selector: 'app-packaging',

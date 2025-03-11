@@ -1,11 +1,12 @@
 import { inject } from '@angular/core';
 
-import { combineLatest, debounceTime, filter, switchMap } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { createEffect } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
+
+import { map } from 'rxjs/operators';
+
+import { combineLatest, debounceTime, filter, switchMap } from 'rxjs';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 

@@ -4,10 +4,10 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
+import type { Observable } from 'rxjs';
+
 import { bookingFeature } from '@delivery/booking/store';
 import type { BookingResult } from '@delivery/booking/types';
-
-import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-success',

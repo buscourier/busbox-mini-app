@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 
-import { map } from 'rxjs/operators';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+
+import { map } from 'rxjs/operators';
 
 import { OrderSummaryActions } from '@delivery/order-summary';
 import { PickupPointActions } from '@delivery/pickup-point/store';

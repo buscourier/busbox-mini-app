@@ -12,8 +12,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { merge } from 'rxjs';
 
 import { TuiHintDirective } from '@taiga-ui/core';
 import { TuiBadge, TuiFieldErrorContentPipe } from '@taiga-ui/kit';

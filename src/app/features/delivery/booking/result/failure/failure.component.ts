@@ -4,11 +4,11 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
+import type { Observable } from 'rxjs';
+
 import type { ApiError } from '@shared/types';
 
 import { bookingFeature } from '@delivery/booking/store';
-
-import type { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-failure',

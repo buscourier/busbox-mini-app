@@ -4,12 +4,15 @@ const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 const ngrx = require('@ngrx/eslint-plugin/v9');
 const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
-const simpleImportSort = require('eslint-plugin-simple-import-sort');
+const importPlugin = require('eslint-plugin-import');
 
 module.exports = tseslint.config(
   {
     files: ['**/*.ts'],
     ignores: ['src/environments/*.ts'],
+    plugins: {
+      import: importPlugin,
+    },
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
@@ -19,8 +22,13 @@ module.exports = tseslint.config(
       eslintPluginPrettierRecommended,
     ],
     processor: angular.processInlineTemplates,
-    plugins: {
-      'simple-import-sort': simpleImportSort,
+    settings: {
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.json',
+        },
+      },
     },
     rules: {
       '@angular-eslint/directive-selector': [
@@ -50,33 +58,6 @@ module.exports = tseslint.config(
           ignoreRegExpLiterals: true,
         },
       ],
-      'simple-import-sort/imports': [
-        'error',
-        {
-          groups: [
-            // 1. Angular core modules
-            ['^@angular(/.*|$)'],
-            // 2. RxJS modules (расширено для поддержки импортов типов)
-            ['^rxjs(/.*|$)', '^rxjs$', '^rxjs/operators$', '^type.*rxjs(/.*|$)'],
-            // 3. NgRx modules
-            ['^@ngrx(/.*|$)'],
-            // 4. Taiga UI modules
-            ['^@taiga-ui(/.*|$)'],
-            // 5. Core-level modules
-            ['^@core(/.*|$)'],
-            // 6. Everything from @shared
-            ['^@shared(/.*|$)'],
-            // 7. Все импорты из @delivery
-            ['^@delivery(/.*|$)'],
-            // 8. Relative imports from other modules
-            ['^[^.].*$', '^@/.*$'],
-            // 9. Local feature files (импорты, начинающиеся с точки)
-            ['^\\.'],
-          ],
-        },
-      ],
-      'simple-import-sort/exports': 'error',
-
       '@typescript-eslint/consistent-type-imports': [
         'error',
         {
@@ -85,6 +66,100 @@ module.exports = tseslint.config(
           fixStyle: 'separate-type-imports',
         },
       ],
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
+          pathGroups: [
+            {
+              pattern: '@angular/**',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '@ngrx/**',
+              group: 'external',
+              position: 'after',
+            },
+            {
+              pattern: 'rxjs/**',
+              group: 'external',
+              position: 'after',
+            },
+            {
+              pattern: 'rxjs',
+              group: 'external',
+              position: 'after',
+            },
+            {
+              pattern: 'rxjs/operators',
+              group: 'external',
+              position: 'after',
+            },
+            {
+              pattern: '@taiga-ui/**',
+              group: 'external',
+              position: 'after',
+            },
+            {
+              pattern: '@core/**',
+              group: 'internal',
+              position: 'before',
+            },
+            {
+              pattern: '@shared/**',
+              group: 'internal',
+              position: 'before',
+            },
+            {
+              pattern: '@utils/**',
+              group: 'internal',
+              position: 'before',
+            },
+            {
+              pattern: '@env/**',
+              group: 'internal',
+              position: 'before',
+            },
+            {
+              pattern: '@delivery/**',
+              group: 'internal',
+              position: 'after',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
+      'import/no-restricted-paths': [
+        'error',
+        {
+          zones: [
+            {
+              target: './src/app/core',
+              from: './src/app/features',
+              message: 'Core модуль не должен зависеть от feature модулей',
+            },
+            {
+              target: './src/app/shared',
+              from: './src/app/features',
+              message: 'Shared модуль не должен зависеть от feature модулей',
+            },
+            {
+              target: './src/app/utils',
+              from: './src/app/features',
+              message: 'Shared модуль не должен зависеть от feature модулей',
+            },
+          ],
+        },
+      ],
+      'import/no-cycle': ['error', { maxDepth: Infinity }],
+      'import/no-duplicates': 'error',
+      'import/no-unresolved': 'error',
     },
   },
   {

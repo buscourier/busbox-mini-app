@@ -2,14 +2,14 @@ import { inject } from '@angular/core';
 import type { ActivatedRouteSnapshot, CanActivateFn, UrlTree } from '@angular/router';
 import { Router } from '@angular/router';
 
-import { take } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { Store } from '@ngrx/store';
 
-import { bookingFeature } from '@delivery/booking/store';
+import { map } from 'rxjs/operators';
 
+import { take } from 'rxjs';
 import type { Observable } from 'rxjs';
+
+import { bookingFeature } from '@delivery/booking/store';
 
 export const bookingResultGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

@@ -1,9 +1,10 @@
 import { inject } from '@angular/core';
 
-import { filter, pairwise } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+
 import { map } from 'rxjs/operators';
 
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { filter, pairwise } from 'rxjs';
 
 import { isObjectsEqual } from '@core/utils';
 

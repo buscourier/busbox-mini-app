@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 
-import { switchMap } from 'rxjs';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
+
+import { switchMap } from 'rxjs';
 
 import type { ApiError } from '@shared/types';
 

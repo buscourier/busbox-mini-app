@@ -3,15 +3,14 @@ import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
-import { take } from 'rxjs';
-
 import { Store } from '@ngrx/store';
+
+import { take } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import { TuiButton } from '@taiga-ui/core';
 
 import { DeliveryLayoutService } from '@delivery/services';
-
-import type { Observable } from 'rxjs';
 
 import { StepperComponent } from './stepper/stepper.component';
 import { BookingActions, bookingFeature, type BookingViewModel } from './store';

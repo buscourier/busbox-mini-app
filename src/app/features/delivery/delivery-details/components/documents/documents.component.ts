@@ -11,8 +11,9 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { debounceTime, merge, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { debounceTime, merge, startWith } from 'rxjs';
 
 import { tuiNumberFormatProvider } from '@taiga-ui/core';
 import { TuiInputNumberModule, tuiInputNumberOptionsProvider } from '@taiga-ui/legacy';

@@ -1,12 +1,13 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { debounceTime, delay, switchMap, tap, withLatestFrom } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
+
+import { map } from 'rxjs/operators';
+
+import { debounceTime, delay, switchMap, tap, withLatestFrom } from 'rxjs';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 

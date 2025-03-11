@@ -4,6 +4,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
+import type { Observable } from 'rxjs';
+
 import { TuiButton } from '@taiga-ui/core';
 
 import { BookingActions, bookingFeature } from '@delivery/booking/store';
@@ -13,8 +15,6 @@ import {
   type Individual,
   type StepNumber,
 } from '@delivery/booking/types';
-
-import type { Observable } from 'rxjs';
 
 import { ApplicantTabs } from './applicant.constants';
 import { IndividualComponent } from './individual/individual.component';

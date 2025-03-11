@@ -3,13 +3,13 @@ import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { map } from 'rxjs/operators';
-
 import { Store } from '@ngrx/store';
 
-import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
+import { map } from 'rxjs/operators';
 
 import type { Observable } from 'rxjs';
+
+import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
 
 import {
   AdditionalServicesComponent,

@@ -3,16 +3,15 @@ import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { take, withLatestFrom } from 'rxjs';
-
 import { Store } from '@ngrx/store';
+
+import { take, withLatestFrom } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import { BookingActions, bookingFeature } from '@delivery/booking/store';
 import type { Departure, Sender, StepNumber } from '@delivery/booking/types';
 import { PickupPointComponent } from '@delivery/pickup-point/pickup-point.component';
 import { pickupPointFeature } from '@delivery/pickup-point/store';
-
-import type { Observable } from 'rxjs';
 
 import { SenderComponent } from './sender/sender.component';
 

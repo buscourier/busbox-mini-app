@@ -3,16 +3,17 @@ import { Injectable } from '@angular/core';
 
 import { map } from 'rxjs/operators';
 
+import type { Observable } from 'rxjs';
+
 import type { DeliveryCity, PickupCity } from '@shared/types';
+
+import { environment } from '@env/environment';
 
 import type { BookingResult, Departure, Destination } from '@delivery/booking/types';
 import type { Order, Parcels } from '@delivery/delivery-details/types';
 import { CargoType, CargoTypeId } from '@delivery/delivery-details/types';
 import { DeliveryBaseService } from '@delivery/services';
 import type { Courier } from '@delivery/types';
-
-import { environment } from '@env/environment';
-import type { Observable } from 'rxjs';
 
 interface Booking {
   pickupCity: PickupCity | null;

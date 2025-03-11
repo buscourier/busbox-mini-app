@@ -5,18 +5,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { debounceTime, distinctUntilChanged, filter, merge, tap, withLatestFrom } from 'rxjs';
+import { Store } from '@ngrx/store';
+
 import { map } from 'rxjs/operators';
 
-import { Store } from '@ngrx/store';
+import { debounceTime, distinctUntilChanged, filter, merge, tap, withLatestFrom } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import { TuiCheckbox } from '@taiga-ui/kit';
 import { TuiTextareaModule } from '@taiga-ui/legacy';
 
 import { BookingActions, bookingFeature } from '@delivery/booking/store';
 import type { Review, StepNumber } from '@delivery/booking/types';
-
-import type { Observable } from 'rxjs';
 
 import type { ReviewControlValues, ReviewForm, ReviewModel } from './review.types';
 import { selectReviewModel } from './selectors/review.selector';

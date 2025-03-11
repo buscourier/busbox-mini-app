@@ -3,9 +3,10 @@ import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { take, withLatestFrom } from 'rxjs';
-
 import { Store } from '@ngrx/store';
+
+import { take, withLatestFrom } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import { BookingActions, bookingFeature } from '@delivery/booking/store';
 import type { Destination, Recipient, StepNumber } from '@delivery/booking/types';
@@ -13,8 +14,6 @@ import { DeliveryDetailsComponent } from '@delivery/delivery-details/delivery-de
 import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
 import { DeliveryPointComponent } from '@delivery/delivery-point/delivery-point.component';
 import { deliveryPointFeature } from '@delivery/delivery-point/store';
-
-import type { Observable } from 'rxjs';
 
 import { RecipientComponent } from './recipient/recipient.component';
 

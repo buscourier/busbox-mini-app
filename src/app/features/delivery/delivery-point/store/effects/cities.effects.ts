@@ -1,10 +1,11 @@
 import { inject } from '@angular/core';
 
-import { filter, switchMap } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
+
+import { map } from 'rxjs/operators';
+
+import { filter, switchMap } from 'rxjs';
 
 import type { ApiError, DeliveryCity } from '@shared/types';
 

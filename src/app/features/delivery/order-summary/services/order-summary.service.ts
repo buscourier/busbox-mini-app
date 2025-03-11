@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { forkJoin, of } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import { CargoType, CargoTypeId, type Order } from '@delivery/delivery-details';
 import type {
@@ -13,8 +15,6 @@ import type {
 } from '@delivery/order-summary/types';
 import { DeliveryBaseService } from '@delivery/services';
 import type { Courier } from '@delivery/types';
-
-import type { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

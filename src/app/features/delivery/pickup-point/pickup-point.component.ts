@@ -5,6 +5,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import { Store } from '@ngrx/store';
+
+import { map } from 'rxjs/operators';
+
 import {
   combineLatest,
   debounceTime,
@@ -18,9 +22,7 @@ import {
   tap,
   withLatestFrom,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { Store } from '@ngrx/store';
+import type { Observable } from 'rxjs';
 
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiDay } from '@taiga-ui/cdk';
@@ -51,8 +53,6 @@ import { FormControlStatus } from '@shared/types';
 import { CourierDetailsComponent } from '@delivery/base/courier-details';
 import { deliveryPointFeature } from '@delivery/delivery-point/store';
 import type { CourierDetails } from '@delivery/types';
-
-import type { Observable } from 'rxjs';
 
 import type { PickupPointControlValues, PickupPointForm, ResetConfig } from './pickup-point.types';
 import type { PickupPointViewModel } from './store';
