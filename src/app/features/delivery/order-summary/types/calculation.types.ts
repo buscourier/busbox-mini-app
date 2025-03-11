@@ -1,6 +1,5 @@
+import type { Order } from '@delivery/delivery-details';
 import type { Courier } from '@delivery/types';
-
-import type { Order } from '../../delivery-details/types';
 
 export interface BaseCalculationParams {
   pickupCityId: string | null;

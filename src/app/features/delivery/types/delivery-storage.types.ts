@@ -1,7 +1,7 @@
-import type { StoredBookingState } from '../booking/types/storage.types';
-import type { StoredDeliveryDetailsState } from '../delivery-details/types';
-import type { StoredDeliveryPointState } from '../delivery-point/types/storage.types';
-import type { StoredPickupPointState } from '../pickup-point/types/storage.types';
+import type { StoredBookingState } from '@delivery/booking/types';
+import type { StoredDeliveryDetailsState } from '@delivery/delivery-details/types';
+import type { StoredDeliveryPointState } from '@delivery/delivery-point/types';
+import type { StoredPickupPointState } from '@delivery/pickup-point/types';
 
 export interface DeliveryStorageSchema {
   pickupPoint: StoredPickupPointState;

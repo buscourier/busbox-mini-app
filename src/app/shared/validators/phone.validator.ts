@@ -1,6 +1,6 @@
 import type { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-import { PHONE_REGEX } from '../regex/phone.regex';
+import { PHONE_REGEX } from '@shared/regex';
 
 export function phoneValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
