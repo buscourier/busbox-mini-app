@@ -7,7 +7,7 @@ import { switchMap } from 'rxjs';
 
 import type { ApiError, PickupCity } from '@shared/types';
 
-import { PickupPointActions } from '@delivery/pickup-point/store';
+import { PickupPointActions } from '@delivery/pickup-point/store/actions';
 import { DeliveryService } from '@delivery/services';
 
 export const citiesEffects = {

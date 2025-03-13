@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 
 import { LoadingStatus } from '@shared/types';
 
-import type { DeliveryPointState } from '@delivery/delivery-point/store';
+import type { DeliveryPointState } from '@delivery/delivery-point/store/state';
 
 import type { BaseSelectors } from './base-selectors.types';
 

@@ -10,7 +10,8 @@ import { filter, switchMap } from 'rxjs';
 
 import type { ApiError, Office } from '@shared/types';
 
-import { PickupPointActions, pickupPointFeature } from '@delivery/pickup-point/store';
+import { PickupPointActions } from '@delivery/pickup-point/store/actions';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
 import { PickupPointTabType } from '@delivery/pickup-point/types';
 import { DeliveryService } from '@delivery/services';
 

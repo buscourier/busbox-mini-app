@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators';
 
 import { delay, filter, withLatestFrom } from 'rxjs';
 
-import { PickupPointActions, pickupPointFeature } from '@delivery/pickup-point/store';
+import { PickupPointActions } from '@delivery/pickup-point/store/actions';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
 
 export const tabEffects = {
   selectDefaultTab: createEffect(

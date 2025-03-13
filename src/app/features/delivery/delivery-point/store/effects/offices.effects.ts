@@ -10,7 +10,8 @@ import { filter, switchMap } from 'rxjs';
 
 import type { ApiError, Office } from '@shared/types';
 
-import { DeliveryPointActions, deliveryPointFeature } from '@delivery/delivery-point/store';
+import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
 import { DeliveryPointTabType } from '@delivery/delivery-point/types';
 import { DeliveryService } from '@delivery/services';
 

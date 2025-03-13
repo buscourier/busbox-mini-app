@@ -1,10 +1,10 @@
 import { createSelector } from '@ngrx/store';
 
-import { deliveryDetailsFeature } from '@delivery/delivery-details';
-import { deliveryPointFeature } from '@delivery/delivery-point';
-import { orderSummaryFeature } from '@delivery/order-summary/store';
+import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
+import { orderSummaryFeature } from '@delivery/order-summary/store/feature';
 import type { OrderDelivery, OrderDirection } from '@delivery/order-summary/types';
-import { pickupPointFeature } from '@delivery/pickup-point';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
 
 import type { OrderSummaryViewModel } from './view-model.types';
 

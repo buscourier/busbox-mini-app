@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 import type { Observable } from 'rxjs';
 
-import { CargoType, CargoTypeId, type Order } from '@delivery/delivery-details';
+import { CargoType, CargoTypeId, type Order } from '@delivery/delivery-details/types';
 import type {
   CalculationRequestParams,
   OrderAmountParams,

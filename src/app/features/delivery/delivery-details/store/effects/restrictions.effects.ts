@@ -8,9 +8,9 @@ import { map } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 
 import { CargoRestrictionsService } from '@delivery/delivery-details/services';
-import { DeliveryDetailsActions } from '@delivery/delivery-details/store';
-import { deliveryPointFeature } from '@delivery/delivery-point';
-import { pickupPointFeature } from '@delivery/pickup-point';
+import { DeliveryDetailsActions } from '@delivery/delivery-details/store/actions';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
 
 export const restrictionsEffects = {
   setRestrictions: createEffect(

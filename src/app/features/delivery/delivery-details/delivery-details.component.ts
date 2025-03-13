@@ -21,8 +21,9 @@ import {
   PackagingComponent,
   ParcelsComponent,
 } from './components';
-import type { DeliveryDetailsViewModel } from './store';
-import { deliveryDetailsFeature, OrderActions } from './store';
+import { OrderActions } from './store/actions';
+import { deliveryDetailsFeature } from './store/feature';
+import type { DeliveryDetailsViewModel } from './store/selectors';
 import type { Order, OrderValidationState } from './types';
 import { CargoType } from './types';
 

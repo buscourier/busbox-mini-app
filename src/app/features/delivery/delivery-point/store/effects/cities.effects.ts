@@ -9,8 +9,8 @@ import { filter, switchMap } from 'rxjs';
 
 import type { ApiError, DeliveryCity } from '@shared/types';
 
-import { DeliveryPointActions } from '@delivery/delivery-point/store';
-import { PickupPointActions } from '@delivery/pickup-point';
+import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
+import { PickupPointActions } from '@delivery/pickup-point/store/actions';
 import { DeliveryService } from '@delivery/services';
 
 export const citiesEffects = {

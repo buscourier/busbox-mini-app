@@ -8,9 +8,9 @@ import { filter, pairwise } from 'rxjs';
 
 import { isObjectsEqual } from '@core/utils';
 
-import { DeliveryPointActions } from '@delivery/delivery-point/store';
-import { OrderSummaryActions } from '@delivery/order-summary';
-import { PickupPointActions } from '@delivery/pickup-point/store';
+import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
+import { OrderSummaryActions } from '@delivery/order-summary/store/actions';
+import { PickupPointActions } from '@delivery/pickup-point/store/actions';
 
 export const resetEffects = {
   resetOnCityChange: createEffect(

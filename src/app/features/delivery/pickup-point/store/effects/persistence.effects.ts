@@ -10,7 +10,8 @@ import { debounceTime, filter, tap, withLatestFrom } from 'rxjs';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import { PickupPointActions, pickupPointFeature } from '@delivery/pickup-point/store';
+import { PickupPointActions } from '@delivery/pickup-point/store/actions';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
 import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
 
 export const persistenceEffects = {

@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import type { Observable } from 'rxjs';
 
-import { bookingFeature } from '@delivery/booking/store';
+import { bookingFeature } from '@delivery/booking/store/feature';
 import type { BookingResult } from '@delivery/booking/types';
 
 @Component({

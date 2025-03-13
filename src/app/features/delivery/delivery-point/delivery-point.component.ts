@@ -49,7 +49,7 @@ import {
 } from '@shared/types';
 
 import { CourierDetailsComponent } from '@delivery/base/courier-details';
-import { deliveryDetailsFeature } from '@delivery/delivery-details';
+import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
 import type { CourierDetails } from '@delivery/types';
 
 import type {
@@ -57,7 +57,9 @@ import type {
   DeliveryPointForm,
   ResetConfig,
 } from './delivery-point.types';
-import { DeliveryPointActions, deliveryPointFeature, type DeliveryPointViewModel } from './store';
+import { DeliveryPointActions } from './store/actions';
+import { deliveryPointFeature } from './store/feature';
+import type { DeliveryPointViewModel } from './store/selectors';
 import { DeliveryPointTabType } from './types';
 
 @Component({

@@ -10,11 +10,8 @@ import { debounceTime, filter, tap, withLatestFrom } from 'rxjs';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import {
-  DeliveryDetailsActions,
-  deliveryDetailsFeature,
-  OrderActions,
-} from '@delivery/delivery-details/store';
+import { DeliveryDetailsActions, OrderActions } from '@delivery/delivery-details/store/actions';
+import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
 import type { StoredDeliveryDetailsState } from '@delivery/delivery-details/types';
 import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
 

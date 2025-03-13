@@ -15,7 +15,8 @@ import type { Observable } from 'rxjs';
 import { TuiCheckbox } from '@taiga-ui/kit';
 import { TuiTextareaModule } from '@taiga-ui/legacy';
 
-import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import { BookingActions } from '@delivery/booking/store/actions';
+import { bookingFeature } from '@delivery/booking/store/feature';
 import type { Review, StepNumber } from '@delivery/booking/types';
 
 import type { ReviewControlValues, ReviewForm, ReviewModel } from './review.types';

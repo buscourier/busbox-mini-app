@@ -4,7 +4,7 @@ import { createSelector } from '@ngrx/store';
 
 import { LoadingStatus } from '@shared/types';
 
-import type { DeliveryDetailsState } from '@delivery/delivery-details/store';
+import type { DeliveryDetailsState } from '@delivery/delivery-details/store/state';
 import type { OptionsState, Order } from '@delivery/delivery-details/types';
 
 import type { BaseSelectors } from './base-selectors.types';

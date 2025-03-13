@@ -12,11 +12,11 @@ import { DEBOUNCE_TIME } from '@core/constants';
 
 import type { ApiError } from '@shared/types';
 
-import { deliveryDetailsFeature } from '@delivery/delivery-details';
-import { deliveryPointFeature } from '@delivery/delivery-point';
+import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
 import { OrderSummaryService } from '@delivery/order-summary/services';
-import { OrderSummaryActions } from '@delivery/order-summary/store';
-import { pickupPointFeature } from '@delivery/pickup-point';
+import { OrderSummaryActions } from '@delivery/order-summary/store/actions';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
 
 export const calculationEffects = {
   setLoading: createEffect(

@@ -16,9 +16,9 @@ import { TUI_CONFIRM } from '@taiga-ui/kit';
 import {
   type OrderSummaryViewModel,
   selectOrderSummaryViewModel,
-} from '@delivery/order-summary/store';
+} from '@delivery/order-summary/store/selectors';
 import { DeliveryLayoutService } from '@delivery/services';
-import { DeliveryActions } from '@delivery/store';
+import { DeliveryActions } from '@delivery/store/actions';
 
 @Component({
   selector: 'app-order-summary',

@@ -4,9 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { map } from 'rxjs/operators';
 
-import { OrderSummaryActions } from '@delivery/order-summary';
-import { PickupPointActions } from '@delivery/pickup-point/store';
-import { DeliveryActions } from '@delivery/store';
+import { OrderSummaryActions } from '@delivery/order-summary/store/actions';
+import { PickupPointActions } from '@delivery/pickup-point/store/actions';
+import { DeliveryActions } from '@delivery/store/actions';
 
 export const resetEffects = {
   resetDelivery: createEffect(

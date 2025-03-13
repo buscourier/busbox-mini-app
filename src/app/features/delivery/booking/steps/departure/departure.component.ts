@@ -8,10 +8,11 @@ import { Store } from '@ngrx/store';
 import { take, withLatestFrom } from 'rxjs';
 import type { Observable } from 'rxjs';
 
-import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import { BookingActions } from '@delivery/booking/store/actions';
+import { bookingFeature } from '@delivery/booking/store/feature';
 import type { Departure, Sender, StepNumber } from '@delivery/booking/types';
 import { PickupPointComponent } from '@delivery/pickup-point/pickup-point.component';
-import { pickupPointFeature } from '@delivery/pickup-point/store';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
 
 import { SenderComponent } from './sender/sender.component';
 

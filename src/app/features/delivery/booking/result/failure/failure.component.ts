@@ -8,7 +8,7 @@ import type { Observable } from 'rxjs';
 
 import type { ApiError } from '@shared/types';
 
-import { bookingFeature } from '@delivery/booking/store';
+import { bookingFeature } from '@delivery/booking/store/feature';
 
 @Component({
   selector: 'app-failure',

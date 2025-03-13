@@ -40,9 +40,6 @@
       "@delivery/*": [
         "./src/app/features/delivery/*"
       ],
-      //      "@booking": [
-      //        "./src/app/features/booking/index.ts"
-      //      ],
       "@env/*": [
         "src/environments/*"
       ]

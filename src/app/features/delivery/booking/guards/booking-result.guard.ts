@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 import { take } from 'rxjs';
 import type { Observable } from 'rxjs';
 
-import { bookingFeature } from '@delivery/booking/store';
+import { bookingFeature } from '@delivery/booking/store/feature';
 
 export const bookingResultGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

@@ -7,7 +7,7 @@ import { switchMap } from 'rxjs';
 
 import type { ApiError } from '@shared/types';
 
-import { DeliveryDetailsActions } from '@delivery/delivery-details/store';
+import { DeliveryDetailsActions } from '@delivery/delivery-details/store/actions';
 import type { DeliveryOptions } from '@delivery/delivery-details/types';
 import { DeliveryService } from '@delivery/services';
 

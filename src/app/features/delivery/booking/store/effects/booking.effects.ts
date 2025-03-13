@@ -14,11 +14,12 @@ import { DEBOUNCE_TIME } from '@core/constants';
 import type { ApiError } from '@shared/types';
 
 import { BookingService } from '@delivery/booking/services';
-import { BookingActions, bookingFeature } from '@delivery/booking/store';
-import { deliveryDetailsFeature } from '@delivery/delivery-details/store';
-import { deliveryPointFeature } from '@delivery/delivery-point/store';
-import { pickupPointFeature } from '@delivery/pickup-point/store';
-import { DeliveryActions } from '@delivery/store';
+import { BookingActions } from '@delivery/booking/store/actions';
+import { bookingFeature } from '@delivery/booking/store/feature';
+import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
+import { DeliveryActions } from '@delivery/store/actions';
 
 export const bookingEffects = {
   submitOrder: createEffect(

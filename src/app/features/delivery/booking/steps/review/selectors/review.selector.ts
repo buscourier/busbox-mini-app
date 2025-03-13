@@ -1,12 +1,11 @@
 import { createSelector } from '@ngrx/store';
 
-import { bookingFeature } from '@delivery/booking/store';
+import type { ReviewModel, ReviewSection } from '@delivery/booking/steps/review/review.types';
+import { getDeliveryMethod } from '@delivery/booking/steps/review/utils/delivery-method';
+import { bookingFeature } from '@delivery/booking/store/feature';
 import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
-import { deliveryPointFeature } from '@delivery/delivery-point/store';
-import { pickupPointFeature } from '@delivery/pickup-point/store';
-
-import type { ReviewModel, ReviewSection } from '../review.types';
-import { getDeliveryMethod } from '../utils/delivery-method';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
 
 const selectSenderSection = createSelector(
   bookingFeature.selectDeparture,

@@ -126,6 +126,26 @@ module.exports = tseslint.config(
               group: 'internal',
               position: 'after',
             },
+            {
+              pattern: '**/store/actions',
+              group: 'internal',
+              position: 'after',
+            },
+            {
+              pattern: '**/store/feature',
+              group: 'internal',
+              position: 'after',
+            },
+            {
+              pattern: '**/store/selectors',
+              group: 'internal',
+              position: 'after',
+            },
+            {
+              pattern: '**/store/effects',
+              group: 'internal',
+              position: 'after',
+            },
           ],
           pathGroupsExcludedImportTypes: ['builtin'],
           'newlines-between': 'always',

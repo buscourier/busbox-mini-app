@@ -14,13 +14,17 @@ import { TUI_DATE_VALUE_TRANSFORMER } from '@taiga-ui/kit';
 
 import { CustomDateTransformer } from '@core/transformers';
 
-import { BookingEffects, bookingFeature } from '@delivery/booking/store';
-import { DeliveryDetailsEffects, deliveryDetailsFeature } from '@delivery/delivery-details/store';
-import { deliveryPointFeature } from '@delivery/delivery-point';
-import { DeliveryPointEffects } from '@delivery/delivery-point/store';
-import { OrderSummaryEffects, orderSummaryFeature } from '@delivery/order-summary/store';
-import { PickupPointEffects, pickupPointFeature } from '@delivery/pickup-point/store';
-import { DeliveryEffects } from '@delivery/store';
+import { BookingEffects } from '@delivery/booking/store/effects';
+import { bookingFeature } from '@delivery/booking/store/feature';
+import { DeliveryDetailsEffects } from '@delivery/delivery-details/store/effects';
+import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
+import { DeliveryPointEffects } from '@delivery/delivery-point/store/effects';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
+import { OrderSummaryEffects } from '@delivery/order-summary/store/effects';
+import { orderSummaryFeature } from '@delivery/order-summary/store/feature';
+import { PickupPointEffects } from '@delivery/pickup-point/store/effects';
+import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
+import { DeliveryEffects } from '@delivery/store/effects';
 
 import { routes } from './app.routes';
 

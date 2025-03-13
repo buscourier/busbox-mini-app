@@ -51,12 +51,13 @@ import type { CitiesFilterSource, Office, PickupCity } from '@shared/types';
 import { FormControlStatus } from '@shared/types';
 
 import { CourierDetailsComponent } from '@delivery/base/courier-details';
-import { deliveryPointFeature } from '@delivery/delivery-point/store';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
+import { PickupPointActions } from '@delivery/pickup-point/store/actions';
 import type { CourierDetails } from '@delivery/types';
 
 import type { PickupPointControlValues, PickupPointForm, ResetConfig } from './pickup-point.types';
-import type { PickupPointViewModel } from './store';
-import { PickupPointActions, pickupPointFeature } from './store';
+import { pickupPointFeature } from './store/feature';
+import type { PickupPointViewModel } from './store/selectors';
 import { PickupPointTabType } from './types';
 
 @Component({

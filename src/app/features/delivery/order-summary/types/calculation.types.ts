@@ -1,4 +1,4 @@
-import type { Order } from '@delivery/delivery-details';
+import type { Order } from '@delivery/delivery-details/types';
 import type { Courier } from '@delivery/types';
 
 export interface BaseCalculationParams {

@@ -11,7 +11,8 @@ import { debounceTime, filter, tap, withLatestFrom } from 'rxjs';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import { BookingActions } from '@delivery/booking/store/actions';
+import { bookingFeature } from '@delivery/booking/store/feature';
 import type { StoredBookingState } from '@delivery/booking/types';
 import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
 

@@ -8,7 +8,8 @@ import type { Observable } from 'rxjs';
 
 import { TuiButton } from '@taiga-ui/core';
 
-import { BookingActions, bookingFeature } from '@delivery/booking/store';
+import { BookingActions } from '@delivery/booking/store/actions';
+import { bookingFeature } from '@delivery/booking/store/feature';
 import {
   type Applicant,
   ApplicantType,

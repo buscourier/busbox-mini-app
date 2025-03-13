@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 import type { Observable } from 'rxjs';
 
-import { bookingFeature } from '@delivery/booking/store';
+import { bookingFeature } from '@delivery/booking/store/feature';
 import type { StepNumber } from '@delivery/booking/types';
 
 export const stepGuard: CanActivateFn = (

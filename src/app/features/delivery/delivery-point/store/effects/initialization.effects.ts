@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { PersistenceService } from '@core/services';
 
 import { BookingActions } from '@delivery/booking/store/actions';
-import { DeliveryPointActions } from '@delivery/delivery-point/store';
+import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
 import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
 
 export const initializationEffects = {

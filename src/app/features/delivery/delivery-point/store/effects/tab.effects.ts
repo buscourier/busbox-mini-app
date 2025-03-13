@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators';
 
 import { delay, filter, withLatestFrom } from 'rxjs';
 
-import { DeliveryPointActions, deliveryPointFeature } from '@delivery/delivery-point/store';
+import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
 
 export const tabEffects = {
   selectDefaultTab: createEffect(

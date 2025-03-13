@@ -1,4 +1,4 @@
-import type { PickupPointState } from '@delivery/pickup-point/store';
+import type { PickupPointState } from '@delivery/pickup-point/store/state';
 
 import type { Sender } from './sender.types';
 
