@@ -51,12 +51,11 @@ import type { CitiesFilterSource, Office, PickupCity } from '@shared/types';
 import { FormControlStatus } from '@shared/types';
 
 import { CourierDetailsComponent } from '@delivery/base/courier-details';
-import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
-import { PickupPointActions } from '@delivery/pickup-point/store/actions';
+import { DeliveryPointFacade } from '@delivery/delivery-point/delivery-point.facade';
+import { PickupPointFacade } from '@delivery/pickup-point/pickup-point.facade';
 import type { CourierDetails } from '@delivery/types';
 
 import type { PickupPointControlValues, PickupPointForm, ResetConfig } from './pickup-point.types';
-import { pickupPointFeature } from './store/feature';
 import type { PickupPointViewModel } from './store/selectors';
 import { PickupPointTabType } from './types';
 
@@ -103,6 +102,8 @@ export class PickupPointComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly searchCity$ = new Subject<string | null>();
   private readonly dialogs = inject(TuiResponsiveDialogService);
+  private readonly pickupPointFacade = inject(PickupPointFacade);
+  private deliveryPointFacade = inject(DeliveryPointFacade);
 
   get city(): FormControl<PickupCity | null> {
     return this.form.controls.city;
@@ -125,8 +126,8 @@ export class PickupPointComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.vm$ = this.store.select(pickupPointFeature.selectViewModel);
-    this.store.dispatch(PickupPointActions.initState());
+    this.vm$ = this.pickupPointFacade.getViewModel();
+    this.pickupPointFacade.init();
 
     this.initValues();
     this.initForm();
@@ -142,7 +143,7 @@ export class PickupPointComponent implements OnInit {
   }
 
   onTabChange(activeTabId: PickupPointTabType): void {
-    this.store.dispatch(PickupPointActions.setActiveTabId({ activeTabId }));
+    this.pickupPointFacade.setActiveTab(activeTabId);
   }
 
   private initValues(): void {
@@ -204,36 +205,60 @@ export class PickupPointComponent implements OnInit {
         filter(Boolean),
         map((tabId) => this.getResetConfig(tabId)),
       )
-      .subscribe(({ control, action }) => {
+      .subscribe(({ control, reset }) => {
         control.reset();
-
-        this.store.dispatch(action);
+        reset();
       });
   }
 
   private setupFormSync(): void {
-    const formChanges$ = merge(
-      this.handleCityChanges(),
-      this.office.valueChanges.pipe(
+    this.city.valueChanges
+      .pipe(
         takeUntilDestroyed(this.destroyRef),
         filter(Boolean),
-        map((office) => PickupPointActions.selectOffice({ office })),
-      ),
-      this.courierPoint.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
-        filter(Boolean),
-        map((courierDetails) => PickupPointActions.updateCourierDetails({ courierDetails })),
-      ),
-      this.departureDate.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
-        filter(Boolean),
-        map((departureDate) => PickupPointActions.setDepartureDate({ departureDate })),
-      ),
-    );
+        withLatestFrom(
+          this.pickupPointFacade.getSelectedCity(),
+          this.deliveryPointFacade.isFormValid(),
+        ),
+        switchMap(([newCity, currentCity, isDeliveryFormValid]) => {
+          if (!currentCity || newCity.id === currentCity.id) {
+            return of({ newCity, currentCity, isConfirmed: true });
+          }
 
-    formChanges$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((action) => this.store.dispatch(action));
+          if (!isDeliveryFormValid) {
+            return of({ newCity, currentCity, isConfirmed: true });
+          }
+
+          return this.confirmNewCity().pipe(
+            map((isConfirmed) => ({ newCity, currentCity, isConfirmed })),
+          );
+        }),
+      )
+      .subscribe(({ newCity, currentCity, isConfirmed }) => {
+        if (isConfirmed) {
+          this.pickupPointFacade.selectCity(newCity);
+        } else {
+          this.city.patchValue(currentCity, { emitEvent: false });
+        }
+      });
+
+    this.office.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef), filter(Boolean))
+      .subscribe((office) => {
+        this.pickupPointFacade.selectOffice(office);
+      });
+
+    this.courierPoint.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef), filter(Boolean))
+      .subscribe((courierDetails) => {
+        this.pickupPointFacade.updateCourierDetails(courierDetails);
+      });
+
+    this.departureDate.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef), filter(Boolean))
+      .subscribe((date) => {
+        this.pickupPointFacade.setDepartureDate(date);
+      });
   }
 
   private setupStoreSync(): void {
@@ -291,30 +316,24 @@ export class PickupPointComponent implements OnInit {
               : FormControlStatus.INVALID;
           }
 
-          // const isValid = status === FormControlStatus.VALID;
-
           return { status };
         }),
         distinctUntilChanged((prev, curr) => prev.status === curr.status),
       )
       .subscribe(({ status }) => {
-        console.log('this.form.touched', this.form.touched);
-
-        return this.store.dispatch(
-          PickupPointActions.setFormState({
-            status,
-            pristine: this.form.pristine,
-            touched: this.form.touched,
-            dirty: this.form.dirty,
-          }),
+        return this.pickupPointFacade.setFormState(
+          status,
+          this.form.pristine,
+          this.form.touched,
+          this.form.dirty,
         );
       });
   }
 
   private syncFormWithStore(): void {
-    this.store
-      .select(pickupPointFeature.selectFormState)
+    this.vm$
       .pipe(
+        map((vm) => vm.form),
         distinctUntilChanged(
           (prev, curr) =>
             prev.pristine === curr.pristine &&
@@ -370,12 +389,12 @@ export class PickupPointComponent implements OnInit {
       case PickupPointTabType.OFFICE:
         return {
           control: this.courierPoint,
-          action: PickupPointActions.resetCourierDetails(),
+          reset: () => this.pickupPointFacade.resetCourierDetails(),
         };
       case PickupPointTabType.COURIER:
         return {
           control: this.office,
-          action: PickupPointActions.resetOffice(),
+          reset: () => this.pickupPointFacade.resetOffice(),
         };
       default:
         throw new Error(`Unexpected tab type: ${tabId}`);
@@ -393,41 +412,17 @@ export class PickupPointComponent implements OnInit {
       .subscribe();
   }
 
-  private handleCityChanges(): Observable<ReturnType<typeof PickupPointActions.selectCity>> {
-    return this.city.valueChanges.pipe(
-      takeUntilDestroyed(this.destroyRef),
-      withLatestFrom(
-        this.vm$.pipe(map((vm) => vm.cities.selected)),
-        this.store.select(deliveryPointFeature.selectFormState),
-      ),
-      switchMap(([newCity, currentCity, deliveryPointForm]) => {
-        if (!deliveryPointForm.valid) {
-          return of(PickupPointActions.selectCity({ city: newCity! }));
-        }
+  private confirmNewCity(): Observable<boolean> {
+    const confirmData: TuiConfirmData = {
+      content: 'Информация о заказе будет удалена!',
+      yes: 'Да',
+      no: 'Нет',
+    };
 
-        const confirmData: TuiConfirmData = {
-          content: 'Информация о заказе будет удалена!',
-          yes: 'Да',
-          no: 'Нет',
-        };
-
-        return this.dialogs
-          .open<boolean>(TUI_CONFIRM, {
-            label: 'Вы уверены?',
-            size: 's',
-            data: confirmData,
-          })
-          .pipe(
-            map((confirmed) => {
-              if (!confirmed) {
-                this.city.patchValue(currentCity, { emitEvent: false });
-              }
-              return PickupPointActions.selectCity({
-                city: confirmed ? newCity! : currentCity!,
-              });
-            }),
-          );
-      }),
-    );
+    return this.dialogs.open<boolean>(TUI_CONFIRM, {
+      label: 'Вы уверены?',
+      size: 's',
+      data: confirmData,
+    });
   }
 }
