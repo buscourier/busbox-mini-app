@@ -21,6 +21,9 @@ export interface BaseSelectors {
   selectCourierDetails: MemoizedSelector<object, CourierDetails | null>;
   selectBusPickup: MemoizedSelector<object, boolean>;
   selectForm: MemoizedSelector<object, FormState>;
-
+  selectIsFormValid: MemoizedSelector<object, boolean>;
+  selectIsFormInvalid: MemoizedSelector<object, boolean>;
+  selectIsFormDisabled: MemoizedSelector<object, boolean>;
+  selectIsFormPending: MemoizedSelector<object, boolean>;
   selectActiveTabId: MemoizedSelector<object, DeliveryPointTabType | null>;
 }

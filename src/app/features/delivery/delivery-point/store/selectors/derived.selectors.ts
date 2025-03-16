@@ -1,7 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
 import type { DeliveryCity, Office } from '@shared/types';
-import { FormControlStatus } from '@shared/types';
 
 import { LIMITED_OFFICE } from '@delivery/constants';
 import { DELIVERY_POINT_TABS } from '@delivery/delivery-point/constants';
@@ -107,12 +106,18 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     },
   );
 
-  const selectFormControlStatus = createSelector(baseSelectors.selectForm, (state) => ({
-    valid: state.status === FormControlStatus.VALID,
-    invalid: state.status === FormControlStatus.INVALID,
-    disabled: state.status === FormControlStatus.DISABLED,
-    pending: state.status === FormControlStatus.PENDING,
-  }));
+  const selectFormControlStatus = createSelector(
+    baseSelectors.selectIsFormValid,
+    baseSelectors.selectIsFormInvalid,
+    baseSelectors.selectIsFormDisabled,
+    baseSelectors.selectIsFormPending,
+    (valid, invalid, disabled, pending) => ({
+      valid,
+      invalid,
+      disabled,
+      pending,
+    }),
+  );
 
   const selectFormState = createSelector(
     baseSelectors.selectForm,

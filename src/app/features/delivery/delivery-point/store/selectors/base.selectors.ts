@@ -1,7 +1,7 @@
 import type { MemoizedSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 
-import { LoadingStatus } from '@shared/types';
+import { FormControlStatus, LoadingStatus } from '@shared/types';
 
 import type { DeliveryPointState } from '@delivery/delivery-point/store/state';
 
@@ -14,6 +14,7 @@ export const createBaseSelectors = (
 ): BaseSelectors => {
   const selectCitiesState = createSelector(selectDeliveryPointState, (state) => state.cities);
   const selectOfficesState = createSelector(selectDeliveryPointState, (state) => state.offices);
+  const selectForm = createSelector(selectDeliveryPointState, (state) => state.form);
 
   return {
     selectCities: createSelector(selectCitiesState, (cities) => cities.items),
@@ -44,6 +45,25 @@ export const createBaseSelectors = (
 
     selectCourierDetails: createSelector(selectDeliveryPointState, (state) => state.courierDetails),
     selectBusPickup: createSelector(selectDeliveryPointState, (state) => state.busPickup),
-    selectForm: createSelector(selectDeliveryPointState, (state) => state.form),
+    selectForm,
+    selectIsFormValid: createSelector(
+      selectForm,
+      (form) => form.status === FormControlStatus.VALID,
+    ),
+
+    selectIsFormInvalid: createSelector(
+      selectForm,
+      (form) => form.status === FormControlStatus.INVALID,
+    ),
+
+    selectIsFormDisabled: createSelector(
+      selectForm,
+      (form) => form.status === FormControlStatus.DISABLED,
+    ),
+
+    selectIsFormPending: createSelector(
+      selectForm,
+      (form) => form.status === FormControlStatus.PENDING,
+    ),
   };
 };

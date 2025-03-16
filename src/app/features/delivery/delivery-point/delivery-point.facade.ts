@@ -1,0 +1,230 @@
+import { inject, Injectable } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+
+import { type Observable } from 'rxjs';
+
+import type { DeliveryCity, FormControlStatus, Office } from '@shared/types';
+
+import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
+import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
+import type { DeliveryPointViewModel } from '@delivery/delivery-point/store/selectors';
+import type { DeliveryPointTabType } from '@delivery/delivery-point/types';
+import type { CourierDetails } from '@delivery/types';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class DeliveryPointFacade {
+  private readonly store = inject(Store);
+
+  /**
+   * Инициализирует модуль delivery-point
+   */
+  init(): void {
+    this.store.dispatch(DeliveryPointActions.initState());
+  }
+
+  /**
+   * Загружает список городов отправления
+   */
+  loadCities(startCityId: string): void {
+    this.store.dispatch(DeliveryPointActions.loadCities({ startCityId }));
+  }
+
+  /**
+   * Получает ViewModel для компонента
+   */
+  getViewModel(): Observable<DeliveryPointViewModel> {
+    return this.store.select(deliveryPointFeature.selectViewModel);
+  }
+
+  /**
+   * Получает выбранный город отправления
+   */
+  getSelectedCity(): Observable<DeliveryCity | null> {
+    return this.store.select(deliveryPointFeature.selectSelectedCity);
+  }
+
+  /**
+   * Получает выбранный офис отправления
+   */
+  getSelectedOffice(): Observable<Office | null> {
+    return this.store.select(deliveryPointFeature.selectSelectedOffice);
+  }
+
+  /**
+   * Получает детали курьера (если выбран)
+   */
+  getCourierDetails(): Observable<CourierDetails | null> {
+    return this.store.select(deliveryPointFeature.selectCourierDetails);
+  }
+
+  /**
+   * Проверяет, является ли форма валидной
+   */
+  // isFormValid(): Observable<boolean> {
+  //   return this.store
+  //     .select(deliveryPointFeature.selectFormState)
+  //     .pipe(map((formState) => formState.status === FormControlStatus.VALID));
+  // }
+
+  /**
+   * Получает доступные офисы для выбранного города
+   */
+  getAvailableOffices(): Observable<Office[]> {
+    return this.store.select(deliveryPointFeature.selectAvailableOffices);
+  }
+
+  /**
+   * Получает текущий активный таб
+   */
+  getActiveTab(): Observable<DeliveryPointTabType | null> {
+    return this.store.select(deliveryPointFeature.selectActiveTabId);
+  }
+
+  /**
+   * Получает список всех табов
+   */
+  getTabs(): Observable<unknown[]> {
+    return this.store.select(deliveryPointFeature.selectTabs);
+  }
+
+  /**
+   * Проверяет, загружаются ли в данный момент города
+   */
+  areCitiesLoading(): Observable<boolean> {
+    return this.store.select(deliveryPointFeature.selectIsCitiesLoading);
+  }
+
+  // Команды (Actions)
+
+  /**
+   * Выбирает город отправления
+   */
+  selectCity(city: DeliveryCity): void {
+    this.store.dispatch(DeliveryPointActions.selectCity({ city }));
+  }
+
+  /**
+   * Выбирает офис отправления
+   */
+  selectOffice(office: Office): void {
+    this.store.dispatch(DeliveryPointActions.selectOffice({ office }));
+  }
+
+  /**
+   * Обновляет информацию о курьере
+   */
+  updateCourierDetails(courierDetails: CourierDetails): void {
+    this.store.dispatch(DeliveryPointActions.updateCourierDetails({ courierDetails }));
+  }
+
+  /**
+   * Изменяет активный таб
+   */
+  setActiveTab(activeTabId: DeliveryPointTabType): void {
+    this.store.dispatch(DeliveryPointActions.setActiveTabId({ activeTabId }));
+  }
+
+  /**
+   * Обновляет состояние формы
+   */
+  setFormState(
+    status: FormControlStatus,
+    pristine: boolean,
+    touched: boolean,
+    dirty: boolean,
+  ): void {
+    this.store.dispatch(
+      DeliveryPointActions.setFormState({
+        status,
+        pristine,
+        touched,
+        dirty,
+      }),
+    );
+  }
+
+  /**
+   * Сбрасывает состояние модуля
+   */
+  reset(keepCity = false, city?: DeliveryCity): void {
+    this.store.dispatch(DeliveryPointActions.resetState({ keepCity, city }));
+  }
+
+  /**
+   * Сбрасывает выбранный офис
+   */
+  resetOffice(): void {
+    this.store.dispatch(DeliveryPointActions.resetOffice());
+  }
+
+  /**
+   * Сбрасывает данные курьера
+   */
+  resetCourierDetails(): void {
+    this.store.dispatch(DeliveryPointActions.resetCourierDetails());
+  }
+
+  // isFormValid(): Observable<boolean> {
+  //   return this.store
+  //     .select(deliveryPointFeature.selectFormState)
+  //     .pipe(map((state) => state.valid));
+  // }
+
+  isFormValid(): Observable<boolean> {
+    return this.store.select(deliveryPointFeature.selectIsFormValid);
+  }
+
+  // Вспомогательные методы
+
+  /**
+   * Проверяет, полностью ли заполнен модуль delivery-point
+   */
+  // isComplete(): Observable<boolean> {
+  //   return this.getViewModel().pipe(
+  //     map((vm) => {
+  //       const hasCity = !!vm.cities.selected;
+  //       const hasOffice = !!vm.offices.selected;
+  //       const hasCourier = !!vm.courierDetails;
+  //
+  //       const isOfficeTabActive = vm.activeTab?.id === 'OFFICE';
+  //       const isCourierTabActive = vm.activeTab?.id === 'COURIER';
+  //
+  //       if (isOfficeTabActive) {
+  //         return hasCity && hasOffice;
+  //       } else if (isCourierTabActive) {
+  //         return hasCity && hasCourier;
+  //       }
+  //
+  //       return false;
+  //     }),
+  //   );
+  // }
+
+  /**
+   * Получает данные для сохранения в представлении обзора
+   */
+  // getReviewData(): Observable<unknown> {
+  //   return this.getViewModel().pipe(
+  //     take(1),
+  //     filter((vm) => !!vm.cities.selected),
+  //     map((vm) => {
+  //       const city = vm.cities.selected;
+  //       const office = vm.offices.selected;
+  //       const courierDetails = vm.courierDetails;
+  //       const date = vm.departureDate;
+  //       const activeTabType = vm.activeTab?.id;
+  //
+  //       return {
+  //         city,
+  //         office,
+  //         courierDetails,
+  //         date,
+  //         deliveryMethod: activeTabType,
+  //       };
+  //     }),
+  //   );
+  // }
+}
