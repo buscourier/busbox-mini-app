@@ -1,19 +1,18 @@
 import { inject } from '@angular/core';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom, mapResponse } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
 import { filter, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import type { ApiError, Office } from '@shared/types';
 
-import { PickupPointActions } from '@delivery/pickup-point/store/actions';
-import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
-import { PickupPointTabType } from '@delivery/pickup-point/types';
 import { DeliveryService } from '@delivery/services';
+
+import { PickupPointTabType } from '../../types';
+
+import { PickupPointActions } from '../actions';
+import { pickupPointFeature } from '../feature';
 
 export const officesEffects = {
   initOfficesLoad: createEffect(

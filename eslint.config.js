@@ -69,7 +69,7 @@ module.exports = tseslint.config(
       'import/order': [
         'error',
         {
-          groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
           pathGroups: [
             {
               pattern: '@angular/**',
@@ -127,27 +127,22 @@ module.exports = tseslint.config(
               position: 'after',
             },
             {
-              pattern: '**/store/actions',
-              group: 'internal',
-              position: 'after',
+              pattern: '../../**',
+              group: 'parent',
+              position: 'before',
             },
             {
-              pattern: '**/store/feature',
-              group: 'internal',
-              position: 'after',
+              pattern: '../**',
+              group: 'parent',
+              position: 'before',
             },
             {
-              pattern: '**/store/selectors',
-              group: 'internal',
-              position: 'after',
-            },
-            {
-              pattern: '**/store/effects',
-              group: 'internal',
-              position: 'after',
+              pattern: './**',
+              group: 'sibling',
+              position: 'before',
             },
           ],
-          pathGroupsExcludedImportTypes: ['builtin'],
+          // pathGroupsExcludedImportTypes: ['builtin'],
           'newlines-between': 'always',
           alphabetize: {
             order: 'asc',

@@ -1,18 +1,16 @@
 import { inject, Injectable } from '@angular/core';
-
 import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
 import { filter, type Observable, take } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import type { FormControlStatus, Office, PickupCity } from '@shared/types';
 
-import { PickupPointActions } from '@delivery/pickup-point/store/actions';
-import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
-import type { PickupPointViewModel } from '@delivery/pickup-point/store/selectors';
-import type { PickupPointTabType } from '@delivery/pickup-point/types';
 import type { CourierDetails } from '@delivery/types';
+
+import { PickupPointActions } from './store/actions';
+import { pickupPointFeature } from './store/feature';
+import type { PickupPointViewModel } from './store/selectors';
+import type { PickupPointTabType } from './types';
 
 @Injectable({
   providedIn: 'root',

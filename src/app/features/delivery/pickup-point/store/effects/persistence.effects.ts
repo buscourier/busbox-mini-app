@@ -1,18 +1,16 @@
 import { inject } from '@angular/core';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
 import { debounceTime, filter, tap, withLatestFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import { PickupPointActions } from '@delivery/pickup-point/store/actions';
-import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
 import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
+
+import { PickupPointActions } from '../actions';
+import { pickupPointFeature } from '../feature';
 
 export const persistenceEffects = {
   saveState: createEffect(

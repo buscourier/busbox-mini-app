@@ -4,26 +4,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
-import {
-  combineLatest,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  merge,
-  of,
-  startWith,
-  Subject,
-  switchMap,
-  tap,
-  withLatestFrom,
-} from 'rxjs';
-import type { Observable } from 'rxjs';
-
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiDay } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
@@ -43,6 +24,21 @@ import {
   TuiTextfieldControllerModule,
   TuiUnfinishedValidator,
 } from '@taiga-ui/legacy';
+import {
+  combineLatest,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  merge,
+  of,
+  startWith,
+  Subject,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
+import type { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
@@ -51,10 +47,10 @@ import type { CitiesFilterSource, Office, PickupCity } from '@shared/types';
 import { FormControlStatus } from '@shared/types';
 
 import { CourierDetailsComponent } from '@delivery/base/courier-details';
-import { DeliveryPointFacade } from '@delivery/delivery-point/delivery-point.facade';
-import { PickupPointFacade } from '@delivery/pickup-point/pickup-point.facade';
+import { DeliveryPointFacade } from '@delivery/delivery-point/delivery-point.facade'; //????
 import type { CourierDetails } from '@delivery/types';
 
+import { PickupPointFacade } from './pickup-point.facade';
 import type { PickupPointControlValues, PickupPointForm, ResetConfig } from './pickup-point.types';
 import type { PickupPointViewModel } from './store/selectors';
 import { PickupPointTabType } from './types';

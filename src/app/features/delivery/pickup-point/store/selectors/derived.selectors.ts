@@ -4,10 +4,11 @@ import type { Office, PickupCity } from '@shared/types';
 import { FormControlStatus } from '@shared/types';
 
 import { LIMITED_OFFICE } from '@delivery/constants';
-import { PICKUP_POINT_TABS } from '@delivery/pickup-point/constants';
-import type { PickupPointTab } from '@delivery/pickup-point/types';
-import { PickupPointTabType } from '@delivery/pickup-point/types';
 import type { Courier, ErrorStatus } from '@delivery/types';
+
+import { PICKUP_POINT_TABS } from '../../constants';
+import { PickupPointTabType } from '../../types';
+import type { PickupPointTab } from '../../types';
 
 import type { BaseSelectors } from './base-selectors.types';
 import type { DerivedSelectors } from './derived-selectors.types';
