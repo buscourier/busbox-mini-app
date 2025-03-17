@@ -103,11 +103,19 @@ export class DeliveryPointFacade {
     this.store.dispatch(DeliveryPointActions.selectOffice({ office }));
   }
 
+  isOfficeLimited(): Observable<boolean> {
+    return this.store.select(deliveryPointFeature.selectIsOfficeLimited);
+  }
+
   /**
    * Обновляет информацию о курьере
    */
   updateCourierDetails(courierDetails: CourierDetails): void {
     this.store.dispatch(DeliveryPointActions.updateCourierDetails({ courierDetails }));
+  }
+
+  isCourierSelected(): Observable<boolean> {
+    return this.store.select(deliveryPointFeature.selectIsCourierSelected);
   }
 
   /**

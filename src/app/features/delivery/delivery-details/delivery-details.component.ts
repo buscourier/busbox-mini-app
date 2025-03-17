@@ -2,12 +2,11 @@ import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Store } from '@ngrx/store';
 import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
 import type { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DeliveryDetailsFacade } from '@delivery/delivery-details/delivery-details.facade';
+import type { OrderDataKeys } from '@delivery/delivery-details/delivery-details.types';
 
 import {
   AdditionalServicesComponent,
@@ -19,12 +18,10 @@ import {
   PackagingComponent,
   ParcelsComponent,
 } from './components';
-import { OrderActions } from './store/actions';
+import { DeliveryDetailsFacade } from './delivery-details.facade';
 import type { DeliveryDetailsViewModel } from './store/selectors';
 import type { Order, OrderValidationState } from './types';
 import { CargoType } from './types';
-
-type OrderDataKeys = Exclude<keyof Order, 'id' | 'cargoType' | 'validation'>;
 
 @Component({
   selector: 'app-delivery-details',
@@ -50,7 +47,6 @@ export class DeliveryDetailsComponent implements OnInit {
   protected readonly MAX_ORDERS = 4;
   protected readonly CargoType = CargoType;
 
-  private store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
   private readonly alerts = inject(TuiAlertService);
   private readonly deliveryDetailsFacade = inject(DeliveryDetailsFacade);
@@ -61,37 +57,27 @@ export class DeliveryDetailsComponent implements OnInit {
   }
 
   addOrder(): void {
-    this.store.dispatch(OrderActions.add());
+    this.deliveryDetailsFacade.addOrder();
   }
 
   removeOrder(orderId: string): void {
-    this.store.dispatch(OrderActions.remove({ orderId }));
+    this.deliveryDetailsFacade.removeOrder(orderId);
   }
 
   setActiveOrder(orderId: string): void {
-    this.store.dispatch(OrderActions.setActive({ orderId }));
+    this.deliveryDetailsFacade.setActiveOrder(orderId);
   }
 
   setCargoType(orderId: string, cargoType: CargoType): void {
-    this.store.dispatch(OrderActions.setCargoType({ orderId, cargoType }));
+    this.deliveryDetailsFacade.setCargoType(orderId, cargoType);
   }
 
   updateOrderData(orderId: string, type: OrderDataKeys, data: Order[OrderDataKeys]): void {
-    this.store.dispatch(
-      OrderActions.updateData({
-        orderId,
-        data: { [type]: data },
-      }),
-    );
+    this.deliveryDetailsFacade.updateOrderData(orderId, type, data);
   }
 
   updateOrderValidation(orderId: string, type: keyof OrderValidationState, isValid: boolean) {
-    this.store.dispatch(
-      OrderActions.updateValidation({
-        orderId,
-        validation: { [type]: isValid },
-      }),
-    );
+    this.deliveryDetailsFacade.updateOrderValidation(orderId, type, isValid);
   }
 
   private setupErrorHandling(): void {

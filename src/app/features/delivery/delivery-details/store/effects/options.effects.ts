@@ -1,15 +1,15 @@
 import { inject } from '@angular/core';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
-
 import { switchMap } from 'rxjs';
 
 import type { ApiError } from '@shared/types';
 
-import { DeliveryDetailsActions } from '@delivery/delivery-details/store/actions';
-import type { DeliveryOptions } from '@delivery/delivery-details/types';
 import { DeliveryService } from '@delivery/services';
+
+import type { DeliveryOptions } from '../../types';
+
+import { DeliveryDetailsActions } from '../actions';
 
 export const optionsEffects = {
   loadOptions: createEffect(

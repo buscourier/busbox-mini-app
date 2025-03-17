@@ -3,8 +3,8 @@ import { createEntityAdapter } from '@ngrx/entity';
 
 import { LoadingStatus } from '@shared/types';
 
-import { PARCEL_ITEM_LIMITS, PARCELS_LIMITS } from '@delivery/delivery-details/constants';
-import type { DeliveryRestrictions, OptionsState, Order } from '@delivery/delivery-details/types';
+import { PARCEL_ITEM_LIMITS, PARCELS_LIMITS } from '../constants';
+import type { DeliveryRestrictions, OptionsState, Order } from '../types';
 
 export interface DeliveryDetailsState extends EntityState<Order> {
   activeOrderId: string | null;

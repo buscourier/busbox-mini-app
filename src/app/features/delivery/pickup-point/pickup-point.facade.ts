@@ -87,8 +87,16 @@ export class PickupPointFacade {
     this.store.dispatch(PickupPointActions.selectOffice({ office }));
   }
 
+  isOfficeLimited(): Observable<boolean> {
+    return this.store.select(pickupPointFeature.selectIsOfficeLimited);
+  }
+
   updateCourierDetails(courierDetails: CourierDetails): void {
     this.store.dispatch(PickupPointActions.updateCourierDetails({ courierDetails }));
+  }
+
+  isCourierSelected(): Observable<boolean> {
+    return this.store.select(pickupPointFeature.selectIsCourierSelected);
   }
 
   setDepartureDate(departureDate: string): void {

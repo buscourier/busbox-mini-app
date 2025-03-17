@@ -1,35 +1,24 @@
 import { inject } from '@angular/core';
-
 import { createEffect } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
 import { combineLatest, debounceTime } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 
-import { DeliveryDetailsActions } from '@delivery/delivery-details/store/actions';
-import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
-import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
+import { DeliveryPointFacade } from '@delivery/delivery-point';
+import { PickupPointFacade } from '@delivery/pickup-point';
 
-// а нужен ли тут ofType и actions?
+import { DeliveryDetailsActions } from '../actions';
+
 export const citySelectionEffects = {
-  // resetOptionsOnCityChange: createEffect(
-  //   (actions$ = inject(Actions)) => {
-  //     return actions$.pipe(
-  //       ofType(PickupPointActions.selectCity, DeliveryPointActions.selectCity),
-  //       map(() => DeliveryDetailsActions.resetSettings()),
-  //     );
-  //   },
-  //   { functional: true },
-  // ),
-
   loadOptionsOnCitiesSelected: createEffect(
-    (store = inject(Store)) => {
+    (
+      pickupPointFacade = inject(PickupPointFacade),
+      deliveryPointFacade = inject(DeliveryPointFacade),
+    ) => {
       return combineLatest([
-        store.select(pickupPointFeature.selectSelectedCity),
-        store.select(deliveryPointFeature.selectSelectedCity),
+        pickupPointFacade.getSelectedCity(),
+        deliveryPointFacade.getSelectedCity(),
       ]).pipe(
         debounceTime(DEBOUNCE_TIME.DEFAULT),
         map(([pickupCity, deliveryCity]) => {

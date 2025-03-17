@@ -1,19 +1,18 @@
 import { inject } from '@angular/core';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
 import { debounceTime, filter, tap, withLatestFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import { DeliveryDetailsActions, OrderActions } from '@delivery/delivery-details/store/actions';
-import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
-import type { StoredDeliveryDetailsState } from '@delivery/delivery-details/types';
 import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
+
+import type { StoredDeliveryDetailsState } from '../../types';
+
+import { DeliveryDetailsActions, OrderActions } from '../actions';
+import { deliveryDetailsFeature } from '../feature';
 
 export const persistenceEffects = {
   saveState: createEffect(

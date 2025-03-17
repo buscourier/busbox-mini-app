@@ -1,4 +1,4 @@
-import type { ParcelItemLimits, ParcelsLimits } from '@delivery/delivery-details/types';
+import type { ParcelItemLimits, ParcelsLimits } from '../types';
 
 /**
  * Groups of city IDs where the same city might have different IDs

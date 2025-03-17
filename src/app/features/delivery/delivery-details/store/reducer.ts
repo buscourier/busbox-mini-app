@@ -1,10 +1,9 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { createReducer, on } from '@ngrx/store';
+import { v4 as uuidv4 } from 'uuid';
 
 import { LoadingStatus } from '@shared/types';
 
-import { CargoType, type Order } from '@delivery/delivery-details/types';
+import { CargoType, type Order } from '../types';
 
 import { DeliveryDetailsActions, OrderActions } from './actions';
 import type { DeliveryDetailsState } from './state';

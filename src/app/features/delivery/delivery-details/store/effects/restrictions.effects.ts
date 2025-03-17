@@ -1,26 +1,28 @@
 import { inject } from '@angular/core';
-
 import { createEffect } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-
+import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { combineLatest } from 'rxjs';
+import { DeliveryPointFacade } from '@delivery/delivery-point';
+import { PickupPointFacade } from '@delivery/pickup-point';
 
-import { CargoRestrictionsService } from '@delivery/delivery-details/services';
-import { DeliveryDetailsActions } from '@delivery/delivery-details/store/actions';
-import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
-import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
+import { CargoRestrictionsService } from '../../services';
+
+import { DeliveryDetailsActions } from '../actions';
 
 export const restrictionsEffects = {
   setRestrictions: createEffect(
-    (store = inject(Store), restrictionsService = inject(CargoRestrictionsService)) => {
+    (
+      pickupPointFacade = inject(PickupPointFacade),
+      deliveryPointFacade = inject(DeliveryPointFacade),
+      restrictionsService = inject(CargoRestrictionsService),
+    ) => {
       return combineLatest([
-        store.select(deliveryPointFeature.selectSelectedCity),
-        store.select(pickupPointFeature.selectIsOfficeLimited),
-        store.select(deliveryPointFeature.selectIsOfficeLimited),
-        store.select(pickupPointFeature.selectIsCourierSelected),
-        store.select(deliveryPointFeature.selectIsCourierSelected),
+        deliveryPointFacade.getSelectedCity(),
+        pickupPointFacade.isOfficeLimited(),
+        deliveryPointFacade.isOfficeLimited(),
+        pickupPointFacade.isCourierSelected(),
+        deliveryPointFacade.isCourierSelected(),
       ]).pipe(
         map(
           ([
