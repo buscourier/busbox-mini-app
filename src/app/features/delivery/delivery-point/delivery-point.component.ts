@@ -4,11 +4,20 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
+import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
+import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
+import type { TuiConfirmData } from '@taiga-ui/kit';
+import {
+  TUI_CONFIRM,
+  TUI_VALIDATION_ERRORS,
+  TuiCheckbox,
+  TuiDataListWrapper,
+  TuiFieldErrorPipe,
+  TuiStringifyContentPipe,
+  TuiStringifyPipe,
+} from '@taiga-ui/kit';
+import { TuiComboBoxModule, TuiSelectModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import {
   combineLatest,
   debounceTime,
@@ -23,20 +32,7 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import type { Observable } from 'rxjs';
-
-import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
-import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
-import type { TuiConfirmData } from '@taiga-ui/kit';
-import {
-  TUI_CONFIRM,
-  TUI_VALIDATION_ERRORS,
-  TuiCheckbox,
-  TuiDataListWrapper,
-  TuiFieldErrorPipe,
-  TuiStringifyContentPipe,
-  TuiStringifyPipe,
-} from '@taiga-ui/kit';
-import { TuiComboBoxModule, TuiSelectModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
+import { map } from 'rxjs/operators';
 
 import { fadeSlideAnimation } from '@core/animations';
 import { DEBOUNCE_TIME } from '@core/constants';
@@ -49,7 +45,8 @@ import {
 } from '@shared/types';
 
 import { CourierDetailsComponent } from '@delivery/base/courier-details';
-import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
+import { DeliveryDetailsFacade } from '@delivery/delivery-details/delivery-details.facade';
+import { DeliveryPointFacade } from '@delivery/delivery-point/delivery-point.facade';
 import type { CourierDetails } from '@delivery/types';
 
 import type {
@@ -57,8 +54,6 @@ import type {
   DeliveryPointForm,
   ResetConfig,
 } from './delivery-point.types';
-import { DeliveryPointActions } from './store/actions';
-import { deliveryPointFeature } from './store/feature';
 import type { DeliveryPointViewModel } from './store/selectors';
 import { DeliveryPointTabType } from './types';
 
@@ -104,6 +99,8 @@ export class DeliveryPointComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly searchQuery$ = new Subject<string | null>();
   private readonly dialogs = inject(TuiResponsiveDialogService);
+  private readonly deliveryPointFacade = inject(DeliveryPointFacade);
+  private readonly deliveryDetailsFacade = inject(DeliveryDetailsFacade);
 
   get city(): FormControl<DeliveryCity | null> {
     return this.form.controls.city;
@@ -122,8 +119,8 @@ export class DeliveryPointComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.vm$ = this.store.select(deliveryPointFeature.selectViewModel);
-    this.store.dispatch(DeliveryPointActions.initState());
+    this.vm$ = this.deliveryPointFacade.getViewModel();
+    this.deliveryPointFacade.init();
 
     this.initValues();
     this.initForm();
@@ -139,7 +136,7 @@ export class DeliveryPointComponent implements OnInit {
   }
 
   onTabChange(activeTabId: DeliveryPointTabType): void {
-    this.store.dispatch(DeliveryPointActions.setActiveTabId({ activeTabId }));
+    this.deliveryPointFacade.setActiveTab(activeTabId);
   }
 
   private initValues(): void {
@@ -204,35 +201,54 @@ export class DeliveryPointComponent implements OnInit {
         filter(Boolean),
         map((tabId) => this.getResetConfig(tabId)),
       )
-      .subscribe(({ controls, actions }) => {
+      .subscribe(({ controls, reset }) => {
         controls.forEach((control) => control.reset());
-        actions.forEach((action) => this.store.dispatch(action));
+        reset();
       });
   }
 
   private setupFormSync(): void {
-    const formChanges$ = merge(
-      this.handleCityChanges(),
-      this.office.valueChanges.pipe(
+    this.city.valueChanges
+      .pipe(
         takeUntilDestroyed(this.destroyRef),
         filter(Boolean),
-        map((office) => DeliveryPointActions.selectOffice({ office })),
-      ),
-      this.courierDetails.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
-        filter(Boolean),
-        map((courierDetails) => DeliveryPointActions.updateCourierDetails({ courierDetails })),
-      ),
-      this.busPickup.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
-        filter(Boolean),
-        map((enabled) => DeliveryPointActions.setBusPickup({ enabled })),
-      ),
-    );
+        withLatestFrom(
+          this.vm$.pipe(map((vm) => vm.cities.selected)),
+          this.deliveryDetailsFacade.isActiveOrderValid(),
+        ),
+        switchMap(([newCity, currentCity, isActiveOrderValid]) => {
+          if (!currentCity || newCity.id === currentCity.id) {
+            return of({ newCity, currentCity, isConfirmed: true });
+          }
 
-    formChanges$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((action) => this.store.dispatch(action));
+          if (!isActiveOrderValid) {
+            return of({ newCity, currentCity, isConfirmed: true });
+          }
+
+          return this.confirmNewCity().pipe(
+            map((isConfirmed) => ({ newCity, currentCity, isConfirmed })),
+          );
+        }),
+      )
+      .subscribe(({ newCity, currentCity, isConfirmed }) => {
+        if (isConfirmed) {
+          this.deliveryPointFacade.selectCity(newCity);
+        } else {
+          this.city.patchValue(currentCity, { emitEvent: false });
+        }
+      });
+
+    this.office.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef), filter(Boolean))
+      .subscribe((office) => this.deliveryPointFacade.selectOffice(office));
+
+    this.courierDetails.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef), filter(Boolean))
+      .subscribe((courierDetails) => this.deliveryPointFacade.updateCourierDetails(courierDetails));
+
+    this.busPickup.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef), filter(Boolean))
+      .subscribe((enabled) => this.deliveryPointFacade.setBusPickup(enabled));
   }
 
   private setupStoreSync(): void {
@@ -298,22 +314,20 @@ export class DeliveryPointComponent implements OnInit {
           (prev, curr) => prev.isValid === curr.isValid && prev.status === curr.status,
         ),
       )
-      .subscribe(({ status }) =>
-        this.store.dispatch(
-          DeliveryPointActions.setFormState({
-            status,
-            pristine: this.form.pristine,
-            touched: this.form.touched,
-            dirty: this.form.dirty,
-          }),
-        ),
-      );
+      .subscribe(({ status }) => {
+        return this.deliveryPointFacade.setFormState(
+          status,
+          this.form.pristine,
+          this.form.touched,
+          this.form.dirty,
+        );
+      });
   }
 
   private syncFormWithStore(): void {
-    this.store
-      .select(deliveryPointFeature.selectFormState)
+    this.vm$
       .pipe(
+        map((vm) => vm.form),
         distinctUntilChanged(
           (prev, curr) =>
             prev.pristine === curr.pristine &&
@@ -373,27 +387,27 @@ export class DeliveryPointComponent implements OnInit {
       case DeliveryPointTabType.OFFICE:
         return {
           controls: [this.courierDetails, this.busPickup],
-          actions: [
-            DeliveryPointActions.resetCourierDetails(),
-            DeliveryPointActions.setBusPickup({ enabled: false }),
-          ],
+          reset: () => {
+            this.deliveryPointFacade.resetCourierDetails();
+            this.deliveryPointFacade.setBusPickup(false);
+          },
         };
       case DeliveryPointTabType.COURIER:
         return {
           controls: [this.office, this.busPickup],
-          actions: [
-            DeliveryPointActions.resetOffice(),
-            DeliveryPointActions.setBusPickup({ enabled: false }),
-          ],
+          reset: () => {
+            this.deliveryPointFacade.resetOffice();
+            this.deliveryPointFacade.setBusPickup(false);
+          },
         };
       case DeliveryPointTabType.BUS:
         return {
           controls: [this.courierDetails, this.office],
-          actions: [
-            DeliveryPointActions.resetCourierDetails(),
-            DeliveryPointActions.resetOffice(),
-            DeliveryPointActions.setBusPickup({ enabled: true }),
-          ],
+          reset: () => {
+            this.deliveryPointFacade.resetCourierDetails();
+            this.deliveryPointFacade.resetOffice();
+            this.deliveryPointFacade.setBusPickup(true);
+          },
         };
       default:
         throw new Error(`Unexpected tab type: ${tabId}`);
@@ -411,41 +425,17 @@ export class DeliveryPointComponent implements OnInit {
       .subscribe();
   }
 
-  private handleCityChanges(): Observable<ReturnType<typeof DeliveryPointActions.selectCity>> {
-    return this.city.valueChanges.pipe(
-      takeUntilDestroyed(this.destroyRef),
-      withLatestFrom(
-        this.vm$.pipe(map((vm) => vm.cities.selected)),
-        this.store.select(deliveryDetailsFeature.selectIsActiveOrderValid),
-      ),
-      switchMap(([newCity, currentCity, isActiveOrderValid]) => {
-        if (!isActiveOrderValid) {
-          return of(DeliveryPointActions.selectCity({ city: newCity! }));
-        }
+  private confirmNewCity(): Observable<boolean> {
+    const confirmData: TuiConfirmData = {
+      content: 'Информация о заказе будет удалена!',
+      yes: 'Да',
+      no: 'Нет',
+    };
 
-        const confirmData: TuiConfirmData = {
-          content: 'Информация о деталях заказа будет удалена!',
-          yes: 'Да',
-          no: 'Нет',
-        };
-
-        return this.dialogs
-          .open<boolean>(TUI_CONFIRM, {
-            label: 'Вы уверены?',
-            size: 's',
-            data: confirmData,
-          })
-          .pipe(
-            map((confirmed) => {
-              if (!confirmed) {
-                this.city.patchValue(currentCity, { emitEvent: false });
-              }
-              return DeliveryPointActions.selectCity({
-                city: confirmed ? newCity! : currentCity!,
-              });
-            }),
-          );
-      }),
-    );
+    return this.dialogs.open<boolean>(TUI_CONFIRM, {
+      label: 'Вы уверены?',
+      size: 's',
+      data: confirmData,
+    });
   }
 }

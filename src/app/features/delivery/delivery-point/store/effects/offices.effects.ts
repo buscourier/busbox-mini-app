@@ -1,19 +1,18 @@
 import { inject } from '@angular/core';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom, mapResponse } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
 import { filter, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import type { ApiError, Office } from '@shared/types';
 
-import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
-import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
-import { DeliveryPointTabType } from '@delivery/delivery-point/types';
 import { DeliveryService } from '@delivery/services';
+
+import { DeliveryPointTabType } from '../../types';
+
+import { DeliveryPointActions } from '../actions';
+import { deliveryPointFeature } from '../feature';
 
 export const officesEffects = {
   initOfficesLoad: createEffect(

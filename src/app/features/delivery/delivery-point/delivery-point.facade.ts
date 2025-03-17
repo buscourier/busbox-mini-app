@@ -1,16 +1,15 @@
 import { inject, Injectable } from '@angular/core';
-
 import { Store } from '@ngrx/store';
-
 import { type Observable } from 'rxjs';
 
 import type { DeliveryCity, FormControlStatus, Office } from '@shared/types';
 
-import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
-import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
-import type { DeliveryPointViewModel } from '@delivery/delivery-point/store/selectors';
-import type { DeliveryPointTabType } from '@delivery/delivery-point/types';
 import type { CourierDetails } from '@delivery/types';
+
+import { DeliveryPointActions } from './store/actions';
+import { deliveryPointFeature } from './store/feature';
+import type { DeliveryPointViewModel } from './store/selectors';
+import type { DeliveryPointTabType } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -59,15 +58,6 @@ export class DeliveryPointFacade {
   getCourierDetails(): Observable<CourierDetails | null> {
     return this.store.select(deliveryPointFeature.selectCourierDetails);
   }
-
-  /**
-   * Проверяет, является ли форма валидной
-   */
-  // isFormValid(): Observable<boolean> {
-  //   return this.store
-  //     .select(deliveryPointFeature.selectFormState)
-  //     .pipe(map((formState) => formState.status === FormControlStatus.VALID));
-  // }
 
   /**
    * Получает доступные офисы для выбранного города
@@ -125,6 +115,10 @@ export class DeliveryPointFacade {
    */
   setActiveTab(activeTabId: DeliveryPointTabType): void {
     this.store.dispatch(DeliveryPointActions.setActiveTabId({ activeTabId }));
+  }
+
+  setBusPickup(enabled: boolean) {
+    this.store.dispatch(DeliveryPointActions.setBusPickup({ enabled }));
   }
 
   /**

@@ -1,14 +1,13 @@
 import { inject } from '@angular/core';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
 import { map } from 'rxjs/operators';
 
 import { PersistenceService } from '@core/services';
 
-import { BookingActions } from '@delivery/booking/store/actions';
-import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
+import { BookingActions } from '@delivery/booking/store/actions'; //????
 import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
+
+import { DeliveryPointActions } from '../actions';
 
 export const initializationEffects = {
   loadState: createEffect(

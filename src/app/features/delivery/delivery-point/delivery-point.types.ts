@@ -1,14 +1,12 @@
 import type { FormControl, FormGroup } from '@angular/forms';
 
-import type { Action } from '@ngrx/store';
-
 import type { DeliveryCity, Office } from '@shared/types';
 
 import type { CourierDetails } from '@delivery/types';
 
 export interface ResetConfig {
   controls: FormControl[];
-  actions: Action[];
+  reset: () => void;
   cleanup?: () => void;
 }
 

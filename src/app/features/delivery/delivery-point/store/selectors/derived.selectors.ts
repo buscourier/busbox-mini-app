@@ -3,10 +3,11 @@ import { createSelector } from '@ngrx/store';
 import type { DeliveryCity, Office } from '@shared/types';
 
 import { LIMITED_OFFICE } from '@delivery/constants';
-import { DELIVERY_POINT_TABS } from '@delivery/delivery-point/constants';
-import type { DeliveryPointTab } from '@delivery/delivery-point/types';
-import { DeliveryPointTabType } from '@delivery/delivery-point/types';
 import type { Courier, ErrorStatus } from '@delivery/types';
+
+import { DELIVERY_POINT_TABS } from '../../constants';
+import type { DeliveryPointTab } from '../../types';
+import { DeliveryPointTabType } from '../../types';
 
 import type { BaseSelectors } from './base-selectors.types';
 import type { DerivedSelectors } from './derived-selectors.types';

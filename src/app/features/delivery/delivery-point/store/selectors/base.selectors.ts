@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 
 import { FormControlStatus, LoadingStatus } from '@shared/types';
 
-import type { DeliveryPointState } from '@delivery/delivery-point/store/state';
+import type { DeliveryPointState } from '../state';
 
 import type { BaseSelectors } from './base-selectors.types';
 

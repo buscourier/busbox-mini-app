@@ -1,14 +1,11 @@
 import { inject } from '@angular/core';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-
+import { delay, filter, withLatestFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { delay, filter, withLatestFrom } from 'rxjs';
-
-import { DeliveryPointActions } from '@delivery/delivery-point/store/actions';
-import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
+import { DeliveryPointActions } from '../actions';
+import { deliveryPointFeature } from '../feature';
 
 export const tabEffects = {
   selectDefaultTab: createEffect(
