@@ -2,14 +2,12 @@ import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
 import { Store } from '@ngrx/store';
-
+import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
+import type { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import type { Observable } from 'rxjs';
-
-import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
+import { DeliveryDetailsFacade } from '@delivery/delivery-details/delivery-details.facade';
 
 import {
   AdditionalServicesComponent,
@@ -22,7 +20,6 @@ import {
   ParcelsComponent,
 } from './components';
 import { OrderActions } from './store/actions';
-import { deliveryDetailsFeature } from './store/feature';
 import type { DeliveryDetailsViewModel } from './store/selectors';
 import type { Order, OrderValidationState } from './types';
 import { CargoType } from './types';
@@ -56,9 +53,10 @@ export class DeliveryDetailsComponent implements OnInit {
   private store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
   private readonly alerts = inject(TuiAlertService);
+  private readonly deliveryDetailsFacade = inject(DeliveryDetailsFacade);
 
   ngOnInit(): void {
-    this.vm$ = this.store.select(deliveryDetailsFeature.selectViewModel);
+    this.vm$ = this.deliveryDetailsFacade.getViewModel();
     this.setupErrorHandling();
   }
 
