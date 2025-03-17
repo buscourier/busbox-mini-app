@@ -1,5 +1,0 @@
-export const PARCEL_ITEM_DEFAULTS = {
-  QUANTITY: 1,
-  WEIGHT: 0.5,
-  DIMENSIONS: 10,
-};

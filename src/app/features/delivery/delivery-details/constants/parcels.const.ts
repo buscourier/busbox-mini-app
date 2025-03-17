@@ -1,4 +1,9 @@
-import type { ParcelItemLimits, ParcelsLimits } from '../types';
+import type {
+  ParcelItemDimensionsError,
+  ParcelItemLimits,
+  ParcelsLimitError,
+  ParcelsLimits,
+} from '../types';
 
 /**
  * Groups of city IDs where the same city might have different IDs
@@ -119,9 +124,44 @@ export const PARCEL_ITEM_LIMITS = {
   CITY: createParcelLimitsByCity(),
 };
 
+export const PARCEL_ITEM_DEFAULTS = {
+  QUANTITY: 1,
+  WEIGHT: 0.5,
+  DIMENSIONS: 10,
+};
+
 export const RESTRICTION_MESSAGES = {
   START_OFFICE: 'Из выбранного офиса отправка не осуществляется',
   END_OFFICE: 'В выбранный офис доставка не осуществляется',
   START_COURIER: 'Отправка курьером не осуществляется',
   END_COURIER: 'Доставка курьером не осуществляется',
+} as const;
+
+export const PARCELS_VALIDATION_MESSAGES = {
+  maxItems: ({ max }: ParcelsLimitError) => `Максимальное количество посылок: ${max}`,
+
+  totalQuantityMax: ({ max, actual }: ParcelsLimitError) =>
+    `Превышено общее количество мест: ${actual} из ${max} (на ${actual - max})`,
+
+  totalDimensionsMax: ({ max, actual }: ParcelsLimitError) =>
+    `Превышены общие габариты: ${actual} см из ${max} см (на ${actual - max} см)`,
+
+  totalWeightMax: ({ max, actual }: ParcelsLimitError) =>
+    `Превышен общий вес: ${actual} кг из ${max} кг (на ${actual - max} кг)`,
+} as const;
+
+export const PARCEL_ITEM_VALIDATION_MESSAGES = {
+  required: 'Все поля обязательны для заполнения',
+  dimensions: (error: ParcelItemDimensionsError) =>
+    `Габариты посылки превышают допустимые размеры на ${error.diff} см.`,
+  quantityMin: (context: { min: number }): string => `Минимальное количество мест:  ${context.min}`,
+  quantityMax: (context: { max: number }): string => `Максимальное количество мест: ${context.max}`,
+  weightMin: (context: { min: number }): string => `Минимальный вес:  ${context.min} кг.`,
+  weightMax: (context: { max: number }): string => `Максимальный вес: ${context.max} кг.`,
+  widthMin: (context: { min: number }): string => `Минимальная ширина:  ${context.min} см.`,
+  widthMax: (context: { max: number }): string => `Максимальная ширина: ${context.max} см.`,
+  heightMin: (context: { min: number }): string => `Минимальная высота:  ${context.min} см.`,
+  heightMax: (context: { max: number }): string => `Максимальная высота: ${context.max} см.`,
+  lengthMin: (context: { min: number }): string => `Минимальная длина:  ${context.min} см.`,
+  lengthMax: (context: { max: number }): string => `Максимальная длина: ${context.max} см.`,
 } as const;

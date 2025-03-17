@@ -1,13 +1,15 @@
 import type { OnChanges, SimpleChanges } from '@angular/core';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-
 import { tuiDialog } from '@taiga-ui/core';
 
-import type { Packaging, PackagingItem, Service } from '@delivery/delivery-details/types';
+import {
+  PACKAGING_DEFAULT_QUANTITY,
+  PackagingGroupId,
+  type PackagingOtherGroupIds,
+} from '../../constants';
+import type { Packaging, PackagingItem, Service } from '../../types';
 
 import { PackagingDialogComponent } from './packaging-dialog/packaging-dialog.component';
-import type { OtherIds } from './packaging.constants';
-import { PACKAGING_DEFAULT_QUANTITY, PackagingGroupId } from './packaging.constants';
 
 @Component({
   selector: 'app-packaging',
@@ -84,7 +86,7 @@ export class PackagingComponent implements OnChanges {
     this.polyPacks = this.filterOptions(PackagingGroupId.POLY_PACKS);
     this.films = this.filterOptions(PackagingGroupId.FILMS);
     this.other = this.options.filter((option) =>
-      PackagingGroupId.OTHER.includes(option.subgroup_id as OtherIds),
+      PackagingGroupId.OTHER.includes(option.subgroup_id as PackagingOtherGroupIds),
     );
   }
 

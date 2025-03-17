@@ -12,9 +12,6 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormGroup } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import { startWith } from 'rxjs';
-
 import { TuiError, TuiHintDirective } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
@@ -24,10 +21,11 @@ import {
   TuiFieldErrorPipe,
 } from '@taiga-ui/kit';
 import { TuiInputNumberModule, TuiInputPhoneModule } from '@taiga-ui/legacy';
+import { startWith } from 'rxjs';
 
 import { phoneValidator } from '@shared/validators';
 
-import type { AdditionalServices, Service } from '@delivery/delivery-details/types';
+import type { AdditionalServices, Service } from '../../types';
 
 import {
   AdditionalServiceId,

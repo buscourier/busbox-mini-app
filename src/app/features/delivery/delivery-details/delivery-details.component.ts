@@ -6,8 +6,6 @@ import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
 import type { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import type { OrderDataKeys } from '@delivery/delivery-details/delivery-details.types';
-
 import {
   AdditionalServicesComponent,
   AutoPartsComponent,
@@ -19,6 +17,7 @@ import {
   ParcelsComponent,
 } from './components';
 import { DeliveryDetailsFacade } from './delivery-details.facade';
+import type { OrderDataKeys } from './delivery-details.types';
 import type { DeliveryDetailsViewModel } from './store/selectors';
 import type { Order, OrderValidationState } from './types';
 import { CargoType } from './types';

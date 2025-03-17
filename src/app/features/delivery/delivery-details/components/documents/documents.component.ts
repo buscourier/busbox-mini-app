@@ -10,18 +10,15 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import { map } from 'rxjs/operators';
-
-import { debounceTime, merge, startWith } from 'rxjs';
-
 import { tuiNumberFormatProvider } from '@taiga-ui/core';
 import { TuiInputNumberModule, tuiInputNumberOptionsProvider } from '@taiga-ui/legacy';
+import { debounceTime, merge, startWith } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 import { isObjectsEqual } from '@core/utils';
 
-import type { Documents } from '@delivery/delivery-details/types';
+import type { Documents } from '../../types';
 
 @Component({
   selector: 'app-documents',

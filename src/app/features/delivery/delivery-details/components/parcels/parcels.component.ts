@@ -11,27 +11,24 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
-
-import { debounceTime } from 'rxjs';
-
 import { TuiAlertService, TuiButton, TuiError } from '@taiga-ui/core';
 import { TUI_VALIDATION_ERRORS, TuiFieldErrorPipe } from '@taiga-ui/kit';
+import { debounceTime } from 'rxjs';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 import { isObjectsEqual } from '@core/utils';
 
+import { PARCEL_ITEM_DEFAULTS, PARCELS_VALIDATION_MESSAGES } from '../../constants';
 import type {
   ParcelItem,
   ParcelItemLimits,
   Parcels,
+  ParcelsErrors,
   ParcelsLimits,
-} from '@delivery/delivery-details/types';
+} from '../../types';
 
-import { PARCEL_ITEM_DEFAULTS } from './constants';
 import { ParcelItemComponent } from './parcel-item/parcel-item.component';
-import { PARCELS_VALIDATION_MESSAGES } from './parcels.constants';
 import { parcelsValidator } from './parcels.validator';
-import type { ParcelsErrors } from './types';
 
 @Component({
   selector: 'app-parcels',

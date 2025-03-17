@@ -10,12 +10,10 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-
-import { filter } from 'rxjs';
-
 import type { TuiBooleanHandler } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiHintDirective, TuiTitle } from '@taiga-ui/core';
 import { TuiBadge, TuiRadioList } from '@taiga-ui/kit';
+import { filter } from 'rxjs';
 
 import {
   type Cargo,
@@ -23,7 +21,7 @@ import {
   CargoType,
   CargoTypeId,
   type MappedCargoType,
-} from '@delivery/delivery-details/types';
+} from '../../types';
 
 @Component({
   selector: 'app-cargo-picker',

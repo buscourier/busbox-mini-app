@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import type { TuiDialogContext } from '@taiga-ui/core';
 import { TuiButton, tuiNumberFormatProvider } from '@taiga-ui/core';
 import { TuiInputNumberModule, tuiInputNumberOptionsProvider } from '@taiga-ui/legacy';
 import { injectContext } from '@taiga-ui/polymorpheus';
 
-import { PACKAGING_DEFAULT_QUANTITY } from '../packaging.constants';
-import type { SelectedPackagingItem } from '../packaging.types';
+import { PACKAGING_DEFAULT_QUANTITY } from '../../../constants';
+import type { SelectedPackagingItem } from '../../../types';
 
 @Component({
   selector: 'app-packaging-dialog',

@@ -1,6 +1,6 @@
 import type { DeliveryCity } from '@shared/types';
 
-import type { ParcelItemLimits, ParcelsLimits } from './parcel-limits.types';
+import type { ParcelItemLimits, ParcelsLimits } from './parcels.types';
 
 export interface GetCargoRestrictionsParams {
   deliveryCity: DeliveryCity | null;

@@ -10,7 +10,6 @@ export * from './order.types';
 export * from './order-details.types';
 export * from './other-cargo.types';
 export * from './packaging.types';
-export * from './parcel-limits.types';
 export * from './parcels.types';
 export * from './service.types';
 export * from './storage.types';

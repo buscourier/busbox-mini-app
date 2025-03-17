@@ -11,21 +11,18 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import { map } from 'rxjs/operators';
-
-import { merge } from 'rxjs';
-
 import { TuiStringifyContentPipe, TuiStringifyPipe } from '@taiga-ui/kit';
 import {
   TuiInputNumberModule,
   TuiSelectModule,
   TuiTextfieldControllerModule,
 } from '@taiga-ui/legacy';
+import { merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { isObjectsEqual } from '@core/utils';
 
-import type { Cargo, CargoItemRestrictions, OtherCargo } from '@delivery/delivery-details/types';
+import type { Cargo, CargoItemRestrictions, OtherCargo } from '../../types';
 
 import type { OtherCargoForm } from './other-cargo.types';
 

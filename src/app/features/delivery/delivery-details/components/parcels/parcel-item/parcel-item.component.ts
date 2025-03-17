@@ -18,9 +18,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
-import { debounceTime } from 'rxjs';
-
 import { TuiError, TuiHintDirective, TuiLabel } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
@@ -29,21 +26,22 @@ import {
   TuiFieldErrorPipe,
 } from '@taiga-ui/kit';
 import { TuiInputNumberModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
+import { debounceTime } from 'rxjs';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 import { isObjectsEqual } from '@core/utils';
 
 import { customMaxValidator, customMinValidator } from '@shared/validators';
 
+import { PARCEL_ITEM_DEFAULTS, PARCEL_ITEM_VALIDATION_MESSAGES } from '../../../constants';
 import type {
   ParcelItem,
   ParcelItemDimensions,
   ParcelItemLimits,
-} from '@delivery/delivery-details/types';
+  ParcelsErrors,
+} from '../../../types';
 
-import { PARCEL_ITEM_DEFAULTS } from '../constants';
-import type { ParcelsErrors } from '../types';
-import { limitKeyMap, PARCEL_ITEM_VALIDATION_MESSAGES } from './parcel-item.constants';
+import { limitKeyMap } from './parcel-item.constants';
 import type { ParcelItemForm } from './parcel-item.types';
 
 @Component({

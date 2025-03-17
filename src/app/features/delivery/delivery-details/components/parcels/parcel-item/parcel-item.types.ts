@@ -1,6 +1,6 @@
 import type { FormControl, FormGroup } from '@angular/forms';
 
-import type { ParcelItemDimensions } from '@delivery/delivery-details/types';
+import type { ParcelItemDimensions } from '../../../types';
 
 export type ParcelItemForm = FormGroup<{
   quantity: FormControl<number>;
@@ -9,8 +9,3 @@ export type ParcelItemForm = FormGroup<{
     [K in keyof ParcelItemDimensions]: FormControl<number>;
   }>;
 }>;
-
-export interface DimensionsError {
-  error: boolean;
-  diff: number;
-}

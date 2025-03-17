@@ -1,2 +1,2 @@
-export * from './package-names.const';
-export * from './parcel-limits.const';
+export * from './packaging.const';
+export * from './parcels.const';
