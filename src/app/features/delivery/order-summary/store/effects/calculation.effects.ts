@@ -1,47 +1,54 @@
 import { inject } from '@angular/core';
-
 import { createEffect } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
-import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
 import { combineLatest, debounceTime, filter, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 
 import type { ApiError } from '@shared/types';
 
-import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
-import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
-import { OrderSummaryService } from '@delivery/order-summary/services';
-import { OrderSummaryActions } from '@delivery/order-summary/store/actions';
-import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
+import { DeliveryDetailsFacade } from '@delivery/delivery-details';
+import { DeliveryPointFacade } from '@delivery/delivery-point';
+import { PickupPointFacade } from '@delivery/pickup-point';
+
+import { OrderSummaryService } from '../../services';
+
+import { OrderSummaryActions } from '../actions';
 
 export const calculationEffects = {
   setLoading: createEffect(
-    (store = inject(Store)) => {
+    (
+      pickupPointFacade = inject(PickupPointFacade),
+      deliveryPointFacade = inject(DeliveryPointFacade),
+      deliveryDetailsFacade = inject(DeliveryDetailsFacade),
+    ) => {
       return combineLatest([
-        store.select(pickupPointFeature.selectSelectedCity),
-        store.select(deliveryPointFeature.selectSelectedCity),
-        store.select(deliveryDetailsFeature.selectAll),
-        store.select(deliveryDetailsFeature.selectIsAllOrdersValid),
-        store.select(pickupPointFeature.selectCourier),
-        store.select(deliveryPointFeature.selectCourier),
+        pickupPointFacade.getSelectedCity(),
+        deliveryPointFacade.getSelectedCity(),
+        deliveryDetailsFacade.getOrders(),
+        deliveryDetailsFacade.isAllOrdersValid(),
+        pickupPointFacade.getCourier(),
+        deliveryPointFacade.getCourier(),
       ]).pipe(map(() => OrderSummaryActions.loadTotalAmount()));
     },
     { functional: true },
   ),
 
   calculateTotal: createEffect(
-    (store = inject(Store), orderSummaryService = inject(OrderSummaryService)) => {
+    (
+      pickupPointFacade = inject(PickupPointFacade),
+      deliveryPointFacade = inject(DeliveryPointFacade),
+      deliveryDetailsFacade = inject(DeliveryDetailsFacade),
+      orderSummaryService = inject(OrderSummaryService),
+    ) => {
       return combineLatest([
-        store.select(pickupPointFeature.selectSelectedCity),
-        store.select(deliveryPointFeature.selectSelectedCity),
-        store.select(deliveryDetailsFeature.selectAll),
-        store.select(deliveryDetailsFeature.selectIsAllOrdersValid),
-        store.select(pickupPointFeature.selectCourier),
-        store.select(deliveryPointFeature.selectCourier),
+        pickupPointFacade.getSelectedCity(),
+        deliveryPointFacade.getSelectedCity(),
+        deliveryDetailsFacade.getOrders(),
+        deliveryDetailsFacade.isAllOrdersValid(),
+        pickupPointFacade.getCourier(),
+        deliveryPointFacade.getCourier(),
       ]).pipe(
         debounceTime(DEBOUNCE_TIME.DEFAULT),
         filter(

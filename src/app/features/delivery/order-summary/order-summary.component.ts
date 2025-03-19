@@ -2,23 +2,19 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
 import { Store } from '@ngrx/store';
-
-import { of, switchMap } from 'rxjs';
-import type { Observable } from 'rxjs';
-
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiButton, TuiLoader } from '@taiga-ui/core';
 import type { TuiConfirmData } from '@taiga-ui/kit';
 import { TUI_CONFIRM } from '@taiga-ui/kit';
+import { of, switchMap } from 'rxjs';
+import type { Observable } from 'rxjs';
 
-import {
-  type OrderSummaryViewModel,
-  selectOrderSummaryViewModel,
-} from '@delivery/order-summary/store/selectors';
 import { DeliveryLayoutService } from '@delivery/services';
-import { DeliveryActions } from '@delivery/store/actions';
+import { DeliveryActions } from '@delivery/store';
+
+import { selectOrderSummaryViewModel } from './store';
+import type { OrderSummaryViewModel } from './types';
 
 @Component({
   selector: 'app-order-summary',

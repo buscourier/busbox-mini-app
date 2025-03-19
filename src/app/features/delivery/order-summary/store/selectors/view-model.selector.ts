@@ -1,12 +1,12 @@
 import { createSelector } from '@ngrx/store';
 
-import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
-import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
-import { orderSummaryFeature } from '@delivery/order-summary/store/feature';
-import type { OrderDelivery, OrderDirection } from '@delivery/order-summary/types';
-import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
+import { deliveryDetailsFeature } from '@delivery/delivery-details';
+import { deliveryPointFeature } from '@delivery/delivery-point';
+import { pickupPointFeature } from '@delivery/pickup-point';
 
-import type { OrderSummaryViewModel } from './view-model.types';
+import type { OrderDelivery, OrderDirection, OrderSummaryViewModel } from '../../types';
+
+import { orderSummaryFeature } from '../feature';
 
 const selectOrderDirection = createSelector(
   pickupPointFeature.selectSelectedCity,
