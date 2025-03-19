@@ -7,7 +7,7 @@ import type {
   OfficesViewModel,
 } from '@delivery/types';
 
-import type { PickupPointTab } from '../../types';
+import type { PickupPointTab } from './tab.types';
 
 /**
  * View model for PickupPoint component.

@@ -13,3 +13,4 @@ export * from './packaging.types';
 export * from './parcels.types';
 export * from './service.types';
 export * from './storage.types';
+export * from './view-model.types';

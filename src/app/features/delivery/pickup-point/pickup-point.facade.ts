@@ -5,12 +5,10 @@ import { map } from 'rxjs/operators';
 
 import type { FormControlStatus, Office, PickupCity } from '@shared/types';
 
-import type { CourierDetails } from '@delivery/types';
+import type { Courier, CourierDetails } from '@delivery/types';
 
-import { PickupPointActions } from './store/actions';
-import { pickupPointFeature } from './store/feature';
-import type { PickupPointViewModel } from './store/selectors';
-import type { PickupPointTabType } from './types';
+import { PickupPointActions, pickupPointFeature } from './store';
+import type { PickupPointViewModel, PickupPointTabType } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -44,8 +42,8 @@ export class PickupPointFacade {
   /**
    * Получает детали курьера (если выбран)
    */
-  getCourierDetails(): Observable<CourierDetails | null> {
-    return this.store.select(pickupPointFeature.selectCourierDetails);
+  getCourier(): Observable<Courier | null> {
+    return this.store.select(pickupPointFeature.selectCourier);
   }
 
   getDepartureDate(): Observable<string | null> {

@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
 import type { TuiConfirmData } from '@taiga-ui/kit';
@@ -45,16 +44,16 @@ import {
 } from '@shared/types';
 
 import { CourierDetailsComponent } from '@delivery/base/courier-details';
-import { DeliveryDetailsFacade } from '@delivery/delivery-details/delivery-details.facade';
-import { DeliveryPointFacade } from '@delivery/delivery-point/delivery-point.facade';
+import { DeliveryDetailsFacade } from '@delivery/delivery-details';
 import type { CourierDetails } from '@delivery/types';
 
+import { DeliveryPointFacade } from './delivery-point.facade';
 import type {
   DeliveryPointControlValues,
   DeliveryPointForm,
   ResetConfig,
 } from './delivery-point.types';
-import type { DeliveryPointViewModel } from './store/selectors';
+import type { DeliveryPointViewModel } from './types';
 import { DeliveryPointTabType } from './types';
 
 @Component({
@@ -94,7 +93,6 @@ export class DeliveryPointComponent implements OnInit {
   protected readonly TabType = DeliveryPointTabType;
 
   private readonly alerts = inject(TuiAlertService);
-  private readonly store = inject(Store);
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly searchQuery$ = new Subject<string | null>();

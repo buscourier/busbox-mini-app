@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 
 import { isObjectsEqual } from '@core/utils';
 
-import { DeliveryPointActions } from '@delivery/delivery-point/store/actions'; //????
-import { OrderSummaryActions } from '@delivery/order-summary/store/actions'; //????
+import { DeliveryPointFacade } from '@delivery/delivery-point';
+import { OrderSummaryFacade } from '@delivery/order-summary';
 
 import { PickupPointActions } from '../actions';
 
@@ -24,22 +24,22 @@ export const resetEffects = {
     { functional: true },
   ),
   resetDeliveryPoint: createEffect(
-    (actions$ = inject(Actions)) => {
+    (actions$ = inject(Actions), deliveryPointFacade = inject(DeliveryPointFacade)) => {
       return actions$.pipe(
         ofType(PickupPointActions.resetState),
         // delay(0),
-        map(() => DeliveryPointActions.resetState({ keepCity: false })),
+        map(() => deliveryPointFacade.reset()),
       );
     },
-    { functional: true },
+    { functional: true, dispatch: false },
   ),
   resetOrderSummary: createEffect(
-    (actions$ = inject(Actions)) => {
+    (actions$ = inject(Actions), orderSummaryFacade = inject(OrderSummaryFacade)) => {
       return actions$.pipe(
         ofType(PickupPointActions.resetState),
-        map(() => OrderSummaryActions.resetState()),
+        map(() => orderSummaryFacade.reset()),
       );
     },
-    { functional: true },
+    { functional: true, dispatch: false },
   ),
 };

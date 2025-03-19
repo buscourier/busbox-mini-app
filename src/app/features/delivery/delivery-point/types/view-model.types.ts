@@ -7,7 +7,7 @@ import type {
   OfficesViewModel,
 } from '@delivery/types';
 
-import type { DeliveryPointTab } from '../../types';
+import type { DeliveryPointTab } from './tab.types';
 
 /**
  * Usage example:

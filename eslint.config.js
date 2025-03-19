@@ -172,6 +172,19 @@ module.exports = tseslint.config(
           ],
         },
       ],
+      'import/no-internal-modules': [
+        'error',
+        {
+          allow: [
+            '@angular/**/*',
+            'rxjs/*',
+            '@delivery/*',
+            '@delivery/base/*',
+            '@delivery/*/types',
+            '@delivery/*/constants',
+          ],
+        },
+      ],
       'import/no-cycle': ['error', { maxDepth: Infinity }],
       'import/no-duplicates': 'error',
       'import/no-unresolved': 'error',

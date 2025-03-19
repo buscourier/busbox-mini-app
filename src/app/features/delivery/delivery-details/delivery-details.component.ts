@@ -18,8 +18,7 @@ import {
 } from './components';
 import { DeliveryDetailsFacade } from './delivery-details.facade';
 import type { OrderDataKeys } from './delivery-details.types';
-import type { DeliveryDetailsViewModel } from './store/selectors';
-import type { Order, OrderValidationState } from './types';
+import type { Order, OrderValidationState, DeliveryDetailsViewModel } from './types';
 import { CargoType } from './types';
 
 @Component({

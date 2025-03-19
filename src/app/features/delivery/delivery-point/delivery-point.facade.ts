@@ -4,12 +4,10 @@ import { type Observable } from 'rxjs';
 
 import type { DeliveryCity, FormControlStatus, Office } from '@shared/types';
 
-import type { CourierDetails } from '@delivery/types';
+import type { Courier, CourierDetails } from '@delivery/types';
 
-import { DeliveryPointActions } from './store/actions';
-import { deliveryPointFeature } from './store/feature';
-import type { DeliveryPointViewModel } from './store/selectors';
-import type { DeliveryPointTabType } from './types';
+import { DeliveryPointActions, deliveryPointFeature } from './store';
+import type { DeliveryPointTabType, DeliveryPointViewModel } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -55,8 +53,8 @@ export class DeliveryPointFacade {
   /**
    * Получает детали курьера (если выбран)
    */
-  getCourierDetails(): Observable<CourierDetails | null> {
-    return this.store.select(deliveryPointFeature.selectCourierDetails);
+  getCourier(): Observable<Courier | null> {
+    return this.store.select(deliveryPointFeature.selectCourier);
   }
 
   /**

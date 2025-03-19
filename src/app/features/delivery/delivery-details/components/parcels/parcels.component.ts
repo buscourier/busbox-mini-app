@@ -27,7 +27,7 @@ import type {
   ParcelsLimits,
 } from '../../types';
 
-import { ParcelItemComponent } from './parcel-item/parcel-item.component';
+import { ParcelItemComponent } from './parcel-item';
 import { parcelsValidator } from './parcels.validator';
 
 @Component({

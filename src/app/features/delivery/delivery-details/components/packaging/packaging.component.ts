@@ -9,7 +9,7 @@ import {
 } from '../../constants';
 import type { Packaging, PackagingItem, Service } from '../../types';
 
-import { PackagingDialogComponent } from './packaging-dialog/packaging-dialog.component';
+import { PackagingDialogComponent } from './packaging-dialog';
 
 @Component({
   selector: 'app-packaging',

@@ -3,10 +3,8 @@ import { Store } from '@ngrx/store';
 import type { Observable } from 'rxjs';
 
 import type { OrderDataKeys } from './delivery-details.types';
-import { OrderActions } from './store/actions';
-import { deliveryDetailsFeature } from './store/feature';
-import type { DeliveryDetailsViewModel } from './store/selectors';
-import type { CargoType, Order, OrderValidationState } from './types';
+import { DeliveryDetailsActions, OrderActions, deliveryDetailsFeature } from './store';
+import type { CargoType, Order, OrderValidationState, DeliveryDetailsViewModel } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +26,10 @@ export class DeliveryDetailsFacade {
 
   setActiveOrder(orderId: string): void {
     this.store.dispatch(OrderActions.setActive({ orderId }));
+  }
+
+  getOrders(): Observable<Order[]> {
+    return this.store.select(deliveryDetailsFeature.selectAll);
   }
 
   setCargoType(orderId: string, cargoType: CargoType): void {
@@ -54,5 +56,13 @@ export class DeliveryDetailsFacade {
 
   isActiveOrderValid(): Observable<boolean> {
     return this.store.select(deliveryDetailsFeature.selectIsActiveOrderValid);
+  }
+
+  isAllOrdersValid(): Observable<boolean> {
+    return this.store.select(deliveryDetailsFeature.selectIsAllOrdersValid);
+  }
+
+  resetOptions(): void {
+    this.store.dispatch(DeliveryDetailsActions.resetOptions());
   }
 }

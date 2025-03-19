@@ -1,8 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
+import type { DeliveryPointViewModel } from '../../types';
+
 import type { BaseSelectors } from './base-selectors.types';
 import type { DerivedSelectors } from './derived-selectors.types';
-import type { DeliveryPointViewModel } from './view-model.types';
 
 export const createViewModelSelector = (
   baseSelectors: BaseSelectors,
