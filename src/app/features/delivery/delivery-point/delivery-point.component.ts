@@ -118,7 +118,6 @@ export class DeliveryPointComponent implements OnInit {
 
   ngOnInit(): void {
     this.vm$ = this.deliveryPointFacade.getViewModel();
-    this.deliveryPointFacade.init();
 
     this.initValues();
     this.initForm();

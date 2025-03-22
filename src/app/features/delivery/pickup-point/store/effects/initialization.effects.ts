@@ -4,7 +4,6 @@ import { map } from 'rxjs/operators';
 
 import { PersistenceService } from '@core/services';
 
-import { initBooking } from '@delivery/booking';
 import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
 
 import { PickupPointActions } from '../actions';
@@ -13,7 +12,7 @@ export const initializationEffects = {
   restoreState: createEffect(
     (actions$ = inject(Actions), persistenceService = inject(PersistenceService)) => {
       return actions$.pipe(
-        ofType(PickupPointActions.initState, initBooking),
+        ofType(PickupPointActions.initState),
         map(() => {
           const restoredState = persistenceService.load<DeliveryStorageKey, DeliveryStorageSchema>(
             'pickupPoint',
