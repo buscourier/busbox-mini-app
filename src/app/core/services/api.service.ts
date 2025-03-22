@@ -1,11 +1,9 @@
 import type { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { map } from 'rxjs/operators';
-
 import { catchError, concatAll, filter, shareReplay, throwError, toArray } from 'rxjs';
 import type { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ERROR_MESSAGES, type ErrorCode } from '@core/constants';
 

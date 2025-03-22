@@ -2,9 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { type Observable } from 'rxjs';
 
-import type { DeliveryCity, FormControlStatus, Office } from '@shared/types';
+import type { DeliveryCity, FormControlStatus, FormValidationState, Office } from '@shared/types';
 
-import type { Courier, CourierDetails } from '@delivery/types';
+import type { Courier, CourierDetails, ReviewSection } from '@delivery/types';
 
 import { DeliveryPointActions, deliveryPointFeature } from './store';
 import type { DeliveryPointTabType, DeliveryPointViewModel } from './types';
@@ -57,6 +57,10 @@ export class DeliveryPointFacade {
     return this.store.select(deliveryPointFeature.selectCourier);
   }
 
+  getFormState(): Observable<FormValidationState> {
+    return this.store.select(deliveryPointFeature.selectFormState);
+  }
+
   /**
    * Получает доступные офисы для выбранного города
    */
@@ -67,8 +71,8 @@ export class DeliveryPointFacade {
   /**
    * Получает текущий активный таб
    */
-  getActiveTab(): Observable<DeliveryPointTabType | null> {
-    return this.store.select(deliveryPointFeature.selectActiveTabId);
+  getDeliveryTypeName(): Observable<string> {
+    return this.store.select(deliveryPointFeature.selectActiveTabName);
   }
 
   /**
@@ -125,6 +129,10 @@ export class DeliveryPointFacade {
 
   setBusPickup(enabled: boolean) {
     this.store.dispatch(DeliveryPointActions.setBusPickup({ enabled }));
+  }
+
+  getBusPickup(): Observable<boolean> {
+    return this.store.select(deliveryPointFeature.selectBusPickup);
   }
 
   /**
@@ -206,25 +214,7 @@ export class DeliveryPointFacade {
   /**
    * Получает данные для сохранения в представлении обзора
    */
-  // getReviewData(): Observable<unknown> {
-  //   return this.getViewModel().pipe(
-  //     take(1),
-  //     filter((vm) => !!vm.cities.selected),
-  //     map((vm) => {
-  //       const city = vm.cities.selected;
-  //       const office = vm.offices.selected;
-  //       const courierDetails = vm.courierDetails;
-  //       const date = vm.departureDate;
-  //       const activeTabType = vm.activeTab?.id;
-  //
-  //       return {
-  //         city,
-  //         office,
-  //         courierDetails,
-  //         date,
-  //         deliveryMethod: activeTabType,
-  //       };
-  //     }),
-  //   );
-  // }
+  getReviewSection(): Observable<ReviewSection> {
+    return this.store.select(deliveryPointFeature.selectReviewSection);
+  }
 }

@@ -9,9 +9,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
-import { map } from 'rxjs/operators';
-
 import { TuiHint } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
@@ -20,6 +17,7 @@ import {
   TuiRadioList,
 } from '@taiga-ui/kit';
 import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
+import { map } from 'rxjs/operators';
 
 import { ADDRESS_VALIDATION_LIMITS, ADDRESS_VALIDATION_MESSAGES } from '@core/constants';
 

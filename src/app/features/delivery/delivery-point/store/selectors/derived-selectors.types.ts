@@ -2,7 +2,7 @@ import type { MemoizedSelector } from '@ngrx/store';
 
 import type { FormValidationState, Office } from '@shared/types';
 
-import type { Courier, ErrorStatus } from '@delivery/types';
+import type { Courier, ErrorStatus, ReviewSection } from '@delivery/types';
 
 import type { DeliveryPointTab } from '../../types';
 
@@ -16,4 +16,6 @@ export interface DerivedSelectors {
   selectFormState: MemoizedSelector<object, FormValidationState>;
   selectErrorStatus: MemoizedSelector<object, ErrorStatus>;
   selectIsDeliveryLimited: MemoizedSelector<object, boolean>;
+  selectReviewSection: MemoizedSelector<object, ReviewSection>;
+  selectActiveTabName: MemoizedSelector<object, string>;
 }

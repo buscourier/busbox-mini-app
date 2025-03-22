@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { map } from 'rxjs/operators';
-
 import { catchError, forkJoin, retry } from 'rxjs';
 import type { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ApiService } from '@core/services';
 

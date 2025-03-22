@@ -1,2 +1,2 @@
-export * from './failure/failure.component';
-export * from './success/success.component';
+export * from './failure';
+export * from './success';

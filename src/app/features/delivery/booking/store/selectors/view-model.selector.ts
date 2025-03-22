@@ -1,8 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
+import type { BookingViewModel } from '../../types';
+
 import type { BaseSelectors } from './base-selectors.types';
 import type { DerivedSelectors } from './derived-selectors.types';
-import type { BookingViewModel } from './view-model.types';
 
 export const createViewModelSelector = (
   baseSelectors: BaseSelectors,

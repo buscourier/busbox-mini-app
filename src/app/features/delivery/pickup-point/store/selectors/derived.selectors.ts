@@ -4,7 +4,8 @@ import type { Office, PickupCity } from '@shared/types';
 import { FormControlStatus } from '@shared/types';
 
 import { LIMITED_OFFICE } from '@delivery/constants';
-import type { Courier, ErrorStatus } from '@delivery/types';
+import type { Courier, ErrorStatus, ReviewSection } from '@delivery/types';
+import { getDeliveryMethod } from '@delivery/utils';
 
 import { PICKUP_POINT_TABS } from '../../constants';
 import { PickupPointTabType } from '../../types';
@@ -83,6 +84,10 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     },
   );
 
+  const selectActiveTabName = createSelector(selectActiveTab, (activeTab) =>
+    activeTab ? activeTab.name : '',
+  );
+
   const selectFormControlStatus = createSelector(baseSelectors.selectForm, (state) => ({
     valid: state.status === FormControlStatus.VALID,
     invalid: state.status === FormControlStatus.INVALID,
@@ -117,6 +122,23 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     (isOfficeLimited, isCourierSelected): boolean => isOfficeLimited || isCourierSelected,
   );
 
+  const selectReviewSection = createSelector(
+    baseSelectors.selectSelectedCity,
+    baseSelectors.selectSelectedOffice,
+    baseSelectors.selectCourierDetails,
+    baseSelectors.selectDepartureDate,
+    (city, office, courier, date): ReviewSection => {
+      return {
+        title: 'Пункт отправления',
+        fields: [
+          { label: 'Населенный пункт', value: city?.name || 'Не указан' },
+          { label: 'Дата отправления', value: date || 'Не указан' },
+          getDeliveryMethod(office, courier),
+        ],
+      };
+    },
+  );
+
   return {
     selectAvailableOffices,
     selectIsOfficeLimited,
@@ -124,8 +146,10 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     selectActiveTab,
     selectIsCourierSelected,
     selectCourier,
+    selectActiveTabName,
     selectFormState,
     selectErrorStatus,
     selectIsPickupLimited,
+    selectReviewSection,
   };
 };

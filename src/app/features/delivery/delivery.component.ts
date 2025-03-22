@@ -2,10 +2,9 @@ import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
 import type { Observable } from 'rxjs';
 
-import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { OrderSummaryComponent } from './order-summary';
 import { DeliveryLayoutService } from './services';
 
 @Component({

@@ -11,7 +11,7 @@ import type {
   Step,
   StepNumber,
   StepsData,
-} from '@delivery/booking/types';
+} from '../../types';
 
 export interface BaseSelectors {
   selectCurrentStep: MemoizedSelector<object, StepNumber>;

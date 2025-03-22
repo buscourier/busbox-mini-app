@@ -1,49 +1,51 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mapResponse } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
 import { debounceTime, delay, switchMap, tap, withLatestFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 
 import type { ApiError } from '@shared/types';
 
-import { BookingService } from '@delivery/booking/services';
-import { BookingActions } from '@delivery/booking/store/actions';
-import { bookingFeature } from '@delivery/booking/store/feature';
-import { deliveryDetailsFeature } from '@delivery/delivery-details/store/feature';
-import { deliveryPointFeature } from '@delivery/delivery-point/store/feature';
-import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
-import { DeliveryActions } from '@delivery/store/actions';
+import { DeliveryDetailsFacade } from '@delivery/delivery-details';
+import { DeliveryPointFacade } from '@delivery/delivery-point';
+import { PickupPointFacade } from '@delivery/pickup-point';
+import { DeliveryActions } from '@delivery/store';
+
+import { BookingService } from '../../services';
+
+import { BookingActions } from '../actions';
+import { bookingFeature } from '../feature';
 
 export const bookingEffects = {
   submitOrder: createEffect(
     (
       actions$ = inject(Actions),
       store = inject(Store),
+      pickupPointFacade = inject(PickupPointFacade),
+      deliveryPointFacade = inject(DeliveryPointFacade),
+      deliveryDetailsFacade = inject(DeliveryDetailsFacade),
       bookingService = inject(BookingService),
     ) => {
       return actions$.pipe(
         ofType(BookingActions.submitOrder),
         debounceTime(DEBOUNCE_TIME.DEFAULT),
         withLatestFrom(
-          store.select(pickupPointFeature.selectSelectedCity),
-          store.select(pickupPointFeature.selectSelectedOffice),
-          store.select(pickupPointFeature.selectCourier),
-          store.select(deliveryPointFeature.selectSelectedCity),
-          store.select(deliveryPointFeature.selectSelectedOffice),
-          store.select(deliveryPointFeature.selectCourier),
-          store.select(deliveryPointFeature.selectBusPickup),
-          store.select(pickupPointFeature.selectDepartureDate),
+          pickupPointFacade.getSelectedCity(),
+          pickupPointFacade.getSelectedOffice(),
+          pickupPointFacade.getCourier(),
+          deliveryPointFacade.getSelectedCity(),
+          deliveryPointFacade.getSelectedOffice(),
+          deliveryPointFacade.getCourier(),
+          deliveryPointFacade.getBusPickup(),
+          pickupPointFacade.getDepartureDate(),
           store.select(bookingFeature.selectDeparture),
           store.select(bookingFeature.selectDestination),
           store.select(bookingFeature.selectReview),
-          store.select(deliveryDetailsFeature.selectAll),
+          deliveryDetailsFacade.getOrders(),
         ),
         switchMap(
           ([

@@ -1,4 +1,4 @@
-import { SenderDocument, type SenderDocumentOption } from '@delivery/booking/types';
+import { SenderDocument, type SenderDocumentOption } from '../../../types';
 
 export const defaultDocument = {
   value: SenderDocument.PASSPORT,

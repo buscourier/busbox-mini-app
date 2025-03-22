@@ -10,7 +10,7 @@ import type {
   Sender,
   StepNumber,
   StoredBookingState,
-} from '@delivery/booking/types';
+} from '../types';
 
 export const BookingActions = createActionGroup({
   source: 'Booking',

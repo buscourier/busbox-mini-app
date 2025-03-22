@@ -1,6 +1,6 @@
 import type { ApiError } from '@shared/types';
 
-import type { BookingResult, Step, StepNumber, StepsData } from '@delivery/booking/types';
+import type { BookingResult, Step, StepNumber, StepsData } from '../types';
 
 export interface BookingState {
   currentStep: StepNumber;

@@ -7,7 +7,7 @@ import { resetPickupPointState } from '@delivery/pickup-point';
 import { OrderSummaryActions } from '../actions';
 
 export const resetEffects = {
-  resetOrderSummary: createEffect(
+  onPickupPointReset: createEffect(
     (actions$ = inject(Actions)) => {
       return actions$.pipe(
         ofType(resetPickupPointState),

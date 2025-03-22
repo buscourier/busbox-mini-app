@@ -4,7 +4,13 @@ import type { Observable } from 'rxjs';
 
 import type { OrderDataKeys } from './delivery-details.types';
 import { DeliveryDetailsActions, OrderActions, deliveryDetailsFeature } from './store';
-import type { CargoType, Order, OrderValidationState, DeliveryDetailsViewModel } from './types';
+import type {
+  CargoType,
+  Order,
+  OrderValidationState,
+  DeliveryDetailsViewModel,
+  ActiveOrderDetails,
+} from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -64,5 +70,9 @@ export class DeliveryDetailsFacade {
 
   resetOptions(): void {
     this.store.dispatch(DeliveryDetailsActions.resetOptions());
+  }
+
+  getActiveOrderDetails(): Observable<ActiveOrderDetails> {
+    return this.store.select(deliveryDetailsFeature.selectActiveOrderDetails);
   }
 }

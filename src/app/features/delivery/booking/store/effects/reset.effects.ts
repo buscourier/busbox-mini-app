@@ -1,11 +1,10 @@
 import { inject } from '@angular/core';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
 import { map } from 'rxjs/operators';
 
-import { BookingActions } from '@delivery/booking/store/actions';
-import { DeliveryActions } from '@delivery/store/actions';
+import { DeliveryActions } from '@delivery/store';
+
+import { BookingActions } from '../actions';
 
 export const resetEffects = {
   resetOnGlobalReset: createEffect(

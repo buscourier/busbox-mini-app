@@ -4,23 +4,16 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
-import { debounceTime, distinctUntilChanged, filter, merge, tap, withLatestFrom } from 'rxjs';
-import type { Observable } from 'rxjs';
-
 import { TuiCheckbox } from '@taiga-ui/kit';
 import { TuiTextareaModule } from '@taiga-ui/legacy';
+import { debounceTime, distinctUntilChanged, filter, merge, tap, withLatestFrom } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { BookingActions } from '@delivery/booking/store/actions';
-import { bookingFeature } from '@delivery/booking/store/feature';
-import type { Review, StepNumber } from '@delivery/booking/types';
+import { BookingFacade } from '../../booking.facade';
+import type { Review, ReviewModel, StepNumber } from '../../types';
 
-import type { ReviewControlValues, ReviewForm, ReviewModel } from './review.types';
-import { selectReviewModel } from './selectors/review.selector';
+import type { ReviewControlValues, ReviewForm } from './review.types';
 
 @Component({
   selector: 'app-review',
@@ -31,14 +24,15 @@ import { selectReviewModel } from './selectors/review.selector';
 })
 export class ReviewComponent implements OnInit {
   currentStep$!: Observable<StepNumber>;
-  reviewView$!: Observable<ReviewModel>;
+  reviewModel$!: Observable<ReviewModel>;
   reviewData$!: Observable<Review>;
 
   form!: ReviewForm;
 
   private readonly fb = inject(FormBuilder);
-  private readonly store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
+
+  private readonly bookingFacade = inject(BookingFacade);
 
   get comment(): FormControl<string | null> {
     return this.form.controls.comment;
@@ -53,9 +47,10 @@ export class ReviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentStep$ = this.store.select(bookingFeature.selectCurrentStep);
-    this.reviewView$ = this.store.select(selectReviewModel);
-    this.reviewData$ = this.store.select(bookingFeature.selectReview);
+    this.currentStep$ = this.bookingFacade.getCurrentStep();
+    this.reviewData$ = this.bookingFacade.getReviewData();
+    this.reviewModel$ = this.bookingFacade.getReviewModel();
+
     this.initializeForm();
     this.setupFormSync();
     this.setupFormValidation();
@@ -82,23 +77,18 @@ export class ReviewComponent implements OnInit {
   private setupFormSync(): void {
     const formChanges$ = merge(
       this.comment.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
         filter(Boolean),
-        map((comment) => BookingActions.updateReview({ comment })),
+        map((comment) => ({ comment })),
       ),
-      this.rulesAccepted.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
-        map((rulesAccepted) => BookingActions.updateReview({ rulesAccepted })),
-      ),
+      this.rulesAccepted.valueChanges.pipe(map((rulesAccepted) => ({ rulesAccepted }))),
       this.processingAccepted.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
-        map((processingAccepted) => BookingActions.updateReview({ processingAccepted })),
+        map((processingAccepted) => ({ processingAccepted })),
       ),
     );
 
-    formChanges$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((action) => this.store.dispatch(action));
+    formChanges$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((reviewData) => {
+      this.bookingFacade.updateReview(reviewData);
+    });
   }
 
   private setupStoreSync(): void {
@@ -145,12 +135,7 @@ export class ReviewComponent implements OnInit {
   }
 
   updateStepValidation(isValid: boolean, step: StepNumber): void {
-    this.store.dispatch(
-      BookingActions.updateStepValidation({
-        step,
-        isValid,
-      }),
-    );
+    this.bookingFacade.updateStepValidation(isValid, step);
   }
 
   private patchFormControl<K extends keyof ReviewControlValues>(

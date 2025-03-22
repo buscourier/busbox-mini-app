@@ -11,22 +11,18 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import { map } from 'rxjs/operators';
-
-import { merge } from 'rxjs';
-
 import { TuiHintDirective } from '@taiga-ui/core';
 import { TuiBadge, TuiFieldErrorContentPipe } from '@taiga-ui/kit';
 import { TuiInputModule, TuiInputPhoneModule } from '@taiga-ui/legacy';
+import { merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { USER_VALIDATION_LIMITS } from '@core/constants';
-import { isObjectsEqual } from '@core/utils/object.utils';
+import { isObjectsEqual } from '@core/utils';
 
-import { phoneValidator } from '@shared/validators';
-import { fullNameValidator } from '@shared/validators/user.validators';
+import { fullNameValidator, phoneValidator } from '@shared/validators';
 
-import type { Recipient } from '@delivery/booking/types';
+import type { Recipient } from '../../../types';
 
 import type { RecipientForm } from './recipient.types';
 

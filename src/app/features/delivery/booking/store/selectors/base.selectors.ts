@@ -1,7 +1,7 @@
 import type { MemoizedSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 
-import type { BookingState } from '@delivery/booking/store/state';
+import type { BookingState } from '../state';
 
 import type { BaseSelectors } from './base-selectors.types';
 

@@ -11,11 +11,6 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import { map } from 'rxjs/operators';
-
-import { merge } from 'rxjs';
-
 import { TuiHintDirective } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
@@ -25,6 +20,8 @@ import {
   TuiStringifyPipe,
 } from '@taiga-ui/kit';
 import { TuiInputModule, TuiInputPhoneModule, TuiSelectModule } from '@taiga-ui/legacy';
+import { merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {
   EMAIL_VALIDATION_MESSAGES,
@@ -41,7 +38,7 @@ import {
   phoneValidator,
 } from '@shared/validators';
 
-import type { Individual } from '@delivery/booking/types';
+import type { Individual } from '../../../types';
 
 import { individualRoles } from './individual.constants';
 import type { IndividualForm } from './individual.types';

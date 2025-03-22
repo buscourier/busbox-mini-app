@@ -3,7 +3,8 @@ import { createSelector } from '@ngrx/store';
 import type { DeliveryCity, Office } from '@shared/types';
 
 import { LIMITED_OFFICE } from '@delivery/constants';
-import type { Courier, ErrorStatus } from '@delivery/types';
+import type { Courier, ErrorStatus, ReviewSection } from '@delivery/types';
+import { getDeliveryMethod } from '@delivery/utils';
 
 import { DELIVERY_POINT_TABS } from '../../constants';
 import type { DeliveryPointTab } from '../../types';
@@ -107,6 +108,10 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     },
   );
 
+  const selectActiveTabName = createSelector(selectActiveTab, (activeTab) =>
+    activeTab ? activeTab.name : '',
+  );
+
   const selectFormControlStatus = createSelector(
     baseSelectors.selectIsFormValid,
     baseSelectors.selectIsFormInvalid,
@@ -147,6 +152,20 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     (isOfficeLimited, isCourierSelected): boolean => isOfficeLimited || isCourierSelected,
   );
 
+  const selectReviewSection = createSelector(
+    baseSelectors.selectSelectedCity,
+    baseSelectors.selectSelectedOffice,
+    baseSelectors.selectCourierDetails,
+    baseSelectors.selectBusPickup,
+    (city, office, courier, busPickup): ReviewSection => ({
+      title: 'Пункт отправления',
+      fields: [
+        { label: 'Населенный пункт', value: city?.name || 'Не указан' },
+        getDeliveryMethod(office, courier, busPickup),
+      ],
+    }),
+  );
+
   return {
     selectAvailableOffices,
     selectIsOfficeLimited,
@@ -154,8 +173,10 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     selectActiveTab,
     selectIsCourierSelected,
     selectCourier,
+    selectActiveTabName,
     selectFormState,
     selectErrorStatus,
     selectIsDeliveryLimited,
+    selectReviewSection,
   };
 };

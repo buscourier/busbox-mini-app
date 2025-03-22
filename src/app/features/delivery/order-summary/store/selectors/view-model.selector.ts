@@ -1,55 +1,20 @@
 import { createSelector } from '@ngrx/store';
 
-import { deliveryDetailsFeature } from '@delivery/delivery-details';
-import { deliveryPointFeature } from '@delivery/delivery-point';
-import { pickupPointFeature } from '@delivery/pickup-point';
+import type { OrderSummaryBaseViewModel } from '../../types';
 
-import type { OrderDelivery, OrderDirection, OrderSummaryViewModel } from '../../types';
+import type { BaseSelectors } from './base-selectors.types';
 
-import { orderSummaryFeature } from '../feature';
-
-const selectOrderDirection = createSelector(
-  pickupPointFeature.selectSelectedCity,
-  deliveryPointFeature.selectSelectedCity,
-  (pickupCity, deliveryCity): OrderDirection | null =>
-    pickupCity && deliveryCity ? { from: pickupCity.name, to: deliveryCity.name } : null,
-);
-
-const selectOrderDelivery = createSelector(
-  pickupPointFeature.selectActiveTab,
-  deliveryPointFeature.selectActiveTab,
-  (pickupPoint, deliveryPoint): OrderDelivery | null =>
-    pickupPoint && deliveryPoint
-      ? {
-          pickup: pickupPoint.name,
-          delivery: deliveryPoint.name,
-        }
-      : null,
-);
-
-export const selectOrderSummaryViewModel = createSelector(
-  selectOrderDirection,
-  selectOrderDelivery,
-  deliveryDetailsFeature.selectActiveOrderDetails,
-  orderSummaryFeature.selectIsLoading,
-  orderSummaryFeature.selectIsLoaded,
-  orderSummaryFeature.selectError,
-  orderSummaryFeature.selectTotalAmount,
-  (
-    orderDirection,
-    orderDelivery,
-    orderDetails,
-    isLoading,
-    isLoaded,
-    error,
-    totalAmount,
-  ): OrderSummaryViewModel => ({
-    orderDirection,
-    orderDelivery,
-    orderDetails,
-    isLoading,
-    isLoaded,
-    error,
-    totalAmount,
-  }),
-);
+export const createViewModelSelector = (baseSelectors: BaseSelectors) => ({
+  selectBaseViewModel: createSelector(
+    baseSelectors.selectIsLoading,
+    baseSelectors.selectIsLoaded,
+    baseSelectors.selectError,
+    baseSelectors.selectTotalAmount,
+    (isLoading, isLoaded, error, totalAmount): OrderSummaryBaseViewModel => ({
+      isLoading,
+      isLoaded,
+      error,
+      totalAmount,
+    }),
+  ),
+});

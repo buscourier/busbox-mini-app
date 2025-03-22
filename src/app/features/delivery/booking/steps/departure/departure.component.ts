@@ -2,19 +2,15 @@ import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-import { Store } from '@ngrx/store';
-
 import { take, withLatestFrom } from 'rxjs';
 import type { Observable } from 'rxjs';
 
-import { BookingActions } from '@delivery/booking/store/actions';
-import { bookingFeature } from '@delivery/booking/store/feature';
-import type { Departure, Sender, StepNumber } from '@delivery/booking/types';
-import { PickupPointComponent } from '@delivery/pickup-point/pickup-point.component';
-import { pickupPointFeature } from '@delivery/pickup-point/store/feature';
+import { PickupPointComponent, PickupPointFacade } from '@delivery/pickup-point';
 
-import { SenderComponent } from './sender/sender.component';
+import { BookingFacade } from '../../booking.facade';
+import type { Departure, Sender, StepNumber } from '../../types';
+
+import { SenderComponent } from './sender';
 
 @Component({
   selector: 'app-departure',
@@ -30,15 +26,16 @@ export class DepartureComponent implements OnInit {
   private isSenderValid = false;
   private isPickupPointValid = false;
 
-  private readonly store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly bookingFacade = inject(BookingFacade);
+  private readonly pickupPointFacade = inject(PickupPointFacade);
 
   ngOnInit(): void {
-    this.currentStep$ = this.store.select(bookingFeature.selectCurrentStep);
-    this.departure$ = this.store.select(bookingFeature.selectDeparture);
+    this.currentStep$ = this.bookingFacade.getCurrentStep();
+    this.departure$ = this.bookingFacade.getDeparture();
 
-    this.store
-      .select(pickupPointFeature.selectFormState)
+    this.pickupPointFacade
+      .getFormState()
       .pipe(withLatestFrom(this.currentStep$), takeUntilDestroyed(this.destroyRef))
       .subscribe(([formState]) => {
         this.isPickupPointValid = formState.valid;
@@ -47,7 +44,7 @@ export class DepartureComponent implements OnInit {
   }
 
   updateSender(data: Sender): void {
-    this.store.dispatch(BookingActions.updateSenderData({ data }));
+    this.bookingFacade.updateSender(data);
   }
 
   onSenderValidationChange(isValid: boolean): void {
@@ -59,12 +56,7 @@ export class DepartureComponent implements OnInit {
     const isStepValid = this.isSenderValid && this.isPickupPointValid;
 
     this.currentStep$.pipe(take(1)).subscribe((currentStep) => {
-      this.store.dispatch(
-        BookingActions.updateStepValidation({
-          step: currentStep,
-          isValid: isStepValid,
-        }),
-      );
+      this.bookingFacade.updateStepValidation(isStepValid, currentStep);
     });
   }
 }

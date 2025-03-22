@@ -13,7 +13,7 @@ import type { Observable } from 'rxjs';
 import { DeliveryLayoutService } from '@delivery/services';
 import { DeliveryActions } from '@delivery/store';
 
-import { selectOrderSummaryViewModel } from './store';
+import { OrderSummaryFacade } from './order-summary.facade';
 import type { OrderSummaryViewModel } from './types';
 
 @Component({
@@ -30,9 +30,10 @@ export class OrderSummaryComponent implements OnInit {
   private store = inject(Store);
   private deliveryLayoutService = inject(DeliveryLayoutService);
   private readonly dialogs = inject(TuiResponsiveDialogService);
+  private readonly orderSummaryFacade = inject(OrderSummaryFacade);
 
   ngOnInit(): void {
-    this.vm$ = this.store.select(selectOrderSummaryViewModel);
+    this.vm$ = this.orderSummaryFacade.getViewModel();
     this.isCalculatorLayout$ = this.deliveryLayoutService.getIsCalculatorLayout();
   }
 

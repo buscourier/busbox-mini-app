@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import type { StepNumber } from '@delivery/booking/types';
+import type { StepNumber } from '../types';
 
 import { BookingActions } from './actions';
 import type { BookingState } from './state';

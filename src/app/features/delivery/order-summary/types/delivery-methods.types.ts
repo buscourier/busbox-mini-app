@@ -1,4 +1,4 @@
-export interface OrderDelivery {
+export interface DeliveryMethods {
   pickup: string;
   delivery: string;
 }

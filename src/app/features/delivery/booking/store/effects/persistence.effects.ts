@@ -1,20 +1,19 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-
-import { map } from 'rxjs/operators';
-
 import { debounceTime, filter, tap, withLatestFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DEBOUNCE_TIME } from '@core/constants';
 import { PersistenceService } from '@core/services';
 
-import { BookingActions } from '@delivery/booking/store/actions';
-import { bookingFeature } from '@delivery/booking/store/feature';
-import type { StoredBookingState } from '@delivery/booking/types';
 import type { DeliveryStorageKey, DeliveryStorageSchema } from '@delivery/types';
+
+import type { StoredBookingState } from '../../types';
+
+import { BookingActions } from '../actions';
+import { bookingFeature } from '../feature';
 
 export const persistenceEffects = {
   saveState: createEffect(

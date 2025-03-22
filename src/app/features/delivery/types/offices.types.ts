@@ -1,6 +1,4 @@
-import type { LoadingStatus } from '@shared/types';
-import type { ApiError } from '@shared/types/api-error.types';
-import type { Office } from '@shared/types/office.types';
+import type { LoadingStatus, ApiError, Office } from '@shared/types';
 
 export interface OfficesState {
   items: Office[];

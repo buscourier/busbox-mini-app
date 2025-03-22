@@ -1,19 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { map } from 'rxjs/operators';
-
 import type { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import type { DeliveryCity, PickupCity } from '@shared/types';
 
 import { environment } from '@env/environment';
 
-import type { BookingResult, Departure, Destination } from '@delivery/booking/types';
 import type { Order, Parcels } from '@delivery/delivery-details/types';
 import { CargoType, CargoTypeId } from '@delivery/delivery-details/types';
 import { DeliveryBaseService } from '@delivery/services';
 import type { Courier } from '@delivery/types';
+
+import type { BookingResult, Departure, Destination } from '../types';
 
 interface Booking {
   pickupCity: PickupCity | null;

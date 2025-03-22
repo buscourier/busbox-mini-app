@@ -1,13 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-
-import { Store } from '@ngrx/store';
-
 import type { Observable } from 'rxjs';
 
-import { bookingFeature } from '@delivery/booking/store/feature';
-import type { BookingResult } from '@delivery/booking/types';
+import { BookingFacade } from '../../booking.facade';
+import type { BookingResult } from '../../types';
 
 @Component({
   selector: 'app-success',
@@ -19,9 +16,9 @@ import type { BookingResult } from '@delivery/booking/types';
 export class SuccessComponent implements OnInit {
   bookingResult$!: Observable<BookingResult | null>;
 
-  private store = inject(Store);
+  private readonly bookingFacade = inject(BookingFacade);
 
   ngOnInit(): void {
-    this.bookingResult$ = this.store.select(bookingFeature.selectBookingResult);
+    this.bookingResult$ = this.bookingFacade.getBookingResult();
   }
 }

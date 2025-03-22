@@ -5,3 +5,4 @@ export * from './error-status.types';
 export * from './loading-status.types';
 export * from './offices.types';
 export * from './selection-status.types';
+export * from './review.types';

@@ -14,9 +14,9 @@
     <tui-loader />
   } @else {
     <div class="sticky top-10">
-      <b>{{ vm.orderDirection | json }}</b>
+      <b>{{ vm.direction | json }}</b>
       <br />
-      <b>{{ vm.orderDelivery | json }}</b>
+      <b>{{ vm.methods | json }}</b>
 
       <div>
         {{ vm.orderDetails.documents | json }}

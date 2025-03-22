@@ -1,11 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter, type Observable, take } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { type Observable } from 'rxjs';
 
-import type { FormControlStatus, Office, PickupCity } from '@shared/types';
+import type { FormControlStatus, FormValidationState, Office, PickupCity } from '@shared/types';
 
-import type { Courier, CourierDetails } from '@delivery/types';
+import type { Courier, CourierDetails, ReviewSection } from '@delivery/types';
 
 import { PickupPointActions, pickupPointFeature } from './store';
 import type { PickupPointViewModel, PickupPointTabType } from './types';
@@ -50,6 +49,10 @@ export class PickupPointFacade {
     return this.store.select(pickupPointFeature.selectDepartureDate);
   }
 
+  getFormState(): Observable<FormValidationState> {
+    return this.store.select(pickupPointFeature.selectFormState);
+  }
+
   /**
    * Проверяет, является ли форма валидной
    */
@@ -66,8 +69,8 @@ export class PickupPointFacade {
   /**
    * Получает текущий активный таб
    */
-  getActiveTab(): Observable<PickupPointTabType | null> {
-    return this.store.select(pickupPointFeature.selectActiveTabId);
+  getPickupTypeName(): Observable<string> {
+    return this.store.select(pickupPointFeature.selectActiveTabName);
   }
 
   /**
@@ -133,28 +136,7 @@ export class PickupPointFacade {
     this.store.dispatch(PickupPointActions.resetCourierDetails());
   }
 
-  /**
-   * Получает данные для сохранения в представлении обзора
-   */
-  getReviewData(): Observable<unknown> {
-    return this.getViewModel().pipe(
-      take(1),
-      filter((vm) => !!vm.cities.selected),
-      map((vm) => {
-        const city = vm.cities.selected;
-        const office = vm.offices.selected;
-        const courierDetails = vm.courierDetails;
-        const date = vm.departureDate;
-        const activeTabType = vm.activeTab?.id;
-
-        return {
-          city,
-          office,
-          courierDetails,
-          date,
-          deliveryMethod: activeTabType,
-        };
-      }),
-    );
+  getReviewSection(): Observable<ReviewSection> {
+    return this.store.select(pickupPointFeature.selectReviewSection);
   }
 }

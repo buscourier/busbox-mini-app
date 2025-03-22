@@ -1,6 +1,8 @@
 import type { MemoizedSelector } from '@ngrx/store';
 
-import type { Step, StepNumber, StepView } from '@delivery/booking/types';
+import type { ReviewSection } from '@delivery/types';
+
+import type { Step, StepNumber, StepView } from '../../types';
 
 export interface DerivedSelectors {
   selectStepsView: MemoizedSelector<object, StepView[]>;
@@ -11,4 +13,6 @@ export interface DerivedSelectors {
   selectIsLastStep: MemoizedSelector<object, boolean>;
   selectCurrentStepData: MemoizedSelector<object, Step>;
   selectStepsValid: MemoizedSelector<object, boolean>;
+  selectSenderReviewSection: MemoizedSelector<object, ReviewSection>;
+  selectRecipientReviewSection: MemoizedSelector<object, ReviewSection>;
 }

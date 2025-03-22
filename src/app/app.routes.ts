@@ -8,6 +8,6 @@ export const routes: Routes = [
   },
   {
     path: 'delivery',
-    loadChildren: () => import('./features/delivery/delivery.routes').then((m) => m.deliveryRoutes),
+    loadChildren: () => import('./features/delivery').then((m) => m.deliveryRoutes),
   },
 ];

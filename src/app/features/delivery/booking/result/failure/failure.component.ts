@@ -1,14 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-
-import { Store } from '@ngrx/store';
-
 import type { Observable } from 'rxjs';
 
 import type { ApiError } from '@shared/types';
 
-import { bookingFeature } from '@delivery/booking/store/feature';
+import { BookingFacade } from '../../booking.facade';
 
 @Component({
   selector: 'app-failure',
@@ -20,9 +17,9 @@ import { bookingFeature } from '@delivery/booking/store/feature';
 export class FailureComponent implements OnInit {
   error$!: Observable<ApiError | null>;
 
-  private store = inject(Store);
+  private readonly bookingFacade = inject(BookingFacade);
 
   ngOnInit(): void {
-    this.error$ = this.store.select(bookingFeature.selectError);
+    this.error$ = this.bookingFacade.getBookingError();
   }
 }

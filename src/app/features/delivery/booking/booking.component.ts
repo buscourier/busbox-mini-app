@@ -1,22 +1,15 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
-
-import { Store } from '@ngrx/store';
-
-import { take } from 'rxjs';
-import type { Observable } from 'rxjs';
-
+import { RouterOutlet } from '@angular/router';
 import { TuiButton } from '@taiga-ui/core';
+import type { Observable } from 'rxjs';
 
 import { DeliveryLayoutService } from '@delivery/services';
 
-import { StepperComponent } from './stepper/stepper.component';
-import { BookingActions } from './store/actions';
-import { bookingFeature } from './store/feature';
-import type { BookingViewModel } from './store/selectors';
-import type { StepNumber } from './types';
+import { BookingFacade } from './booking.facade';
+import { StepperComponent } from './stepper';
+import type { StepNumber, BookingViewModel } from './types';
 
 @Component({
   selector: 'app-booking',
@@ -29,41 +22,29 @@ export class BookingComponent implements OnInit {
   vm$!: Observable<BookingViewModel>;
   isMainLayout$!: Observable<boolean>;
 
-  private store = inject(Store);
-  private router = inject(Router);
   private layoutService = inject(DeliveryLayoutService);
+  private bookingFacade = inject(BookingFacade);
 
   ngOnInit(): void {
-    this.vm$ = this.store.select(bookingFeature.selectViewModel);
+    this.vm$ = this.bookingFacade.getViewModel();
     this.isMainLayout$ = this.layoutService.getIsMainLayout();
 
-    this.store.dispatch(BookingActions.init());
+    this.bookingFacade.init();
   }
 
   goNextStep(nextStep: StepNumber | null): void {
     if (nextStep) {
-      this.navigateToStep(nextStep);
+      this.bookingFacade.navigateToStep(nextStep);
     }
   }
 
   goPrevStep(prevStep: StepNumber | null): void {
     if (prevStep) {
-      this.navigateToStep(prevStep);
+      this.bookingFacade.navigateToStep(prevStep);
     }
   }
 
-  navigateToStep(step: StepNumber): void {
-    this.store.dispatch(BookingActions.navigateToStep({ stepNumber: step }));
-
-    this.store
-      .select(bookingFeature.selectStepPath(step))
-      .pipe(take(1))
-      .subscribe((path) => {
-        this.router.navigate(['/delivery/booking', path]);
-      });
-  }
-
-  submitOrder() {
-    this.store.dispatch(BookingActions.submitOrder());
+  submitOrder(): void {
+    this.bookingFacade.submitOrder();
   }
 }

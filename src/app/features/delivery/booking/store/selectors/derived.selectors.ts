@@ -1,6 +1,8 @@
 import { createSelector } from '@ngrx/store';
 
-import type { Step, StepNumber } from '@delivery/booking/types';
+import type { ReviewSection } from '@delivery/types';
+
+import type { Step, StepNumber } from '../../types';
 
 import type { BaseSelectors } from './base-selectors.types';
 import type { DerivedSelectors } from './derived-selectors.types';
@@ -53,6 +55,36 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
       baseSelectors.selectSteps,
       (steps: Record<StepNumber, Step>): boolean => {
         return Object.values(steps).every((step) => step.isValid);
+      },
+    ),
+    selectSenderReviewSection: createSelector(
+      baseSelectors.selectDeparture,
+      (departure): ReviewSection => {
+        const sender = departure?.sender;
+
+        return {
+          title: 'Отправитель',
+          fields: [
+            { label: 'ФИО', value: sender?.fullName || 'Не указан' },
+            { label: 'Документ', value: sender?.document.label || 'Не указан' },
+            { label: 'Номер документа', value: sender?.documentNumber || 'Не указан' },
+            { label: 'Телефон', value: sender?.phone || 'Не указан' },
+          ],
+        };
+      },
+    ),
+    selectRecipientReviewSection: createSelector(
+      baseSelectors.selectDestination,
+      (destination): ReviewSection => {
+        const recipient = destination?.recipient;
+
+        return {
+          title: 'Получатель',
+          fields: [
+            { label: 'ФИО', value: recipient?.fullName || 'Не указан' },
+            { label: 'Телефон', value: recipient?.phone || 'Не указан' },
+          ],
+        };
       },
     ),
   };

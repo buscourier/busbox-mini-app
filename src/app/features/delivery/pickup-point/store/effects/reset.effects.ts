@@ -5,12 +5,21 @@ import { map } from 'rxjs/operators';
 
 import { isObjectsEqual } from '@core/utils';
 
-import { DeliveryPointFacade } from '@delivery/delivery-point';
+import { DeliveryActions } from '@delivery/store';
 
 import { PickupPointActions } from '../actions';
 
 export const resetEffects = {
-  resetOnCityChange: createEffect(
+  onDeliveryReset: createEffect(
+    (actions$ = inject(Actions)) => {
+      return actions$.pipe(
+        ofType(DeliveryActions.resetDelivery),
+        map(() => PickupPointActions.resetState({ keepCity: false })),
+      );
+    },
+    { functional: true },
+  ),
+  onCityChangeReset: createEffect(
     (actions$ = inject(Actions)) => {
       return actions$.pipe(
         ofType(PickupPointActions.selectCity),
@@ -21,15 +30,5 @@ export const resetEffects = {
       );
     },
     { functional: true },
-  ),
-  resetDeliveryPoint: createEffect(
-    (actions$ = inject(Actions), deliveryPointFacade = inject(DeliveryPointFacade)) => {
-      return actions$.pipe(
-        ofType(PickupPointActions.resetState),
-        // delay(0),
-        map(() => deliveryPointFacade.reset()),
-      );
-    },
-    { functional: true, dispatch: false },
   ),
 };

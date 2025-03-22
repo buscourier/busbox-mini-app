@@ -1,24 +1,14 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-
-import { Store } from '@ngrx/store';
-
+import { TuiButton } from '@taiga-ui/core';
 import type { Observable } from 'rxjs';
 
-import { TuiButton } from '@taiga-ui/core';
-
-import { BookingActions } from '@delivery/booking/store/actions';
-import { bookingFeature } from '@delivery/booking/store/feature';
-import {
-  type Applicant,
-  ApplicantType,
-  type Individual,
-  type StepNumber,
-} from '@delivery/booking/types';
+import { BookingFacade } from '../../booking.facade';
+import { type Applicant, ApplicantType, type Individual, type StepNumber } from '../../types';
 
 import { ApplicantTabs } from './applicant.constants';
-import { IndividualComponent } from './individual/individual.component';
+import { IndividualComponent } from './individual';
 
 @Component({
   selector: 'app-applicant',
@@ -33,28 +23,23 @@ export class ApplicantComponent implements OnInit {
 
   protected readonly tabs = ApplicantTabs;
 
-  store = inject(Store);
+  private readonly bookingFacade = inject(BookingFacade);
 
   ngOnInit(): void {
-    this.currentStep$ = this.store.select(bookingFeature.selectCurrentStep);
-    this.applicant$ = this.store.select(bookingFeature.selectApplicant);
+    this.currentStep$ = this.bookingFacade.getCurrentStep();
+    this.applicant$ = this.bookingFacade.getApplicant();
   }
 
   updateIndividual(data: Individual): void {
-    this.store.dispatch(BookingActions.updateIndividualData({ data }));
+    this.bookingFacade.updateIndividual(data);
   }
 
-  updateApplicantType(applicantType: ApplicantType): void {
-    this.store.dispatch(BookingActions.setApplicantType({ applicantType }));
+  updateApplicantType(type: ApplicantType): void {
+    this.bookingFacade.updateApplicantType(type);
   }
 
   updateStepValidation(isValid: boolean, step: StepNumber): void {
-    this.store.dispatch(
-      BookingActions.updateStepValidation({
-        step,
-        isValid,
-      }),
-    );
+    this.bookingFacade.updateStepValidation(isValid, step);
   }
 
   protected readonly ApplicantType = ApplicantType;

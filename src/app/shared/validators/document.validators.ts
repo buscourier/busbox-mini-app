@@ -1,6 +1,6 @@
 import type { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-import { DocumentRegex } from '@shared/regex/document.regex';
+import { DocumentRegex } from '@shared/regex';
 
 export function passportValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {

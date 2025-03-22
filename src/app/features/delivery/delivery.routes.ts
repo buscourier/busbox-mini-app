@@ -1,6 +1,6 @@
 import type { Routes } from '@angular/router';
 
-import { CalculatorComponent } from './calculator/calculator.component';
+import { CalculatorComponent } from './calculator';
 import { DeliveryComponent } from './delivery.component';
 
 export const deliveryRoutes: Routes = [
@@ -19,7 +19,7 @@ export const deliveryRoutes: Routes = [
       },
       {
         path: 'booking',
-        loadChildren: () => import('./booking/booking.routes').then((m) => m.bookingRoutes),
+        loadChildren: () => import('./booking').then((m) => m.bookingRoutes),
       },
     ],
   },

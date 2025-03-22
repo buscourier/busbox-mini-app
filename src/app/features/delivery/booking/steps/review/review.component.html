@@ -1,4 +1,4 @@
-@let review = reviewView$ | async;
+@let review = reviewModel$ | async;
 
 @for (section of review?.sections; track $index) {
   <h2 class="text-xl font-medium">{{ section.title }}</h2>

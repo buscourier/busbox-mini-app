@@ -1,3 +1,3 @@
-export { PickupPointActions } from './actions';
-export { pickupPointFeature } from './feature';
-export { PickupPointEffects } from './effects';
+export * from './actions';
+export * from './feature';
+export * from './effects';

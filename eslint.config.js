@@ -178,10 +178,12 @@ module.exports = tseslint.config(
           allow: [
             '@angular/**/*',
             'rxjs/*',
+            'app/*',
             '@delivery/*',
             '@delivery/base/*',
             '@delivery/*/types',
             '@delivery/*/constants',
+            'features/*',
           ],
         },
       ],

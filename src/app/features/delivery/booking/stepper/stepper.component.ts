@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import type { StepView } from '@delivery/booking/types';
+import type { StepView } from '../types';
 
 @Component({
   selector: 'app-stepper',

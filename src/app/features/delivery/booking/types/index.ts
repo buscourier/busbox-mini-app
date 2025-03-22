@@ -8,3 +8,4 @@ export * from './review.types';
 export * from './sender.types';
 export * from './step.types';
 export * from './storage.types';
+export * from './view-model.types';
