@@ -2,14 +2,10 @@ import type { OnChanges, SimpleChanges } from '@angular/core';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { tuiDialog } from '@taiga-ui/core';
 
-import {
-  PACKAGING_DEFAULT_QUANTITY,
-  PackagingGroupId,
-  type PackagingOtherGroupIds,
-} from '../../constants';
 import type { Packaging, PackagingItem, Service } from '../../types';
 
-import { PackagingDialogComponent } from './packaging-dialog';
+import { PACKAGING_DEFAULT_QUANTITY, PackagingDialogComponent } from './packaging-dialog';
+import { PackagingGroupId, type PackagingOtherGroupIds } from './packaging.constants';
 
 @Component({
   selector: 'app-packaging',

@@ -33,15 +33,13 @@ import { isObjectsEqual } from '@core/utils';
 
 import { customMaxValidator, customMinValidator } from '@shared/validators';
 
-import { PARCEL_ITEM_DEFAULTS, PARCEL_ITEM_VALIDATION_MESSAGES } from '../../../constants';
-import type {
-  ParcelItem,
-  ParcelItemDimensions,
-  ParcelItemLimits,
-  ParcelsErrors,
-} from '../../../types';
+import type { ParcelItem, ParcelItemDimensions, ParcelItemLimits } from '../../../types';
 
-import { limitKeyMap } from './parcel-item.constants';
+import {
+  limitKeyMap,
+  PARCEL_ITEM_DEFAULTS,
+  PARCEL_ITEM_VALIDATION_MESSAGES,
+} from './parcel-item.constants';
 import type { ParcelItemForm } from './parcel-item.types';
 
 @Component({
@@ -80,7 +78,9 @@ import type { ParcelItemForm } from './parcel-item.types';
 })
 export class ParcelItemComponent implements OnInit, OnChanges {
   @Input({ required: true }) limits!: ParcelItemLimits;
-  @Input() parcelsErrors: ParcelsErrors | null = null;
+  @Input() totalQuantityMaxError = false;
+  @Input() totalWeightMaxError = false;
+  @Input() totalDimensionsMaxError = false;
 
   form!: ParcelItemForm;
   dimensionsError = new FormControl(null);

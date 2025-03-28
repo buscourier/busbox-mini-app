@@ -1,0 +1,1 @@
+export const PACKAGING_DEFAULT_QUANTITY = 1;

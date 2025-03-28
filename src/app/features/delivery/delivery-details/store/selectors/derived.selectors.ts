@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
 
-import { PACKAGE_NAMES } from '../../constants';
+import { PACKAGING_NAMES } from '@delivery/delivery-details/constants';
+
 import {
   type ActiveOrderDetails,
   CargoType,
@@ -118,7 +119,7 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
       return {
         items: order.packaging.items.map((item) => ({
           type:
-            PACKAGE_NAMES[servicesMap.get(item.id)?.subgroup_id || ''] || 'Неизвестная упаковка',
+            PACKAGING_NAMES[servicesMap.get(item.id)?.subgroup_id || ''] || 'Неизвестная упаковка',
           variant: servicesMap.get(item.id)?.site_name || '',
           price: servicesMap.get(item.id)?.price || '',
           quantity: item.quantity,

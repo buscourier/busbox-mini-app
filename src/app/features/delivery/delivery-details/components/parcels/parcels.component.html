@@ -1,7 +1,9 @@
 <div class="parcels">
   @for (parcelItem of parcels.controls; track $index) {
     <app-parcel-item
-      [parcelsErrors]="errors"
+      [totalQuantityMaxError]="!!errors?.totalQuantityMax"
+      [totalWeightMaxError]="!!errors?.totalWeightMax"
+      [totalDimensionsMaxError]="!!errors?.totalDimensionsMax"
       [limits]="parcelItemLimits"
       [formControl]="parcelItem"
     >

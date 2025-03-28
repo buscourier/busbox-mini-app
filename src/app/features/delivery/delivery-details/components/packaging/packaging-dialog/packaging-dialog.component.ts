@@ -5,8 +5,8 @@ import { TuiButton, tuiNumberFormatProvider } from '@taiga-ui/core';
 import { TuiInputNumberModule, tuiInputNumberOptionsProvider } from '@taiga-ui/legacy';
 import { injectContext } from '@taiga-ui/polymorpheus';
 
-import { PACKAGING_DEFAULT_QUANTITY } from '../../../constants';
-import type { SelectedPackagingItem } from '../../../types';
+import { PACKAGING_DEFAULT_QUANTITY } from './packaging-dialog.constants';
+import type { SelectedPackagingItem } from './packaging-dialog.types';
 
 @Component({
   selector: 'app-packaging-dialog',

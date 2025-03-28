@@ -13,10 +13,3 @@ export interface PackagingDetails {
   price: string;
   quantity: number;
 }
-
-export interface SelectedPackagingItem {
-  title: string;
-  description: string | null;
-  dimensions: string | null;
-  currentQuantity: number;
-}

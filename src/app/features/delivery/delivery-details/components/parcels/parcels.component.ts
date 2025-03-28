@@ -18,16 +18,11 @@ import { debounceTime } from 'rxjs';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { isObjectsEqual } from '@core/utils';
 
-import { PARCEL_ITEM_DEFAULTS, PARCELS_VALIDATION_MESSAGES } from '../../constants';
-import type {
-  ParcelItem,
-  ParcelItemLimits,
-  Parcels,
-  ParcelsErrors,
-  ParcelsLimits,
-} from '../../types';
+import type { ParcelItem, ParcelItemLimits, Parcels, ParcelsLimits } from '../../types';
 
-import { ParcelItemComponent } from './parcel-item';
+import { PARCEL_ITEM_DEFAULTS, ParcelItemComponent } from './parcel-item';
+import { PARCELS_VALIDATION_MESSAGES } from './parcels.constants';
+import type { ParcelsErrors } from './parcels.types';
 import { parcelsValidator } from './parcels.validator';
 
 @Component({

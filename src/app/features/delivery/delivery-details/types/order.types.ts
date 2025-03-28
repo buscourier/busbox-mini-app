@@ -2,9 +2,8 @@ import type { AdditionalServices } from './additional-services.types';
 import type { AutoParts } from './auto-parts.types';
 import type { CargoType } from './cargo.types';
 import type { Documents } from './documents.types';
+import type { Packaging, Parcels } from './index';
 import type { OtherCargo } from './other-cargo.types';
-import type { Packaging } from './packaging.types';
-import type { Parcels } from './parcels.types';
 
 export interface OrderValidationState {
   documents?: boolean;
