@@ -21,10 +21,10 @@ import type {
   Destination,
   Individual,
   Recipient,
-  Review,
-  ReviewModel,
+  ReviewView,
   Sender,
   StepNumber,
+  ReviewConfirmation,
 } from './types';
 
 @Injectable({
@@ -84,7 +84,7 @@ export class BookingFacade {
     return this.store.select(bookingFeature.selectRecipientReviewSection);
   }
 
-  getReviewModel(): Observable<ReviewModel> {
+  getReview(): Observable<ReviewView> {
     return combineLatest([
       this.pickupPointFacade.getReviewSection(),
       this.deliveryPointFacade.getReviewSection(),
@@ -99,8 +99,8 @@ export class BookingFacade {
     );
   }
 
-  getReviewData(): Observable<Review> {
-    return this.store.select(bookingFeature.selectReview);
+  getReviewConfirmation(): Observable<ReviewConfirmation> {
+    return this.store.select(bookingFeature.selectReviewConfirmation);
   }
 
   getBookingResult(): Observable<BookingResult | null> {

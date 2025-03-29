@@ -1,0 +1,17 @@
+@if (form) {
+  <div class="mt-6">
+    <span class="block text-gray-500">Комментарий к заявке</span>
+    <tui-textarea [formControl]="comment"></tui-textarea>
+  </div>
+  <label class="mt-2 flex items-center gap-2">
+    <input tuiCheckbox type="checkbox" [formControl]="rulesAccepted" />
+    <span>Я подтверждаю, что ознакомлен(а) с правилами приемки и отправки грузов</span>
+  </label>
+  <label class="mt-2 flex items-center gap-2">
+    <input tuiCheckbox type="checkbox" [formControl]="processingAccepted" />
+    <span
+      >Нажимая кнопку «Оформить заказ», я даю свое согласие на обработку моих персональных
+      данных</span
+    >
+  </label>
+}

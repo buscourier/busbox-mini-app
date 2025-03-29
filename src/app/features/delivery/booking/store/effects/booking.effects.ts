@@ -75,7 +75,7 @@ export const bookingEffects = {
                 ? `Место получения: ${deliveryCity?.name}, забрать с автобуса.`
                 : `Место получения: ${deliveryCity?.name}, ${deliveryOffice?.address}`;
 
-            const note = [review.comment, pickupNote, deliveryNote].join('. ');
+            const note = [review.confirmation.comment, pickupNote, deliveryNote].join('. ');
 
             return bookingService
               .submitOrder({

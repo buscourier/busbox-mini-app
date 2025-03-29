@@ -49,8 +49,6 @@ export class BookingService extends DeliveryBaseService {
   submitOrder(booking: Booking): Observable<BookingResult> {
     const requestData = this.mapToRequestData(booking);
 
-    console.log('requestData', requestData);
-
     return this.http
       .post<OrderResponse>(`${this.baseUrl}/order/`, JSON.stringify(requestData))
       .pipe(

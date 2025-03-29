@@ -19,9 +19,11 @@ const initialState: BookingState = {
     departure: null,
     destination: null,
     review: {
-      comment: null,
-      rulesAccepted: false,
-      processingAccepted: false,
+      confirmation: {
+        comment: null,
+        rulesAccepted: false,
+        processingAccepted: false,
+      },
     },
   },
   isSubmitSuccessful: false,
@@ -120,7 +122,10 @@ export const bookingReducer = createReducer(
           ...state.stepsData,
           review: {
             ...state.stepsData.review,
-            ...updateData,
+            confirmation: {
+              ...state.stepsData.review.confirmation,
+              ...updateData,
+            },
           },
         },
       };
