@@ -15,7 +15,7 @@ import { CustomDateTransformer } from '@core/transformers';
 import { BookingEffects, bookingFeature } from '@delivery/booking';
 import { DeliveryDetailsEffects, deliveryDetailsFeature } from '@delivery/delivery-details';
 import { DeliveryPointEffects, deliveryPointFeature } from '@delivery/delivery-point';
-import { OrderSummaryEffects, orderSummaryFeature } from '@delivery/order-summary';
+import { DeliverySummaryEffects, deliverySummaryFeature } from '@delivery/delivery-summary';
 import { PickupPointEffects, pickupPointFeature } from '@delivery/pickup-point';
 
 import { routes } from './app.routes';
@@ -29,13 +29,13 @@ export const appConfig: ApplicationConfig = {
     provideState(pickupPointFeature),
     provideState(deliveryPointFeature),
     provideState(deliveryDetailsFeature),
-    provideState(orderSummaryFeature),
+    provideState(deliverySummaryFeature),
     provideState(bookingFeature),
     provideEffects(
       PickupPointEffects,
       DeliveryPointEffects,
       DeliveryDetailsEffects,
-      OrderSummaryEffects,
+      DeliverySummaryEffects,
       BookingEffects,
     ),
     provideRouterStore(),

@@ -10,14 +10,14 @@ import type {
   OrderAmountParams,
   TotalAmount,
   TotalAmountParams,
-} from '@delivery/order-summary/types';
+} from '@delivery/delivery-summary/types';
 import { DeliveryBaseService } from '@delivery/services';
 import type { Courier } from '@delivery/types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OrderSummaryService extends DeliveryBaseService {
+export class DeliverySummaryService extends DeliveryBaseService {
   constructor(http: HttpClient) {
     super(http);
   }

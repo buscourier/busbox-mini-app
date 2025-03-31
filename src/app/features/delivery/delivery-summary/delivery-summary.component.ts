@@ -5,35 +5,33 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiButton, TuiLoader } from '@taiga-ui/core';
-import type { TuiConfirmData } from '@taiga-ui/kit';
-import { TUI_CONFIRM } from '@taiga-ui/kit';
-import { of, switchMap } from 'rxjs';
-import type { Observable } from 'rxjs';
+import { TUI_CONFIRM, type TuiConfirmData } from '@taiga-ui/kit';
+import { type Observable, of, switchMap } from 'rxjs';
 
 import { DeliveryLayoutService } from '@delivery/services';
 import { DeliveryActions } from '@delivery/store';
 
-import { OrderSummaryFacade } from './order-summary.facade';
-import type { OrderSummaryViewModel } from './types';
+import { DeliverySummaryFacade } from './delivery-summary.facade';
+import type { DeliverySummaryViewModel } from './types';
 
 @Component({
-  selector: 'app-order-summary',
-  imports: [TuiLoader, JsonPipe, AsyncPipe, TuiButton, RouterLink],
-  templateUrl: './order-summary.component.html',
-  styleUrl: './order-summary.component.css',
+  selector: 'app-delivery-summary',
+  imports: [AsyncPipe, TuiLoader, JsonPipe, RouterLink, TuiButton],
+  templateUrl: './delivery-summary.component.html',
+  styleUrl: './delivery-summary.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderSummaryComponent implements OnInit {
-  vm$!: Observable<OrderSummaryViewModel>;
+export class DeliverySummaryComponent implements OnInit {
+  vm$!: Observable<DeliverySummaryViewModel>;
   isCalculatorLayout$!: Observable<boolean>;
 
   private store = inject(Store);
   private deliveryLayoutService = inject(DeliveryLayoutService);
   private readonly dialogs = inject(TuiResponsiveDialogService);
-  private readonly orderSummaryFacade = inject(OrderSummaryFacade);
+  private readonly deliverySummaryFacade = inject(DeliverySummaryFacade);
 
   ngOnInit(): void {
-    this.vm$ = this.orderSummaryFacade.getViewModel();
+    this.vm$ = this.deliverySummaryFacade.getViewModel();
     this.isCalculatorLayout$ = this.deliveryLayoutService.getIsCalculatorLayout();
   }
 

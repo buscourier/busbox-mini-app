@@ -4,12 +4,13 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import type { Observable } from 'rxjs';
 
-import { OrderSummaryComponent } from './order-summary';
+import { DeliverySummaryComponent } from '@delivery/delivery-summary';
+
 import { DeliveryLayoutService } from './services';
 
 @Component({
   selector: 'app-delivery',
-  imports: [RouterOutlet, OrderSummaryComponent, AsyncPipe],
+  imports: [RouterOutlet, AsyncPipe, DeliverySummaryComponent],
   templateUrl: './delivery.component.html',
   styleUrl: './delivery.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

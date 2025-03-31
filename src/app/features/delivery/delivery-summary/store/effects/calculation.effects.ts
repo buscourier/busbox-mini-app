@@ -12,9 +12,9 @@ import { DeliveryDetailsFacade } from '@delivery/delivery-details';
 import { DeliveryPointFacade } from '@delivery/delivery-point';
 import { PickupPointFacade } from '@delivery/pickup-point';
 
-import { OrderSummaryService } from '../../services';
+import { DeliverySummaryService } from '../../services';
 
-import { OrderSummaryActions } from '../actions';
+import { DeliverySummaryActions } from '../actions';
 
 export const calculationEffects = {
   setLoading: createEffect(
@@ -30,7 +30,7 @@ export const calculationEffects = {
         deliveryDetailsFacade.isAllOrdersValid(),
         pickupPointFacade.getCourier(),
         deliveryPointFacade.getCourier(),
-      ]).pipe(map(() => OrderSummaryActions.loadTotalAmount()));
+      ]).pipe(map(() => DeliverySummaryActions.loadTotalAmount()));
     },
     { functional: true },
   ),
@@ -40,7 +40,7 @@ export const calculationEffects = {
       pickupPointFacade = inject(PickupPointFacade),
       deliveryPointFacade = inject(DeliveryPointFacade),
       deliveryDetailsFacade = inject(DeliveryDetailsFacade),
-      orderSummaryService = inject(OrderSummaryService),
+      deliverySummaryService = inject(DeliverySummaryService),
     ) => {
       return combineLatest([
         pickupPointFacade.getSelectedCity(),
@@ -56,7 +56,7 @@ export const calculationEffects = {
             !!pickupCity?.id && !!deliveryCity?.id && orders.length > 0 && isAllOrdersValid,
         ),
         switchMap(([pickupCity, deliveryCity, orders, , pickupCourier, deliveryCourier]) => {
-          return orderSummaryService
+          return deliverySummaryService
             .calculateTotalAmount({
               pickupCityId: pickupCity?.id || null,
               deliveryCityId: deliveryCity?.id || null,
@@ -67,8 +67,9 @@ export const calculationEffects = {
             .pipe(
               mapResponse({
                 next: ({ price }) =>
-                  OrderSummaryActions.loadTotalAmountSuccess({ totalAmount: price }),
-                error: (error: ApiError) => OrderSummaryActions.loadTotalAmountFailure({ error }),
+                  DeliverySummaryActions.loadTotalAmountSuccess({ totalAmount: price }),
+                error: (error: ApiError) =>
+                  DeliverySummaryActions.loadTotalAmountFailure({ error }),
               }),
             );
         }),

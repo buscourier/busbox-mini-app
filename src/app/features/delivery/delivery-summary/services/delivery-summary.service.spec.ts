@@ -1,13 +1,13 @@
 // import { TestBed } from '@angular/core/testing';
 //
-// import type { OrderSummaryFacade } from './order-summary.facade';
+// import { DeliverySummaryService } from './delivery-summary.service';
 //
-// describe('OrderSummaryFacade', () => {
-//   let service: DeliveryDetailsFacade;
+// describe('DeliverySummaryService', () => {
+//   let service: DeliverySummaryService;
 //
 //   beforeEach(() => {
 //     TestBed.configureTestingModule({});
-//     service = TestBed.inject(OrderSummaryFacade);
+//     service = TestBed.inject(DeliverySummaryService);
 //   });
 //
 //   it('should be created', () => {

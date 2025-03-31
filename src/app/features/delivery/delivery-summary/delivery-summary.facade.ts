@@ -8,24 +8,24 @@ import { DeliveryDetailsFacade } from '@delivery/delivery-details';
 import { DeliveryPointFacade } from '@delivery/delivery-point';
 import { PickupPointFacade } from '@delivery/pickup-point';
 
-import { OrderSummaryActions, orderSummaryFeature } from './store';
+import { DeliverySummaryActions, deliverySummaryFeature } from './store';
 import type {
   DeliveryDirection,
-  OrderSummaryViewModel,
+  DeliverySummaryViewModel,
   DeliveryMethods,
-  OrderSummaryBaseViewModel,
+  DeliverySummaryBaseViewModel,
 } from './types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OrderSummaryFacade {
+export class DeliverySummaryFacade {
   private readonly store = inject(Store);
   private readonly pickupPointFacade = inject(PickupPointFacade);
   private readonly deliveryPointFacade = inject(DeliveryPointFacade);
   private readonly deliveryDetailsFacade = inject(DeliveryDetailsFacade);
 
-  getViewModel(): Observable<OrderSummaryViewModel> {
+  getViewModel(): Observable<DeliverySummaryViewModel> {
     return combineLatest([
       this.getBaseViewModel(),
       this.getDeliveryDirection(),
@@ -69,11 +69,11 @@ export class OrderSummaryFacade {
     );
   }
 
-  private getBaseViewModel(): Observable<OrderSummaryBaseViewModel> {
-    return this.store.select(orderSummaryFeature.selectBaseViewModel);
+  private getBaseViewModel(): Observable<DeliverySummaryBaseViewModel> {
+    return this.store.select(deliverySummaryFeature.selectBaseViewModel);
   }
 
   reset(): void {
-    this.store.dispatch(OrderSummaryActions.resetState());
+    this.store.dispatch(DeliverySummaryActions.resetState());
   }
 }

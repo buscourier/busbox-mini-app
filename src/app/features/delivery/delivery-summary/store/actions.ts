@@ -2,8 +2,8 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 import type { ApiError } from '@shared/types';
 
-export const OrderSummaryActions = createActionGroup({
-  source: 'OrderSummary',
+export const DeliverySummaryActions = createActionGroup({
+  source: 'DeliverySummary',
   events: {
     'Load Total Amount': emptyProps(),
     'Load Total Amount Success': props<{ totalAmount: number }>(),
