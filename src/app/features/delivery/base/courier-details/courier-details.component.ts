@@ -19,11 +19,12 @@ import {
 import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { map } from 'rxjs/operators';
 
-import { ADDRESS_VALIDATION_LIMITS, ADDRESS_VALIDATION_MESSAGES } from '@core/constants';
+import type { ValidationLimits, ValidationMessages } from '@core/config';
+import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
 
+import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 import type { PreferredTimeSlot } from '@shared/types';
 import { identityMatcherById } from '@shared/utils';
-import { apartmentValidator, buildingValidator, streetValidator } from '@shared/validators';
 
 import type { CourierDetails } from '@delivery/types';
 
@@ -56,7 +57,16 @@ import type { CourierDetailsForm } from './courier-details.types';
     },
     {
       provide: TUI_VALIDATION_ERRORS,
-      useValue: ADDRESS_VALIDATION_MESSAGES,
+      useFactory: (messages: ValidationMessages) => ({
+        required: messages.required,
+        minlength: messages.minlength,
+        maxlength: messages.maxlength,
+        street: messages.address.street,
+        building: messages.address.building,
+        apartment: messages.address.apartment,
+        email: messages.email,
+      }),
+      deps: [VALIDATION_MESSAGES],
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -65,7 +75,9 @@ export class CourierDetailsComponent implements OnInit {
   form!: CourierDetailsForm;
   readonly preferredTimeSlots = PREFERRED_COURIER_TIME;
 
-  protected readonly ADDRESS_VALIDATION_LIMITS = ADDRESS_VALIDATION_LIMITS;
+  protected limits = inject<ValidationLimits>(VALIDATION_LIMITS);
+  private fieldValidators = inject(FIELD_VALIDATORS_FACTORY);
+
   protected readonly identityMatcherById = identityMatcherById;
 
   private readonly DEFAULT_TIME = this.preferredTimeSlots[0];
@@ -93,19 +105,19 @@ export class CourierDetailsComponent implements OnInit {
   get availableStreetLength(): number {
     const { street } = this.form.getRawValue();
 
-    return ADDRESS_VALIDATION_LIMITS.STREET.MAX_LENGTH - street.length;
+    return this.limits.address.street.maxLength - street.length;
   }
 
   get availableBuildingLength(): number {
     const { building } = this.form.getRawValue();
 
-    return ADDRESS_VALIDATION_LIMITS.BUILDING.MAX_LENGTH - building.length;
+    return this.limits.address.building.maxLength - building.length;
   }
 
   get availableApartmentLength(): number {
     const { apartment } = this.form.getRawValue();
 
-    return ADDRESS_VALIDATION_LIMITS.APARTMENT.MAX_LENGTH - apartment.length;
+    return this.limits.address.apartment.maxLength - apartment.length;
   }
 
   ngOnInit(): void {
@@ -154,33 +166,9 @@ export class CourierDetailsComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.fb.group({
-      street: [
-        '',
-        [
-          Validators.required,
-          streetValidator(),
-          Validators.minLength(ADDRESS_VALIDATION_LIMITS.STREET.MIN_LENGTH),
-          Validators.maxLength(ADDRESS_VALIDATION_LIMITS.STREET.MAX_LENGTH),
-        ],
-      ],
-      building: [
-        '',
-        [
-          Validators.required,
-          buildingValidator(),
-          Validators.minLength(ADDRESS_VALIDATION_LIMITS.BUILDING.MIN_LENGTH),
-          Validators.maxLength(ADDRESS_VALIDATION_LIMITS.BUILDING.MAX_LENGTH),
-        ],
-      ],
-      apartment: [
-        '',
-        [
-          Validators.required,
-          apartmentValidator(),
-          Validators.minLength(ADDRESS_VALIDATION_LIMITS.APARTMENT.MIN_LENGTH),
-          Validators.maxLength(ADDRESS_VALIDATION_LIMITS.APARTMENT.MAX_LENGTH),
-        ],
-      ],
+      street: ['', this.fieldValidators.getValidators('address', 'street')],
+      building: ['', this.fieldValidators.getValidators('address', 'building')],
+      apartment: ['', this.fieldValidators.getValidators('address', 'apartment')],
       preferredTime: [this.DEFAULT_TIME, [Validators.required]],
     });
 

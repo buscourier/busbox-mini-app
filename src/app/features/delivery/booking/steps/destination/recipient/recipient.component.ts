@@ -10,17 +10,18 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { TuiHintDirective } from '@taiga-ui/core';
-import { TuiBadge, TuiFieldErrorContentPipe } from '@taiga-ui/kit';
+import { TUI_VALIDATION_ERRORS, TuiBadge, TuiFieldErrorContentPipe } from '@taiga-ui/kit';
 import { TuiInputModule, TuiInputPhoneModule } from '@taiga-ui/legacy';
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { USER_VALIDATION_LIMITS } from '@core/constants';
+import type { ValidationLimits, ValidationMessages } from '@core/config';
+import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
 import { isObjectsEqual } from '@core/utils';
 
-import { fullNameValidator, phoneValidator } from '@shared/validators';
+import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 
 import type { Recipient } from '../../../types';
 
@@ -38,6 +39,19 @@ import type { RecipientForm } from './recipient.types';
   ],
   templateUrl: './recipient.component.html',
   styleUrl: './recipient.component.css',
+  providers: [
+    {
+      provide: TUI_VALIDATION_ERRORS,
+      useFactory: (messages: ValidationMessages) => ({
+        required: messages.required,
+        minlength: messages.minlength,
+        maxlength: messages.maxlength,
+        fullName: messages.user.fullName,
+        phone: messages.phone,
+      }),
+      deps: [VALIDATION_MESSAGES],
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipientComponent implements OnInit, OnChanges {
@@ -47,8 +61,11 @@ export class RecipientComponent implements OnInit, OnChanges {
 
   form!: RecipientForm;
 
+  protected limits = inject<ValidationLimits>(VALIDATION_LIMITS);
+
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private fieldValidators = inject(FIELD_VALIDATORS_FACTORY);
 
   get fullName(): FormControl<string> {
     return this.form.controls.fullName;
@@ -61,7 +78,7 @@ export class RecipientComponent implements OnInit, OnChanges {
   get availableFullNameLength(): number {
     const { fullName } = this.form.getRawValue();
 
-    return USER_VALIDATION_LIMITS.FULL_NAME.MAX_LENGTH - fullName.length;
+    return this.limits.user.fullName.maxLength - fullName.length;
   }
 
   ngOnInit(): void {
@@ -82,16 +99,8 @@ export class RecipientComponent implements OnInit, OnChanges {
 
   private initializeForm(): void {
     this.form = this.fb.group({
-      fullName: [
-        '',
-        [
-          Validators.required,
-          fullNameValidator(),
-          Validators.minLength(USER_VALIDATION_LIMITS.FULL_NAME.MIN_LENGTH),
-          Validators.minLength(USER_VALIDATION_LIMITS.FULL_NAME.MAX_LENGTH),
-        ],
-      ],
-      phone: ['', [Validators.required, phoneValidator()]],
+      fullName: ['', this.fieldValidators.getValidators('user', 'fullName')],
+      phone: ['', this.fieldValidators.getValidators('contact', 'phone')],
     });
   }
 
@@ -117,6 +126,4 @@ export class RecipientComponent implements OnInit, OnChanges {
       },
     );
   }
-
-  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
 }

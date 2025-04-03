@@ -23,7 +23,7 @@ import {
 import { TuiInputNumberModule, TuiInputPhoneModule } from '@taiga-ui/legacy';
 import { startWith } from 'rxjs';
 
-import { phoneValidator } from '@shared/validators';
+import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 
 import type { AdditionalServices, Service } from '../../types';
 
@@ -91,6 +91,7 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
 
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private fieldValidators = inject(FIELD_VALIDATORS_FACTORY);
 
   form = this.fb.group({
     insurance: this.createMonetaryServiceGroup(INSURANCE_MIN_AMOUNT, INSURANCE_MAX_AMOUNT),
@@ -152,7 +153,7 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
   private createSmsServiceGroup(): FormGroup<SmsService> {
     return this.fb.group({
       enabled: [false],
-      phone: ['', [Validators.required, phoneValidator()]],
+      phone: ['', this.fieldValidators.getValidators('contact', 'phone')],
       serviceId: [''],
     });
   }

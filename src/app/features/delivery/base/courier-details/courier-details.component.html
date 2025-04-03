@@ -15,14 +15,14 @@
           [formControl]="street"
           [tuiTextfieldLabelOutside]="true"
           [tuiHint]="[] | tuiFieldErrorContent"
-          [minlength]="ADDRESS_VALIDATION_LIMITS.STREET.MIN_LENGTH"
-          [maxlength]="ADDRESS_VALIDATION_LIMITS.STREET.MAX_LENGTH"
+          [minlength]="limits.address.street.minLength"
+          [maxlength]="limits.address.street.maxLength"
           tuiHintAppearance="error"
         >
           <input
             type="text"
             tuiTextfieldLegacy
-            [attr.maxlength]="ADDRESS_VALIDATION_LIMITS.STREET.MAX_LENGTH"
+            [attr.maxlength]="limits.address.street.maxLength"
           />
         </tui-input>
         @if (streetInput.focused) {
@@ -50,14 +50,14 @@
             [formControl]="building"
             [tuiTextfieldLabelOutside]="true"
             [tuiHint]="[] | tuiFieldErrorContent"
-            [minlength]="ADDRESS_VALIDATION_LIMITS.BUILDING.MIN_LENGTH"
-            [maxlength]="ADDRESS_VALIDATION_LIMITS.BUILDING.MAX_LENGTH"
+            [minlength]="limits.address.building.minLength"
+            [maxlength]="limits.address.building.maxLength"
             tuiHintAppearance="error"
           >
             <input
               type="text"
               tuiTextfieldLegacy
-              [attr.maxlength]="ADDRESS_VALIDATION_LIMITS.BUILDING.MAX_LENGTH"
+              [attr.maxlength]="limits.address.building.maxLength"
             />
           </tui-input>
           @if (buildingInput.focused) {
@@ -83,14 +83,14 @@
             [formControl]="apartment"
             [tuiTextfieldLabelOutside]="true"
             [tuiHint]="[] | tuiFieldErrorContent"
-            [minlength]="ADDRESS_VALIDATION_LIMITS.APARTMENT.MIN_LENGTH"
-            [maxlength]="ADDRESS_VALIDATION_LIMITS.APARTMENT.MAX_LENGTH"
+            [minlength]="limits.address.apartment.minLength"
+            [maxlength]="limits.address.apartment.maxLength"
             tuiHintAppearance="error"
           >
             <input
               type="text"
               tuiTextfieldLegacy
-              [attr.maxlength]="ADDRESS_VALIDATION_LIMITS.APARTMENT.MAX_LENGTH"
+              [attr.maxlength]="limits.address.apartment.maxLength"
             />
           </tui-input>
           @if (apartmentInput.focused) {

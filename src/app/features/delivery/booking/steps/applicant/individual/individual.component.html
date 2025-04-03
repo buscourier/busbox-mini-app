@@ -13,15 +13,11 @@
           #lastNameInput
           [formControl]="lastName"
           [tuiHint]="[] | tuiFieldErrorContent"
-          [minlength]="USER_VALIDATION_LIMITS.LAST_NAME.MIN_LENGTH"
-          [maxlength]="USER_VALIDATION_LIMITS.LAST_NAME.MAX_LENGTH"
+          [minlength]="limits.user.lastName.minLength"
+          [maxlength]="limits.user.lastName.maxLength"
           tuiHintAppearance="error"
         >
-          <input
-            type="text"
-            tuiTextfieldLegacy
-            [attr.maxlength]="USER_VALIDATION_LIMITS.LAST_NAME.MAX_LENGTH"
-          />
+          <input type="text" tuiTextfieldLegacy [attr.maxlength]="limits.user.lastName.maxLength" />
         </tui-input>
         @if (lastNameInput.focused) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
@@ -45,14 +41,14 @@
           #firstNameInput
           [formControl]="firstName"
           [tuiHint]="[] | tuiFieldErrorContent"
-          [minlength]="USER_VALIDATION_LIMITS.FIRST_NAME.MIN_LENGTH"
-          [maxlength]="USER_VALIDATION_LIMITS.FIRST_NAME.MAX_LENGTH"
+          [minlength]="limits.user.firstName.minLength"
+          [maxlength]="limits.user.firstName.maxLength"
           tuiHintAppearance="error"
         >
           <input
             type="text"
             tuiTextfieldLegacy
-            [attr.maxlength]="USER_VALIDATION_LIMITS.FIRST_NAME.MAX_LENGTH"
+            [attr.maxlength]="limits.user.firstName.maxLength"
           />
         </tui-input>
         @if (firstNameInput.focused) {
@@ -77,14 +73,14 @@
           #middleNameInput
           [formControl]="middleName"
           [tuiHint]="[] | tuiFieldErrorContent"
-          [minlength]="USER_VALIDATION_LIMITS.MIDDLE_NAME.MIN_LENGTH"
-          [maxlength]="USER_VALIDATION_LIMITS.MIDDLE_NAME.MAX_LENGTH"
+          [minlength]="limits.user.middleName.minLength"
+          [maxlength]="limits.user.middleName.maxLength"
           tuiHintAppearance="error"
         >
           <input
             type="text"
             tuiTextfieldLegacy
-            [attr.maxlength]="USER_VALIDATION_LIMITS.MIDDLE_NAME.MAX_LENGTH"
+            [attr.maxlength]="limits.user.middleName.maxLength"
           />
         </tui-input>
         @if (middleNameInput.focused) {

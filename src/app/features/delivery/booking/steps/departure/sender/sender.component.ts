@@ -13,6 +13,7 @@ import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiHintDirective } from '@taiga-ui/core';
 import {
+  TUI_VALIDATION_ERRORS,
   TuiBadge,
   TuiFieldErrorContentPipe,
   TuiStringifyContentPipe,
@@ -22,12 +23,13 @@ import { TuiInputModule, TuiInputPhoneModule, TuiSelectModule } from '@taiga-ui/
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { USER_VALIDATION_LIMITS } from '@core/constants';
+import type { ValidationLimits, ValidationMessages } from '@core/config';
+import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
 import { isObjectsEqual } from '@core/utils';
 
-import { fullNameValidator, phoneValidator } from '@shared/validators';
+import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 
-import type { Sender, SenderDocumentOption } from '../../../types';
+import { type Sender, SenderDocument, type SenderDocumentOption } from '../../../types';
 
 import { defaultDocument, senderDocuments } from './sender.constants';
 import type { SenderForm } from './sender.types';
@@ -47,6 +49,22 @@ import type { SenderForm } from './sender.types';
   ],
   templateUrl: './sender.component.html',
   styleUrl: './sender.component.css',
+  providers: [
+    {
+      provide: TUI_VALIDATION_ERRORS,
+      useFactory: (messages: ValidationMessages) => ({
+        required: messages.required,
+        minlength: messages.minlength,
+        maxlength: messages.maxlength,
+        fullName: messages.user.fullName,
+        phone: messages.phone,
+        'passport.number': messages.document.passport.number,
+        'driverLicense.number': messages.document.driverLicense.number,
+        'other.number': messages.document.other.number,
+      }),
+      deps: [VALIDATION_MESSAGES],
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SenderComponent implements OnInit, OnChanges {
@@ -56,10 +74,12 @@ export class SenderComponent implements OnInit, OnChanges {
 
   form!: SenderForm;
 
+  protected limits = inject<ValidationLimits>(VALIDATION_LIMITS);
   protected readonly senderDocuments = senderDocuments;
 
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private fieldValidators = inject(FIELD_VALIDATORS_FACTORY);
 
   get fullName(): FormControl<string> {
     return this.form.controls.fullName;
@@ -78,9 +98,9 @@ export class SenderComponent implements OnInit, OnChanges {
   }
 
   get availableFullNameLength(): number {
-    const { fullName } = this.form.getRawValue();
+    const fullName = this.form.getRawValue().fullName as string;
 
-    return USER_VALIDATION_LIMITS.FULL_NAME.MAX_LENGTH - fullName.length;
+    return this.limits.user.fullName.maxLength - fullName.length;
   }
 
   ngOnInit(): void {
@@ -101,18 +121,29 @@ export class SenderComponent implements OnInit, OnChanges {
 
   private initializeForm(): void {
     this.form = this.fb.group({
-      fullName: [
-        '',
-        [
-          Validators.required,
-          fullNameValidator(),
-          Validators.minLength(USER_VALIDATION_LIMITS.FULL_NAME.MIN_LENGTH),
-          Validators.minLength(USER_VALIDATION_LIMITS.FULL_NAME.MAX_LENGTH),
-        ],
-      ],
+      fullName: ['', this.fieldValidators.getValidators('user', 'fullName')],
       document: [defaultDocument, [Validators.required]],
-      documentNumber: ['', [Validators.required]],
-      phone: ['', [Validators.required, phoneValidator()]],
+      documentNumber: ['', this.fieldValidators.getValidators('document', 'passport', 'number')],
+      phone: ['', this.fieldValidators.getValidators('contact', 'phone')],
+    });
+
+    this.document.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((doc) => {
+      console.log('doc.value', doc.value);
+      const validatorType =
+        doc.value === SenderDocument.DRIVER_LICENSE
+          ? 'driverLicense'
+          : doc.value === SenderDocument.PASSPORT
+            ? 'passport'
+            : 'other';
+
+      this.documentNumber.setValidators(
+        this.fieldValidators.getValidators(
+          'document',
+          validatorType as keyof ValidationLimits['document'],
+          'number',
+        ),
+      );
+      this.documentNumber.updateValueAndValidity();
     });
   }
 
@@ -140,6 +171,4 @@ export class SenderComponent implements OnInit, OnChanges {
       },
     );
   }
-
-  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
 }

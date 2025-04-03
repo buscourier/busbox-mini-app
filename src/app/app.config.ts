@@ -10,6 +10,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { NG_EVENT_PLUGINS } from '@taiga-ui/event-plugins';
 import { TUI_DATE_VALUE_TRANSFORMER } from '@taiga-ui/kit';
 
+import { DEFAULT_VALIDATION_LIMITS, DEFAULT_VALIDATION_MESSAGES } from '@core/config';
+import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
 import { CustomDateTransformer } from '@core/transformers';
 
 import { BookingEffects, bookingFeature } from '@delivery/booking';
@@ -45,6 +47,14 @@ export const appConfig: ApplicationConfig = {
     {
       provide: TUI_DATE_VALUE_TRANSFORMER,
       useClass: CustomDateTransformer,
+    },
+    {
+      provide: VALIDATION_LIMITS,
+      useValue: DEFAULT_VALIDATION_LIMITS,
+    },
+    {
+      provide: VALIDATION_MESSAGES,
+      useValue: DEFAULT_VALIDATION_MESSAGES,
     },
   ],
 };

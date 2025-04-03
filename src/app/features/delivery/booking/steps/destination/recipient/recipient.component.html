@@ -13,15 +13,11 @@
           #fullNameInput
           [formControl]="fullName"
           [tuiHint]="[] | tuiFieldErrorContent"
-          [minlength]="USER_VALIDATION_LIMITS.FULL_NAME.MIN_LENGTH"
-          [maxlength]="USER_VALIDATION_LIMITS.FULL_NAME.MAX_LENGTH"
+          [minlength]="limits.user.fullName.minLength"
+          [maxlength]="limits.user.fullName.maxLength"
           tuiHintAppearance="error"
         >
-          <input
-            type="text"
-            tuiTextfieldLegacy
-            [attr.maxlength]="USER_VALIDATION_LIMITS.FULL_NAME.MAX_LENGTH"
-          />
+          <input type="text" tuiTextfieldLegacy [attr.maxlength]="limits.user.fullName.maxLength" />
         </tui-input>
         @if (fullNameInput.focused) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">

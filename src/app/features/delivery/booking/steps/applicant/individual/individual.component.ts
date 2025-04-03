@@ -23,20 +23,11 @@ import { TuiInputModule, TuiInputPhoneModule, TuiSelectModule } from '@taiga-ui/
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  EMAIL_VALIDATION_MESSAGES,
-  PHONE_VALIDATION_MESSAGES,
-  USER_VALIDATION_LIMITS,
-  USER_VALIDATION_MESSAGES,
-} from '@core/constants';
+import type { ValidationLimits, ValidationMessages } from '@core/config';
+import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
 import { isObjectsEqual } from '@core/utils';
 
-import {
-  firstNameValidator,
-  lastNameValidator,
-  middleNameValidator,
-  phoneValidator,
-} from '@shared/validators';
+import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 
 import type { Individual } from '../../../types';
 
@@ -61,11 +52,17 @@ import type { IndividualForm } from './individual.types';
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
-      useValue: {
-        ...USER_VALIDATION_MESSAGES,
-        ...PHONE_VALIDATION_MESSAGES,
-        ...EMAIL_VALIDATION_MESSAGES,
-      },
+      useFactory: (messages: ValidationMessages) => ({
+        required: messages.required,
+        minlength: messages.minlength,
+        maxlength: messages.maxlength,
+        lastName: messages.user.lastName,
+        middleName: messages.user.middleName,
+        firstName: messages.user.firstName,
+        email: messages.email,
+        phone: messages.phone,
+      }),
+      deps: [VALIDATION_MESSAGES],
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -78,6 +75,9 @@ export class IndividualComponent implements OnInit, OnChanges {
   form!: IndividualForm;
 
   protected readonly individualRoles = individualRoles;
+
+  protected limits = inject<ValidationLimits>(VALIDATION_LIMITS);
+  private fieldValidators = inject(FIELD_VALIDATORS_FACTORY);
 
   private fb = inject(NonNullableFormBuilder);
   private destroyRef = inject(DestroyRef);
@@ -109,19 +109,19 @@ export class IndividualComponent implements OnInit, OnChanges {
   get availableLastNameLength(): number {
     const { lastName } = this.form.getRawValue();
 
-    return USER_VALIDATION_LIMITS.LAST_NAME.MAX_LENGTH - lastName.length;
+    return this.limits.user.lastName.maxLength - lastName.length;
   }
 
   get availableFirstNameLength(): number {
     const { firstName } = this.form.getRawValue();
 
-    return USER_VALIDATION_LIMITS.FIRST_NAME.MAX_LENGTH - firstName.length;
+    return this.limits.user.firstName.maxLength - firstName.length;
   }
 
   get availableMiddleNameLength(): number {
     const { middleName } = this.form.getRawValue();
 
-    return USER_VALIDATION_LIMITS.MIDDLE_NAME.MAX_LENGTH - middleName.length;
+    return this.limits.user.middleName.maxLength - middleName.length;
   }
 
   ngOnInit(): void {
@@ -142,35 +142,11 @@ export class IndividualComponent implements OnInit, OnChanges {
 
   private initializeForm(): void {
     this.form = this.fb.group({
-      lastName: [
-        '',
-        [
-          Validators.required,
-          lastNameValidator(),
-          Validators.minLength(USER_VALIDATION_LIMITS.LAST_NAME.MIN_LENGTH),
-          Validators.minLength(USER_VALIDATION_LIMITS.LAST_NAME.MAX_LENGTH),
-        ],
-      ],
-      firstName: [
-        '',
-        [
-          Validators.required,
-          firstNameValidator(),
-          Validators.minLength(USER_VALIDATION_LIMITS.FIRST_NAME.MIN_LENGTH),
-          Validators.minLength(USER_VALIDATION_LIMITS.FIRST_NAME.MAX_LENGTH),
-        ],
-      ],
-      middleName: [
-        '',
-        [
-          Validators.required,
-          middleNameValidator(),
-          Validators.minLength(USER_VALIDATION_LIMITS.MIDDLE_NAME.MIN_LENGTH),
-          Validators.minLength(USER_VALIDATION_LIMITS.MIDDLE_NAME.MAX_LENGTH),
-        ],
-      ],
+      lastName: ['', this.fieldValidators.getValidators('user', 'lastName')],
+      firstName: ['', this.fieldValidators.getValidators('user', 'firstName')],
+      middleName: ['', this.fieldValidators.getValidators('user', 'middleName')],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, phoneValidator()]],
+      phone: ['', this.fieldValidators.getValidators('contact', 'phone')],
       role: ['', [Validators.required]],
     });
   }
@@ -201,6 +177,4 @@ export class IndividualComponent implements OnInit, OnChanges {
       },
     );
   }
-
-  protected readonly USER_VALIDATION_LIMITS = USER_VALIDATION_LIMITS;
 }
