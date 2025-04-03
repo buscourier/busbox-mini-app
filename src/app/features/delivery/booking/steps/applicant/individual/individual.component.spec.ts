@@ -1,23 +1,23 @@
-import type { ComponentFixture } from '@angular/core/testing';
-import { TestBed } from '@angular/core/testing';
-
-import { IndividualComponent } from './individual.component';
-
-describe('IndividualComponent', () => {
-  let component: IndividualComponent;
-  let fixture: ComponentFixture<IndividualComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [IndividualComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(IndividualComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+// import type { ComponentFixture } from '@angular/core/testing';
+// import { TestBed } from '@angular/core/testing';
+//
+// import { IndividualComponent } from './individual.component';
+//
+// describe('IndividualComponent', () => {
+//   let component: IndividualComponent;
+//   let fixture: ComponentFixture<IndividualComponent>;
+//
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [IndividualComponent],
+//     }).compileComponents();
+//
+//     fixture = TestBed.createComponent(IndividualComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
+//
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

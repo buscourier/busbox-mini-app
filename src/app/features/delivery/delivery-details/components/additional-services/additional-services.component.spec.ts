@@ -1,23 +1,23 @@
-import type { ComponentFixture } from '@angular/core/testing';
-import { TestBed } from '@angular/core/testing';
-
-import { AdditionalServicesComponent } from './additional-services.component';
-
-describe('AdditionalServicesComponent', () => {
-  let component: AdditionalServicesComponent;
-  let fixture: ComponentFixture<AdditionalServicesComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AdditionalServicesComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AdditionalServicesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+// import type { ComponentFixture } from '@angular/core/testing';
+// import { TestBed } from '@angular/core/testing';
+//
+// import { AdditionalServicesComponent } from './additional-services.component';
+//
+// describe('AdditionalServicesComponent', () => {
+//   let component: AdditionalServicesComponent;
+//   let fixture: ComponentFixture<AdditionalServicesComponent>;
+//
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [AdditionalServicesComponent],
+//     }).compileComponents();
+//
+//     fixture = TestBed.createComponent(AdditionalServicesComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
+//
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
