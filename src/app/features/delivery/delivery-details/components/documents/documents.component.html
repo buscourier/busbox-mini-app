@@ -1,9 +1,9 @@
 <div class="counter mb-3 block max-w-[200px]">
-  <tui-input-number
-    [formControl]="quantityControl"
-    [min]="1"
-    [max]="20"
-    (focusedChange)="setMinQuantityOnBlur($event)"
-    >0
-  </tui-input-number>
+  <label tuiLabel>
+    Количество документов
+
+    <tui-textfield [tuiTextfieldCleaner]="false">
+      <input tuiInputNumber [formControl]="quantityControl" [step]="1" />
+    </tui-textfield>
+  </label>
 </div>

@@ -11,7 +11,13 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiHintDirective } from '@taiga-ui/core';
+import {
+  TuiHintDirective,
+  TuiLabel,
+  TuiTextfield,
+  TuiTextfieldComponent,
+  TuiTextfieldDirective,
+} from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
   TuiBadge,
@@ -46,6 +52,10 @@ import type { SenderForm } from './sender.types';
     TuiSelectModule,
     TuiStringifyPipe,
     TuiStringifyContentPipe,
+    TuiLabel,
+    TuiTextfieldComponent,
+    TuiTextfieldDirective,
+    TuiTextfield,
   ],
   templateUrl: './sender.component.html',
   styleUrl: './sender.component.css',

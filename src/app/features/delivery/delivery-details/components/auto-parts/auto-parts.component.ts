@@ -11,12 +11,14 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiStringifyContentPipe, TuiStringifyPipe } from '@taiga-ui/kit';
+import { TuiLabel, TuiTextfieldComponent } from '@taiga-ui/core';
 import {
-  TuiInputNumberModule,
-  TuiSelectModule,
-  TuiTextfieldControllerModule,
-} from '@taiga-ui/legacy';
+  TuiFieldErrorContentPipe,
+  TuiInputNumberDirective,
+  TuiStringifyContentPipe,
+  TuiStringifyPipe,
+} from '@taiga-ui/kit';
+import { TuiSelectModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -34,7 +36,10 @@ import type { AutoPartsForm } from './auto-parts.types';
     TuiTextfieldControllerModule,
     TuiStringifyPipe,
     TuiStringifyContentPipe,
-    TuiInputNumberModule,
+    TuiFieldErrorContentPipe,
+    TuiInputNumberDirective,
+    TuiTextfieldComponent,
+    TuiLabel,
   ],
   templateUrl: './auto-parts.component.html',
   styleUrl: './auto-parts.component.css',
@@ -104,8 +109,8 @@ export class AutoPartsComponent implements OnInit, OnChanges {
     }
   }
 
-  setMinQuantityOnBlur(isFocused: boolean): void {
-    if (!isFocused && !this.quantity.value) {
+  setMinQuantityOnBlur(): void {
+    if (!this.quantity.value) {
       this.quantity.setValue(this.DEFAULT_QUANTITY);
     }
   }

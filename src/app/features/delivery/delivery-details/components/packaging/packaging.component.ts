@@ -1,6 +1,8 @@
 import type { OnChanges, SimpleChanges } from '@angular/core';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { tuiDialog } from '@taiga-ui/core';
+import { TuiCheckbox } from '@taiga-ui/kit';
 
 import type { Packaging, PackagingItem, Service } from '../../types';
 
@@ -9,7 +11,7 @@ import { PackagingGroupId, type PackagingOtherGroupIds } from './packaging.const
 
 @Component({
   selector: 'app-packaging',
-  imports: [],
+  imports: [FormsModule, TuiCheckbox],
   templateUrl: './packaging.component.html',
   styleUrl: './packaging.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -66,6 +68,14 @@ export class PackagingComponent implements OnChanges {
   removePackagingItem(id: string): void {
     this.selectedPackagingItems.delete(id);
     this.emitChange();
+  }
+
+  toggleItem(option: Service, isChecked: boolean): void {
+    if (isChecked) {
+      this.selectPackagingItem(option);
+    } else {
+      this.removePackagingItem(option.id);
+    }
   }
 
   isSelected(id: string): boolean {

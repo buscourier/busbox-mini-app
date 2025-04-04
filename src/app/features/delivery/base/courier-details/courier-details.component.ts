@@ -9,7 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TuiHint } from '@taiga-ui/core';
+import { TuiHint, TuiLabel, TuiTextfieldComponent, TuiTextfieldDirective } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
   TuiBadge,
@@ -41,6 +41,9 @@ import type { CourierDetailsForm } from './courier-details.types';
     TuiInputModule,
     TuiBadge,
     TuiRadioList,
+    TuiLabel,
+    TuiTextfieldComponent,
+    TuiTextfieldDirective,
   ],
   templateUrl: './courier-details.component.html',
   styleUrl: './courier-details.component.css',

@@ -8,17 +8,18 @@
 
       @if (insurance.controls.enabled.value) {
         <div class="relative">
-          <tui-input-number
-            #declaredValue
-            [formControl]="insurance.controls.amount"
-            [min]="INSURANCE_MIN_AMOUNT"
-            [max]="INSURANCE_MAX_AMOUNT"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            tuiHintAppearance="error"
-          >
-            Объявленная ценность
-          </tui-input-number>
-          @if (declaredValue.focused) {
+          <tui-textfield #declaredValue>
+            <input
+              tuiInputNumber
+              [formControl]="insurance.controls.amount"
+              [min]="INSURANCE_MIN_AMOUNT"
+              [max]="INSURANCE_MAX_AMOUNT"
+              [tuiHint]="[] | tuiFieldErrorContent"
+              tuiHintAppearance="error"
+            />
+          </tui-textfield>
+
+          @if (declaredValue.focused()) {
             <span class="absolute top-1/2 -translate-y-1/2 right-2">
               <tui-badge appearance="secondary" tuiHint="Максимальная сумма страхования" size="s"
                 >30000</tui-badge
@@ -86,13 +87,16 @@
 
       @if (recipientPayment.controls.enabled.value) {
         <div class="hidden">
-          <tui-input-number
-            [formControl]="recipientPayment.controls.amount"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            [min]="1"
-            tuiHintAppearance="error"
-            >0
-          </tui-input-number>
+          <tui-textfield>
+            <input
+              tuiInputNumber
+              [formControl]="recipientPayment.controls.amount"
+              [tuiHint]="[] | tuiFieldErrorContent"
+              [min]="1"
+              tuiHintAppearance="error"
+              placeholder="0"
+            />
+          </tui-textfield>
         </div>
         <tui-error
           [formControl]="recipientPayment.controls.amount"

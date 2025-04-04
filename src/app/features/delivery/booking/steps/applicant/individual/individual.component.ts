@@ -11,15 +11,21 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiHintDirective } from '@taiga-ui/core';
+import { TuiHintDirective, TuiTextfield } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
   TuiBadge,
+  TuiChevron,
   TuiFieldErrorContentPipe,
   TuiStringifyContentPipe,
   TuiStringifyPipe,
 } from '@taiga-ui/kit';
-import { TuiInputModule, TuiInputPhoneModule, TuiSelectModule } from '@taiga-ui/legacy';
+import {
+  TuiComboBoxModule,
+  TuiInputModule,
+  TuiInputPhoneModule,
+  TuiSelectModule,
+} from '@taiga-ui/legacy';
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -46,6 +52,9 @@ import type { IndividualForm } from './individual.types';
     TuiStringifyPipe,
     TuiStringifyContentPipe,
     TuiInputPhoneModule,
+    TuiTextfield,
+    TuiChevron,
+    TuiComboBoxModule,
   ],
   templateUrl: './individual.component.html',
   styleUrl: './individual.component.css',

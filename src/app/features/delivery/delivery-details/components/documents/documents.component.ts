@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { tuiNumberFormatProvider } from '@taiga-ui/core';
-import { TuiInputNumberModule, tuiInputNumberOptionsProvider } from '@taiga-ui/legacy';
+import { TuiLabel, TuiTextfield, TuiTextfieldComponent } from '@taiga-ui/core';
+import { TuiInputNumber } from '@taiga-ui/kit';
 import { debounceTime, merge, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -22,17 +22,9 @@ import type { Documents } from '../../types';
 
 @Component({
   selector: 'app-documents',
-  imports: [TuiInputNumberModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TuiInputNumber, TuiLabel, TuiTextfieldComponent, TuiTextfield],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.css',
-  providers: [
-    tuiNumberFormatProvider({
-      precision: 0,
-    }),
-    tuiInputNumberOptionsProvider({
-      step: 1,
-    }),
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentsComponent implements OnInit, OnChanges {
@@ -88,8 +80,8 @@ export class DocumentsComponent implements OnInit, OnChanges {
     }
   }
 
-  setMinQuantityOnBlur(isFocused: boolean): void {
-    if (!isFocused && !this.quantityControl.value) {
+  setMinQuantityOnBlur(): void {
+    if (!this.quantityControl.value) {
       this.quantityControl.setValue(this.DEFAULT_QUANTITY);
     }
   }

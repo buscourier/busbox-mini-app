@@ -1,33 +1,23 @@
 @if (form) {
   <div [formGroup]="form" class="space-y-3">
-    <label class="block">
-      <span class="mb-1 inline-block text-xs">
-        Улица
+    <label tuiLabel>
+      Улица
 
-        @if (street.errors && street.hasError('required')) {
-          <sup class="text-red-50">*</sup>
-        }
-      </span>
       <div class="relative">
-        <tui-input
-          #streetInput
-          tuiTextfieldSize="m"
-          [formControl]="street"
-          [tuiTextfieldLabelOutside]="true"
-          [tuiHint]="[] | tuiFieldErrorContent"
-          [minlength]="limits.address.street.minLength"
-          [maxlength]="limits.address.street.maxLength"
-          tuiHintAppearance="error"
-        >
+        <tui-textfield #streetInput>
           <input
-            type="text"
-            tuiTextfieldLegacy
+            tuiTextfield
+            [formControl]="street"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            [minlength]="limits.address.street.minLength"
+            [maxlength]="limits.address.street.maxLength"
             [attr.maxlength]="limits.address.street.maxLength"
+            tuiHintAppearance="error"
           />
-        </tui-input>
-        @if (streetInput.focused) {
+        </tui-textfield>
+        @if (streetInput.focused()) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
-            <tui-badge appearance="secondary" tuiHint="Максимум символов" size="s">{{
+            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
               availableStreetLength
             }}</tui-badge>
           </span>
@@ -35,67 +25,49 @@
       </div>
     </label>
     <div class="flex space-x-7">
-      <label class="block">
-        <span class="mb-1 inline-block text-xs">
-          Дом, корпус, строение
+      <label tuiLabel>
+        Дом, корпус, строение
 
-          @if (building.errors && building.hasError('required')) {
-            <sup class="text-red-50">*</sup>
-          }
-        </span>
         <div class="relative">
-          <tui-input
-            #buildingInput
-            tuiTextfieldSize="m"
-            [formControl]="building"
-            [tuiTextfieldLabelOutside]="true"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            [minlength]="limits.address.building.minLength"
-            [maxlength]="limits.address.building.maxLength"
-            tuiHintAppearance="error"
-          >
+          <tui-textfield #buildingInput>
             <input
-              type="text"
-              tuiTextfieldLegacy
+              tuiTextfield
+              [formControl]="building"
+              [tuiHint]="[] | tuiFieldErrorContent"
+              [minlength]="limits.address.building.minLength"
+              [maxlength]="limits.address.building.maxLength"
               [attr.maxlength]="limits.address.building.maxLength"
+              tuiHintAppearance="error"
             />
-          </tui-input>
-          @if (buildingInput.focused) {
+          </tui-textfield>
+          @if (buildingInput.focused()) {
             <span class="absolute top-1/2 -translate-y-1/2 right-2">
-              <tui-badge appearance="secondary" tuiHint="Максимум символов" size="s">{{
+              <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
                 availableBuildingLength
               }}</tui-badge>
             </span>
           }
         </div>
       </label>
-      <label class="block">
-        <span class="mb-1 inline-block text-xs">
-          Кв. / офис
-          @if (apartment.errors && apartment.hasError('required')) {
-            <sup class="text-red-50">*</sup>
-          }
-        </span>
+
+      <label tuiLabel>
+        Кв. / офис
+
         <div class="relative">
-          <tui-input
-            #apartmentInput
-            tuiTextfieldSize="m"
-            [formControl]="apartment"
-            [tuiTextfieldLabelOutside]="true"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            [minlength]="limits.address.apartment.minLength"
-            [maxlength]="limits.address.apartment.maxLength"
-            tuiHintAppearance="error"
-          >
+          <tui-textfield #apartmentInput>
             <input
-              type="text"
-              tuiTextfieldLegacy
+              tuiTextfield
+              [formControl]="apartment"
+              [tuiHint]="[] | tuiFieldErrorContent"
+              [minlength]="limits.address.apartment.minLength"
+              [maxlength]="limits.address.apartment.maxLength"
               [attr.maxlength]="limits.address.apartment.maxLength"
+              tuiHintAppearance="error"
             />
-          </tui-input>
-          @if (apartmentInput.focused) {
+          </tui-textfield>
+          @if (apartmentInput.focused()) {
             <span class="absolute top-1/2 -translate-y-1/2 right-2">
-              <tui-badge appearance="secondary" tuiHint="Максимум символов" size="s">{{
+              <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
                 availableApartmentLength
               }}</tui-badge>
             </span>

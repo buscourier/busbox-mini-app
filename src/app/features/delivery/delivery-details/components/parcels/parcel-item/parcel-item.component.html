@@ -6,20 +6,23 @@
     class="mb-2 grid grid-cols-2 gap-4 sm:grid-cols-parcel md:grid-cols-2 lg:mb-0.5 lg:grid-cols-3 xl:grid-cols-6"
   >
     <div tuiLabel>
-      <span class="mb-1 inline-block text-xs">Кол-во мест</span>
+      Кол-во мест
+
       <div class="relative">
-        <tui-input-number
-          #quantityInput
-          [formControl]="quantity"
-          [min]="limits.QUANTITY.MIN"
-          [max]="limits.QUANTITY.MAX"
-          [tuiHint]="[] | tuiFieldErrorContent"
-          [pseudoInvalid]="quantity.invalid || totalQuantityMaxError"
-          (focusedChange)="setMinValueOnBlur($event, quantity.value, 'quantity')"
-          tuiHintAppearance="error"
-          >0
-        </tui-input-number>
-        @if (quantityInput.focused) {
+        <tui-textfield #quantityInput>
+          <input
+            tuiInputNumber
+            [formControl]="quantity"
+            [min]="limits.QUANTITY.MIN"
+            [max]="limits.QUANTITY.MAX"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            [invalid]="quantity.invalid || totalQuantityMaxError"
+            (blur)="setMinValueOnBlur(quantity.value, 'quantity')"
+            placeholder="0"
+            tuiHintAppearance="error"
+          />
+        </tui-textfield>
+        @if (quantityInput.focused()) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
             <tui-badge appearance="secondary" tuiHint="Доступно еще мест" size="s">{{
               getAvailableQuantity()
@@ -29,21 +32,24 @@
       </div>
     </div>
     <div tuiLabel>
-      <span class="mb-1 inline-block text-xs">Вес</span>
+      Вес
+
       <div class="relative">
-        <tui-input-number
-          #weightInput
-          [formControl]="weight"
-          [min]="limits.WEIGHT.MIN"
-          [max]="limits.WEIGHT.MAX"
-          [tuiHint]="[] | tuiFieldErrorContent"
-          [pseudoInvalid]="weight.invalid || totalWeightMaxError"
-          (focusedChange)="setMinValueOnBlur($event, weight.value, 'weight')"
-          tuiHintAppearance="error"
-          tuiTextfieldPostfix="кг"
-          >0
-        </tui-input-number>
-        @if (weightInput.focused) {
+        <tui-textfield #weightInput>
+          <input
+            tuiInputNumber
+            [formControl]="weight"
+            [min]="limits.WEIGHT.MIN"
+            [max]="limits.WEIGHT.MAX"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            [invalid]="weight.invalid || totalWeightMaxError"
+            (blur)="setMinValueOnBlur(weight.value, 'weight')"
+            tuiHintAppearance="error"
+            tuiTextfieldPostfix="кг"
+          />
+        </tui-textfield>
+
+        @if (weightInput.focused()) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
             <tui-badge appearance="secondary" tuiHint="Максимальный вес" size="s"
               >{{ limits.WEIGHT.MAX }} кг.</tui-badge
@@ -54,21 +60,24 @@
     </div>
     <ng-container formGroupName="dimensions">
       <div tuiLabel>
-        <span class="mb-1 inline-block text-xs">Ширина</span>
+        Ширина
+
         <div class="relative">
-          <tui-input-number
-            #widthInput
-            [formControl]="width"
-            [min]="limits.DIMENSIONS.MIN"
-            [max]="getMaxDimension(width)"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            [pseudoInvalid]="dimensions.invalid || totalDimensionsMaxError"
-            (focusedChange)="setMinDimensionOnBlur($event, width.value, 'width')"
-            tuiHintAppearance="error"
-            tuiTextfieldPostfix="см"
-            >0
-          </tui-input-number>
-          @if (widthInput.focused || heightInput.focused || lengthInput.focused) {
+          <tui-textfield #widthInput>
+            <input
+              tuiInputNumber
+              [formControl]="width"
+              [min]="limits.DIMENSIONS.MIN"
+              [max]="getMaxDimension(width)"
+              [tuiHint]="[] | tuiFieldErrorContent"
+              [invalid]="dimensions.invalid || totalDimensionsMaxError"
+              (blur)="setMinDimensionOnBlur(width.value, 'width')"
+              tuiHintAppearance="error"
+              tuiTextfieldPostfix="см"
+            />
+          </tui-textfield>
+
+          @if (widthInput.focused() || heightInput.focused() || lengthInput.focused()) {
             <span class="absolute top-1/2 -translate-y-1/2 right-2">
               <tui-badge appearance="secondary" tuiHint="Доступно для указания ширины" size="s"
                 >{{ getAvailableDimension() }} см.</tui-badge
@@ -78,21 +87,24 @@
         </div>
       </div>
       <div tuiLabel>
-        <span class="mb-1 inline-block text-xs">Высота</span>
+        Высота
+
         <div class="relative">
-          <tui-input-number
-            #heightInput
-            [formControl]="height"
-            [min]="limits.DIMENSIONS.MIN"
-            [max]="getMaxDimension(height)"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            [pseudoInvalid]="dimensions.invalid || totalDimensionsMaxError"
-            (focusedChange)="setMinDimensionOnBlur($event, height.value, 'height')"
-            tuiHintAppearance="error"
-            tuiTextfieldPostfix="см"
-            >0
-          </tui-input-number>
-          @if (widthInput.focused || heightInput.focused || lengthInput.focused) {
+          <tui-textfield #heightInput>
+            <input
+              tuiInputNumber
+              [formControl]="height"
+              [min]="limits.DIMENSIONS.MIN"
+              [max]="getMaxDimension(height)"
+              [tuiHint]="[] | tuiFieldErrorContent"
+              [invalid]="dimensions.invalid || totalDimensionsMaxError"
+              (blur)="setMinDimensionOnBlur(height.value, 'height')"
+              tuiHintAppearance="error"
+              tuiTextfieldPostfix="см"
+            />
+          </tui-textfield>
+
+          @if (widthInput.focused() || heightInput.focused() || lengthInput.focused()) {
             <span class="absolute top-1/2 -translate-y-1/2 right-2">
               <tui-badge appearance="secondary" tuiHint="Доступно для указания высоты" size="s"
                 >{{ getAvailableDimension() }} см.</tui-badge
@@ -102,21 +114,24 @@
         </div>
       </div>
       <div tuiLabel>
-        <span class="mb-1 inline-block text-xs">Длина</span>
+        Длина
+
         <div class="relative">
-          <tui-input-number
-            #lengthInput
-            [formControl]="length"
-            [min]="limits.DIMENSIONS.MIN"
-            [max]="getMaxDimension(length)"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            [pseudoInvalid]="dimensions.invalid || totalDimensionsMaxError"
-            (focusedChange)="setMinDimensionOnBlur($event, length.value, 'length')"
-            tuiHintAppearance="error"
-            tuiTextfieldPostfix="см"
-            >0
-          </tui-input-number>
-          @if (widthInput.focused || heightInput.focused || lengthInput.focused) {
+          <tui-textfield #lengthInput>
+            <input
+              tuiInputNumber
+              [formControl]="length"
+              [min]="limits.DIMENSIONS.MIN"
+              [max]="getMaxDimension(length)"
+              [tuiHint]="[] | tuiFieldErrorContent"
+              [invalid]="dimensions.invalid || totalDimensionsMaxError"
+              (blur)="setMinDimensionOnBlur(length.value, 'length')"
+              tuiHintAppearance="error"
+              tuiTextfieldPostfix="см"
+            />
+          </tui-textfield>
+
+          @if (widthInput.focused() || heightInput.focused() || lengthInput.focused()) {
             <span class="absolute top-1/2 -translate-y-1/2 right-2">
               <tui-badge appearance="secondary" tuiHint="Доступно для указания длины" size="s"
                 >{{ getAvailableDimension() }} см.</tui-badge

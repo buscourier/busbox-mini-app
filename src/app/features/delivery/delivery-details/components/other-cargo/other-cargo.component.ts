@@ -11,12 +11,9 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiStringifyContentPipe, TuiStringifyPipe } from '@taiga-ui/kit';
-import {
-  TuiInputNumberModule,
-  TuiSelectModule,
-  TuiTextfieldControllerModule,
-} from '@taiga-ui/legacy';
+import { TuiLabel, TuiTextfieldComponent } from '@taiga-ui/core';
+import { TuiInputNumber, TuiStringifyContentPipe, TuiStringifyPipe } from '@taiga-ui/kit';
+import { TuiSelectModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -34,7 +31,9 @@ import type { OtherCargoForm } from './other-cargo.types';
     TuiTextfieldControllerModule,
     TuiStringifyPipe,
     TuiStringifyContentPipe,
-    TuiInputNumberModule,
+    TuiInputNumber,
+    TuiLabel,
+    TuiTextfieldComponent,
   ],
   templateUrl: './other-cargo.component.html',
   styleUrl: './other-cargo.component.css',
@@ -104,8 +103,8 @@ export class OtherCargoComponent implements OnInit, OnChanges {
     }
   }
 
-  setMinQuantityOnBlur(isFocused: boolean): void {
-    if (!isFocused && !this.quantity.value) {
+  setMinQuantityOnBlur(): void {
+    if (!this.quantity.value) {
       this.quantity.setValue(this.DEFAULT_QUANTITY);
     }
   }

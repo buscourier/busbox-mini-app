@@ -1,25 +1,20 @@
 @if (form) {
   <div [formGroup]="form" class="grid grid-cols-3 gap-5">
-    <label class="block">
-      <span class="mb-1 inline-block text-xs">
-        ФИО
-
-        @if (fullName.errors && fullName.hasError('required')) {
-          <sup class="text-red-50">*</sup>
-        }
-      </span>
+    <label tuiLabel>
+      ФИО
       <div class="relative">
-        <tui-input
-          #fullNameInput
-          [formControl]="fullName"
-          [tuiHint]="[] | tuiFieldErrorContent"
-          [minlength]="limits.user.fullName.minLength"
-          [maxlength]="limits.user.fullName.maxLength"
-          tuiHintAppearance="error"
-        >
-          <input type="text" tuiTextfieldLegacy [attr.maxlength]="limits.user.fullName.maxLength" />
-        </tui-input>
-        @if (fullNameInput.focused) {
+        <tui-textfield #fullNameInput>
+          <input
+            tuiTextfield
+            [formControl]="fullName"
+            [tuiHint]="[] | tuiFieldErrorContent"
+            [minlength]="limits.user.fullName.minLength"
+            [maxlength]="limits.user.fullName.maxLength"
+            [attr.maxlength]="limits.user.fullName.maxLength"
+            tuiHintAppearance="error"
+          />
+        </tui-textfield>
+        @if (fullNameInput.focused()) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
             <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
               availableFullNameLength
@@ -28,14 +23,9 @@
         }
       </div>
     </label>
-    <div class="block">
-      <span class="mb-1 inline-block text-xs">
-        Телефон
+    <div tuiLabel>
+      Телефон
 
-        @if (phone.errors && phone.hasError('required')) {
-          <sup class="text-red-50">*</sup>
-        }
-      </span>
       <tui-input-phone
         [formControl]="phone"
         [tuiHint]="[] | tuiFieldErrorContent"

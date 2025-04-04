@@ -14,16 +14,19 @@
   </tui-select>
 
   @if (item.value) {
-    <tui-input-number
-      [formControl]="quantity"
-      [tuiTextfieldLabelOutside]="true"
-      [min]="1"
-      [max]="20"
-      (focusedChange)="setMinQuantityOnBlur($event)"
-      class="quantity"
-    >
+    <label tuiLabel>
       Количество мест
-    </tui-input-number>
+
+      <tui-textfield>
+        <input
+          tuiInputNumber
+          placeholder="0"
+          [formControl]="quantity"
+          (blur)="setMinQuantityOnBlur()"
+          [step]="1"
+        />
+      </tui-textfield>
+    </label>
   }
 
   <!--  @if (form.controls.item.value) {-->

@@ -18,14 +18,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TuiError, TuiHintDirective, TuiLabel } from '@taiga-ui/core';
+import {
+  TuiError,
+  TuiHintDirective,
+  TuiLabel,
+  TuiTextfieldComponent,
+  TuiTextfieldDirective,
+} from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
   TuiBadge,
   TuiFieldErrorContentPipe,
   TuiFieldErrorPipe,
+  TuiInputNumber,
 } from '@taiga-ui/kit';
-import { TuiInputNumberModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
+import { TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { debounceTime } from 'rxjs';
 
 import { DEBOUNCE_TIME } from '@core/constants';
@@ -45,7 +52,6 @@ import type { ParcelItemForm } from './parcel-item.types';
 @Component({
   selector: 'app-parcel-item',
   imports: [
-    TuiInputNumberModule,
     ReactiveFormsModule,
     TuiHintDirective,
     TuiFieldErrorContentPipe,
@@ -55,6 +61,9 @@ import type { ParcelItemForm } from './parcel-item.types';
     TuiFieldErrorPipe,
     TuiError,
     AsyncPipe,
+    TuiTextfieldComponent,
+    TuiTextfieldDirective,
+    TuiInputNumber,
   ],
   templateUrl: './parcel-item.component.html',
   styleUrl: './parcel-item.component.css',
@@ -152,24 +161,19 @@ export class ParcelItemComponent implements OnInit, OnChanges {
     return this.limits.QUANTITY.MAX - quantity;
   }
 
-  setMinDimensionOnBlur(
-    isFocused: boolean,
-    controlValue: number,
-    controlName: keyof ParcelItemDimensions,
-  ): void {
-    if (!isFocused && !controlValue) {
+  setMinDimensionOnBlur(controlValue: number, controlName: keyof ParcelItemDimensions): void {
+    if (!controlValue) {
       this.dimensions.controls[controlName].setValue(this.limits.DIMENSIONS.MIN);
     }
   }
 
   setMinValueOnBlur(
-    isFocused: boolean,
     controlValue: number,
     controlName: Exclude<keyof ParcelItem, 'dimensions'>,
   ): void {
     const limitKey = limitKeyMap[controlName];
 
-    if (!isFocused && !controlValue) {
+    if (!controlValue) {
       this.form.controls[controlName].setValue(this.limits[limitKey].MIN);
     }
   }

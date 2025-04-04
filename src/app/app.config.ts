@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import type { ApplicationConfig } from '@angular/core';
+import { type ApplicationConfig, signal } from '@angular/core';
 import { isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
@@ -7,8 +7,15 @@ import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore } from '@ngrx/router-store';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { tuiButtonOptionsProvider, tuiTextfieldOptionsProvider } from '@taiga-ui/core';
 import { NG_EVENT_PLUGINS } from '@taiga-ui/event-plugins';
-import { TUI_DATE_VALUE_TRANSFORMER } from '@taiga-ui/kit';
+import {
+  TUI_DATE_VALUE_TRANSFORMER,
+  tuiCheckboxOptionsProvider,
+  tuiInputNumberOptionsProvider,
+  tuiRadioOptionsProvider,
+} from '@taiga-ui/kit';
+import { TUI_TEXTFIELD_LABEL_OUTSIDE, TUI_TEXTFIELD_SIZE } from '@taiga-ui/legacy';
 
 import { DEFAULT_VALIDATION_LIMITS, DEFAULT_VALIDATION_MESSAGES } from '@core/config';
 import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
@@ -56,5 +63,35 @@ export const appConfig: ApplicationConfig = {
       provide: VALIDATION_MESSAGES,
       useValue: DEFAULT_VALIDATION_MESSAGES,
     },
+    {
+      provide: TUI_TEXTFIELD_SIZE,
+      useValue: {
+        size: 'm',
+      },
+    },
+    {
+      provide: TUI_TEXTFIELD_LABEL_OUTSIDE,
+      useValue: {
+        labelOutside: true,
+      },
+    },
+    // tuiDialogOptionsProvider()
+    tuiRadioOptionsProvider({
+      size: 'm',
+    }),
+    tuiButtonOptionsProvider({
+      size: 'm',
+    }),
+    tuiCheckboxOptionsProvider({
+      size: 'm',
+    }),
+    tuiTextfieldOptionsProvider({
+      size: signal('m'),
+      cleaner: signal(false),
+    }),
+    tuiInputNumberOptionsProvider({
+      min: 0,
+      max: 20,
+    }),
   ],
 };
