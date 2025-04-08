@@ -1,7 +1,7 @@
 @let isMainLayout = isMainLayout$ | async;
 
 <div class="flex gap-16">
-  <div class="flex-grow">
+  <div class="grow">
     <router-outlet />
   </div>
   @if (isMainLayout) {
