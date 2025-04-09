@@ -1,4 +1,4 @@
-import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,18 +16,13 @@ import {
   TUI_VALIDATION_ERRORS,
   TuiBadge,
   TuiChevron,
+  TuiDataListWrapper,
   TuiFieldErrorContentPipe,
   TuiStringifyContentPipe,
   TuiStringifyPipe,
 } from '@taiga-ui/kit';
-import {
-  TuiComboBoxModule,
-  TuiInputModule,
-  TuiInputPhoneModule,
-  TuiSelectModule,
-} from '@taiga-ui/legacy';
-import { merge } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { TuiInputPhoneModule } from '@taiga-ui/legacy';
+import { distinctUntilChanged } from 'rxjs';
 
 import type { ValidationLimits, ValidationMessages } from '@core/config';
 import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
@@ -46,15 +41,13 @@ import type { IndividualForm } from './individual.types';
     TuiBadge,
     ReactiveFormsModule,
     TuiFieldErrorContentPipe,
-    TuiInputModule,
     TuiHintDirective,
-    TuiSelectModule,
     TuiStringifyPipe,
     TuiStringifyContentPipe,
     TuiInputPhoneModule,
     TuiTextfield,
     TuiChevron,
-    TuiComboBoxModule,
+    TuiDataListWrapper,
   ],
   templateUrl: './individual.component.html',
   styleUrl: './individual.component.css',
@@ -76,7 +69,7 @@ import type { IndividualForm } from './individual.types';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IndividualComponent implements OnInit, OnChanges {
+export class IndividualComponent implements OnInit {
   @Input() data: Individual | null = null;
   @Output() dataChange = new EventEmitter<Individual>();
   @Output() validationChange = new EventEmitter<boolean>();
@@ -84,10 +77,9 @@ export class IndividualComponent implements OnInit, OnChanges {
   form!: IndividualForm;
 
   protected readonly individualRoles = individualRoles;
-
   protected limits = inject<ValidationLimits>(VALIDATION_LIMITS);
-  private fieldValidators = inject(FIELD_VALIDATORS_FACTORY);
 
+  private fieldValidators = inject(FIELD_VALIDATORS_FACTORY);
   private fb = inject(NonNullableFormBuilder);
   private destroyRef = inject(DestroyRef);
 
@@ -136,17 +128,6 @@ export class IndividualComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.initializeForm();
     this.setupFormChanges();
-    this.updateData();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!this.form) return;
-
-    const { data } = changes;
-
-    if (data && !data.firstChange && !isObjectsEqual(data.previousValue, data.currentValue)) {
-      this.updateData();
-    }
   }
 
   private initializeForm(): void {
@@ -158,32 +139,26 @@ export class IndividualComponent implements OnInit, OnChanges {
       phone: ['', this.fieldValidators.getValidators('contact', 'phone')],
       role: ['', [Validators.required]],
     });
+
+    if (this.data) {
+      this.form.patchValue(this.data);
+    }
   }
 
   private setupFormChanges(): void {
     this.validationChange.emit(this.form.valid);
 
-    merge(this.form.valueChanges, this.form.statusChanges.pipe(map(() => this.form.valid)))
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((value) => {
-        if (typeof value === 'boolean') {
-          this.validationChange.emit(value);
-        } else {
-          this.dataChange.emit(value as Individual);
+    this.form.valueChanges
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        distinctUntilChanged((prev, curr) => isObjectsEqual(prev, curr)),
+      )
+      .subscribe(() => {
+        this.validationChange.emit(this.form.valid);
+
+        if (this.form.valid) {
+          this.dataChange.emit(this.form.getRawValue());
         }
       });
-  }
-
-  private updateData(): void {
-    this.form.patchValue(
-      this.data ?? {
-        lastName: '',
-        firstName: '',
-        middleName: '',
-        email: '',
-        phone: '',
-        role: '',
-      },
-    );
   }
 }

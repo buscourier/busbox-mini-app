@@ -96,15 +96,16 @@
       >
       </tui-input-phone>
     </div>
-    <div tuiLabel>
+    <label tuiLabel>
       Роль
-      <tui-select [formControl]="role" [stringify]="'label' | tuiStringify">
+      <tui-textfield tuiChevron [stringify]="'label' | tuiStringify" [tuiTextfieldCleaner]="false">
+        <select tuiTextfield [formControl]="role"></select>
         <tui-data-list-wrapper
-          *tuiDataList
+          *tuiTextfieldDropdown
           [items]="individualRoles"
           [itemContent]="'label' | tuiStringify | tuiStringifyContent"
         />
-      </tui-select>
-    </div>
+      </tui-textfield>
+    </label>
   </div>
 }

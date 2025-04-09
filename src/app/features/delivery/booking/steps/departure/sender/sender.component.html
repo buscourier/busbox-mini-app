@@ -24,17 +24,18 @@
       </div>
     </label>
 
-    <div tuiLabel>
+    <label tuiLabel>
       Документ
-
-      <tui-select [formControl]="document" [stringify]="'label' | tuiStringify">
+      <tui-textfield tuiChevron [stringify]="'label' | tuiStringify" [tuiTextfieldCleaner]="false">
+        <select tuiTextfield [formControl]="document"></select>
         <tui-data-list-wrapper
-          *tuiDataList
+          *tuiTextfieldDropdown
           [items]="senderDocuments"
           [itemContent]="'label' | tuiStringify | tuiStringifyContent"
         />
-      </tui-select>
-    </div>
+      </tui-textfield>
+    </label>
+
     <label tuiLabel>
       Номер документа
 

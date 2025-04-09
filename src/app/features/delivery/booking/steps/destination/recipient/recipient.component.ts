@@ -1,4 +1,4 @@
-import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -19,8 +19,7 @@ import {
 } from '@taiga-ui/core';
 import { TUI_VALIDATION_ERRORS, TuiBadge, TuiFieldErrorContentPipe } from '@taiga-ui/kit';
 import { TuiInputModule, TuiInputPhoneModule } from '@taiga-ui/legacy';
-import { merge } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged } from 'rxjs';
 
 import type { ValidationLimits, ValidationMessages } from '@core/config';
 import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
@@ -62,7 +61,7 @@ import type { RecipientForm } from './recipient.types';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipientComponent implements OnInit, OnChanges {
+export class RecipientComponent implements OnInit {
   @Input() data: Recipient | null = null;
   @Output() dataChange = new EventEmitter<Recipient>();
   @Output() validationChange = new EventEmitter<boolean>();
@@ -92,17 +91,6 @@ export class RecipientComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.initializeForm();
     this.setupFormChanges();
-    this.updateData();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!this.form) return;
-
-    const { data } = changes;
-
-    if (data && !data.firstChange && !isObjectsEqual(data.previousValue, data.currentValue)) {
-      this.updateData();
-    }
   }
 
   private initializeForm(): void {
@@ -110,28 +98,26 @@ export class RecipientComponent implements OnInit, OnChanges {
       fullName: ['', this.fieldValidators.getValidators('user', 'fullName')],
       phone: ['', this.fieldValidators.getValidators('contact', 'phone')],
     });
+
+    if (this.data) {
+      this.form.patchValue(this.data);
+    }
   }
 
   private setupFormChanges(): void {
     this.validationChange.emit(this.form.valid);
 
-    merge(this.form.valueChanges, this.form.statusChanges.pipe(map(() => this.form.valid)))
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((value) => {
-        if (typeof value === 'boolean') {
-          this.validationChange.emit(value);
-        } else {
-          this.dataChange.emit(value as Recipient);
+    this.form.valueChanges
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        distinctUntilChanged((prev, curr) => isObjectsEqual(prev, curr)),
+      )
+      .subscribe(() => {
+        this.validationChange.emit(this.form.valid);
+
+        if (this.form.valid) {
+          this.dataChange.emit(this.form.getRawValue());
         }
       });
-  }
-
-  private updateData(): void {
-    this.form.patchValue(
-      this.data ?? {
-        fullName: '',
-        phone: '',
-      },
-    );
   }
 }

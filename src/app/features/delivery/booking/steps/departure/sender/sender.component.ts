@@ -1,4 +1,4 @@
-import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,23 +11,18 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  TuiHintDirective,
-  TuiLabel,
-  TuiTextfield,
-  TuiTextfieldComponent,
-  TuiTextfieldDirective,
-} from '@taiga-ui/core';
+import { TuiHintDirective, TuiLabel, TuiTextfield } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
   TuiBadge,
+  TuiChevron,
+  TuiDataListWrapper,
   TuiFieldErrorContentPipe,
   TuiStringifyContentPipe,
   TuiStringifyPipe,
 } from '@taiga-ui/kit';
-import { TuiInputModule, TuiInputPhoneModule, TuiSelectModule } from '@taiga-ui/legacy';
-import { merge } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { TuiInputPhoneModule } from '@taiga-ui/legacy';
+import { distinctUntilChanged, startWith } from 'rxjs';
 
 import type { ValidationLimits, ValidationMessages } from '@core/config';
 import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
@@ -44,18 +39,16 @@ import type { SenderForm } from './sender.types';
   selector: 'app-sender',
   imports: [
     TuiBadge,
-    TuiInputModule,
     ReactiveFormsModule,
     TuiHintDirective,
     TuiFieldErrorContentPipe,
     TuiInputPhoneModule,
-    TuiSelectModule,
     TuiStringifyPipe,
     TuiStringifyContentPipe,
     TuiLabel,
-    TuiTextfieldComponent,
-    TuiTextfieldDirective,
     TuiTextfield,
+    TuiChevron,
+    TuiDataListWrapper,
   ],
   templateUrl: './sender.component.html',
   styleUrl: './sender.component.css',
@@ -77,7 +70,7 @@ import type { SenderForm } from './sender.types';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SenderComponent implements OnInit, OnChanges {
+export class SenderComponent implements OnInit {
   @Input() data: Sender | null = null;
   @Output() dataChange = new EventEmitter<Sender>();
   @Output() validationChange = new EventEmitter<boolean>();
@@ -116,17 +109,6 @@ export class SenderComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.initializeForm();
     this.setupFormChanges();
-    this.updateData();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!this.form) return;
-
-    const { data } = changes;
-
-    if (data && !data.firstChange && !isObjectsEqual(data.previousValue, data.currentValue)) {
-      this.updateData();
-    }
   }
 
   private initializeForm(): void {
@@ -137,48 +119,47 @@ export class SenderComponent implements OnInit, OnChanges {
       phone: ['', this.fieldValidators.getValidators('contact', 'phone')],
     });
 
-    this.document.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((doc) => {
-      console.log('doc.value', doc.value);
-      const validatorType =
-        doc.value === SenderDocument.DRIVER_LICENSE
-          ? 'driverLicense'
-          : doc.value === SenderDocument.PASSPORT
-            ? 'passport'
-            : 'other';
+    if (this.data) {
+      this.form.patchValue(this.data);
+    }
 
-      this.documentNumber.setValidators(
-        this.fieldValidators.getValidators(
-          'document',
-          validatorType as keyof ValidationLimits['document'],
-          'number',
-        ),
-      );
-      this.documentNumber.updateValueAndValidity();
-    });
+    this.document.valueChanges
+      .pipe(startWith(this.data?.document || defaultDocument), takeUntilDestroyed(this.destroyRef))
+      .subscribe((doc) => {
+        console.log('doc.value', doc.value);
+
+        const validatorType =
+          doc.value === SenderDocument.DRIVER_LICENSE
+            ? 'driverLicense'
+            : doc.value === SenderDocument.PASSPORT
+              ? 'passport'
+              : 'other';
+
+        this.documentNumber.setValidators(
+          this.fieldValidators.getValidators(
+            'document',
+            validatorType as keyof ValidationLimits['document'],
+            'number',
+          ),
+        );
+        this.documentNumber.updateValueAndValidity();
+      });
   }
 
   private setupFormChanges(): void {
     this.validationChange.emit(this.form.valid);
 
-    merge(this.form.valueChanges, this.form.statusChanges.pipe(map(() => this.form.valid)))
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((value) => {
-        if (typeof value === 'boolean') {
-          this.validationChange.emit(value);
-        } else {
-          this.dataChange.emit(value as Sender);
+    this.form.valueChanges
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        distinctUntilChanged((prev, curr) => isObjectsEqual(prev, curr)),
+      )
+      .subscribe(() => {
+        this.validationChange.emit(this.form.valid);
+
+        if (this.form.valid) {
+          this.dataChange.emit(this.form.getRawValue());
         }
       });
-  }
-
-  private updateData(): void {
-    this.form.patchValue(
-      this.data ?? {
-        fullName: '',
-        document: defaultDocument,
-        documentNumber: '',
-        phone: '',
-      },
-    );
   }
 }
