@@ -1,0 +1,35 @@
+@theme {
+  /*--color-yellow-*: initial;*/
+  --color-yellow-500: rgb(255, 220, 0);
+  --color-yellow-400: rgb(255, 230, 51);
+  --color-yellow-600: rgb(230, 198, 0);
+}
+
+:root {
+  --tui-heading-font: 'Kelson Sans', -apple-system, 'BlinkMacSystemFont', system-ui, 'Roboto',
+    'Segoe UI', 'Helvetica Neue', sans-serif;
+  --tui-text-font: 'Roboto', -apple-system, 'BlinkMacSystemFont', system-ui, 'Roboto', 'Segoe UI',
+    'Helvetica Neue', sans-serif;
+  --tui-font-heading: var(--tui-heading-font);
+
+  /*--tui-font-offset: 0rem;*/
+  --tui-font-text: var(--tui-text-font);
+
+  --tui-font-text-s: normal calc(var(--tui-font-offset) + 1rem) / 1.25rem var(--tui-font-text);
+
+  /*--tui-font-text-m: normal 1.125rem/1.25rem var(--tui-font-text);*/
+  /*--tui-font-text-s: normal 1rem/1.25rem var(--tui-font-text);*/
+  /*--tui-font-text-xs: normal 0.6875rem/1rem var(--tui-font-text);*/
+
+  --tui-background-accent-1: theme(colors.yellow.500);
+  --tui-background-accent-1-hover: theme(colors.yellow.400);
+  --tui-background-accent-1-pressed: theme(colors.yellow.600);
+
+  --tui-text-primary-on-accent-1: theme(colors.black);
+
+  --tui-height-m: 50px;
+  --tui-radius-m: var(--radius-md);
+  /*--tui-text-tertiary: red;*/
+  --tui-text-action: var(--color-gray-900);
+  --tui-text-action-hover: var(--color-black);
+}
