@@ -1,21 +1,22 @@
 <div>
-  <tui-select
-    [formControl]="item"
-    [stringify]="'name' | tuiStringify"
-    [tuiTextfieldLabelOutside]="true"
-    class="select"
-  >
-    Выберите запчасть
-    <tui-data-list-wrapper
-      *tuiDataList
-      [items]="options"
-      [itemContent]="'name' | tuiStringify | tuiStringifyContent"
-    />
-  </tui-select>
+  <div tuiLabel>
+    <span class="mb-1 inline-block text-sm">Выберите запчасть</span>
+    <tui-select
+      [formControl]="item"
+      [stringify]="'name' | tuiStringify"
+      [tuiTextfieldLabelOutside]="true"
+    >
+      <tui-data-list-wrapper
+        *tuiDataList
+        [items]="options"
+        [itemContent]="'name' | tuiStringify | tuiStringifyContent"
+      />
+    </tui-select>
+  </div>
 
   @if (item.value) {
-    <label tuiLabel>
-      Количество мест
+    <label tuiLabel class="mt-4">
+      <span class="mb-1 inline-block text-sm">Количество мест</span>
 
       <tui-textfield>
         <input

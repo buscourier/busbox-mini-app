@@ -21,6 +21,7 @@ import { isObjectsEqual } from '@core/utils';
 import type { ParcelItem, ParcelItemLimits, Parcels, ParcelsLimits } from '../../types';
 
 import { PARCEL_ITEM_DEFAULTS, ParcelItemComponent } from './parcel-item';
+import { parcelItemAnimation } from './parcels.animations';
 import { PARCELS_VALIDATION_MESSAGES } from './parcels.constants';
 import type { ParcelsErrors } from './parcels.types';
 import { parcelsValidator } from './parcels.validator';
@@ -44,6 +45,7 @@ import { parcelsValidator } from './parcels.validator';
       useValue: PARCELS_VALIDATION_MESSAGES,
     },
   ],
+  animations: [parcelItemAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ParcelsComponent implements OnChanges, OnInit {

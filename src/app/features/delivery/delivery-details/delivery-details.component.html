@@ -1,9 +1,5 @@
 @let vm = vm$ | async;
 
-<!--<b>activeOrderValid: {{vm?.isActiveOrderValid}}</b>-->
-<!--<br>-->
-<!--<b>allOrdersValid: {{vm?.isAllOrdersValid}}</b>-->
-
 @if (vm && vm.options.isLoaded) {
   <app-order-tabs
     [tabs]="vm.orders.items"
@@ -21,58 +17,52 @@
       (typeChange)="setCargoType(order.id, $event)"
     />
 
-    @switch (order.cargoType) {
-      @case (CargoType.PARCELS) {
-        @defer {
-          <app-parcels
-            [data]="order.parcels"
-            [parcelsLimits]="vm.restrictions.parcels"
-            [parcelItemLimits]="vm.restrictions.parcelItem"
-            (dataChange)="updateOrderData(order.id, 'parcels', $event)"
-            (validationChange)="updateOrderValidation(order.id, 'parcels', $event)"
-          />
-        } @loading (minimum 1s) {
-          <tui-loader />
+    <div [@cargoSwitch]="order.cargoType">
+      @switch (order.cargoType) {
+        @case (CargoType.PARCELS) {
+          @defer {
+            <app-parcels
+              [data]="order.parcels"
+              [parcelsLimits]="vm.restrictions.parcels"
+              [parcelItemLimits]="vm.restrictions.parcelItem"
+              (dataChange)="updateOrderData(order.id, 'parcels', $event)"
+              (validationChange)="updateOrderValidation(order.id, 'parcels', $event)"
+            />
+          }
+        }
+        @case (CargoType.AUTO_PARTS) {
+          @defer {
+            <app-auto-parts
+              [data]="order.autoParts"
+              [options]="vm.options.autoParts"
+              [restrictions]="vm.restrictions.autoParts"
+              (dataChange)="updateOrderData(order.id, 'autoParts', $event)"
+              (validationChange)="updateOrderValidation(order.id, 'autoParts', $event)"
+            />
+          }
+        }
+        @case (CargoType.OTHER) {
+          @defer {
+            <app-other-cargo
+              [data]="order.otherCargo"
+              [options]="vm.options.otherCargos"
+              [restrictions]="vm.restrictions.otherCargo"
+              (dataChange)="updateOrderData(order.id, 'otherCargo', $event)"
+              (validationChange)="updateOrderValidation(order.id, 'otherCargo', $event)"
+            />
+          }
+        }
+        @default {
+          @defer {
+            <app-documents
+              [data]="order.documents"
+              (dataChange)="updateOrderData(order.id, 'documents', $event)"
+              (validationChange)="updateOrderValidation(order.id, 'documents', $event)"
+            />
+          }
         }
       }
-      @case (CargoType.AUTO_PARTS) {
-        @defer {
-          <app-auto-parts
-            [data]="order.autoParts"
-            [options]="vm.options.autoParts"
-            [restrictions]="vm.restrictions.autoParts"
-            (dataChange)="updateOrderData(order.id, 'autoParts', $event)"
-            (validationChange)="updateOrderValidation(order.id, 'autoParts', $event)"
-          />
-        } @loading (minimum 1s) {
-          <tui-loader />
-        }
-      }
-      @case (CargoType.OTHER) {
-        @defer {
-          <app-other-cargo
-            [data]="order.otherCargo"
-            [options]="vm.options.otherCargos"
-            [restrictions]="vm.restrictions.otherCargo"
-            (dataChange)="updateOrderData(order.id, 'otherCargo', $event)"
-            (validationChange)="updateOrderValidation(order.id, 'otherCargo', $event)"
-          />
-        } @loading (minimum 1s) {
-          <tui-loader />
-        }
-      }
-      @default {
-        @defer {
-          <app-documents
-            [data]="order.documents"
-            (dataChange)="updateOrderData(order.id, 'documents', $event)"
-            (validationChange)="updateOrderValidation(order.id, 'documents', $event)"
-          />
-        } @loading (minimum 1s) {
-          <tui-loader />
-        }
-      }
-    }
+    </div>
 
     <div>
       <app-packaging

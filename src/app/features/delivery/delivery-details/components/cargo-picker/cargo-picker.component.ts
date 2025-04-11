@@ -29,6 +29,9 @@ import {
   templateUrl: './cargo-picker.component.html',
   styleUrl: './cargo-picker.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block mb-6',
+  },
 })
 export class CargoPickerComponent implements OnInit, OnChanges {
   @Input({ required: true }) types!: Cargo[];

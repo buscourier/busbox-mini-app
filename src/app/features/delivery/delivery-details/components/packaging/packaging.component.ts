@@ -15,6 +15,9 @@ import { PackagingGroupId, type PackagingOtherGroupIds } from './packaging.const
   templateUrl: './packaging.component.html',
   styleUrl: './packaging.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block mt-10',
+  },
 })
 export class PackagingComponent implements OnChanges {
   @Input({ required: true }) options!: Service[];

@@ -1,9 +1,7 @@
-<div class="counter mb-3 block max-w-[200px]">
-  <label tuiLabel>
-    Количество документов
+<label tuiLabel>
+  <span class="mb-1 inline-block text-sm">Кол-во документов</span>
 
-    <tui-textfield [tuiTextfieldCleaner]="false">
-      <input tuiInputNumber [formControl]="quantityControl" [step]="1" />
-    </tui-textfield>
-  </label>
-</div>
+  <tui-textfield [tuiTextfieldCleaner]="false" class="max-w-[140px]">
+    <input tuiInputNumber [formControl]="quantityControl" [step]="1" />
+  </tui-textfield>
+</label>

@@ -16,6 +16,7 @@ import {
   PackagingComponent,
   ParcelsComponent,
 } from './components';
+import { cargoSwitchAnimation } from './delivery-details.animations';
 import { DeliveryDetailsFacade } from './delivery-details.facade';
 import type { OrderDataKeys } from './delivery-details.types';
 import type { Order, OrderValidationState, DeliveryDetailsViewModel } from './types';
@@ -38,6 +39,10 @@ import { CargoType } from './types';
   templateUrl: './delivery-details.component.html',
   styleUrl: './delivery-details.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [cargoSwitchAnimation],
+  host: {
+    class: 'block mt-6 pt-15 border-t-2 border-gray-100',
+  },
 })
 export class DeliveryDetailsComponent implements OnInit {
   vm$!: Observable<DeliveryDetailsViewModel>;
