@@ -6,13 +6,12 @@ import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiDay } from '@taiga-ui/cdk';
-import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
+import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
 import type { TuiConfirmData } from '@taiga-ui/kit';
 import {
   TUI_CONFIRM,
   TUI_VALIDATION_ERRORS,
   TuiDataListWrapper,
-  TuiFieldErrorPipe,
   TuiStringifyContentPipe,
   TuiStringifyPipe,
 } from '@taiga-ui/kit';
@@ -65,8 +64,6 @@ import { PickupPointTabType } from './types';
     TuiStringifyPipe,
     TuiDataListWrapper,
     TuiStringifyContentPipe,
-    TuiError,
-    TuiFieldErrorPipe,
     TuiSelectModule,
     CourierDetailsComponent,
     TuiInputDateModule,

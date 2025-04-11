@@ -8,8 +8,16 @@
       [formControl]="parcelItem"
     >
       @if (parcels.length > 1) {
-        <button type="button" tuiIconButton icon="tuiIconTrash" (click)="removeParcelItem($index)">
-          Удалить
+        <button
+          type="button"
+          class="inline-block cursor-pointer hover:opacity-80"
+          (click)="removeParcelItem($index)"
+        >
+          <tui-icon
+            icon="@tui.delete"
+            [style.font-size.rem]="2"
+            [style.color]="'var(--color-red-500)'"
+          />
         </button>
       }
     </app-parcel-item>
@@ -24,6 +32,6 @@
     [disabled]="!canAddParcelItem"
     (click)="addParcelItem()"
   >
-    Добавить еще 1 позицию
+    Добавить
   </button>
 </div>

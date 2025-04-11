@@ -1,7 +1,10 @@
 @let vm = vm$ | async;
 
 @if (vm && form) {
-  <form [formGroup]="form">
+  <div>
+    <ng-content select="b"></ng-content>
+  </div>
+  <form [formGroup]="form" class="flex flex-col gap-4">
     <tui-loader [showLoader]="vm.cities.isLoading">
       <tui-combo-box
         [formControl]="city"
@@ -18,17 +21,18 @@
         />
       </tui-combo-box>
     </tui-loader>
-    <tui-error [formControl]="city" [error]="[] | tuiFieldError | async" />
+    <!--    <tui-error [formControl]="city" [error]="[] | tuiFieldError | async" />-->
 
     @if (vm.cities.selected) {
       <!--      @let tabs = vm.tabs;-->
 
       @if (vm.tabs.length) {
-        <div class="tabs">
+        <div class="flex">
           @for (tab of vm.tabs; track tab.id) {
             <button
               type="button"
-              [class.active]="tab === vm.activeTab"
+              class="flex-1/2 bg-gray-100 min-h-12 cursor-pointer"
+              [class.bg-yellow-500]="tab === vm.activeTab"
               (click)="onTabChange(tab.id)"
             >
               {{ tab.name }}
@@ -55,7 +59,7 @@
                 [itemContent]="'address' | tuiStringify | tuiStringifyContent"
               />
             </tui-select>
-            <tui-error [formControl]="office" [error]="[] | tuiFieldError | async"></tui-error>
+            <!--            <tui-error [formControl]="office" [error]="[] | tuiFieldError | async"></tui-error>-->
           </div>
         }
         @case (TabType.COURIER) {
@@ -79,7 +83,7 @@
           tuiTextfieldSize="m"
           [min]="minDate"
         />
-        <tui-error [formControl]="departureDate" [error]="[] | tuiFieldError | async"></tui-error>
+        <!--        <tui-error [formControl]="departureDate" [error]="[] | tuiFieldError | async"></tui-error>-->
       </div>
     }
   </form>

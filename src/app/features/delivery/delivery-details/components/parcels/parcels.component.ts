@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { TuiAlertService, TuiButton, TuiError } from '@taiga-ui/core';
+import { TuiAlertService, TuiButton, TuiError, TuiIcon } from '@taiga-ui/core';
 import { TUI_VALIDATION_ERRORS, TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { debounceTime } from 'rxjs';
 
@@ -34,6 +34,7 @@ import { parcelsValidator } from './parcels.validator';
     TuiError,
     AsyncPipe,
     TuiButton,
+    TuiIcon,
   ],
   templateUrl: './parcels.component.html',
   styleUrl: './parcels.component.css',

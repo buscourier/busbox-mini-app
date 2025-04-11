@@ -1,12 +1,15 @@
 <div
   [formGroup]="form"
-  class="relative mb-5 mt-8 rounded-xs border border-gray-100 p-5 before:absolute before:-top-2.5 before:left-5 before:block before:bg-white before:pl-0.5 before:pr-0.5 before:text-xs before:font-medium before:text-gray-600 before:content-['Посылка'] sm:border-0 sm:p-0 sm:before:hidden md:border md:p-5 md:before:block xl:border-0 xl:p-0 xl:before:hidden"
+  class="relative mb-5 mt-8 rounded-xs border border-gray-100 xl:border-transparent p-5 before:absolute before:-top-2.5 before:left-5 before:block before:bg-white before:pl-0.5 before:pr-0.5 before:text-xs before:font-medium before:text-gray-600 before:content-['Посылка'] sm:border-0 sm:p-0 sm:before:hidden md:border md:p-5 md:before:block xl:border-0 xl:p-0 xl:before:hidden"
 >
   <div
     class="mb-2 grid grid-cols-2 gap-4 sm:grid-cols-parcel md:grid-cols-2 lg:mb-0.5 lg:grid-cols-3 xl:grid-cols-6"
   >
     <div tuiLabel>
-      Кол-во мест
+      <span class="mb-1 inline-block text-sm">Кол-во мест</span>
+      @if (quantityInput.focused()) {
+        <app-limit-badge [value]="getAvailableQuantity()" hintText="Доступно" size="s" />
+      }
 
       <div class="relative">
         <tui-textfield #quantityInput>
@@ -22,17 +25,13 @@
             tuiHintAppearance="error"
           />
         </tui-textfield>
-        @if (quantityInput.focused()) {
-          <span class="absolute top-1/2 -translate-y-1/2 right-2">
-            <tui-badge appearance="secondary" tuiHint="Доступно еще мест" size="s">{{
-              getAvailableQuantity()
-            }}</tui-badge>
-          </span>
-        }
       </div>
     </div>
     <div tuiLabel>
-      Вес
+      <span class="mb-1 inline-block text-sm">Вес</span>
+      @if (weightInput.focused()) {
+        <app-limit-badge [value]="getAvailableWeight()" units="кг." hintText="Доступно" size="s" />
+      }
 
       <div class="relative">
         <tui-textfield #weightInput>
@@ -45,22 +44,22 @@
             [invalid]="weight.invalid || totalWeightMaxError"
             (blur)="setMinValueOnBlur(weight.value, 'weight')"
             tuiHintAppearance="error"
-            tuiTextfieldPostfix="кг"
+            postfix=" кг"
           />
         </tui-textfield>
-
-        @if (weightInput.focused()) {
-          <span class="absolute top-1/2 -translate-y-1/2 right-2">
-            <tui-badge appearance="secondary" tuiHint="Максимальный вес" size="s"
-              >{{ limits.WEIGHT.MAX }} кг.</tui-badge
-            >
-          </span>
-        }
       </div>
     </div>
     <ng-container formGroupName="dimensions">
       <div tuiLabel>
-        Ширина
+        <span class="mb-1 inline-block text-sm">Ширина</span>
+        @if (widthInput.focused() || heightInput.focused() || lengthInput.focused()) {
+          <app-limit-badge
+            [value]="getAvailableDimension()"
+            units="см."
+            hintText="Доступно"
+            size="s"
+          />
+        }
 
         <div class="relative">
           <tui-textfield #widthInput>
@@ -73,21 +72,21 @@
               [invalid]="dimensions.invalid || totalDimensionsMaxError"
               (blur)="setMinDimensionOnBlur(width.value, 'width')"
               tuiHintAppearance="error"
-              tuiTextfieldPostfix="см"
+              postfix=" см"
             />
           </tui-textfield>
-
-          @if (widthInput.focused() || heightInput.focused() || lengthInput.focused()) {
-            <span class="absolute top-1/2 -translate-y-1/2 right-2">
-              <tui-badge appearance="secondary" tuiHint="Доступно для указания ширины" size="s"
-                >{{ getAvailableDimension() }} см.</tui-badge
-              >
-            </span>
-          }
         </div>
       </div>
       <div tuiLabel>
-        Высота
+        <span class="mb-1 inline-block text-sm">Высота</span>
+        @if (widthInput.focused() || heightInput.focused() || lengthInput.focused()) {
+          <app-limit-badge
+            [value]="getAvailableDimension()"
+            units="см."
+            hintText="Доступно"
+            size="s"
+          />
+        }
 
         <div class="relative">
           <tui-textfield #heightInput>
@@ -100,21 +99,21 @@
               [invalid]="dimensions.invalid || totalDimensionsMaxError"
               (blur)="setMinDimensionOnBlur(height.value, 'height')"
               tuiHintAppearance="error"
-              tuiTextfieldPostfix="см"
+              postfix=" см"
             />
           </tui-textfield>
-
-          @if (widthInput.focused() || heightInput.focused() || lengthInput.focused()) {
-            <span class="absolute top-1/2 -translate-y-1/2 right-2">
-              <tui-badge appearance="secondary" tuiHint="Доступно для указания высоты" size="s"
-                >{{ getAvailableDimension() }} см.</tui-badge
-              >
-            </span>
-          }
         </div>
       </div>
       <div tuiLabel>
-        Длина
+        <span class="mb-1 inline-block text-sm">Длина</span>
+        @if (widthInput.focused() || heightInput.focused() || lengthInput.focused()) {
+          <app-limit-badge
+            [value]="getAvailableDimension()"
+            units="см."
+            hintText="Доступно"
+            size="s"
+          />
+        }
 
         <div class="relative">
           <tui-textfield #lengthInput>
@@ -127,21 +126,13 @@
               [invalid]="dimensions.invalid || totalDimensionsMaxError"
               (blur)="setMinDimensionOnBlur(length.value, 'length')"
               tuiHintAppearance="error"
-              tuiTextfieldPostfix="см"
+              postfix=" см"
             />
           </tui-textfield>
-
-          @if (widthInput.focused() || heightInput.focused() || lengthInput.focused()) {
-            <span class="absolute top-1/2 -translate-y-1/2 right-2">
-              <tui-badge appearance="secondary" tuiHint="Доступно для указания длины" size="s"
-                >{{ getAvailableDimension() }} см.</tui-badge
-              >
-            </span>
-          }
         </div>
       </div>
     </ng-container>
-    <div class="mt-6 flex flex-col justify-center">
+    <div class="mt-6 flex flex-col items-start justify-center">
       <ng-content select="button"></ng-content>
     </div>
   </div>

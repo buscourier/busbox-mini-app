@@ -183,6 +183,7 @@ module.exports = tseslint.config(
             '@delivery/base/*',
             '@delivery/*/types',
             '@delivery/*/constants',
+            '@shared/components/*',
             'features/*',
           ],
         },

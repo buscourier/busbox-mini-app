@@ -21,7 +21,7 @@ import {
 import {
   TuiError,
   TuiHintDirective,
-  TuiLabel,
+  TuiIcon,
   TuiTextfieldComponent,
   TuiTextfieldDirective,
 } from '@taiga-ui/core';
@@ -38,6 +38,7 @@ import { debounceTime } from 'rxjs';
 import { DEBOUNCE_TIME } from '@core/constants';
 import { isObjectsEqual } from '@core/utils';
 
+import { LimitBadgeComponent } from '@shared/components/limit-badge';
 import { customMaxValidator, customMinValidator } from '@shared/validators';
 
 import type { ParcelItem, ParcelItemDimensions, ParcelItemLimits } from '../../../types';
@@ -56,7 +57,6 @@ import type { ParcelItemForm } from './parcel-item.types';
     TuiHintDirective,
     TuiFieldErrorContentPipe,
     TuiTextfieldControllerModule,
-    TuiLabel,
     TuiBadge,
     TuiFieldErrorPipe,
     TuiError,
@@ -64,6 +64,8 @@ import type { ParcelItemForm } from './parcel-item.types';
     TuiTextfieldComponent,
     TuiTextfieldDirective,
     TuiInputNumber,
+    TuiIcon,
+    LimitBadgeComponent,
   ],
   templateUrl: './parcel-item.component.html',
   styleUrl: './parcel-item.component.css',
@@ -159,6 +161,12 @@ export class ParcelItemComponent implements OnInit, OnChanges {
     const { quantity } = this.form.getRawValue();
 
     return this.limits.QUANTITY.MAX - quantity;
+  }
+
+  getAvailableWeight(): number {
+    const { weight } = this.form.getRawValue();
+
+    return this.limits.WEIGHT.MAX - weight;
   }
 
   setMinDimensionOnBlur(controlValue: number, controlName: keyof ParcelItemDimensions): void {
