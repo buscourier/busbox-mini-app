@@ -1,19 +1,26 @@
 @for (tab of tabs; track tab.id) {
-  <button
-    type="button"
-    tuiChip
-    [class.isActive]="tab.isActive"
-    [class.isInvalid]="tab.isActiveInvalid"
-    (click)="selectTab(tab.id)"
-    [disabled]="tab.isDisabled"
-  >
-    Заказ №{{ tab.number }}
-    @if (tabs.length > 1) {
-      <button type="button" tuiIconButton iconStart="@tui.x" (click)="onRemoveTab($event, tab.id)">
-        Remove
-      </button>
-    }
-  </button>
+  @if (maxTabs > 1) {
+    <button
+      type="button"
+      tuiChip
+      [class.!bg-yellow-500]="tab.isActive"
+      [class.isInvalid]="tab.isActiveInvalid"
+      (click)="selectTab(tab.id)"
+      [disabled]="tab.isDisabled"
+    >
+      Заказ №{{ tab.number }}
+      @if (tabs.length > 1) {
+        <button
+          type="button"
+          tuiIconButton
+          iconStart="@tui.x"
+          (click)="onRemoveTab($event, tab.id)"
+        >
+          Remove
+        </button>
+      }
+    </button>
+  }
 }
 
 @if (tabs.length < maxTabs) {

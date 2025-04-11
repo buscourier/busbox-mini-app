@@ -83,7 +83,7 @@
       />
       <app-additional-services
         [data]="order.additionalServices"
-        [options]="vm.options?.additionalServices ?? []"
+        [options]="vm.options.additionalServices"
         (dataChange)="updateOrderData(order.id, 'additionalServices', $event)"
         (validationChange)="updateOrderValidation(order.id, 'additionalServices', $event)"
       />

@@ -1,7 +1,10 @@
 @let vm = vm$ | async;
 
 @if (vm && form) {
-  <form [formGroup]="form">
+  <div>
+    <ng-content select="b"></ng-content>
+  </div>
+  <form [formGroup]="form" class="flex flex-col gap-4">
     <tui-loader [showLoader]="vm.cities.isLoading">
       <tui-combo-box
         [formControl]="city"
@@ -18,15 +21,16 @@
         />
       </tui-combo-box>
     </tui-loader>
-    <tui-error [formControl]="city" [error]="[] | tuiFieldError | async" />
+    <!--    <tui-error [formControl]="city" [error]="[] | tuiFieldError | async" />-->
 
     @if (vm.cities.selected) {
       @if (vm.tabs.length > 1) {
-        <div class="tabs">
+        <div class="flex">
           @for (tab of vm.tabs; track tab.id) {
             <button
               type="button"
-              [class.active]="tab === vm.activeTab"
+              class="flex-1/2 bg-gray-100 min-h-12 cursor-pointer"
+              [class.bg-yellow-500]="tab === vm.activeTab"
               (click)="onTabChange(tab.id)"
             >
               {{ tab.name }}
@@ -40,7 +44,9 @@
           @case (TabType.OFFICE) {
             <div @tabContent>
               @if (vm.tabs.length < 2) {
-                <b>Забрать в отделении:</b>
+                <div class="mb-4 flex items-center justify-center bg-gray-100 min-h-12">
+                  Забрать в отделении
+                </div>
               }
               <tui-select
                 [formControl]="office"
@@ -68,8 +74,8 @@
             </div>
           }
           @case (TabType.BUS) {
-            <label class="mt-3 flex items-center pointer-events-none">
-              <input tuiCheckbox type="checkbox" size="s" [formControl]="busPickup" />
+            <label class="flex items-center pointer-events-none">
+              <input tuiCheckbox type="checkbox" [formControl]="busPickup" />
               <span class="inline-block ml-2">Встретить с автобуса</span>
             </label>
           }

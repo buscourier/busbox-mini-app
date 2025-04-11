@@ -42,7 +42,7 @@ import { CargoType } from './types';
 export class DeliveryDetailsComponent implements OnInit {
   vm$!: Observable<DeliveryDetailsViewModel>;
 
-  protected readonly MAX_ORDERS = 4;
+  protected readonly MAX_ORDERS = 1;
   protected readonly CargoType = CargoType;
 
   private readonly destroyRef = inject(DestroyRef);
