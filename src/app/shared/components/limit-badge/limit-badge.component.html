@@ -1,0 +1,8 @@
+<tui-badge
+  appearance="secondary"
+  [tuiHint]="value ? hintText : null"
+  [style.background]="value > 0 ? 'var(--color-yellow-500)' : 'var(--color-gray-300)'"
+  size="s"
+>
+  {{ value }} {{ units }}
+</tui-badge>
