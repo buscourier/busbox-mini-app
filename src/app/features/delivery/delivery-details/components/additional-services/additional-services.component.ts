@@ -12,7 +12,13 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormGroup } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiError, TuiHintDirective, TuiTextfieldComponent } from '@taiga-ui/core';
+import {
+  TuiButton,
+  TuiError,
+  TuiHintDirective,
+  TuiTextfield,
+  TuiTextfieldComponent,
+} from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
   TuiBadge,
@@ -24,6 +30,7 @@ import {
 import { TuiInputPhoneModule } from '@taiga-ui/legacy';
 import { startWith } from 'rxjs';
 
+import { LimitBadgeComponent } from '@shared/components/limit-badge';
 import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 
 import type { AdditionalServices, Service } from '../../types';
@@ -71,6 +78,9 @@ import type {
     AsyncPipe,
     TuiInputNumberDirective,
     TuiTextfieldComponent,
+    LimitBadgeComponent,
+    TuiButton,
+    TuiTextfield,
   ],
   templateUrl: './additional-services.component.html',
   styleUrl: './additional-services.component.css',

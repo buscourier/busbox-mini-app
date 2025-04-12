@@ -13,6 +13,7 @@ import {
   TuiCheckbox,
   TuiDataListWrapper,
   TuiFieldErrorPipe,
+  TuiSkeleton,
   TuiStringifyContentPipe,
   TuiStringifyPipe,
 } from '@taiga-ui/kit';
@@ -72,6 +73,7 @@ import { DeliveryPointTabType } from './types';
     TuiSelectModule,
     CourierDetailsComponent,
     TuiCheckbox,
+    TuiSkeleton,
   ],
   templateUrl: './delivery-point.component.html',
   styleUrl: './delivery-point.component.css',

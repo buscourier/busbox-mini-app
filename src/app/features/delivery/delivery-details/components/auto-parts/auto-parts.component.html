@@ -1,4 +1,4 @@
-<div class="auto-parts-form">
+<div class="grid grid-cols-[370px_144px] gap-4">
   <div tuiLabel>
     <span class="mb-1 inline-block text-sm">Выберите запчасть</span>
     <tui-select
@@ -15,7 +15,7 @@
   </div>
 
   @if (item.value) {
-    <label tuiLabel class="mt-4">
+    <label tuiLabel>
       <span class="mb-1 inline-block text-sm">Количество мест</span>
 
       <tui-textfield>
@@ -29,11 +29,10 @@
       </tui-textfield>
     </label>
   }
-
-  @if (form.controls.item.value) {
-    <small class="block mt-6 text-sm text-gray-500">
-      <sup>*</sup> Пожалуйста, выберите тип запчасти из списка. Если вы не нашли подходящую
-      запчасть, <br class="block" />рассчитайте стоимость обычной посылки
-    </small>
-  }
 </div>
+@if (form.controls.item.value) {
+  <small class="block mt-6 text-sm text-gray-500 col-span-2">
+    <sup>*</sup> Пожалуйста, выберите тип запчасти из списка.<br class="block" />Если вы не нашли
+    подходящую запчасть, рассчитайте стоимость обычной посылки
+  </small>
+}

@@ -1,7 +1,7 @@
 import type { OnChanges, SimpleChanges } from '@angular/core';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { tuiDialog } from '@taiga-ui/core';
+import { tuiDialog, TuiIcon, TuiTitle } from '@taiga-ui/core';
 import { TuiCheckbox } from '@taiga-ui/kit';
 
 import type { Packaging, PackagingItem, Service } from '../../types';
@@ -11,7 +11,7 @@ import { PackagingGroupId, type PackagingOtherGroupIds } from './packaging.const
 
 @Component({
   selector: 'app-packaging',
-  imports: [FormsModule, TuiCheckbox],
+  imports: [FormsModule, TuiCheckbox, TuiIcon, TuiTitle],
   templateUrl: './packaging.component.html',
   styleUrl: './packaging.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,9 +34,9 @@ export class PackagingComponent implements OnChanges {
   selectedPackagingItems = new Map<string, number>();
 
   dialog = tuiDialog(PackagingDialogComponent, {
-    label: 'Heading',
     closeable: false,
     dismissible: false,
+    size: 's',
   });
 
   ngOnChanges(changes: SimpleChanges): void {

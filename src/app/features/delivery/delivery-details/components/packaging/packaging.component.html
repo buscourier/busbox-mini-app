@@ -1,96 +1,187 @@
-<div>
-  <div>
-    <h3>Коробка:</h3>
+<div class="relative flex flex-col gap-10 mb-13 mt-16 px-5 py-10 rounded-sm border border-gray-100">
+  <h2 class="absolute -top-4 px-2 bg-white text-xl text-gray-400 font-bold">Упаковка</h2>
+  <div class="flex flex-wrap gap-4">
+    <b class="mb-1 basis-full text-md">Коробка:</b>
     @for (box of boxes; track box.id) {
-      <label [class.selected]="isSelected(box.id)">
-        <input
-          type="checkbox"
-          tuiCheckbox
-          [ngModel]="isSelected(box.id)"
-          (ngModelChange)="toggleItem(box, $event)"
-        />
-        <span>{{ box.site_name }}</span>
-        <span>{{ +box.price * getQuantity(box.id) }} руб. за {{ getQuantity(box.id) }} шт.</span>
-
-        @if (isSelected(box.id)) {
-          <button type="button" (click)="removePackagingItem(box.id)">x</button>
-        }
+      <label
+        [class.selected]="isSelected(box.id)"
+        class="grid grid-cols-[24px_1fr] gap-x-2 gap-y-1"
+      >
+        <span class="row-span-2">
+          <input
+            type="checkbox"
+            tuiCheckbox
+            [ngModel]="isSelected(box.id)"
+            (ngModelChange)="toggleItem(box, $event)"
+          />
+        </span>
+        <span class="relative">
+          {{ box.site_name }}
+          @if (isSelected(box.id)) {
+            <button
+              type="button"
+              class="relative -top-2 cursor-pointer hover:opacity-80"
+              (click)="removePackagingItem(box.id)"
+            >
+              <tui-icon
+                icon="@tui.x"
+                [style.font-size.rem]="1.5"
+                [style.color]="'var(--color-red-500)'"
+              />
+            </button>
+          }
+        </span>
+        <span class="text-sm text-gray-400"
+          >{{ +box.price * getQuantity(box.id) }} руб. за {{ getQuantity(box.id) }} шт.</span
+        >
       </label>
     }
   </div>
-  <div>
-    <h3>Сейф-пакет:</h3>
+  <div class="flex flex-wrap gap-4">
+    <b class="mb-1 basis-full text-md">Сейф-пакет:</b>
     @for (pack of safePacks; track pack.id) {
-      <label [class.selected]="isSelected(pack.id)">
-        <input
-          type="checkbox"
-          tuiCheckbox
-          [ngModel]="isSelected(pack.id)"
-          (ngModelChange)="toggleItem(pack, $event)"
-        />
-        <span>{{ pack.site_name }}</span>
-        <span>{{ +pack.price * getQuantity(pack.id) }} руб. за {{ getQuantity(pack.id) }} шт.</span>
-
-        @if (isSelected(pack.id)) {
-          <button type="button" (click)="removePackagingItem(pack.id)">x</button>
-        }
+      <label
+        [class.selected]="isSelected(pack.id)"
+        class="grid grid-cols-[24px_1fr] gap-x-2 gap-y-1"
+      >
+        <span class="row-span-2">
+          <input
+            type="checkbox"
+            tuiCheckbox
+            [ngModel]="isSelected(pack.id)"
+            (ngModelChange)="toggleItem(pack, $event)"
+          />
+        </span>
+        <span>
+          {{ pack.site_name }}
+          @if (isSelected(pack.id)) {
+            <button
+              type="button"
+              class="relative -top-2 cursor-pointer hover:opacity-80"
+              (click)="removePackagingItem(pack.id)"
+            >
+              <tui-icon
+                icon="@tui.x"
+                [style.font-size.rem]="1.5"
+                [style.color]="'var(--color-red-500)'"
+              />
+            </button>
+          }
+        </span>
+        <span class="text-sm text-gray-400">
+          {{ +pack.price * getQuantity(pack.id) }} руб. за {{ getQuantity(pack.id) }} шт.</span
+        >
       </label>
     }
   </div>
-  <div>
-    <h3>Полиэтиленовый пакет:</h3>
+  <div class="flex flex-wrap gap-4">
+    <b class="mb-1 basis-full text-md">Полиэтиленовый пакет:</b>
     @for (pack of polyPacks; track pack.id) {
-      <label [class.selected]="isSelected(pack.id)">
-        <input
-          type="checkbox"
-          tuiCheckbox
-          [ngModel]="isSelected(pack.id)"
-          (ngModelChange)="toggleItem(pack, $event)"
-        />
-        <span>{{ pack.site_name }}</span>
-        <span>{{ +pack.price * getQuantity(pack.id) }} руб. за {{ getQuantity(pack.id) }} шт.</span>
-
-        @if (isSelected(pack.id)) {
-          <button type="button" (click)="removePackagingItem(pack.id)">x</button>
-        }
+      <label
+        [class.selected]="isSelected(pack.id)"
+        class="grid grid-cols-[24px_1fr] gap-x-2 gap-y-1"
+      >
+        <span class="row-span-2">
+          <input
+            type="checkbox"
+            tuiCheckbox
+            [ngModel]="isSelected(pack.id)"
+            (ngModelChange)="toggleItem(pack, $event)"
+          />
+        </span>
+        <span>
+          {{ pack.site_name }}
+          @if (isSelected(pack.id)) {
+            <button
+              type="button"
+              class="relative -top-2 cursor-pointer hover:opacity-80"
+              (click)="removePackagingItem(pack.id)"
+            >
+              <tui-icon
+                icon="@tui.x"
+                [style.font-size.rem]="1.5"
+                [style.color]="'var(--color-red-500)'"
+              />
+            </button>
+          }
+        </span>
+        <span class="text-sm text-gray-400">
+          {{ +pack.price * getQuantity(pack.id) }} руб. за {{ getQuantity(pack.id) }} шт.</span
+        >
       </label>
     }
   </div>
-  <div>
-    <h3>Пленка:</h3>
+  <div class="flex flex-wrap gap-4">
+    <b class="mb-1 basis-full text-md">Пленка:</b>
     @for (film of films; track film.id) {
-      <label [class.selected]="isSelected(film.id)">
-        <input
-          type="checkbox"
-          tuiCheckbox
-          [ngModel]="isSelected(film.id)"
-          (ngModelChange)="toggleItem(film, $event)"
-        />
-        <span>{{ film.site_name }}</span>
-        <span>{{ +film.price * getQuantity(film.id) }} руб. за {{ getQuantity(film.id) }} шт.</span>
-
-        @if (isSelected(film.id)) {
-          <button type="button" (click)="removePackagingItem(film.id)">x</button>
-        }
+      <label
+        [class.selected]="isSelected(film.id)"
+        class="grid grid-cols-[24px_1fr] gap-x-2 gap-y-1"
+      >
+        <span class="row-span-2">
+          <input
+            type="checkbox"
+            tuiCheckbox
+            [ngModel]="isSelected(film.id)"
+            (ngModelChange)="toggleItem(film, $event)"
+          />
+        </span>
+        <span>
+          {{ film.site_name }}
+          @if (isSelected(film.id)) {
+            <button
+              type="button"
+              class="relative -top-2 cursor-pointer hover:opacity-80"
+              (click)="removePackagingItem(film.id)"
+            >
+              <tui-icon
+                icon="@tui.x"
+                [style.font-size.rem]="1.5"
+                [style.color]="'var(--color-red-500)'"
+              />
+            </button>
+          }
+        </span>
+        <span class="text-sm text-gray-400">
+          {{ +film.price * getQuantity(film.id) }} руб. за {{ getQuantity(film.id) }} шт.</span
+        >
       </label>
     }
   </div>
-  <div>
-    <h3>Другое:</h3>
+  <div class="flex flex-wrap gap-4">
+    <b class="mb-1 basis-full text-md">Другое:</b>
     @for (pack of other; track pack.id) {
-      <label [class.selected]="isSelected(pack.id)">
-        <input
-          type="checkbox"
-          tuiCheckbox
-          [ngModel]="isSelected(pack.id)"
-          (ngModelChange)="toggleItem(pack, $event)"
-        />
-        <span>{{ pack.site_name }}</span>
-        <span>{{ +pack.price * getQuantity(pack.id) }} руб. за {{ getQuantity(pack.id) }} шт.</span>
-
-        @if (isSelected(pack.id)) {
-          <button type="button" (click)="removePackagingItem(pack.id)">x</button>
-        }
+      <label
+        [class.selected]="isSelected(pack.id)"
+        class="grid grid-cols-[24px_1fr] gap-x-2 gap-y-1"
+      >
+        <span class="row-span-2">
+          <input
+            type="checkbox"
+            tuiCheckbox
+            [ngModel]="isSelected(pack.id)"
+            (ngModelChange)="toggleItem(pack, $event)"
+          />
+        </span>
+        <span>
+          {{ pack.site_name }}
+          @if (isSelected(pack.id)) {
+            <button
+              type="button"
+              class="relative -top-2 cursor-pointer hover:opacity-80"
+              (click)="removePackagingItem(pack.id)"
+            >
+              <tui-icon
+                icon="@tui.x"
+                [style.font-size.rem]="1.5"
+                [style.color]="'var(--color-red-500)'"
+              />
+            </button>
+          }
+        </span>
+        <span class="text-sm text-gray-400">
+          {{ +pack.price * getQuantity(pack.id) }} руб. за {{ getQuantity(pack.id) }} шт.</span
+        >
       </label>
     }
   </div>

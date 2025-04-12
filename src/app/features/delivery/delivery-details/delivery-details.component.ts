@@ -3,6 +3,7 @@ import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
+import { TuiSkeleton } from '@taiga-ui/kit';
 import type { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -35,6 +36,7 @@ import { CargoType } from './types';
     DocumentsComponent,
     AdditionalServicesComponent,
     PackagingComponent,
+    TuiSkeleton,
   ],
   templateUrl: './delivery-details.component.html',
   styleUrl: './delivery-details.component.css',

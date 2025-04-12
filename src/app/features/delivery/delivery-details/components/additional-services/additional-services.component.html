@@ -1,14 +1,29 @@
-<div class="additional-services">
+<div class="">
+  <h2 class="mb-6 text-xl font-bold">Дополнительные услуги:</h2>
   @if (additionalServices.insurance.length) {
-    <div class="service">
-      <label>
+    <div class="mb-4">
+      <label tuiLabel class="flex items-center gap-2 cursor-pointer">
         <input tuiCheckbox type="checkbox" [formControl]="insurance.controls.enabled" size="m" />
         Страхование
+        @if (insurance.controls.enabled.value) {
+          <button
+            appearance="warning"
+            iconStart="@tui.info"
+            size="xs"
+            tuiIconButton
+            type="button"
+            tuiHint="Максимум 30000"
+            [style.border-radius.%]="100"
+          >
+            Favorite
+          </button>
+        }
       </label>
 
       @if (insurance.controls.enabled.value) {
-        <div class="relative">
-          <tui-textfield #declaredValue>
+        <label tuiLabel class="mt-2 ml-8">
+          <span class="mb-1 inline-block text-sm text-gray-500">Объявленная ценность</span>
+          <tui-textfield class="max-w-[280px]">
             <input
               tuiInputNumber
               [formControl]="insurance.controls.amount"
@@ -18,56 +33,48 @@
               tuiHintAppearance="error"
             />
           </tui-textfield>
-
-          @if (declaredValue.focused()) {
-            <span class="absolute top-1/2 -translate-y-1/2 right-2">
-              <tui-badge appearance="secondary" tuiHint="Максимальная сумма страхования" size="s"
-                >30000</tui-badge
-              >
-            </span>
-          }
-        </div>
+        </label>
       }
     </div>
   }
 
   @if (additionalServices.extendedSms) {
-    <div class="service">
-      <label>
+    <div class="mb-4">
+      <label class="flex items-center gap-2 cursor-pointer">
         <input tuiCheckbox type="checkbox" [formControl]="extendedSms.controls.enabled" size="m" />
         Расширенная СМС
       </label>
 
       @if (extendedSms.controls.enabled.value) {
-        <div class="service-details">
+        <div tuiLabel class="mt-2 ml-8">
+          <span class="mb-1 inline-block text-sm text-gray-500">Номер телефона</span>
           <tui-input-phone
             [formControl]="extendedSms.controls.phone"
             [tuiHint]="[] | tuiFieldErrorContent"
             tuiHintAppearance="error"
-          >
-            Номер телефона
-          </tui-input-phone>
+            class="max-w-[280px]"
+          />
         </div>
       }
     </div>
   }
 
   @if (additionalServices.senderSms) {
-    <div class="service">
-      <label>
+    <div class="mb-4">
+      <label tuiLabel class="flex items-center gap-2 cursor-pointer">
         <input tuiCheckbox type="checkbox" [formControl]="senderSms.controls.enabled" size="m" />
         СМС отправителю
       </label>
 
       @if (senderSms.controls.enabled.value) {
-        <div class="service-details">
+        <div tuiLabel class="mt-2 ml-8">
+          <span class="mb-1 inline-block text-sm text-gray-500">Номер телефона</span>
           <tui-input-phone
             [formControl]="senderSms.controls.phone"
             [tuiHint]="[] | tuiFieldErrorContent"
             tuiHintAppearance="error"
-          >
-            Номер телефона
-          </tui-input-phone>
+            class="max-w-[280px]"
+          />
         </div>
       }
     </div>
@@ -75,7 +82,7 @@
 
   @if (additionalServices.recipientPayment) {
     <div class="service">
-      <label>
+      <label tuiLabel class="flex items-center gap-2 cursor-pointer">
         <input
           tuiCheckbox
           type="checkbox"
@@ -86,7 +93,7 @@
       </label>
 
       @if (recipientPayment.controls.enabled.value) {
-        <div class="hidden">
+        <div class="mt-2 ml-8 hidden">
           <tui-textfield>
             <input
               tuiInputNumber
@@ -98,10 +105,6 @@
             />
           </tui-textfield>
         </div>
-        <tui-error
-          [formControl]="recipientPayment.controls.amount"
-          [error]="[] | tuiFieldError | async"
-        ></tui-error>
       }
     </div>
   }

@@ -5,22 +5,21 @@
     <ng-content select="b"></ng-content>
   </div>
   <form [formGroup]="form" class="flex flex-col gap-4">
-    <tui-loader [showLoader]="vm.cities.isLoading">
-      <tui-combo-box
-        [formControl]="city"
-        [stringify]="'name' | tuiStringify"
-        (searchChange)="onSearchChange($event)"
-        [tuiTextfieldLabelOutside]="true"
-        tuiTextfieldSize="m"
-      >
-        Выберите город
-        <tui-data-list-wrapper
-          *tuiDataList
-          [items]="cities$ | async"
-          [itemContent]="'name' | tuiStringify | tuiStringifyContent"
-        />
-      </tui-combo-box>
-    </tui-loader>
+    <tui-combo-box
+      [formControl]="city"
+      [stringify]="'name' | tuiStringify"
+      (searchChange)="onSearchChange($event)"
+      [tuiTextfieldLabelOutside]="true"
+      [tuiSkeleton]="vm.cities.isLoading"
+      tuiTextfieldSize="m"
+    >
+      Выберите город
+      <tui-data-list-wrapper
+        *tuiDataList
+        [items]="cities$ | async"
+        [itemContent]="'name' | tuiStringify | tuiStringifyContent"
+      />
+    </tui-combo-box>
     <!--    <tui-error [formControl]="city" [error]="[] | tuiFieldError | async" />-->
 
     @if (vm.cities.selected) {

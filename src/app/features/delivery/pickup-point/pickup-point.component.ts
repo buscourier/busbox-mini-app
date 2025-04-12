@@ -7,7 +7,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiDay } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiLoader } from '@taiga-ui/core';
-import type { TuiConfirmData } from '@taiga-ui/kit';
+import { type TuiConfirmData, TuiSkeleton } from '@taiga-ui/kit';
 import {
   TUI_CONFIRM,
   TUI_VALIDATION_ERRORS,
@@ -68,6 +68,7 @@ import { PickupPointTabType } from './types';
     CourierDetailsComponent,
     TuiInputDateModule,
     TuiUnfinishedValidator,
+    TuiSkeleton,
   ],
   templateUrl: './pickup-point.component.html',
   styleUrl: './pickup-point.component.css',
