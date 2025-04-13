@@ -81,6 +81,16 @@ export class PackagingComponent implements OnChanges {
     }
   }
 
+  handleCheckboxChange(option: Service, isChecked: boolean): void {
+    if (this.isSelected(option.id)) {
+      return;
+    }
+
+    if (isChecked) {
+      this.selectPackagingItem(option);
+    }
+  }
+
   isSelected(id: string): boolean {
     return this.selectedPackagingItems.has(id);
   }
