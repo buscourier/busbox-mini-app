@@ -3,6 +3,9 @@
   --color-yellow-500: rgb(255, 220, 0);
   --color-yellow-400: rgb(255, 230, 51);
   --color-yellow-600: rgb(230, 198, 0);
+
+  /*shadows*/
+  --shadow-sb: 0px 24px 54px rgba(0, 0, 0, 0.04);
 }
 
 :root {
@@ -29,6 +32,7 @@
 
   --tui-height-m: 50px;
   --tui-radius-m: var(--radius-md);
+  --tui-radius-l: var(--radius-lg);
   /*--tui-text-tertiary: red;*/
   --tui-text-action: var(--color-gray-900);
   --tui-text-action-hover: var(--color-black);

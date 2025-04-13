@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiButton, TuiLoader } from '@taiga-ui/core';
-import { TUI_CONFIRM, type TuiConfirmData } from '@taiga-ui/kit';
+import { TUI_CONFIRM, type TuiConfirmData, TuiSkeleton } from '@taiga-ui/kit';
 import { type Observable, of, switchMap } from 'rxjs';
 
 import { DeliveryLayoutService } from '@delivery/services';
@@ -16,10 +16,13 @@ import type { DeliverySummaryViewModel } from './types';
 
 @Component({
   selector: 'app-delivery-summary',
-  imports: [AsyncPipe, TuiLoader, JsonPipe, RouterLink, TuiButton],
+  imports: [AsyncPipe, TuiLoader, JsonPipe, RouterLink, TuiButton, TuiSkeleton],
   templateUrl: './delivery-summary.component.html',
   styleUrl: './delivery-summary.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'sticky top-10 flex flex-col items-start p-5 shadow-sb bg-white',
+  },
 })
 export class DeliverySummaryComponent implements OnInit {
   vm$!: Observable<DeliverySummaryViewModel>;

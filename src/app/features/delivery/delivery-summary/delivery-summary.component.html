@@ -2,41 +2,147 @@
 @let isCalculatorLayout = isCalculatorLayout$ | async;
 
 @if (vm) {
+  <b [tuiSkeleton]="vm.isLoading" class="mb-6 inline-block text-lg">Расчет</b>
+
   @if (!vm.isLoaded) {
-    <p>
+    <p [tuiSkeleton]="vm.isLoading" class="mb-3">
       Для расчета стоимости отправления, укажите место отправления и прибытия, а также тип груза.
     </p>
-    <p>
-      Внимание! Информация, приведенная в калькуляторе справочная, точную информацию по доставкам в
-      населенные пункты вы можете уточнить в чате на сайте или у диспетчера.
+    <p [tuiSkeleton]="vm.isLoading">
+      <b>Внимание!</b> Информация, приведенная в калькуляторе справочная, точную информацию по
+      доставкам в населенные пункты вы можете уточнить в чате на сайте или у диспетчера.
     </p>
-  } @else if (vm.isLoading) {
-    <tui-loader />
   } @else {
-    <div class="sticky top-10">
-      <b>{{ vm.direction | json }}</b>
-      <br />
-      <b>{{ vm.methods | json }}</b>
+    <div class="">
+      @if (vm.direction; as direction) {
+        <dl class="flex flex-col items-start gap-1">
+          <dt class="text-gray-400" [tuiSkeleton]="vm.isLoading">Направление перевозки:</dt>
+          <dd [tuiSkeleton]="vm.isLoading">{{ direction.from }} &#8212; {{ direction.to }}</dd>
+        </dl>
+      }
 
-      <div>
-        {{ vm.orderDetails.documents | json }}
-        {{ vm.orderDetails.parcels | json }}
-        {{ vm.orderDetails.autoParts | json }}
-        {{ vm.orderDetails.otherCargo | json }}
-        {{ vm.orderDetails.packaging | json }}
-        {{ vm.orderDetails.additionalServices | json }}
+      <dl class="mt-3 flex flex-wrap gap-1">
+        <dt [tuiSkeleton]="vm.isLoading" class="text-gray-400">Забор посылки у отправителя:</dt>
+        <dd [tuiSkeleton]="vm.isLoading">{{ vm.methods.pickup }}</dd>
+      </dl>
+
+      <dl class="mt-3 flex flex-wrap gap-1">
+        <dt [tuiSkeleton]="vm.isLoading" class="text-gray-400">Доставка посылки до получателя:</dt>
+        <dd [tuiSkeleton]="vm.isLoading">{{ vm.methods.delivery }}</dd>
+      </dl>
+
+      @if (vm.orderDetails; as details) {
+        <b [tuiSkeleton]="vm.isLoading" class="mt-5 block text-md">Детали заявки</b>
+
+        <dl class="mt-3 flex flex-col gap-1">
+          <dt [tuiSkeleton]="vm.isLoading" class="text-gray-400">Тип груза:</dt>
+
+          @if (details.documents; as documents) {
+            <dd [tuiSkeleton]="vm.isLoading">
+              {{ documents.name }} (мест: {{ documents.quantity }})
+            </dd>
+          }
+
+          @if (details.parcels; as parcels) {
+            <dd [tuiSkeleton]="vm.isLoading">{{ parcels.name }} (мест: {{ parcels.quantity }})</dd>
+          }
+
+          @if (details.autoParts; as autoParts) {
+            <dd [tuiSkeleton]="vm.isLoading">
+              {{ autoParts.name }} (мест: {{ autoParts.quantity }})
+            </dd>
+          }
+
+          @if (details.otherCargo; as other) {
+            <dd [tuiSkeleton]="vm.isLoading">{{ other.name }} (мест: {{ other.quantity }})</dd>
+          }
+        </dl>
+
+        @if (details.packaging; as packaging) {
+          <div class="mt-3 flex flex-col">
+            <span [tuiSkeleton]="vm.isLoading" class="mb-1 text-gray-400">Упаковка:</span>
+            <dl class="flex flex-wrap gap-2">
+              @for (item of packaging.items; track item.type) {
+                <dt [tuiSkeleton]="vm.isLoading">
+                  {{ item.type }} {{ item.variant }} ({{ item.quantity }} шт.):
+                </dt>
+                <dd [tuiSkeleton]="vm.isLoading">
+                  <b>{{ item.price }} руб.</b>
+                </dd>
+              }
+            </dl>
+          </div>
+        }
+
+        @if (details.additionalServices; as services) {
+          @if (services.insurance; as insurance) {
+            <dl class="mt-3 flex flex-col gap-1">
+              <dt [tuiSkeleton]="vm.isLoading" class="text-gray-400">
+                {{ insurance.displayName }}:
+              </dt>
+              <dd [tuiSkeleton]="vm.isLoading">
+                <b>{{ insurance.price }} руб.</b>
+              </dd>
+            </dl>
+          }
+
+          @if (services.extendedSms; as extendedSms) {
+            <dl class="mt-3 flex flex-col gap-1">
+              <dt [tuiSkeleton]="vm.isLoading" class="text-gray-400">
+                {{ extendedSms.displayName }}:
+              </dt>
+              <dd [tuiSkeleton]="vm.isLoading">
+                <b>{{ extendedSms.price }} руб.</b>
+              </dd>
+            </dl>
+          }
+
+          @if (services.senderSms; as senderSms) {
+            <dl class="mt-3 flex flex-col gap-1">
+              <dt [tuiSkeleton]="vm.isLoading" class="text-gray-400">
+                {{ senderSms.displayName }}:
+              </dt>
+              <dd [tuiSkeleton]="vm.isLoading">
+                <b>{{ senderSms.price }} руб.</b>
+              </dd>
+            </dl>
+          }
+
+          @if (services.recipientPayment; as recipientPayment) {
+            <dl class="mt-3 flex flex-col gap-1">
+              <dt [tuiSkeleton]="vm.isLoading" class="text-gray-400">
+                {{ recipientPayment.displayName }}:
+              </dt>
+              <dd [tuiSkeleton]="vm.isLoading">
+                <b>{{ recipientPayment.price }} руб.</b>
+              </dd>
+            </dl>
+          }
+        }
+      }
+
+      <div class="mt-4 mb-4 flex gap-2 text-3xl">
+        <span [tuiSkeleton]="vm.isLoading" class="text-gray-400">Итого:</span>
+        <b [tuiSkeleton]="vm.isLoading">{{ vm.totalAmount }} руб.</b>
       </div>
 
-      <h3>
-        <b>{{ vm.totalAmount }}</b>
-      </h3>
-
       @if (isCalculatorLayout) {
-        <button type="button" tuiButton [routerLink]="['/delivery', 'booking']">
+        <button
+          [tuiSkeleton]="vm.isLoading"
+          type="button"
+          tuiButton
+          size="l"
+          [routerLink]="['/delivery', 'booking']"
+        >
           Перейти к оформлению
         </button>
 
-        <button type="button" class="block mt-4 text-red-400 cursor-pointer" (click)="onReset()">
+        <button
+          [tuiSkeleton]="vm.isLoading"
+          type="button"
+          class="block mt-4 text-red-400 cursor-pointer"
+          (click)="onReset()"
+        >
           Сбросить расчеты
         </button>
       }
