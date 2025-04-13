@@ -1,38 +1,72 @@
-<div class="parcels">
+<div class="mb-6">
+  <!-- Посылки -->
   @for (parcelItem of parcels.controls; track $index) {
-    <app-parcel-item
+    <div
+      class="mb-6 p-4 bg-white border border-gray-200 rounded-md shadow-sm transition-all"
       [@parcelItem]
-      [totalQuantityMaxError]="!!errors?.totalQuantityMax"
-      [totalWeightMaxError]="!!errors?.totalWeightMax"
-      [totalDimensionsMaxError]="!!errors?.totalDimensionsMax"
-      [limits]="parcelItemLimits"
-      [formControl]="parcelItem"
     >
-      @if (parcels.length > 1) {
-        <button
-          type="button"
-          class="inline-block cursor-pointer hover:opacity-80"
-          (click)="removeParcelItem($index)"
-        >
+      <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-100">
+        <h3 class="text-md font-medium text-gray-700 flex items-center">
           <tui-icon
-            icon="@tui.delete"
-            [style.font-size.rem]="2"
-            [style.color]="'var(--color-red-500)'"
+            icon="@tui.box"
+            class="mr-2"
+            [style.color]="'var(--tui-background-accent-1)'"
+            [style.font-size.rem]="1.25"
           />
-        </button>
-      }
-    </app-parcel-item>
+          Посылка {{ $index + 1 }}
+        </h3>
+        @if (parcels.length > 1) {
+          <button
+            type="button"
+            class="flex items-center text-red-500 hover:text-red-700 hover:bg-red-50 rounded-full p-1.5 transition-colors"
+            (click)="removeParcelItem($index)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+          </button>
+        }
+      </div>
+
+      <!-- Форма элемента посылки -->
+      <app-parcel-item
+        [totalQuantityMaxError]="!!errors?.totalQuantityMax"
+        [totalWeightMaxError]="!!errors?.totalWeightMax"
+        [totalDimensionsMaxError]="!!errors?.totalDimensionsMax"
+        [limits]="parcelItemLimits"
+        [formControl]="parcelItem"
+      >
+      </app-parcel-item>
+    </div>
   }
 
-  <tui-error [formControl]="parcelsError" [error]="[] | tuiFieldError | async"></tui-error>
+  <div class="mb-4">
+    <tui-error [formControl]="parcelsError" [error]="[] | tuiFieldError | async"></tui-error>
+  </div>
+
   <button
     type="button"
-    tuiButton
-    appearance="secondary"
-    class="add-button"
+    class="flex items-center justify-center cursor-pointer w-full p-3 border border-dashed border-yellow-300 rounded-md text-yellow-600 hover:bg-yellow-50 hover:border-yellow-400 transition-colors"
     [disabled]="!canAddParcelItem"
     (click)="addParcelItem()"
   >
-    Добавить
+    <tui-icon
+      icon="@tui.plus"
+      class="mr-2"
+      [style.color]="'var(--color-yellow-600)'"
+      [style.font-size.rem]="1.5"
+    />
+    <span class="font-medium">Добавить посылку</span>
   </button>
 </div>
