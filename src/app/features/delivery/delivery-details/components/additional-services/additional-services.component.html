@@ -1,111 +1,109 @@
-<div class="">
-  <h2 class="mb-6 text-xl font-bold">Дополнительные услуги:</h2>
-  @if (additionalServices.insurance.length) {
-    <div class="mb-4">
-      <label tuiLabel class="flex items-center gap-2 cursor-pointer">
-        <input tuiCheckbox type="checkbox" [formControl]="insurance.controls.enabled" size="m" />
-        Страхование
-        @if (insurance.controls.enabled.value) {
-          <button
-            appearance="warning"
-            iconStart="@tui.info"
-            size="xs"
-            tuiIconButton
-            type="button"
-            tuiHint="Максимум 30000"
-            [style.border-radius.%]="100"
-          >
-            Favorite
-          </button>
-        }
-      </label>
+<div class="py-6 px-4 rounded-lg border border-gray-200">
+  <h2 class="text-lg font-semibold mb-5 flex items-center text-gray-800">Дополнительные услуги</h2>
 
-      @if (insurance.controls.enabled.value) {
-        <label tuiLabel class="mt-2 ml-8">
-          <span class="mb-1 inline-block text-sm text-gray-500">Объявленная ценность</span>
-          <tui-textfield class="max-w-[280px]">
-            <input
-              tuiInputNumber
-              [formControl]="insurance.controls.amount"
-              [min]="INSURANCE_MIN_AMOUNT"
-              [max]="INSURANCE_MAX_AMOUNT"
-              [tuiHint]="[] | tuiFieldErrorContent"
-              tuiHintAppearance="error"
-            />
-          </tui-textfield>
-        </label>
-      }
+  <div class="space-y-4">
+    <div class="group">
+      <label
+        class="flex items-start cursor-pointer p-2 -mx-2 rounded-md hover:bg-gray-50 transition-all"
+      >
+        <div class="flex-shrink-0 mt-0.5">
+          <input tuiCheckbox type="checkbox" [formControl]="insurance.controls.enabled" size="m" />
+        </div>
+        <div class="ml-3 flex-1">
+          <div class="font-medium text-gray-800">Страхование</div>
+          <div class="text-sm text-gray-500 mt-0.5 group-hover:text-gray-700">
+            Защита груза от повреждений на сумму до 30 000 ₽
+          </div>
+
+          @if (insurance.controls.enabled.value) {
+            <div class="mt-3 pt-3 border-t border-gray-100">
+              <span class="text-xs text-gray-500 uppercase tracking-wide"
+                >Объявленная ценность</span
+              >
+              <tui-textfield class="max-w-xs mt-1">
+                <input
+                  tuiInputNumber
+                  [formControl]="insurance.controls.amount"
+                  [min]="INSURANCE_MIN_AMOUNT"
+                  [max]="INSURANCE_MAX_AMOUNT"
+                />
+              </tui-textfield>
+            </div>
+          }
+        </div>
+      </label>
     </div>
-  }
 
-  @if (additionalServices.extendedSms) {
-    <div class="mb-4">
-      <label class="flex items-center gap-2 cursor-pointer">
-        <input tuiCheckbox type="checkbox" [formControl]="extendedSms.controls.enabled" size="m" />
-        Расширенная СМС
-      </label>
-
-      @if (extendedSms.controls.enabled.value) {
-        <div tuiLabel class="mt-2 ml-8">
-          <span class="mb-1 inline-block text-sm text-gray-500">Номер телефона</span>
-          <tui-input-phone
-            [formControl]="extendedSms.controls.phone"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            tuiHintAppearance="error"
-            class="max-w-[280px]"
+    <div class="pt-3 border-t border-gray-100 group">
+      <label
+        class="flex items-start cursor-pointer p-2 -mx-2 rounded-md hover:bg-gray-50 transition-all"
+      >
+        <div class="flex-shrink-0 mt-0.5">
+          <input
+            tuiCheckbox
+            type="checkbox"
+            [formControl]="extendedSms.controls.enabled"
+            size="m"
           />
         </div>
-      }
-    </div>
-  }
+        <div class="ml-3 flex-1">
+          <div class="font-medium text-gray-800">Расширенная СМС</div>
+          <div class="text-sm text-gray-500 mt-0.5 group-hover:text-gray-700">
+            Подробные уведомления о статусе доставки
+          </div>
 
-  @if (additionalServices.senderSms) {
-    <div class="mb-4">
-      <label tuiLabel class="flex items-center gap-2 cursor-pointer">
-        <input tuiCheckbox type="checkbox" [formControl]="senderSms.controls.enabled" size="m" />
-        СМС отправителю
+          @if (extendedSms.controls.enabled.value) {
+            <div class="mt-3 pt-3 border-t border-gray-100">
+              <span class="text-xs text-gray-500 uppercase tracking-wide">Номер телефона</span>
+              <tui-input-phone [formControl]="extendedSms.controls.phone" class="max-w-xs mt-1" />
+            </div>
+          }
+        </div>
       </label>
+    </div>
 
-      @if (senderSms.controls.enabled.value) {
-        <div tuiLabel class="mt-2 ml-8">
-          <span class="mb-1 inline-block text-sm text-gray-500">Номер телефона</span>
-          <tui-input-phone
-            [formControl]="senderSms.controls.phone"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            tuiHintAppearance="error"
-            class="max-w-[280px]"
+    <div class="pt-3 border-t border-gray-100 group">
+      <label
+        class="flex items-start cursor-pointer p-2 -mx-2 rounded-md hover:bg-gray-50 transition-all"
+      >
+        <div class="flex-shrink-0 mt-0.5">
+          <input tuiCheckbox type="checkbox" [formControl]="senderSms.controls.enabled" size="m" />
+        </div>
+        <div class="ml-3 flex-1">
+          <div class="font-medium text-gray-800">СМС отправителю</div>
+          <div class="text-sm text-gray-500 mt-0.5 group-hover:text-gray-700">
+            Уведомления о статусе отправления
+          </div>
+
+          @if (senderSms.controls.enabled.value) {
+            <div class="mt-3 pt-3 border-t border-gray-100">
+              <span class="text-xs text-gray-500 uppercase tracking-wide">Номер телефона</span>
+              <tui-input-phone [formControl]="senderSms.controls.phone" class="max-w-xs mt-1" />
+            </div>
+          }
+        </div>
+      </label>
+    </div>
+
+    <div class="pt-3 border-t border-gray-100 group">
+      <label
+        class="flex items-start cursor-pointer p-2 -mx-2 rounded-md hover:bg-gray-50 transition-all"
+      >
+        <div class="flex-shrink-0 mt-0.5">
+          <input
+            tuiCheckbox
+            type="checkbox"
+            [formControl]="recipientPayment.controls.enabled"
+            size="m"
           />
         </div>
-      }
-    </div>
-  }
-
-  @if (additionalServices.recipientPayment) {
-    <div class="service">
-      <label tuiLabel class="flex items-center gap-2 cursor-pointer">
-        <input
-          tuiCheckbox
-          type="checkbox"
-          [formControl]="recipientPayment.controls.enabled"
-          size="m"
-        />
-        Оплата получателем
-      </label>
-
-      @if (recipientPayment.controls.enabled.value) {
-        <div class="mt-2 ml-8 hidden">
-          <tui-textfield>
-            <input
-              tuiInputNumber
-              [formControl]="recipientPayment.controls.amount"
-              [tuiHint]="[] | tuiFieldErrorContent"
-              [min]="1"
-              tuiHintAppearance="error"
-              placeholder="0"
-            />
-          </tui-textfield>
+        <div class="ml-3 flex-1">
+          <div class="font-medium text-gray-800">Оплата получателем</div>
+          <div class="text-sm text-gray-500 mt-0.5 group-hover:text-gray-700">
+            Стоимость доставки оплачивает получатель
+          </div>
         </div>
-      }
+      </label>
     </div>
-  }
+  </div>
 </div>
