@@ -1,38 +1,43 @@
-<div class="grid grid-cols-[370px_144px] gap-4">
-  <div tuiLabel>
-    <span class="mb-1 inline-block text-sm">Выберите запчасть</span>
-    <tui-select
-      [formControl]="item"
-      [stringify]="'name' | tuiStringify"
-      [tuiTextfieldLabelOutside]="true"
-    >
-      <tui-data-list-wrapper
-        *tuiDataList
-        [items]="options"
-        [itemContent]="'name' | tuiStringify | tuiStringifyContent"
-      />
-    </tui-select>
+<div class="">
+  <div class="grid grid-cols-1 gap-2" [class.md:grid-cols-[3fr_1fr]]="item.value">
+    <div tuiLabel class="mb-2">
+      <div class="mb-1.5 flex items-center">
+        <span class="text-sm text-gray-600">Выберите запчасть</span>
+      </div>
+      <tui-select
+        [formControl]="item"
+        [stringify]="'name' | tuiStringify"
+        [tuiTextfieldLabelOutside]="true"
+        class="w-full"
+      >
+        <tui-data-list-wrapper
+          *tuiDataList
+          [items]="options"
+          [itemContent]="'name' | tuiStringify | tuiStringifyContent"
+        />
+      </tui-select>
+    </div>
+
+    @if (item.value) {
+      <div tuiLabel>
+        <div class="mb-1.5 flex items-center">
+          <span class="text-sm text-gray-600">Количество мест</span>
+        </div>
+        <tui-textfield>
+          <input
+            tuiInputNumber
+            placeholder="0"
+            [formControl]="quantity"
+            (blur)="setMinQuantityOnBlur()"
+            [step]="1"
+          />
+        </tui-textfield>
+      </div>
+    }
   </div>
 
-  @if (item.value) {
-    <label tuiLabel>
-      <span class="mb-1 inline-block text-sm">Количество мест</span>
-
-      <tui-textfield>
-        <input
-          tuiInputNumber
-          placeholder="0"
-          [formControl]="quantity"
-          (blur)="setMinQuantityOnBlur()"
-          [step]="1"
-        />
-      </tui-textfield>
-    </label>
-  }
+  <tui-notification appearance="warning" size="m" class="mt-2">
+    Пожалуйста, выберите тип запчасти из списка. Если вы не нашли подходящую запчасть, рассчитайте
+    стоимость обычной посылки
+  </tui-notification>
 </div>
-@if (form.controls.item.value) {
-  <small class="block mt-6 text-sm text-gray-500 col-span-2">
-    <sup>*</sup> Пожалуйста, выберите тип запчасти из списка.<br class="block" />Если вы не нашли
-    подходящую запчасть, рассчитайте стоимость обычной посылки
-  </small>
-}

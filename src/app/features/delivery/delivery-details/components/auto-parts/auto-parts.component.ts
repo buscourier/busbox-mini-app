@@ -11,7 +11,13 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiLabel, TuiTextfieldComponent } from '@taiga-ui/core';
+import {
+  TuiButton,
+  TuiIcon,
+  TuiLabel,
+  TuiNotification,
+  TuiTextfieldComponent,
+} from '@taiga-ui/core';
 import { TuiInputNumber, TuiStringifyContentPipe, TuiStringifyPipe } from '@taiga-ui/kit';
 import { TuiSelectModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { merge } from 'rxjs';
@@ -34,6 +40,9 @@ import type { AutoPartsForm } from './auto-parts.types';
     TuiInputNumber,
     TuiTextfieldComponent,
     TuiLabel,
+    TuiIcon,
+    TuiNotification,
+    TuiButton,
   ],
   templateUrl: './auto-parts.component.html',
   styleUrl: './auto-parts.component.css',

@@ -1,23 +1,160 @@
-<tui-radio-list
-  [formControl]="typeControl"
-  [items]="mappedTypes"
-  [identityMatcher]="identityMatcher"
-  [disabledItemHandler]="disabledHandler.bind(this)"
-  [itemContent]="content"
-  [style.flex-direction]="'row'"
->
-  <ng-template #content let-data>
-    <span tuiTitle>
-      {{ data.name }}
-    </span>
-    @if (hasRestriction(data)) {
-      <tui-badge
-        [tuiHint]="getRestrictionMessage(data)"
-        [tuiHintShowDelay]="0"
-        appearance="info"
-        size="l"
-        iconStart="@tui.info"
-      />
+<div class="mb-6">
+  <h2 class="text-lg font-semibold mb-5 flex items-center text-gray-800">Выберите тип груза</h2>
+
+  <div class="flex flex-wrap gap-2">
+    @for (type of mappedTypes; track type.value) {
+      @if (type.value === 'DOCUMENTS') {
+        <button
+          [appearance]="type.value === (typeControl.value?.value || '') ? 'primary' : 'secondary'"
+          iconStart="@tui.files"
+          tuiButton
+          tuiButtonVertical
+          type="button"
+          class="flex-1 min-w-[100px]"
+          [disabled]="disabledHandler(type)"
+          (click)="!disabledHandler(type) && typeControl.setValue(type)"
+        >
+          {{ type.name }}
+        </button>
+      }
+
+      @if (type.value === 'PARCELS') {
+        <button
+          [appearance]="type.value === (typeControl.value?.value || '') ? 'primary' : 'secondary'"
+          iconStart="@tui.boxes"
+          tuiButton
+          tuiButtonVertical
+          type="button"
+          class="flex-1 min-w-[100px]"
+          [disabled]="disabledHandler(type)"
+          (click)="!disabledHandler(type) && typeControl.setValue(type)"
+        >
+          {{ type.name }}
+        </button>
+      }
+
+      @if (type.value === 'AUTO_PARTS') {
+        <button
+          [appearance]="
+            hasRestriction(type)
+              ? 'secondary-destructive'
+              : type.value === (typeControl.value?.value || '')
+                ? 'primary'
+                : 'secondary'
+          "
+          [iconStart]="hasRestriction(type) ? '@tui.info' : '@tui.cog'"
+          [tuiHint]="getRestrictionMessage(type)"
+          [tuiHintAppearance]="'error'"
+          tuiButton
+          tuiButtonVertical
+          type="button"
+          class="flex-1 min-w-[100px]"
+          [class.cursor-not-allowed!]="hasRestriction(type)"
+          [disabled]="disabledHandler(type)"
+          (click)="!disabledHandler(type) && typeControl.setValue(type)"
+        >
+          {{ type.name }}
+        </button>
+      }
+
+      @if (type.value === 'OTHER') {
+        <button
+          [appearance]="
+            hasRestriction(type)
+              ? 'secondary-destructive'
+              : type.value === (typeControl.value?.value || '')
+                ? 'primary'
+                : 'secondary'
+          "
+          [iconStart]="hasRestriction(type) ? '@tui.info' : '@tui.component'"
+          [tuiHint]="getRestrictionMessage(type)"
+          [tuiHintAppearance]="'error'"
+          tuiButton
+          tuiButtonVertical
+          type="button"
+          class="flex-1 min-w-[100px]"
+          [class.cursor-not-allowed!]="hasRestriction(type)"
+          [disabled]="disabledHandler(type)"
+          (click)="!disabledHandler(type) && typeControl.setValue(type)"
+        >
+          {{ type.name }}
+        </button>
+      }
+
+      <!--      <button-->
+      <!--        type="button"-->
+      <!--        class="flex-1  min-w-[100px] py-2 px-3 rounded-md text-center transition-all cursor-pointer"-->
+      <!--        [class.bg-yellow-500]="type.value === (typeControl.value?.value || '')"-->
+      <!--        [class.text-black]="type.value === (typeControl.value?.value || '')"-->
+      <!--        [class.bg-gray-100]="type.value !== (typeControl.value?.value || '')"-->
+      <!--        [class.text-gray-700]="type.value !== (typeControl.value?.value || '')"-->
+      <!--        [class.hover:bg-gray-200]="type.value !== (typeControl.value?.value || '') && !disabledHandler(type)"-->
+      <!--        [class.opacity-50]="disabledHandler(type)"-->
+      <!--        [class.cursor-not-allowed]="disabledHandler(type)"-->
+      <!--        [disabled]="disabledHandler(type)"-->
+      <!--        (click)="!disabledHandler(type) && typeControl.setValue(type)"-->
+      <!--      >-->
+      <!--        <div class="flex flex-col items-center">-->
+      <!--          @if (type.value === 'DOCUMENTS') {-->
+      <!--            <svg class="w-5 h-5 mb-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"-->
+      <!--                 stroke="currentColor" stroke-width="2">-->
+      <!--              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>-->
+      <!--              <polyline points="14 2 14 8 20 8"></polyline>-->
+      <!--              <line x1="16" y1="13" x2="8" y2="13"></line>-->
+      <!--              <line x1="16" y1="17" x2="8" y2="17"></line>-->
+      <!--            </svg>-->
+      <!--          }-->
+      <!--          @if (type.value === 'PARCELS') {-->
+      <!--            <svg class="w-5 h-5 mb-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"-->
+      <!--                 stroke="currentColor" stroke-width="2">-->
+      <!--              <path-->
+      <!--                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>-->
+      <!--              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>-->
+      <!--              <line x1="12" y1="22.08" x2="12" y2="12"></line>-->
+      <!--            </svg>-->
+      <!--          }-->
+      <!--          @if (type.value === 'AUTO_PARTS') {-->
+      <!--            <svg class="w-5 h-5 mb-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"-->
+      <!--                 stroke="currentColor" stroke-width="2">-->
+      <!--              <circle cx="12" cy="12" r="3"></circle>-->
+      <!--              <path-->
+      <!--                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>-->
+      <!--            </svg>-->
+      <!--          }-->
+      <!--          @if (type.value === 'OTHER') {-->
+      <!--            <svg class="w-5 h-5 mb-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"-->
+      <!--                 stroke="currentColor" stroke-width="2">-->
+      <!--              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>-->
+      <!--              <polyline points="2 17 12 22 22 17"></polyline>-->
+      <!--              <polyline points="2 12 12 17 22 12"></polyline>-->
+      <!--            </svg>-->
+      <!--          }-->
+
+      <!--          <span>{{ type.name }}</span>-->
+
+      <!--          @if (hasRestriction(type)) {-->
+      <!--            <span-->
+      <!--              class="mt-1 inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">-->
+      <!--              <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">-->
+      <!--                <path fill-rule="evenodd"-->
+      <!--                      d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"-->
+      <!--                      clip-rule="evenodd" />-->
+      <!--              </svg>-->
+      <!--              Ограничено-->
+      <!--            </span>-->
+      <!--          }-->
+      <!--        </div>-->
+      <!--      </button>-->
     }
-  </ng-template>
-</tui-radio-list>
+  </div>
+
+  <!-- Скрытый радио-контрол для сохранения совместимости с FormControl -->
+  <div class="hidden">
+    <tui-radio-list
+      [formControl]="typeControl"
+      [items]="mappedTypes"
+      [identityMatcher]="identityMatcher"
+      [disabledItemHandler]="disabledHandler.bind(this)"
+    ></tui-radio-list>
+  </div>
+</div>

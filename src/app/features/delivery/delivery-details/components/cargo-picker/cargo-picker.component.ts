@@ -11,7 +11,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { TuiBooleanHandler } from '@taiga-ui/cdk';
-import { TuiAlertService, TuiHintDirective, TuiTitle } from '@taiga-ui/core';
+import { TuiAlertService, TuiButton, TuiHintDirective, TuiTitle } from '@taiga-ui/core';
 import { TuiBadge, TuiRadioList } from '@taiga-ui/kit';
 import { filter } from 'rxjs';
 
@@ -25,7 +25,7 @@ import {
 
 @Component({
   selector: 'app-cargo-picker',
-  imports: [TuiRadioList, ReactiveFormsModule, TuiHintDirective, TuiBadge, TuiTitle],
+  imports: [TuiRadioList, ReactiveFormsModule, TuiHintDirective, TuiBadge, TuiTitle, TuiButton],
   templateUrl: './cargo-picker.component.html',
   styleUrl: './cargo-picker.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
