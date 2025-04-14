@@ -42,7 +42,7 @@ import { CargoType } from './types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [cargoSwitchAnimation],
   host: {
-    class: 'block mt-6 pt-15 border-t-2 border-gray-100',
+    class: 'block mt-16',
   },
 })
 export class DeliveryDetailsComponent implements OnInit {

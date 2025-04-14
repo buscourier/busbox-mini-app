@@ -1,10 +1,9 @@
 @if (form) {
-  <div [formGroup]="form" class="space-y-3">
-    <label tuiLabel>
-      Улица
-
+  <div [formGroup]="form" class="space-y-4">
+    <label tuiLabel class="block">
+      <span class="mb-1 inline-block text-sm text-gray-700">Улица</span>
       <div class="relative">
-        <tui-textfield #streetInput>
+        <tui-textfield #streetInput class="w-full">
           <input
             tuiTextfield
             [formControl]="street"
@@ -13,6 +12,7 @@
             [maxlength]="limits.address.street.maxLength"
             [attr.maxlength]="limits.address.street.maxLength"
             tuiHintAppearance="error"
+            placeholder="Введите название улицы"
           />
         </tui-textfield>
         @if (streetInput.focused()) {
@@ -24,12 +24,12 @@
         }
       </div>
     </label>
-    <div class="flex space-x-7">
-      <label tuiLabel>
-        Дом, корпус, строение
 
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <label tuiLabel class="block">
+        <span class="mb-1 inline-block text-sm text-gray-700">Дом, корпус, строение</span>
         <div class="relative">
-          <tui-textfield #buildingInput>
+          <tui-textfield #buildingInput class="w-full">
             <input
               tuiTextfield
               [formControl]="building"
@@ -38,6 +38,7 @@
               [maxlength]="limits.address.building.maxLength"
               [attr.maxlength]="limits.address.building.maxLength"
               tuiHintAppearance="error"
+              placeholder="Номер дома"
             />
           </tui-textfield>
           @if (buildingInput.focused()) {
@@ -50,11 +51,10 @@
         </div>
       </label>
 
-      <label tuiLabel>
-        Кв. / офис
-
+      <label tuiLabel class="block">
+        <span class="mb-1 inline-block text-sm text-gray-700">Кв. / офис</span>
         <div class="relative">
-          <tui-textfield #apartmentInput>
+          <tui-textfield #apartmentInput class="w-full">
             <input
               tuiTextfield
               [formControl]="apartment"
@@ -63,6 +63,7 @@
               [maxlength]="limits.address.apartment.maxLength"
               [attr.maxlength]="limits.address.apartment.maxLength"
               tuiHintAppearance="error"
+              placeholder="Номер кв"
             />
           </tui-textfield>
           @if (apartmentInput.focused()) {
@@ -75,17 +76,35 @@
         </div>
       </label>
     </div>
-    <tui-radio-list
-      size="s"
-      [formControl]="preferredTime"
-      [itemContent]="content"
-      [items]="preferredTimeSlots"
-      [identityMatcher]="identityMatcherById"
-      [style.flex-direction]="'row'"
-    >
-      <ng-template #content let-data>
-        <b>{{ data.label }}</b>
-      </ng-template>
-    </tui-radio-list>
+
+    <div class="mt-4 mb-2">
+      <div class="flex items-center">
+        <tui-icon
+          icon="@tui.clock"
+          class="mr-2"
+          [style.color]="'var(--tui-background-accent-1)'"
+          [style.font-size.rem]="1"
+        />
+        <span class="text-sm font-medium text-gray-700">Удобное время для доставки</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2">
+      @for (slot of preferredTimeSlots; track slot.id) {
+        <label class="relative cursor-pointer">
+          <input
+            type="radio"
+            class="peer absolute opacity-0"
+            [value]="slot"
+            [formControl]="preferredTime"
+          />
+          <div
+            class="flex items-center justify-center p-3 border border-gray-200 rounded-md text-center text-gray-700 transition-all peer-checked:border-yellow-500 peer-checked:bg-yellow-50 peer-checked:text-yellow-600 peer-checked:font-medium hover:bg-gray-50"
+          >
+            {{ slot.label }}
+          </div>
+        </label>
+      }
+    </div>
   </div>
 }

@@ -1,85 +1,107 @@
 @let vm = vm$ | async;
 
 @if (vm && form) {
-  <div>
-    <ng-content select="b"></ng-content>
-  </div>
-  <form [formGroup]="form" class="flex flex-col gap-4">
-    <tui-combo-box
-      [formControl]="city"
-      [stringify]="'name' | tuiStringify"
-      (searchChange)="onSearchChange($event)"
-      [tuiTextfieldLabelOutside]="true"
-      [tuiSkeleton]="vm.cities.isLoading"
-      tuiTextfieldSize="m"
-    >
-      Выберите город
-      <tui-data-list-wrapper
-        *tuiDataList
-        [items]="cities$ | async"
-        [itemContent]="'name' | tuiStringify | tuiStringifyContent"
-      />
-    </tui-combo-box>
-    <!--    <tui-error [formControl]="city" [error]="[] | tuiFieldError | async" />-->
+  <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+    <div [tuiSkeleton]="vm.cities.isLoading">
+      <ng-content select="b"></ng-content>
+    </div>
 
-    @if (vm.cities.selected) {
-      @if (vm.tabs.length > 1) {
-        <div class="flex">
-          @for (tab of vm.tabs; track tab.id) {
-            <button
-              type="button"
-              class="flex-1/2 bg-gray-100 min-h-12 cursor-pointer"
-              [class.bg-yellow-500]="tab === vm.activeTab"
-              (click)="onTabChange(tab.id)"
-            >
-              {{ tab.name }}
-            </button>
+    <form [formGroup]="form" class="flex flex-col gap-5">
+      <div class="relative">
+        <tui-combo-box
+          [formControl]="city"
+          [stringify]="'name' | tuiStringify"
+          (searchChange)="onSearchChange($event)"
+          [tuiTextfieldLabelOutside]="true"
+          [tuiSkeleton]="vm.cities.isLoading"
+          tuiTextfieldSize="m"
+          class="w-full"
+        >
+          <div class="flex items-center">Выберите город</div>
+          <tui-data-list-wrapper
+            *tuiDataList
+            [items]="cities$ | async"
+            [itemContent]="'name' | tuiStringify | tuiStringifyContent"
+          />
+        </tui-combo-box>
+      </div>
+
+      @if (vm.cities.selected) {
+        @if (vm.tabs.length > 1) {
+          <div class="mt-1">
+            <div class="grid grid-cols-2 gap-3">
+              @for (tab of vm.tabs; track tab.id) {
+                <button
+                  type="button"
+                  class="flex items-center justify-center py-3 px-4 rounded-md border transition-all duration-200 cursor-pointer"
+                  [class.bg-yellow-500]="tab === vm.activeTab"
+                  [class.border-yellow-500]="tab === vm.activeTab"
+                  [class.text-black]="tab === vm.activeTab"
+                  [class.border-gray-200]="tab !== vm.activeTab"
+                  [class.bg-white]="tab !== vm.activeTab"
+                  [class.hover:bg-gray-50]="tab !== vm.activeTab"
+                  (click)="onTabChange(tab.id)"
+                >
+                  <span class="font-medium">{{ tab.name }}</span>
+                </button>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="tab-content">
+          @switch (vm.activeTab?.id) {
+            @case (TabType.OFFICE) {
+              <div @tabContent class="p-3 bg-gray-50 rounded-lg">
+                <!--                @if (vm.tabs.length < 2) {-->
+                <!--                  <div-->
+                <!--                    class="flex items-center justify-center py-3 px-4 rounded-md border border-gray-200 bg-white mb-3">-->
+                <!--                    <span class="font-medium">Забрать в отделении</span>-->
+                <!--                  </div>-->
+                <!--                }-->
+                <div class="flex items-center text-gray-600 mb-2 text-sm">
+                  <tui-icon
+                    icon="@tui.map-pin"
+                    class="mr-2"
+                    [style.color]="'var(--color-gray-600)'"
+                    [style.font-size.rem]="1"
+                  />
+                  <span>Адрес отделения</span>
+                </div>
+                <tui-select
+                  [formControl]="office"
+                  [stringify]="'address' | tuiStringify"
+                  [tuiTextfieldLabelOutside]="true"
+                  tuiTextfieldSize="m"
+                >
+                  Выберите офис
+                  <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="vm.offices.items"
+                    [itemContent]="'address' | tuiStringify | tuiStringifyContent"
+                  />
+                </tui-select>
+                <tui-error [formControl]="office" [error]="[] | tuiFieldError | async" />
+              </div>
+            }
+            @case (TabType.COURIER) {
+              <div @tabContent class="p-3 bg-gray-50 rounded-lg">
+                @defer {
+                  <app-courier-details [formControl]="courierDetails" />
+                }
+              </div>
+            }
+            @case (TabType.BUS) {
+              <div @tabContent class="p-3 bg-gray-50 rounded-lg">
+                <label class="flex items-center cursor-pointer">
+                  <input tuiCheckbox type="checkbox" [formControl]="busPickup" />
+                  <span class="inline-block ml-2 text-gray-700">Встретить с автобуса</span>
+                </label>
+              </div>
+            }
           }
         </div>
       }
-
-      <div class="tab-content">
-        @switch (vm.activeTab?.id) {
-          @case (TabType.OFFICE) {
-            <div @tabContent>
-              @if (vm.tabs.length < 2) {
-                <div class="mb-4 flex items-center justify-center bg-gray-100 min-h-12">
-                  Забрать в отделении
-                </div>
-              }
-              <tui-select
-                [formControl]="office"
-                [stringify]="'address' | tuiStringify"
-                [tuiTextfieldLabelOutside]="true"
-                tuiTextfieldSize="m"
-              >
-                Выберите офис
-                <tui-data-list-wrapper
-                  *tuiDataList
-                  [items]="vm.offices.items"
-                  [itemContent]="'address' | tuiStringify | tuiStringifyContent"
-                />
-              </tui-select>
-              <tui-error [formControl]="office" [error]="[] | tuiFieldError | async" />
-            </div>
-          }
-          @case (TabType.COURIER) {
-            <div @tabContent>
-              @defer {
-                <app-courier-details [formControl]="courierDetails" />
-              } @loading (minimum 1s) {
-                <tui-loader />
-              }
-            </div>
-          }
-          @case (TabType.BUS) {
-            <label class="flex items-center pointer-events-none">
-              <input tuiCheckbox type="checkbox" [formControl]="busPickup" />
-              <span class="inline-block ml-2">Встретить с автобуса</span>
-            </label>
-          }
-        }
-      </div>
-    }
-  </form>
+    </form>
+  </div>
 }

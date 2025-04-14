@@ -5,7 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
-import { TuiAlertService, TuiError, TuiLoader } from '@taiga-ui/core';
+import { TuiAlertService, TuiError, TuiIcon, TuiLoader } from '@taiga-ui/core';
 import type { TuiConfirmData } from '@taiga-ui/kit';
 import {
   TUI_CONFIRM,
@@ -74,6 +74,7 @@ import { DeliveryPointTabType } from './types';
     CourierDetailsComponent,
     TuiCheckbox,
     TuiSkeleton,
+    TuiIcon,
   ],
   templateUrl: './delivery-point.component.html',
   styleUrl: './delivery-point.component.css',
