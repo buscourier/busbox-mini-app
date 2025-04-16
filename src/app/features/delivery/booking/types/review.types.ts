@@ -1,4 +1,4 @@
-import type { ActiveOrderDetails } from '@delivery/delivery-details/types';
+import type { OrderReviewDetails } from '@delivery/delivery-details/types';
 import type { ReviewSection } from '@delivery/types';
 
 export interface ReviewConfirmation {
@@ -13,5 +13,5 @@ export interface Review {
 
 export interface ReviewView {
   sections: ReviewSection[];
-  order: ActiveOrderDetails;
+  order: OrderReviewDetails;
 }

@@ -7,6 +7,7 @@ import {
   CargoType,
   CargoTypeId,
   type Order,
+  type OrderReviewDetails,
   type PackagingDetails,
   type Service,
 } from '../../types';
@@ -142,6 +143,20 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     }),
   );
 
+  const selectOrderReviewDetails = createSelector(
+    selectActiveOrder,
+    selectActiveOrderPackaging,
+    (order, packaging): OrderReviewDetails => ({
+      cargoType: order?.cargoType || null,
+      documents: order?.cargoType === CargoType.DOCUMENTS ? getDocuments(order.documents) : null,
+      parcels: order?.cargoType === CargoType.PARCELS && order.parcels ? order.parcels.items : null,
+      autoParts: order?.cargoType === CargoType.AUTO_PARTS ? getAutoParts(order.autoParts) : null,
+      otherCargo: order?.cargoType === CargoType.OTHER ? getOtherCargo(order.otherCargo) : null,
+      packaging,
+      additionalServices: order?.additionalServices || null,
+    }),
+  );
+
   return {
     selectActiveOrder,
     selectIsActiveOrderValid,
@@ -153,5 +168,6 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     selectAdditionalServicesOptions,
     selectPackagingOptions,
     selectActiveOrderDetails,
+    selectOrderReviewDetails,
   };
 };

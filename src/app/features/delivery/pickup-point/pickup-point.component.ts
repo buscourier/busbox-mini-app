@@ -50,8 +50,7 @@ import type { CourierDetails } from '@delivery/types';
 
 import { PickupPointFacade } from './pickup-point.facade';
 import type { PickupPointControlValues, PickupPointForm, ResetConfig } from './pickup-point.types';
-import type { PickupPointViewModel } from './types';
-import { PickupPointTabType } from './types';
+import { PickupPointTabType, type PickupPointViewModel } from './types';
 
 @Component({
   selector: 'app-pickup-point',

@@ -90,7 +90,7 @@ export class BookingFacade {
       this.deliveryPointFacade.getReviewSection(),
       this.getSenderReviewSection(),
       this.getRecipientReviewSection(),
-      this.deliveryDetailsFacade.getActiveOrderDetails(),
+      this.deliveryDetailsFacade.getOrderReviewDetails(),
     ]).pipe(
       map(([pickupSection, deliverySection, senderSection, recipientSection, order]) => ({
         sections: [pickupSection, deliverySection, senderSection, recipientSection],

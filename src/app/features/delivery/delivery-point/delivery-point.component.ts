@@ -54,8 +54,7 @@ import type {
   DeliveryPointForm,
   ResetConfig,
 } from './delivery-point.types';
-import type { DeliveryPointViewModel } from './types';
-import { DeliveryPointTabType } from './types';
+import { DeliveryPointTabType, type DeliveryPointViewModel } from './types';
 
 @Component({
   selector: 'app-delivery-point',

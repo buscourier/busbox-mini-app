@@ -1,14 +1,54 @@
+<!-- stepper.component.html -->
 @if (steps && steps.length) {
-  <ul class="flex gap-4">
-    @for (step of steps; track step.path) {
-      <li
-        class="p-4 bg-gray-200"
-        [class.bg-green-300]="step.isActive"
-        [class.bg-yellow-300]="step.isCompleted"
-        [class.bg-red-200]="!step.isValid && step.isActive"
-      >
-        {{ step.title }}
-      </li>
-    }
-  </ul>
+  <div class="w-full overflow-x-auto mb-6">
+    <ul class="flex min-w-max">
+      @for (step of steps; track step.path; let i = $index; let last = $last) {
+        <li class="flex flex-col items-start relative flex-1 px-2">
+          <!-- Соединительная линия между шагами -->
+          @if (!last) {
+            <div
+              class="absolute h-1 bg-gray-200 top-5 left-2 right-0 -z-10 w-full"
+              [class.bg-yellow-300]="step.isCompleted"
+            ></div>
+          }
+
+          <!-- Кружок с шагом -->
+          <div
+            class="h-12 w-12 rounded-full flex items-center justify-center text-sm font-medium mb-2 bg-gray-200 text-gray-700 transition-colors duration-300"
+            [class.bg-green-300]="step.isActive"
+            [class.bg-yellow-300]="step.isCompleted"
+            [class.bg-red-200]="!step.isValid && step.isActive"
+          >
+            @if (step.isCompleted) {
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            } @else {
+              {{ i + 1 }}
+            }
+          </div>
+
+          <!-- Название шага -->
+          <span
+            class="text-xs font-medium text-center whitespace-nowrap"
+            [class.text-green-700]="step.isActive"
+            [class.text-yellow-700]="step.isCompleted"
+            [class.text-red-700]="!step.isValid && step.isActive"
+            [class.text-gray-700]="!step.isActive && !step.isCompleted && step.isValid"
+          >
+            {{ step.title }}
+          </span>
+        </li>
+      }
+    </ul>
+  </div>
 }

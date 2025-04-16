@@ -2,19 +2,21 @@
 @let destination = destination$ | async;
 
 @if (currentStep) {
-  <div class="mt-20 mb-16">
-    <app-delivery-point />
+  <div class="mb-10">
+    <app-delivery-point>
+      <b class="text-lg font-medium text-gray-800 mb-4 pb-3 border-b border-gray-100 block"
+        >Пункт получения</b
+      >
+    </app-delivery-point>
   </div>
 
   <div class="mb-16">
     <app-delivery-details />
   </div>
 
-  <div>
-    <app-recipient
-      [data]="destination?.recipient || null"
-      (dataChange)="updateRecipient($event)"
-      (validationChange)="onRecipientValidationChange($event)"
-    />
-  </div>
+  <app-recipient
+    [data]="destination?.recipient || null"
+    (dataChange)="updateRecipient($event)"
+    (validationChange)="onRecipientValidationChange($event)"
+  />
 }

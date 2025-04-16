@@ -1,6 +1,13 @@
 import type { MemoizedSelector } from '@ngrx/store';
 
-import type { ActiveOrderDetails, Cargo, EnhancedOrder, Order, Service } from '../../types';
+import type {
+  ActiveOrderDetails,
+  Cargo,
+  EnhancedOrder,
+  Order,
+  OrderReviewDetails,
+  Service,
+} from '../../types';
 
 export interface DerivedSelectors {
   selectActiveOrder: MemoizedSelector<object, Order | null>;
@@ -13,4 +20,5 @@ export interface DerivedSelectors {
   selectAdditionalServicesOptions: MemoizedSelector<object, Service[]>;
   selectPackagingOptions: MemoizedSelector<object, Service[]>;
   selectActiveOrderDetails: MemoizedSelector<object, ActiveOrderDetails>;
+  selectOrderReviewDetails: MemoizedSelector<object, OrderReviewDetails>;
 }

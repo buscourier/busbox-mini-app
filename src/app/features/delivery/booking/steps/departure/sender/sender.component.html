@@ -1,64 +1,84 @@
 @if (form) {
-  <div [formGroup]="form" class="grid grid-cols-3 gap-5">
-    <label tuiLabel>
-      ФИО
-      <div class="relative">
-        <tui-textfield #fullNameInput>
-          <input
-            tuiTextfield
-            [formControl]="fullName"
-            [tuiHint]="[] | tuiFieldErrorContent"
-            [minlength]="limits.user.fullName.minLength"
-            [maxlength]="limits.user.fullName.maxLength"
-            [attr.maxlength]="limits.user.fullName.maxLength"
-            tuiHintAppearance="error"
-          />
-        </tui-textfield>
-        @if (fullNameInput.focused()) {
-          <span class="absolute top-1/2 -translate-y-1/2 right-2">
-            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
-              availableFullNameLength
-            }}</tui-badge>
-          </span>
-        }
-      </div>
-    </label>
+  <div class="mb-6">
+    <!-- Заголовок секции -->
+    <h3 class="text-lg font-medium text-gray-800 mb-4 pb-3 border-b border-gray-100">
+      Данные отправителя
+    </h3>
 
-    <label tuiLabel>
-      Документ
-      <tui-textfield tuiChevron [stringify]="'label' | tuiStringify" [tuiTextfieldCleaner]="false">
-        <select tuiTextfield [formControl]="document"></select>
-        <tui-data-list-wrapper
-          *tuiTextfieldDropdown
-          [items]="senderDocuments"
-          [itemContent]="'label' | tuiStringify | tuiStringifyContent"
-        />
-      </tui-textfield>
-    </label>
+    <div [formGroup]="form" class="space-y-4">
+      <!-- Основные поля в две колонки на десктопе -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- ФИО -->
+        <label class="block">
+          <span class="block text-sm text-gray-700 mb-1">ФИО</span>
+          <div class="relative">
+            <tui-textfield #fullNameInput class="w-full">
+              <input
+                tuiTextfield
+                [formControl]="fullName"
+                [tuiHint]="[] | tuiFieldErrorContent"
+                [minlength]="limits.user.fullName.minLength"
+                [maxlength]="limits.user.fullName.maxLength"
+                [attr.maxlength]="limits.user.fullName.maxLength"
+                tuiHintAppearance="error"
+                placeholder="Фамилия Имя Отчество"
+              />
+            </tui-textfield>
+            @if (fullNameInput.focused()) {
+              <span class="absolute top-1/2 -translate-y-1/2 right-2">
+                <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">
+                  {{ availableFullNameLength }}
+                </tui-badge>
+              </span>
+            }
+          </div>
+        </label>
 
-    <label tuiLabel>
-      Номер документа
-
-      <div class="relative">
-        <tui-textfield>
-          <input
-            tuiTextfield
-            [formControl]="documentNumber"
+        <!-- Телефон -->
+        <div class="block">
+          <span class="block text-sm text-gray-700 mb-1">Телефон</span>
+          <tui-input-phone
+            [formControl]="phone"
             [tuiHint]="[] | tuiFieldErrorContent"
             tuiHintAppearance="error"
-          />
-        </tui-textfield>
+          >
+          </tui-input-phone>
+        </div>
       </div>
-    </label>
-    <div tuiLabel>
-      Телефон
 
-      <tui-input-phone
-        [formControl]="phone"
-        [tuiHint]="[] | tuiFieldErrorContent"
-        tuiHintAppearance="error"
-      >
-      </tui-input-phone>
+      <!-- Документы в две колонки на десктопе -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Документ -->
+        <label class="block">
+          <span class="block text-sm text-gray-700 mb-1">Документ</span>
+          <tui-textfield
+            tuiChevron
+            [stringify]="'label' | tuiStringify"
+            [tuiTextfieldCleaner]="false"
+          >
+            <select tuiTextfield [formControl]="document"></select>
+            <tui-data-list-wrapper
+              *tuiTextfieldDropdown
+              [items]="senderDocuments"
+              [itemContent]="'label' | tuiStringify | tuiStringifyContent"
+            />
+          </tui-textfield>
+        </label>
+
+        <!-- Номер документа -->
+        <label class="block">
+          <span class="block text-sm text-gray-700 mb-1">Номер документа</span>
+          <tui-textfield>
+            <input
+              tuiTextfield
+              [formControl]="documentNumber"
+              [tuiHint]="[] | tuiFieldErrorContent"
+              tuiHintAppearance="error"
+              placeholder="Введите номер документа"
+            />
+          </tui-textfield>
+        </label>
+      </div>
     </div>
   </div>
 }

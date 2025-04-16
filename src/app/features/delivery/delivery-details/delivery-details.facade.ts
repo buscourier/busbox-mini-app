@@ -10,6 +10,7 @@ import type {
   OrderValidationState,
   DeliveryDetailsViewModel,
   ActiveOrderDetails,
+  OrderReviewDetails,
 } from './types';
 
 @Injectable({
@@ -74,5 +75,9 @@ export class DeliveryDetailsFacade {
 
   getActiveOrderDetails(): Observable<ActiveOrderDetails> {
     return this.store.select(deliveryDetailsFeature.selectActiveOrderDetails);
+  }
+
+  getOrderReviewDetails(): Observable<OrderReviewDetails> {
+    return this.store.select(deliveryDetailsFeature.selectOrderReviewDetails);
   }
 }
