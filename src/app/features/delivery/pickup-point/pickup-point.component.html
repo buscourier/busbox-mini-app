@@ -2,7 +2,18 @@
 
 @if (vm && form) {
   <div [tuiSkeleton]="vm.cities.isLoading">
-    <ng-content select="b"></ng-content>
+    <b class="mb-3 flex items-center justify-between pb-3 border-b border-gray-100 text-lg">
+      <ng-content select="span"></ng-content>
+      <span class="xl:hidden">
+        <tui-icon
+          icon="@tui.info"
+          tuiHint="На сайте для отправки доступны только
+        офисы Баскурьер. Если нужен другой населенный пункт, то свяжитесь с оператором или напишите в чат."
+          [style.color]="'var(--color-yellow-500)'"
+          [style.font-size.rem]="1.5"
+        />
+      </span>
+    </b>
   </div>
 
   <form [formGroup]="form" class="flex flex-col gap-5">

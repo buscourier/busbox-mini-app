@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TuiIcon } from '@taiga-ui/core';
 import { take, withLatestFrom } from 'rxjs';
 import type { Observable } from 'rxjs';
 
@@ -14,7 +15,7 @@ import { SenderComponent } from './sender';
 
 @Component({
   selector: 'app-departure',
-  imports: [SenderComponent, PickupPointComponent, AsyncPipe],
+  imports: [SenderComponent, PickupPointComponent, AsyncPipe, TuiIcon],
   templateUrl: './departure.component.html',
   styleUrl: './departure.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

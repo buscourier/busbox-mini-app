@@ -1,13 +1,21 @@
 @let currentStep = currentStep$ | async;
 @let applicant = applicant$ | async;
 
+<!--<h1 class="mt-10 mb-10 font-heading text-2xl font-bold lg:mt-20 lg:text-3xl">-->
+<!--  Заполните данные-->
+<!--</h1>-->
+
 @if (currentStep) {
-  <div class="inline-flex gap-5">
+  <div
+    class="relative flex gap-4 mb-10 before:absolute before:bottom-0 before:z-10 before:w-full before:border-b-2 before:border-yellow-500 w-full"
+  >
     @for (tab of tabs; track tab.id) {
       <button
         type="button"
         tuiButton
-        [class.!bg-yellow-100]="applicant?.applicantType === tab.id"
+        size="xl"
+        class="border-b-0 rounded-b-none!"
+        [appearance]="applicant?.applicantType === tab.id ? 'primary' : 'outline'"
         (click)="updateApplicantType(tab.id)"
       >
         {{ tab.name }}

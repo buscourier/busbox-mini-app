@@ -1,7 +1,7 @@
 @if (form) {
   <div [formGroup]="form" class="grid grid-cols-3 gap-5">
     <label tuiLabel>
-      Фамилия
+      <span class="block text-sm text-gray-700 mb-1">Фамилия</span>
       <div class="relative">
         <tui-textfield #lastNameInput>
           <input
@@ -25,7 +25,7 @@
     </label>
 
     <label tuiLabel>
-      Имя
+      <span class="block text-sm text-gray-700 mb-1">Имя</span>
       <div class="relative">
         <tui-textfield #firstNameInput>
           <input
@@ -49,7 +49,7 @@
     </label>
 
     <label tuiLabel>
-      Отчество
+      <span class="block text-sm text-gray-700 mb-1">Отчество</span>
       <div class="relative">
         <tui-textfield #middleNameInput>
           <input
@@ -73,7 +73,7 @@
     </label>
 
     <label tuiLabel>
-      Email (опционально)
+      <span class="block text-sm text-gray-700 mb-1">Email</span>
       <div class="relative">
         <tui-textfield>
           <input
@@ -87,7 +87,7 @@
     </label>
 
     <div tuiLabel>
-      Телефон
+      <span class="block text-sm text-gray-700 mb-1">Телефон</span>
 
       <tui-input-phone
         [formControl]="phone"
@@ -97,7 +97,7 @@
       </tui-input-phone>
     </div>
     <label tuiLabel>
-      Роль
+      <span class="block text-sm text-gray-700 mb-1">Роль</span>
       <tui-textfield tuiChevron [stringify]="'label' | tuiStringify" [tuiTextfieldCleaner]="false">
         <select tuiTextfield [formControl]="role"></select>
         <tui-data-list-wrapper

@@ -10,7 +10,7 @@ export const getDeliveryMethod = (
   if (office) {
     return {
       label: 'Отделение',
-      value: office.name,
+      value: office.address,
     };
   }
   if (courier) {

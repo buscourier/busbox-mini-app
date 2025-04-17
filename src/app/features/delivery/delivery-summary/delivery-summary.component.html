@@ -11,7 +11,7 @@
         [tuiSkeleton]="vm.isLoading"
         class="text-xl font-semibold mb-6 pb-3 border-b border-gray-100"
       >
-        Детали расчета
+        Расчет доставки
       </h2>
 
       @if (!vm.isLoaded) {
@@ -158,11 +158,11 @@
             @if (details.packaging; as packaging) {
               <div class="mt-6">
                 <div [tuiSkeleton]="vm.isLoading" class="flex items-center mb-2">
-                  <tui-icon
-                    icon="@tui.box"
-                    [style.color]="'var(--tui-background-accent-1)'"
-                    [style.font-size.rem]="1.25"
-                  />
+                  <!--                  <tui-icon-->
+                  <!--                    icon="@tui.box"-->
+                  <!--                    [style.color]="'var(&#45;&#45;tui-background-accent-1)'"-->
+                  <!--                    [style.font-size.rem]="1"-->
+                  <!--                  />-->
                   <span class="ml-2 text-gray-500 font-medium text-sm">Упаковка</span>
                 </div>
 
@@ -170,6 +170,12 @@
                   @for (item of packaging.items; track $index) {
                     <div class="p-2.5 flex items-center justify-between">
                       <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
+                        <tui-icon
+                          icon="@tui.box"
+                          class="mr-2"
+                          [style.color]="'var(--tui-background-accent-1)'"
+                          [style.font-size.rem]="1"
+                        />
                         <span class="text-gray-700"
                           >{{ item.type }} {{ item.variant }}
                           <span class="text-xs text-gray-500 ml-1">× {{ item.quantity }}</span>
@@ -198,9 +204,9 @@
                     <div class="p-2.5 flex items-center justify-between">
                       <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
                         <tui-icon
-                          icon="@tui.shield"
+                          icon="@tui.check"
                           class="mr-2"
-                          [style.color]="'var(--tui-background-accent-1)'"
+                          [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
                         <span class="text-gray-700">{{ insurance.displayName }}</span>
@@ -217,9 +223,9 @@
                     <div class="p-2.5 flex items-center justify-between">
                       <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
                         <tui-icon
-                          icon="@tui.mail-plus"
+                          icon="@tui.check"
                           class="mr-2"
-                          [style.color]="'var(--tui-background-accent-1)'"
+                          [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
                         <span class="text-gray-700">{{ extendedSms.displayName }}</span>
@@ -236,9 +242,9 @@
                     <div class="p-2.5 flex items-center justify-between">
                       <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
                         <tui-icon
-                          icon="@tui.mail"
+                          icon="@tui.check"
                           class="mr-2"
-                          [style.color]="'var(--tui-background-accent-1)'"
+                          [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
                         <span class="text-gray-700">{{ senderSms.displayName }}</span>
@@ -255,9 +261,9 @@
                     <div class="p-2.5 flex items-center justify-between">
                       <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
                         <tui-icon
-                          icon="@tui.credit-card"
+                          icon="@tui.check"
                           class="mr-2"
-                          [style.color]="'var(--tui-background-accent-1)'"
+                          [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
                         <span class="text-gray-700">{{ recipientPayment.displayName }}</span>
@@ -351,7 +357,7 @@
             [tuiSkeleton]="vm.isLoading"
             (click)="toggleSummary($event)"
           >
-            {{ isSummaryVisible ? 'Скрыть' : 'Детали' }}
+            {{ isSummaryVisible ? 'Скрыть' : 'Расчет доставки' }}
           </button>
         </div>
       </div>
@@ -374,7 +380,7 @@
         <!-- Swipe marker -->
         <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4"></div>
 
-        <h2 class="text-lg font-semibold mb-4 pb-2 border-b border-gray-100">Детали расчета</h2>
+        <h2 class="text-lg font-semibold mb-4 pb-2 border-b border-gray-100">Расчет доставки</h2>
 
         <!-- Direction block -->
         @if (vm.direction; as direction) {
@@ -510,7 +516,7 @@
               <div class="mt-6">
                 <div [tuiSkeleton]="vm.isLoading" class="flex items-center mb-2">
                   <tui-icon
-                    icon="@tui.box"
+                    icon="@tui.package-open"
                     [style.color]="'var(--tui-background-accent-1)'"
                     [style.font-size.rem]="1.25"
                   />
@@ -549,9 +555,9 @@
                     <div class="p-2.5 flex items-center justify-between">
                       <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
                         <tui-icon
-                          icon="@tui.shield"
+                          icon="@tui.check"
                           class="mr-2"
-                          [style.color]="'var(--tui-background-accent-1)'"
+                          [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
                         <span class="text-gray-700">{{ insurance.displayName }}</span>
@@ -568,9 +574,9 @@
                     <div class="p-2.5 flex items-center justify-between">
                       <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
                         <tui-icon
-                          icon="@tui.mail-plus"
+                          icon="@tui.check"
                           class="mr-2"
-                          [style.color]="'var(--tui-background-accent-1)'"
+                          [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
                         <span class="text-gray-700">{{ extendedSms.displayName }}</span>
@@ -587,9 +593,9 @@
                     <div class="p-2.5 flex items-center justify-between">
                       <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
                         <tui-icon
-                          icon="@tui.mail"
+                          icon="@tui.check"
                           class="mr-2"
-                          [style.color]="'var(--tui-background-accent-1)'"
+                          [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
                         <span class="text-gray-700">{{ senderSms.displayName }}</span>
@@ -606,9 +612,9 @@
                     <div class="p-2.5 flex items-center justify-between">
                       <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
                         <tui-icon
-                          icon="@tui.credit-card"
+                          icon="@tui.check"
                           class="mr-2"
-                          [style.color]="'var(--tui-background-accent-1)'"
+                          [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
                         <span class="text-gray-700">{{ recipientPayment.displayName }}</span>

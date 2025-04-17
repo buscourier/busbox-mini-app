@@ -2,6 +2,7 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TuiIcon } from '@taiga-ui/core';
 import { TuiTextareaModule } from '@taiga-ui/legacy';
 import type { Observable } from 'rxjs';
 
@@ -18,6 +19,7 @@ import { ReviewConfirmationComponent } from './review-confirmation';
     TuiTextareaModule,
     ReactiveFormsModule,
     ReviewConfirmationComponent,
+    TuiIcon,
   ],
   templateUrl: './review.component.html',
   styleUrl: './review.component.css',
