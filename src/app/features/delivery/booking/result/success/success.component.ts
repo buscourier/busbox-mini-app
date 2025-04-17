@@ -1,6 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TuiButton, TuiIcon, TuiNotification } from '@taiga-ui/core';
 import type { Observable } from 'rxjs';
 
 import { BookingFacade } from '../../booking.facade';
@@ -8,7 +10,7 @@ import type { BookingResult } from '../../types';
 
 @Component({
   selector: 'app-success',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterLink, TuiNotification, TuiIcon, TuiButton],
   templateUrl: './success.component.html',
   styleUrl: './success.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,4 +23,6 @@ export class SuccessComponent implements OnInit {
   ngOnInit(): void {
     this.bookingResult$ = this.bookingFacade.getBookingResult();
   }
+
+  protected readonly navigator = navigator;
 }

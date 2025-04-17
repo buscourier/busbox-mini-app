@@ -1,5 +1,73 @@
 @let bookingResult = bookingResult$ | async;
 
-@if (bookingResult) {
-  <h1>{{ bookingResult.orderId }}</h1>
-}
+<div class="flex justify-center items-center min-h-screen bg-gray-50 px-4 py-8">
+  <div
+    class="max-w-3xl w-full flex flex-col items-center bg-white rounded-xl shadow-lg p-6 md:p-10"
+  >
+    <tui-icon
+      icon="@tui.check"
+      [style.color]="'var(--color-green-600)'"
+      [style.font-size.rem]="5"
+    />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">Заказ успешно оформлен!</h1>
+
+    <div class="mb-8 text-center">
+      <p class="text-gray-600 mb-2">Номер вашего заказа:</p>
+      <div class="flex justify-center items-center space-x-2">
+        <span class="text-2xl md:text-3xl font-bold text-yellow-500 font-mono tracking-wider">{{
+          bookingResult?.orderId
+        }}</span>
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-[400px] mb-8">
+      <tui-notification size="l" appearance="warning">
+        Вы можете убедиться что ваш заказ создан статус вашего заказа по номеру заказа
+        <a href="">На этой странице</a>
+      </tui-notification>
+    </div>
+
+    <div class="text-left mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Что дальше?</h2>
+      <ul class="space-y-4">
+        <li class="flex items-start">
+          <tui-icon
+            icon="@tui.check"
+            class="mr-2"
+            [style.color]="'var(--color-green-600)'"
+            [style.font-size.rem]="1.5"
+          />
+          <span class="text-gray-700"
+            >Курьер свяжется с вами для подтверждения деталей доставки</span
+          >
+        </li>
+        <li class="flex items-start">
+          <tui-icon
+            icon="@tui.check"
+            class="mr-2"
+            [style.color]="'var(--color-green-600)'"
+            [style.font-size.rem]="1.5"
+          />
+          <span class="text-gray-700">Доставка будет осуществлена согласно выбранным условиям</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+      <button type="button" tuiButton size="m" [routerLink]="['/']">На главную</button>
+      <button type="button" tuiButton size="m" [routerLink]="['/']">Отследить заказ</button>
+    </div>
+
+    <!-- Контактная информация -->
+    <div class="text-gray-500 text-sm text-center">
+      <p>Возникли вопросы? Свяжитесь с нами:</p>
+      <p class="mt-1">
+        <a href="tel:+78001234567" class="text-blue-600 hover:underline">8 (800) 123-45-67</a> •
+        <a href="mailto:support@example.com" class="text-yellow-500 hover:underline"
+          >support&#64;example.com</a
+        >
+      </p>
+    </div>
+  </div>
+</div>

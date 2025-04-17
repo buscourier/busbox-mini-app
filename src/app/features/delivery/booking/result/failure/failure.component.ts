@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import type { Observable } from 'rxjs';
 
 import type { ApiError } from '@shared/types';
@@ -9,7 +10,7 @@ import { BookingFacade } from '../../booking.facade';
 
 @Component({
   selector: 'app-failure',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterLink],
   templateUrl: './failure.component.html',
   styleUrl: './failure.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
