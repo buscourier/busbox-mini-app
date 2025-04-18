@@ -1,7 +1,23 @@
 [tuiAppearance][data-appearance='textfield'] {
-  color: var(--color-gray-300);
+  @apply text-gray-600 focus:text-gray-400 placeholder:text-gray-300;
 
-  &:focus {
-    color: var(--color-gray-500);
-  }
+  /*&.ng-invalid.ng-touched {*/
+  /*  @apply text-red-400 placeholder:text-red-400;*/
+  /*}*/
+
+  /*&:focus {*/
+  /*  color: var(--color-gray-500);*/
+  /*}*/
+}
+
+label[automation-id='tui-primitive-textfield__placeholder'] {
+  @apply text-gray-300!;
+}
+
+input[automation-id='tui-primitive-textfield__native-input'] {
+  @apply text-gray-600 focus:text-gray-400;
+}
+
+tui-textfield select:defined._empty {
+  @apply text-red-700! placeholder:text-gray-300!;
 }

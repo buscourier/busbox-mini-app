@@ -1,14 +1,11 @@
 @if (form) {
   <div class="mb-6">
-    <!-- Заголовок секции -->
     <h3 class="text-lg font-medium text-gray-800 mb-4 pb-3 border-b border-gray-100">
       Данные отправителя
     </h3>
 
     <div [formGroup]="form" class="space-y-4">
-      <!-- Основные поля в две колонки на десктопе -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- ФИО -->
         <label class="block">
           <span class="block text-sm text-gray-700 mb-1">ФИО</span>
           <div class="relative">
@@ -21,7 +18,7 @@
                 [maxlength]="limits.user.fullName.maxLength"
                 [attr.maxlength]="limits.user.fullName.maxLength"
                 tuiHintAppearance="error"
-                placeholder="Фамилия Имя Отчество"
+                placeholder="Укажите ФИО"
               />
             </tui-textfield>
             @if (fullNameInput.focused()) {
@@ -42,13 +39,12 @@
             [tuiHint]="[] | tuiFieldErrorContent"
             tuiHintAppearance="error"
           >
+            Укажите телефон
           </tui-input-phone>
         </div>
       </div>
 
-      <!-- Документы в две колонки на десктопе -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Документ -->
         <label class="block">
           <span class="block text-sm text-gray-700 mb-1">Документ</span>
           <tui-textfield
@@ -56,7 +52,7 @@
             [stringify]="'label' | tuiStringify"
             [tuiTextfieldCleaner]="false"
           >
-            <select tuiTextfield [formControl]="document"></select>
+            <select tuiTextfield [formControl]="document" placeholder="Выберите документ"></select>
             <tui-data-list-wrapper
               *tuiTextfieldDropdown
               [items]="senderDocuments"
@@ -65,7 +61,6 @@
           </tui-textfield>
         </label>
 
-        <!-- Номер документа -->
         <label class="block">
           <span class="block text-sm text-gray-700 mb-1">Номер документа</span>
           <tui-textfield>
@@ -74,7 +69,7 @@
               [formControl]="documentNumber"
               [tuiHint]="[] | tuiFieldErrorContent"
               tuiHintAppearance="error"
-              placeholder="Введите номер документа"
+              placeholder="Укажите номер документа"
             />
           </tui-textfield>
         </label>

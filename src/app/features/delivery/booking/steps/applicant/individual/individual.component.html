@@ -11,6 +11,7 @@
             [minlength]="limits.user.lastName.minLength"
             [maxlength]="limits.user.lastName.maxLength"
             [attr.maxlength]="limits.user.lastName.maxLength"
+            placeholder="Укажите фамилию"
             tuiHintAppearance="error"
           />
         </tui-textfield>
@@ -35,6 +36,7 @@
             [minlength]="limits.user.firstName.minLength"
             [maxlength]="limits.user.firstName.maxLength"
             [attr.maxlength]="limits.user.firstName.maxLength"
+            placeholder="Укажите имя"
             tuiHintAppearance="error"
           />
         </tui-textfield>
@@ -59,6 +61,7 @@
             [minlength]="limits.user.middleName.minLength"
             [maxlength]="limits.user.middleName.maxLength"
             [attr.maxlength]="limits.user.middleName.maxLength"
+            placeholder="Укажите отчество"
             tuiHintAppearance="error"
           />
         </tui-textfield>
@@ -81,6 +84,7 @@
             [formControl]="email"
             [tuiHint]="[] | tuiFieldErrorContent"
             tuiHintAppearance="error"
+            placeholder="Укажите email"
           />
         </tui-textfield>
       </div>
@@ -94,12 +98,13 @@
         [tuiHint]="[] | tuiFieldErrorContent"
         tuiHintAppearance="error"
       >
+        Укажите телефон
       </tui-input-phone>
     </div>
     <label tuiLabel>
       <span class="block text-sm text-gray-700 mb-1">Роль</span>
       <tui-textfield tuiChevron [stringify]="'label' | tuiStringify" [tuiTextfieldCleaner]="false">
-        <select tuiTextfield [formControl]="role"></select>
+        <select tuiTextfield placeholder="Выберите роль" [formControl]="role"></select>
         <tui-data-list-wrapper
           *tuiTextfieldDropdown
           [items]="individualRoles"
