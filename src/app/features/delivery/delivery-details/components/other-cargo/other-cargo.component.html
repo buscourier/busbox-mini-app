@@ -2,7 +2,9 @@
   <div class="grid grid-cols-1 gap-2" [class.md:grid-cols-[3fr_1fr]]="item.value">
     <div tuiLabel class="mb-2">
       <div class="mb-1.5 flex items-center">
-        <span class="text-sm text-gray-600">Выберите груз</span>
+        <span class="text-sm text-gray-600">
+          {{ 'deliveryDetails.otherCargo.label' | transloco }}
+        </span>
       </div>
       <tui-select
         [formControl]="item"
@@ -10,6 +12,7 @@
         [tuiTextfieldLabelOutside]="true"
         class="w-full"
       >
+        {{ 'deliveryDetails.otherCargo.placeholder' | transloco }}
         <tui-data-list-wrapper
           *tuiDataList
           [items]="options"
@@ -21,7 +24,9 @@
     @if (item.value) {
       <div tuiLabel>
         <div class="mb-1.5 flex items-center">
-          <span class="text-sm text-gray-600">Количество мест</span>
+          <span class="text-sm text-gray-600">
+            {{ 'deliveryDetails.fields.quantity' | transloco }}
+          </span>
         </div>
         <tui-textfield>
           <input

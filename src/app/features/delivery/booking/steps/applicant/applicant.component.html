@@ -1,9 +1,12 @@
 @let currentStep = currentStep$ | async;
 @let applicant = applicant$ | async;
 
-<!--<h1 class="mt-10 mb-10 font-heading text-2xl font-bold lg:mt-20 lg:text-3xl">-->
-<!--  Заполните данные-->
-<!--</h1>-->
+<h1 class="mt-10 font-heading text-2xl font-bold lg:mt-20 lg:text-3xl">
+  {{ 'booking.applicant.title' | transloco }}
+</h1>
+<p class="mb-10 text-sm text-gray-600 mt-2">
+  {{ 'booking.applicant.subtitle' | transloco }}
+</p>
 
 @if (currentStep) {
   <div
@@ -18,21 +21,30 @@
         [appearance]="applicant?.applicantType === tab.id ? 'primary' : 'outline'"
         (click)="updateApplicantType(tab.id)"
       >
-        {{ tab.name }}
+        {{ tab.name | transloco }}
       </button>
     }
   </div>
 
-  @switch (applicant?.applicantType) {
-    @case (ApplicantType.LEGAL) {
-      <p>Даннныыыыыыыыыыыыы</p>
+  @if (applicant) {
+    @switch (applicant.applicantType) {
+      @case (ApplicantType.LEGAL) {
+        <p
+          class="mt-11 text-center text-md"
+          [innerHTML]="'booking.applicant.authHint' | transloco"
+        ></p>
+      }
+      @default {
+        <app-individual
+          [data]="applicant?.individual || null"
+          (dataChange)="updateIndividual($event)"
+          (validationChange)="updateStepValidation($event, currentStep)"
+        />
+      }
     }
-    @default {
-      <app-individual
-        [data]="applicant?.individual || null"
-        (dataChange)="updateIndividual($event)"
-        (validationChange)="updateStepValidation($event, currentStep)"
-      />
-    }
+  } @else {
+    <p class="mt-12 text-center text-md text-gray-500">
+      {{ 'booking.applicant.typeText' | transloco }}
+    </p>
   }
 }

@@ -3,6 +3,7 @@ import { type ApplicationConfig, signal } from '@angular/core';
 import { isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
+import { provideTransloco } from '@jsverse/transloco';
 import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore } from '@ngrx/router-store';
 import { provideState, provideStore } from '@ngrx/store';
@@ -17,8 +18,8 @@ import {
 } from '@taiga-ui/kit';
 import { TUI_TEXTFIELD_LABEL_OUTSIDE, TUI_TEXTFIELD_SIZE } from '@taiga-ui/legacy';
 
-import { DEFAULT_VALIDATION_LIMITS, DEFAULT_VALIDATION_MESSAGES } from '@core/config';
-import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
+import { DEFAULT_VALIDATION_LIMITS } from '@core/config';
+import { VALIDATION_LIMITS } from '@core/tokens';
 import { CustomDateTransformer } from '@core/transformers';
 
 import { BookingEffects, bookingFeature } from '@delivery/booking';
@@ -28,6 +29,7 @@ import { DeliverySummaryEffects, deliverySummaryFeature } from '@delivery/delive
 import { PickupPointEffects, pickupPointFeature } from '@delivery/pickup-point';
 
 import { routes } from './app.routes';
+import { TranslocoHttpLoader } from './transloco-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -59,10 +61,10 @@ export const appConfig: ApplicationConfig = {
       provide: VALIDATION_LIMITS,
       useValue: DEFAULT_VALIDATION_LIMITS,
     },
-    {
-      provide: VALIDATION_MESSAGES,
-      useValue: DEFAULT_VALIDATION_MESSAGES,
-    },
+    // {
+    //   provide: VALIDATION_MESSAGES,
+    //   useValue: DEFAULT_VALIDATION_MESSAGES,
+    // },
     {
       provide: TUI_TEXTFIELD_SIZE,
       useValue: {
@@ -92,6 +94,16 @@ export const appConfig: ApplicationConfig = {
     tuiInputNumberOptionsProvider({
       min: 0,
       max: 20,
+    }),
+    provideHttpClient(),
+    provideTransloco({
+      config: {
+        availableLangs: ['ru', 'en'],
+        defaultLang: 'ru',
+        reRenderOnLangChange: true,
+        prodMode: !isDevMode(),
+      },
+      loader: TranslocoHttpLoader,
     }),
   ],
 };

@@ -1,0 +1,9 @@
+{
+  "title": "Расчет стоимости доставки",
+  "pickupPoint": {
+    "title": "Откуда"
+  },
+  "deliveryPoint": {
+    "title": "Куда"
+  }
+}

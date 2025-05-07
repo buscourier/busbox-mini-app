@@ -11,25 +11,24 @@
         [tuiSkeleton]="vm.isLoading"
         class="text-xl font-semibold mb-6 pb-3 border-b border-gray-100"
       >
-        Расчет доставки
+        {{ 'summary.title' | transloco }}
       </h2>
 
       @if (!vm.isLoaded) {
         <p [tuiSkeleton]="vm.isLoading" class="mb-3 text-gray-700">
-          Для расчета стоимости отправления, укажите место отправления и прибытия, а также тип
-          груза.
+          {{ 'summary.info.needCityDelivery' | transloco }}
         </p>
         <p [tuiSkeleton]="vm.isLoading" class="text-gray-700">
-          <span class="font-bold">Внимание!</span> Информация, приведенная в калькуляторе
-          справочная, точную информацию по доставкам в населенные пункты вы можете уточнить в чате
-          на сайте или у диспетчера.
+          {{ 'summary.info.attention' | transloco }}
         </p>
       } @else {
         <!-- Direction block -->
         @if (vm.direction; as direction) {
           <div class="mb-6 pb-4 border-b border-gray-100">
             <div [tuiSkeleton]="vm.isLoading" class="flex items-center mb-2">
-              <span class="text-gray-500 font-medium text-sm">Направление перевозки</span>
+              <span class="text-gray-500 font-medium text-sm">
+                {{ 'summary.labels.direction' | transloco }}
+              </span>
             </div>
             <div class="font-medium text-gray-800" [tuiSkeleton]="vm.isLoading">
               {{ direction.from }}
@@ -49,10 +48,10 @@
               <div class="flex sm:flex-col items-center sm:justify-center">
                 <div class="flex-1 sm:w-full">
                   <div class="text-xs text-gray-500 sm:text-center mb-0.5 sm:mb-1">
-                    Забор посылки
+                    {{ 'summary.labels.pickup' | transloco }}
                   </div>
                   <div class="font-medium text-gray-800 text-sm sm:text-center">
-                    {{ vm.methods.pickup }}
+                    {{ vm.methods.pickup | transloco }}
                   </div>
                 </div>
               </div>
@@ -65,10 +64,10 @@
               <div class="flex sm:flex-col items-center sm:justify-center">
                 <div class="flex-1 sm:w-full">
                   <div class="text-xs text-gray-500 sm:text-center mb-0.5 sm:mb-1">
-                    Доставка посылки
+                    {{ 'summary.labels.delivery' | transloco }}
                   </div>
                   <div class="font-medium text-gray-800 text-sm sm:text-center">
-                    {{ vm.methods.delivery }}
+                    {{ vm.methods.delivery | transloco }}
                   </div>
                 </div>
               </div>
@@ -84,7 +83,7 @@
                 class="text-sm font-medium text-gray-700 mb-3 pb-1 border-b border-gray-200"
                 [tuiSkeleton]="vm.isLoading"
               >
-                Тип груза
+                {{ 'deliveryDetails.cargoType' | transloco }}
               </h4>
 
               <div class="grid grid-cols-1 gap-2">
@@ -158,12 +157,9 @@
             @if (details.packaging; as packaging) {
               <div class="mt-6">
                 <div [tuiSkeleton]="vm.isLoading" class="flex items-center mb-2">
-                  <!--                  <tui-icon-->
-                  <!--                    icon="@tui.box"-->
-                  <!--                    [style.color]="'var(&#45;&#45;tui-background-accent-1)'"-->
-                  <!--                    [style.font-size.rem]="1"-->
-                  <!--                  />-->
-                  <span class="ml-2 text-gray-500 font-medium text-sm">Упаковка</span>
+                  <span class="ml-2 text-gray-500 font-medium text-sm">
+                    {{ 'deliveryDetails.packaging.title' | transloco }}
+                  </span>
                 </div>
 
                 <div class="divide-y divide-gray-100">
@@ -196,7 +192,9 @@
             @if (details.additionalServices; as services) {
               <div class="mt-6">
                 <div [tuiSkeleton]="vm.isLoading" class="flex items-center mb-2">
-                  <span class="ml-2 text-gray-500 font-medium text-sm">Дополнительные услуги</span>
+                  <span class="ml-2 text-gray-500 font-medium text-sm">
+                    {{ 'deliveryDetails.additionalServices.title' | transloco }}
+                  </span>
                 </div>
 
                 <div class="divide-y divide-gray-100">
@@ -209,7 +207,7 @@
                           [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
-                        <span class="text-gray-700">{{ insurance.displayName }}</span>
+                        <span class="text-gray-700">{{ insurance.displayName | transloco }}</span>
                       </div>
                       <span
                         [tuiSkeleton]="vm.isLoading"
@@ -228,7 +226,7 @@
                           [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
-                        <span class="text-gray-700">{{ extendedSms.displayName }}</span>
+                        <span class="text-gray-700">{{ extendedSms.displayName | transloco }}</span>
                       </div>
                       <span
                         [tuiSkeleton]="vm.isLoading"
@@ -247,7 +245,7 @@
                           [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
-                        <span class="text-gray-700">{{ senderSms.displayName }}</span>
+                        <span class="text-gray-700">{{ senderSms.displayName | transloco }}</span>
                       </div>
                       <span
                         [tuiSkeleton]="vm.isLoading"
@@ -266,7 +264,9 @@
                           [style.color]="'var(--color-green-600)'"
                           [style.font-size.rem]="1"
                         />
-                        <span class="text-gray-700">{{ recipientPayment.displayName }}</span>
+                        <span class="text-gray-700">{{
+                          recipientPayment.displayName | transloco
+                        }}</span>
                       </div>
                       <span
                         [tuiSkeleton]="vm.isLoading"
@@ -286,7 +286,9 @@
           class="flex justify-between items-center p-4 bg-gray-50 rounded-md mb-6 border border-gray-100"
         >
           <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
-            <span class="text-xl text-gray-700 font-medium">Итого</span>
+            <span class="text-xl text-gray-700 font-medium">
+              {{ 'summary.labels.total' | transloco }}
+            </span>
           </div>
           <div
             [tuiSkeleton]="vm.isLoading"
@@ -308,7 +310,7 @@
             class="w-full mb-3"
             [routerLink]="['/delivery', 'booking']"
           >
-            Перейти к оформлению
+            {{ 'summary.actions.book' | transloco }}
           </button>
 
           <button
@@ -317,7 +319,7 @@
             class="text-red-500 hover:text-red-600 hover:underline text-center w-full"
             (click)="onReset($event)"
           >
-            Сбросить расчеты
+            {{ 'summary.actions.reset' | transloco }}
           </button>
         }
       }
@@ -332,7 +334,9 @@
     >
       <div class="flex justify-between items-center">
         <div>
-          <div [tuiSkeleton]="vm.isLoading" class="text-sm text-gray-500">Итого</div>
+          <div [tuiSkeleton]="vm.isLoading" class="text-sm text-gray-500">
+            {{ 'summary.labels.total' | transloco }}
+          </div>
           <div [tuiSkeleton]="vm.isLoading" class="text-xl font-bold">
             {{ vm.totalAmount }} руб.
           </div>
@@ -357,7 +361,10 @@
             [tuiSkeleton]="vm.isLoading"
             (click)="toggleSummary($event)"
           >
-            {{ isSummaryVisible ? 'Скрыть' : 'Расчет доставки' }}
+            {{
+              (isSummaryVisible ? 'summary.actions.hideDetails' : 'summary.actions.showDetails')
+                | transloco
+            }}
           </button>
         </div>
       </div>
@@ -380,13 +387,17 @@
         <!-- Swipe marker -->
         <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4"></div>
 
-        <h2 class="text-lg font-semibold mb-4 pb-2 border-b border-gray-100">Расчет доставки</h2>
+        <h2 class="text-lg font-semibold mb-4 pb-2 border-b border-gray-100">
+          {{ 'summary.title' | transloco }}
+        </h2>
 
         <!-- Direction block -->
         @if (vm.direction; as direction) {
           <div class="mb-4 pb-3 border-b border-gray-100">
             <div class="mb-1">
-              <span class="text-gray-500 text-sm">Направление перевозки:</span>
+              <span class="text-gray-500 text-sm"
+                >{{ 'summary.labels.direction' | transloco }}:</span
+              >
             </div>
             <div class="font-medium text-gray-800">
               {{ direction.from }}
@@ -406,7 +417,7 @@
               <div class="flex sm:flex-col items-center sm:justify-center">
                 <div class="flex-1 sm:w-full">
                   <div class="text-xs text-gray-500 sm:text-center mb-0.5 sm:mb-1">
-                    Забор посылки
+                    {{ 'summary.labels.pickup' | transloco }}
                   </div>
                   <div class="font-medium text-gray-800 text-sm sm:text-center">
                     {{ vm.methods.pickup }}
@@ -422,7 +433,7 @@
               <div class="flex sm:flex-col items-center sm:justify-center">
                 <div class="flex-1 sm:w-full">
                   <div class="text-xs text-gray-500 sm:text-center mb-0.5 sm:mb-1">
-                    Доставка посылки
+                    {{ 'summary.labels.delivery' | transloco }}
                   </div>
                   <div class="font-medium text-gray-800 text-sm sm:text-center">
                     {{ vm.methods.delivery }}
@@ -441,7 +452,7 @@
                 class="text-sm font-medium text-gray-700 mb-3 pb-1 border-b border-gray-200"
                 [tuiSkeleton]="vm.isLoading"
               >
-                Тип груза
+                {{ 'deliveryDetails.cargoType' | transloco }}
               </h4>
 
               <div class="grid grid-cols-1 gap-2">
@@ -520,7 +531,9 @@
                     [style.color]="'var(--tui-background-accent-1)'"
                     [style.font-size.rem]="1.25"
                   />
-                  <span class="ml-2 text-gray-500 font-medium text-sm">Упаковка</span>
+                  <span class="ml-2 text-gray-500 font-medium text-sm">
+                    {{ 'deliveryDetails.packaging.title' | transloco }}
+                  </span>
                 </div>
 
                 <div class="divide-y divide-gray-100">
@@ -547,7 +560,9 @@
             @if (details.additionalServices; as services) {
               <div class="mt-6">
                 <div [tuiSkeleton]="vm.isLoading" class="flex items-center mb-2">
-                  <span class="ml-2 text-gray-500 font-medium text-sm">Дополнительные услуги</span>
+                  <span class="ml-2 text-gray-500 font-medium text-sm">
+                    {{ 'deliveryDetails.additionalServices.title' | transloco }}
+                  </span>
                 </div>
 
                 <div class="divide-y divide-gray-100">
@@ -637,7 +652,9 @@
           class="flex justify-between items-center p-4 bg-gray-50 rounded-md mb-6 border border-gray-100"
         >
           <div [tuiSkeleton]="vm.isLoading" class="flex items-center">
-            <span class="text-xl text-gray-700 font-medium">Итого</span>
+            <span class="text-xl text-gray-700 font-medium">
+              {{ 'summary.labels.total' | transloco }}
+            </span>
           </div>
           <div
             [tuiSkeleton]="vm.isLoading"
@@ -658,7 +675,7 @@
             class="w-full mb-2"
             [routerLink]="['/delivery', 'booking']"
           >
-            Перейти к оформлению
+            {{ 'summary.actions.book' | transloco }}
           </button>
 
           <button
@@ -666,7 +683,7 @@
             class="text-red-500 hover:text-red-600 hover:underline text-center w-full"
             (click)="onReset($event)"
           >
-            Сбросить расчеты
+            {{ 'summary.actions.reset' | transloco }}
           </button>
         }
       </div>

@@ -4,9 +4,10 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { provideTranslocoScope, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
-import { TuiAlertService, TuiError, TuiIcon, TuiLoader } from '@taiga-ui/core';
-import type { TuiConfirmData } from '@taiga-ui/kit';
+import { TuiAlertService, TuiButton, TuiError, TuiHint, TuiIcon } from '@taiga-ui/core';
+import { type TuiConfirmData, TuiFieldErrorContentPipe } from '@taiga-ui/kit';
 import {
   TUI_CONFIRM,
   TUI_VALIDATION_ERRORS,
@@ -48,6 +49,7 @@ import { CourierDetailsComponent } from '@delivery/base/courier-details';
 import { DeliveryDetailsFacade } from '@delivery/delivery-details';
 import type { CourierDetails } from '@delivery/types';
 
+import { deliveryPointValidationErrors } from './delivery-point.constants';
 import { DeliveryPointFacade } from './delivery-point.facade';
 import type {
   DeliveryPointControlValues,
@@ -61,7 +63,6 @@ import { DeliveryPointTabType, type DeliveryPointViewModel } from './types';
   imports: [
     AsyncPipe,
     ReactiveFormsModule,
-    TuiLoader,
     TuiComboBoxModule,
     TuiStringifyPipe,
     TuiTextfieldControllerModule,
@@ -74,6 +75,10 @@ import { DeliveryPointTabType, type DeliveryPointViewModel } from './types';
     TuiCheckbox,
     TuiSkeleton,
     TuiIcon,
+    TranslocoPipe,
+    TuiFieldErrorContentPipe,
+    TuiHint,
+    TuiButton,
   ],
   templateUrl: './delivery-point.component.html',
   styleUrl: './delivery-point.component.css',
@@ -81,10 +86,13 @@ import { DeliveryPointTabType, type DeliveryPointViewModel } from './types';
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
-      useValue: {
-        required: `Поле обязательно для заполнения`,
-      },
+      useFactory: deliveryPointValidationErrors,
+      deps: [TranslocoService],
     },
+    provideTranslocoScope({
+      scope: 'features/delivery/delivery-point',
+      alias: 'deliveryPoint',
+    }),
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -101,6 +109,7 @@ export class DeliveryPointComponent implements OnInit {
   private readonly dialogs = inject(TuiResponsiveDialogService);
   private readonly deliveryPointFacade = inject(DeliveryPointFacade);
   private readonly deliveryDetailsFacade = inject(DeliveryDetailsFacade);
+  private transloco = inject(TranslocoService);
 
   get city(): FormControl<DeliveryCity | null> {
     return this.form.controls.city;
@@ -186,7 +195,7 @@ export class DeliveryPointComponent implements OnInit {
       )
       .subscribe((error) => {
         if (error.hasAnyError) {
-          this.showErrorNotification('Не удалось загрузить данные по пункту доставки');
+          this.showErrorNotification('deliveryPoint.errors.loading');
         }
       });
   }
@@ -409,14 +418,14 @@ export class DeliveryPointComponent implements OnInit {
           },
         };
       default:
-        throw new Error(`Unexpected tab type: ${tabId}`);
+        throw new Error(`${this.transloco.translate('deliveryPoint.errors.tabType')}: ${tabId}`);
     }
   }
 
   private showErrorNotification(message: string): void {
     this.alerts
       .open(message, {
-        label: 'Ошибка',
+        label: this.transloco.translate('alert.labels.error'),
         autoClose: 0,
         appearance: 'error',
       })
@@ -426,13 +435,13 @@ export class DeliveryPointComponent implements OnInit {
 
   private confirmNewCity(): Observable<boolean> {
     const confirmData: TuiConfirmData = {
-      content: 'Информация о заказе будет удалена!',
-      yes: 'Да',
-      no: 'Нет',
+      content: this.transloco.translate('confirm.messages.orderDeletion'),
+      yes: this.transloco.translate('confirm.buttons.yes'),
+      no: this.transloco.translate('confirm.buttons.no'),
     };
 
     return this.dialogs.open<boolean>(TUI_CONFIRM, {
-      label: 'Вы уверены?',
+      label: this.transloco.translate('confirm.labels.areYouSure'),
       size: 's',
       data: confirmData,
     });

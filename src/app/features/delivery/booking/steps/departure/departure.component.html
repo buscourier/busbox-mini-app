@@ -11,7 +11,9 @@
   </div>
   <div class="grid xl:grid-cols-2 gap-4">
     <app-pickup-point class="booking">
-      <span>Пункт отправления</span>
+      <span>
+        {{ 'booking.departure.pickupPoint.title' | transloco }}
+      </span>
     </app-pickup-point>
     <div
       class="relative hidden xl:flex flex-col items-center justify-center gap-4 py-5 bg-gray-50 rounded-md border border-gray-100 before:absolute before:top-[39px] before:-left-6 before:w-6 before:h-[1px] before:bg-gray-100"
@@ -22,8 +24,7 @@
         [style.font-size.rem]="3"
       />
       <p class="text-sm text-gray-500 max-w-[350px] text-center">
-        На сайте для отправки доступны только офисы Баскурьер. Если нужен другой населенный пункт,
-        то свяжитесь с оператором или напишите в чат.
+        {{ 'pickupPoint.info' | transloco }}
       </p>
     </div>
   </div>

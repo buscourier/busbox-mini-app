@@ -158,9 +158,9 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     baseSelectors.selectCourierDetails,
     baseSelectors.selectBusPickup,
     (city, office, courier, busPickup): ReviewSection => ({
-      title: 'Пункт получения',
+      title: 'deliveryPoint.title.booking',
       fields: [
-        { label: 'Населенный пункт', value: city?.name || 'Не указан' },
+        { label: 'deliveryPoint.labels.city', value: city?.name || 'text.noData' },
         getDeliveryMethod(office, courier, busPickup),
       ],
     }),

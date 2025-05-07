@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { TuiAlertService } from '@taiga-ui/core';
 import { TuiSkeleton } from '@taiga-ui/kit';
 import type { Observable } from 'rxjs';
@@ -40,6 +41,12 @@ import { CargoType } from './types';
   templateUrl: './delivery-details.component.html',
   styleUrl: './delivery-details.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    provideTranslocoScope({
+      scope: 'features/delivery/delivery-details',
+      alias: 'deliveryDetails',
+    }),
+  ],
   animations: [cargoSwitchAnimation],
   host: {
     class: 'block mt-16',
@@ -54,6 +61,7 @@ export class DeliveryDetailsComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly alerts = inject(TuiAlertService);
   private readonly deliveryDetailsFacade = inject(DeliveryDetailsFacade);
+  private transloco = inject(TranslocoService);
 
   ngOnInit(): void {
     this.vm$ = this.deliveryDetailsFacade.getViewModel();
@@ -92,7 +100,9 @@ export class DeliveryDetailsComponent implements OnInit {
       )
       .subscribe((error) => {
         if (error) {
-          this.showErrorNotification('Не удалось загрузить параметры заказа');
+          this.showErrorNotification(
+            this.transloco.translate('features.delivery.dd.errors.loading'),
+          );
         }
       });
   }
@@ -100,7 +110,7 @@ export class DeliveryDetailsComponent implements OnInit {
   private showErrorNotification(message: string): void {
     this.alerts
       .open(message, {
-        label: 'Ошибка',
+        label: this.transloco.translate('common.alert.labels.error'),
         autoClose: 0,
         appearance: 'error',
       })

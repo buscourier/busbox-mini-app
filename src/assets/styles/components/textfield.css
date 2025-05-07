@@ -19,5 +19,5 @@ input[automation-id='tui-primitive-textfield__native-input'] {
 }
 
 tui-textfield select:defined._empty {
-  @apply text-red-700! placeholder:text-gray-300!;
+  @apply text-gray-300! placeholder:text-gray-400!;
 }

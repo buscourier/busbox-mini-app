@@ -13,10 +13,13 @@
         (searchChange)="onSearchChange($event)"
         [tuiTextfieldLabelOutside]="true"
         [tuiSkeleton]="vm.cities.isLoading"
-        tuiTextfieldSize="m"
+        [tuiHint]="[] | tuiFieldErrorContent"
+        tuiHintAppearance="error"
         class="w-full"
       >
-        <div class="flex items-center">Выберите город</div>
+        <div class="flex items-center">
+          {{ 'deliveryPoint.placeholders.city' | transloco }}
+        </div>
         <tui-data-list-wrapper
           *tuiDataList
           [items]="cities$ | async"
@@ -32,16 +35,11 @@
             @for (tab of vm.tabs; track tab.id) {
               <button
                 type="button"
-                class="flex items-center justify-center py-3 px-4 rounded-md border transition-all duration-200 cursor-pointer"
-                [class.bg-yellow-500]="tab === vm.activeTab"
-                [class.border-yellow-500]="tab === vm.activeTab"
-                [class.text-black]="tab === vm.activeTab"
-                [class.border-gray-200]="tab !== vm.activeTab"
-                [class.bg-white]="tab !== vm.activeTab"
-                [class.hover:bg-gray-50]="tab !== vm.activeTab"
+                tuiButton
+                [appearance]="tab === vm.activeTab ? 'primary' : 'outline'"
                 (click)="onTabChange(tab.id)"
               >
-                <span class="font-medium">{{ tab.name }}</span>
+                <span class="font-medium">{{ tab.name | transloco }}</span>
               </button>
             }
           </div>
@@ -51,7 +49,7 @@
       <div class="tab-content">
         @switch (vm.activeTab?.id) {
           @case (TabType.OFFICE) {
-            <div @tabContent class="p-3 bg-gray-50 rounded-lg">
+            <div class="p-3 bg-gray-50 rounded-lg">
               <!--                @if (vm.tabs.length < 2) {-->
               <!--                  <div-->
               <!--                    class="flex items-center justify-center py-3 px-4 rounded-md border border-gray-200 bg-white mb-3">-->
@@ -65,15 +63,17 @@
                   [style.color]="'var(--color-gray-600)'"
                   [style.font-size.rem]="1"
                 />
-                <span>Адрес отделения</span>
+                <span>
+                  {{ 'deliveryPoint.labels.office' | transloco }}
+                </span>
               </div>
               <tui-select
                 [formControl]="office"
                 [stringify]="'address' | tuiStringify"
-                [tuiTextfieldLabelOutside]="true"
-                tuiTextfieldSize="m"
+                [tuiHint]="[] | tuiFieldErrorContent"
+                tuiHintAppearance="error"
               >
-                Выберите офис
+                {{ 'deliveryPoint.placeholders.office' | transloco }}
                 <tui-data-list-wrapper
                   *tuiDataList
                   [items]="vm.offices.items"
@@ -87,14 +87,43 @@
             <div @tabContent class="p-3 bg-gray-50 rounded-lg">
               @defer {
                 <app-courier-details [formControl]="courierDetails" />
+              } @placeholder (minimum 500ms) {
+                <div>
+                  <div>
+                    <span class="mb-1 inline-block" [tuiSkeleton]="true"></span>
+                    <div class="h-12" [tuiSkeleton]="true"></div>
+                  </div>
+                  <div class="mb-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <span class="mb-1 inline-block h-4" [tuiSkeleton]="true"></span>
+                      <div class="h-12" [tuiSkeleton]="true"></div>
+                    </div>
+                    <div>
+                      <span class="mb-1 inline-block h-4" [tuiSkeleton]="true"></span>
+                      <div class="h-12" [tuiSkeleton]="true"></div>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <span class="mb-1 inline-block h-4" [tuiSkeleton]="true"></span>
+                      <div class="h-12" [tuiSkeleton]="true"></div>
+                    </div>
+                    <div>
+                      <span class="mb-1 inline-block h-4" [tuiSkeleton]="true"></span>
+                      <div class="h-12" [tuiSkeleton]="true"></div>
+                    </div>
+                  </div>
+                </div>
               }
             </div>
           }
           @case (TabType.BUS) {
-            <div @tabContent class="p-3 bg-gray-50 rounded-lg">
+            <div class="p-3 bg-gray-50 rounded-lg">
               <label class="flex items-center cursor-pointer">
                 <input tuiCheckbox type="checkbox" [formControl]="busPickup" />
-                <span class="inline-block ml-2 text-gray-700">Встретить с автобуса</span>
+                <span class="inline-block ml-2 text-gray-700">
+                  {{ 'deliveryPoint.methods.busPickup' | transloco }}
+                </span>
               </label>
             </div>
           }

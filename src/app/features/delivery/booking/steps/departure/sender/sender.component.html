@@ -1,13 +1,15 @@
 @if (form) {
   <div class="mb-6">
     <h3 class="text-lg font-medium text-gray-800 mb-4 pb-3 border-b border-gray-100">
-      Данные отправителя
+      {{ 'booking.departure.sender.title' | transloco }}
     </h3>
 
     <div [formGroup]="form" class="space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <label class="block">
-          <span class="block text-sm text-gray-700 mb-1">ФИО</span>
+          <span class="block text-sm text-gray-700 mb-1">
+            {{ 'user.labels.fullName' | transloco }}
+          </span>
           <div class="relative">
             <tui-textfield #fullNameInput class="w-full">
               <input
@@ -18,12 +20,16 @@
                 [maxlength]="limits.user.fullName.maxLength"
                 [attr.maxlength]="limits.user.fullName.maxLength"
                 tuiHintAppearance="error"
-                placeholder="Укажите ФИО"
+                [placeholder]="'user.placeholders.fullName' | transloco"
               />
             </tui-textfield>
             @if (fullNameInput.focused()) {
               <span class="absolute top-1/2 -translate-y-1/2 right-2">
-                <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">
+                <tui-badge
+                  appearance="secondary"
+                  size="s"
+                  [tuiHint]="'hint.messages.availableSymbols' | transloco"
+                >
                   {{ availableFullNameLength }}
                 </tui-badge>
               </span>
@@ -31,28 +37,35 @@
           </div>
         </label>
 
-        <!-- Телефон -->
         <div class="block">
-          <span class="block text-sm text-gray-700 mb-1">Телефон</span>
+          <span class="block text-sm text-gray-700 mb-1">
+            {{ 'contacts.labels.phone' | transloco }}
+          </span>
           <tui-input-phone
             [formControl]="phone"
             [tuiHint]="[] | tuiFieldErrorContent"
             tuiHintAppearance="error"
           >
-            Укажите телефон
+            {{ 'contacts.placeholders.phone' | transloco }}
           </tui-input-phone>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <label class="block">
-          <span class="block text-sm text-gray-700 mb-1">Документ</span>
+          <span class="block text-sm text-gray-700 mb-1">
+            {{ 'document.labels.document' | transloco }}
+          </span>
           <tui-textfield
             tuiChevron
             [stringify]="'label' | tuiStringify"
             [tuiTextfieldCleaner]="false"
           >
-            <select tuiTextfield [formControl]="document" placeholder="Выберите документ"></select>
+            <select
+              tuiTextfield
+              [formControl]="document"
+              [placeholder]="'document.placeholders.document' | transloco"
+            ></select>
             <tui-data-list-wrapper
               *tuiTextfieldDropdown
               [items]="senderDocuments"
@@ -62,14 +75,16 @@
         </label>
 
         <label class="block">
-          <span class="block text-sm text-gray-700 mb-1">Номер документа</span>
+          <span class="block text-sm text-gray-700 mb-1">
+            {{ 'document.labels.documentNumber' | transloco }}
+          </span>
           <tui-textfield>
             <input
               tuiTextfield
               [formControl]="documentNumber"
               [tuiHint]="[] | tuiFieldErrorContent"
               tuiHintAppearance="error"
-              placeholder="Укажите номер документа"
+              [placeholder]="'document.placeholders.documentNumber' | transloco"
             />
           </tui-textfield>
         </label>

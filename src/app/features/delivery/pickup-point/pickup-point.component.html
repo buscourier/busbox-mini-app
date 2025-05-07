@@ -7,8 +7,7 @@
       <span class="xl:hidden">
         <tui-icon
           icon="@tui.info"
-          tuiHint="На сайте для отправки доступны только
-        офисы Баскурьер. Если нужен другой населенный пункт, то свяжитесь с оператором или напишите в чат."
+          [tuiHint]="'pickupPoint.info' | transloco"
           [style.color]="'var(--color-yellow-500)'"
           [style.font-size.rem]="1.5"
         />
@@ -23,9 +22,11 @@
         [stringify]="'name' | tuiStringify"
         (searchChange)="onSearchChange($event)"
         [tuiSkeleton]="vm.cities.isLoading"
+        [tuiHint]="[] | tuiFieldErrorContent"
+        tuiHintAppearance="error"
         class="w-full"
       >
-        <div class="flex items-center">Выберите город</div>
+        <div class="flex items-center">{{ 'pickupPoint.placeholders.city' | transloco }}</div>
         <tui-data-list-wrapper
           *tuiDataList
           [items]="cities$ | async"
@@ -41,16 +42,11 @@
             @for (tab of vm.tabs; track tab.id) {
               <button
                 type="button"
-                class="flex items-center justify-center py-3 px-4 rounded-md border transition-all duration-200 cursor-pointer"
-                [class.bg-yellow-500]="tab === vm.activeTab"
-                [class.border-yellow-500]="tab === vm.activeTab"
-                [class.text-black]="tab === vm.activeTab"
-                [class.border-gray-200]="tab !== vm.activeTab"
-                [class.bg-white]="tab !== vm.activeTab"
-                [class.hover:bg-gray-50]="tab !== vm.activeTab"
+                tuiButton
+                [appearance]="tab === vm.activeTab ? 'primary' : 'outline'"
                 (click)="onTabChange(tab.id)"
               >
-                <span class="font-medium">{{ tab.name }}</span>
+                <span class="font-medium">{{ tab.name | transloco }}</span>
               </button>
             }
           </div>
@@ -58,11 +54,10 @@
       }
     }
 
-    <!-- Содержимое вкладки -->
     <div class="tab-content">
       @switch (vm.activeTab?.id) {
         @case (TabType.OFFICE) {
-          <div @tabContent class="p-3 bg-gray-50 rounded-lg">
+          <div class="p-3 bg-gray-50 rounded-lg">
             <div class="flex items-center text-gray-600 mb-2 text-sm">
               <tui-icon
                 icon="@tui.map-pin"
@@ -70,15 +65,16 @@
                 [style.color]="'var(--color-gray-600)'"
                 [style.font-size.rem]="1"
               />
-              <span>Адрес отделения</span>
+              <span>{{ 'pickupPoint.labels.office' | transloco }}</span>
             </div>
             <tui-select
               [formControl]="office"
               [stringify]="'address' | tuiStringify"
               [tuiTextfieldLabelOutside]="true"
-              tuiTextfieldSize="m"
+              [tuiHint]="[] | tuiFieldErrorContent"
+              tuiHintAppearance="error"
             >
-              Выберите офис
+              {{ 'pickupPoint.labels.city' | transloco }}
               <tui-data-list-wrapper
                 *tuiDataList
                 [items]="vm.offices.items"
@@ -88,9 +84,36 @@
           </div>
         }
         @case (TabType.COURIER) {
-          <div @tabContent class="p-3 bg-gray-50 rounded-lg">
+          <div class="p-3 bg-gray-50 rounded-lg">
             @defer {
               <app-courier-details [formControl]="courierPoint" />
+            } @placeholder (minimum 500ms) {
+              <div>
+                <div>
+                  <span class="mb-1 inline-block" [tuiSkeleton]="true"></span>
+                  <div class="h-12" [tuiSkeleton]="true"></div>
+                </div>
+                <div class="mb-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <span class="mb-1 inline-block h-4" [tuiSkeleton]="true"></span>
+                    <div class="h-12" [tuiSkeleton]="true"></div>
+                  </div>
+                  <div>
+                    <span class="mb-1 inline-block h-4" [tuiSkeleton]="true"></span>
+                    <div class="h-12" [tuiSkeleton]="true"></div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <span class="mb-1 inline-block h-4" [tuiSkeleton]="true"></span>
+                    <div class="h-12" [tuiSkeleton]="true"></div>
+                  </div>
+                  <div>
+                    <span class="mb-1 inline-block h-4" [tuiSkeleton]="true"></span>
+                    <div class="h-12" [tuiSkeleton]="true"></div>
+                  </div>
+                </div>
+              </div>
             }
           </div>
         }
@@ -100,14 +123,15 @@
     @if (vm.activeTab?.id) {
       <div class="mt-1">
         <div class="flex items-center text-gray-600 mb-2 text-sm">
-          <span>Дата отправления</span>
+          <span>{{ 'pickupPoint.labels.departureDate' | transloco }}</span>
         </div>
         <tui-input-date
           [formControl]="departureDate"
-          tuiUnfinishedValidator="Выберите дату"
+          [tuiUnfinishedValidator]="'pickupPoint.placeholders.departureDate' | transloco"
           [tuiTextfieldLabelOutside]="true"
-          tuiTextfieldSize="m"
           [min]="minDate"
+          [tuiHint]="[] | tuiFieldErrorContent"
+          tuiHintAppearance="error"
           class="w-full"
         />
       </div>

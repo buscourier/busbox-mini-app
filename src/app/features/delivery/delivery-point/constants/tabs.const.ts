@@ -6,15 +6,15 @@ import { DeliveryPointTabType } from '../types';
 export const DELIVERY_POINT_TAB_CONFIG: Record<DeliveryPointTabType, DeliveryPointTabConfig> = {
   [DeliveryPointTabType.OFFICE]: {
     apiValue: 'get',
-    name: 'Сдать в отделение',
+    name: 'deliveryPoint.methods.get',
   },
   [DeliveryPointTabType.COURIER]: {
     apiValue: 'delivery',
-    name: 'Вызвать курьера',
+    name: 'deliveryPoint.methods.delivery',
   },
   [DeliveryPointTabType.BUS]: {
     apiValue: 'need_to_meet',
-    name: 'Встретить с автобуса',
+    name: 'deliveryPoint.methods.busPickup',
   },
 };
 

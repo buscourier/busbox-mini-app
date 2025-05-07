@@ -1,11 +1,20 @@
 @let vm = vm$ | async;
 @let isMainLayout = isMainLayout$ | async;
+@let applicant = applicant$ | async;
+
+<h1 class="mt-16 mb-3 font-heading text-2xl font-bold lg:text-3xl">
+  {{ 'booking.title' | transloco }}
+</h1>
+
+<p class="mb-8 text-sm text-gray-700">
+  {{ 'booking.subtitle' | transloco }}
+</p>
 
 @if (vm && isMainLayout) {
   <app-stepper [steps]="vm.steps" />
 }
 <router-outlet />
-@if (vm && isMainLayout) {
+@if (vm && isMainLayout && applicant && applicant.applicantType === ApplicantType.INDIVIDUAL) {
   <div class="flex gap-2 justify-between mt-10">
     <button
       type="button"
@@ -17,7 +26,7 @@
       [disabled]="!vm.prevStep"
       (click)="goPrevStep(vm.prevStep)"
     >
-      Назад
+      {{ 'buttons.back' | transloco }}
     </button>
     @if (vm.isLastStep) {
       <button
@@ -28,7 +37,7 @@
         [disabled]="!vm.stepsValid"
         (click)="submitOrder()"
       >
-        Отправить заявку
+        {{ 'buttons.sendOrder' | transloco }}
       </button>
     } @else {
       <button
@@ -39,7 +48,7 @@
         [disabled]="!vm.nextStep"
         (click)="goNextStep(vm.nextStep)"
       >
-        Дальше
+        {{ 'buttons.next' | transloco }}
       </button>
     }
   </div>

@@ -129,10 +129,10 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     baseSelectors.selectDepartureDate,
     (city, office, courier, date): ReviewSection => {
       return {
-        title: 'Пункт отправления',
+        title: 'pickupPoint.title.booking',
         fields: [
-          { label: 'Населенный пункт', value: city?.name || 'Не указан' },
-          { label: 'Дата отправления', value: date || 'Не указан' },
+          { label: 'pickupPoint.labels.city', value: city?.name || 'text.noData' },
+          { label: 'pickupPoint.labels.departureDate', value: date || 'text.noData' },
           getDeliveryMethod(office, courier),
         ],
       };

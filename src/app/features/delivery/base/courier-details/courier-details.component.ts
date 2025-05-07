@@ -9,6 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { provideTranslocoScope, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import {
   TuiHint,
   TuiIcon,
@@ -16,17 +17,12 @@ import {
   TuiTextfieldComponent,
   TuiTextfieldDirective,
 } from '@taiga-ui/core';
-import {
-  TUI_VALIDATION_ERRORS,
-  TuiBadge,
-  TuiFieldErrorContentPipe,
-  TuiRadioList,
-} from '@taiga-ui/kit';
+import { TUI_VALIDATION_ERRORS, TuiBadge, TuiFieldErrorContentPipe } from '@taiga-ui/kit';
 import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { map } from 'rxjs/operators';
 
-import type { ValidationLimits, ValidationMessages } from '@core/config';
-import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
+import type { ValidationLimits } from '@core/config';
+import { VALIDATION_LIMITS } from '@core/tokens';
 
 import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 import type { PreferredTimeSlot } from '@shared/types';
@@ -34,7 +30,7 @@ import { identityMatcherById } from '@shared/utils';
 
 import type { CourierDetails } from '@delivery/types';
 
-import { PREFERRED_COURIER_TIME } from './courier-details.constants';
+import { courierValidationErrors, PREFERRED_COURIER_TIME } from './courier-details.constants';
 import type { CourierDetailsForm } from './courier-details.types';
 
 @Component({
@@ -46,11 +42,11 @@ import type { CourierDetailsForm } from './courier-details.types';
     TuiFieldErrorContentPipe,
     TuiInputModule,
     TuiBadge,
-    TuiRadioList,
     TuiLabel,
     TuiTextfieldComponent,
     TuiTextfieldDirective,
     TuiIcon,
+    TranslocoPipe,
   ],
   templateUrl: './courier-details.component.html',
   styleUrl: './courier-details.component.css',
@@ -67,17 +63,17 @@ import type { CourierDetailsForm } from './courier-details.types';
     },
     {
       provide: TUI_VALIDATION_ERRORS,
-      useFactory: (messages: ValidationMessages) => ({
-        required: messages.required,
-        minlength: messages.minlength,
-        maxlength: messages.maxlength,
-        street: messages.address.street,
-        building: messages.address.building,
-        apartment: messages.address.apartment,
-        email: messages.email,
-      }),
-      deps: [VALIDATION_MESSAGES],
+      useFactory: courierValidationErrors,
+      deps: [TranslocoService],
     },
+    provideTranslocoScope({
+      scope: 'entities/address',
+      alias: 'address',
+    }),
+    provideTranslocoScope({
+      scope: 'entities/time',
+      alias: 'time',
+    }),
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

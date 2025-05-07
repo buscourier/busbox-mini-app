@@ -1,25 +1,31 @@
 @if (form) {
   <div [formGroup]="form" class="space-y-4">
     <label tuiLabel class="block">
-      <span class="mb-1 inline-block text-sm text-gray-700">Улица</span>
+      <span class="mb-1 inline-block text-sm text-gray-700">
+        {{ 'address.labels.street' | transloco }}
+      </span>
       <div class="relative">
         <tui-textfield #streetInput class="w-full">
           <input
             tuiTextfield
+            tuiHintAppearance="error"
             [formControl]="street"
             [tuiHint]="[] | tuiFieldErrorContent"
             [minlength]="limits.address.street.minLength"
             [maxlength]="limits.address.street.maxLength"
             [attr.maxlength]="limits.address.street.maxLength"
-            tuiHintAppearance="error"
-            placeholder="Введите название улицы"
+            [placeholder]="'address.placeholders.street' | transloco"
           />
         </tui-textfield>
         @if (streetInput.focused()) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
-            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
-              availableStreetLength
-            }}</tui-badge>
+            <tui-badge
+              [tuiHint]="'common.hint.availableSymbols' | transloco"
+              appearance="secondary"
+              size="s"
+            >
+              {{ availableStreetLength }}
+            </tui-badge>
           </span>
         }
       </div>
@@ -27,50 +33,62 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <label tuiLabel class="block">
-        <span class="mb-1 inline-block text-sm text-gray-700">Дом, корпус, строение</span>
+        <span class="mb-1 inline-block text-sm text-gray-700">
+          {{ 'address.labels.building' | transloco }}
+        </span>
         <div class="relative">
           <tui-textfield #buildingInput class="w-full">
             <input
               tuiTextfield
+              tuiHintAppearance="error"
               [formControl]="building"
               [tuiHint]="[] | tuiFieldErrorContent"
               [minlength]="limits.address.building.minLength"
               [maxlength]="limits.address.building.maxLength"
               [attr.maxlength]="limits.address.building.maxLength"
-              tuiHintAppearance="error"
-              placeholder="Номер дома"
+              [placeholder]="'address.placeholders.building' | transloco"
             />
           </tui-textfield>
           @if (buildingInput.focused()) {
             <span class="absolute top-1/2 -translate-y-1/2 right-2">
-              <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
-                availableBuildingLength
-              }}</tui-badge>
+              <tui-badge
+                [tuiHint]="'common.hint.availableSymbols' | transloco"
+                appearance="secondary"
+                size="s"
+              >
+                {{ availableBuildingLength }}
+              </tui-badge>
             </span>
           }
         </div>
       </label>
 
       <label tuiLabel class="block">
-        <span class="mb-1 inline-block text-sm text-gray-700">Кв. / офис</span>
+        <span class="mb-1 inline-block text-sm text-gray-700">
+          {{ 'address.labels.apartment' | transloco }}
+        </span>
         <div class="relative">
           <tui-textfield #apartmentInput class="w-full">
             <input
               tuiTextfield
+              tuiHintAppearance="error"
               [formControl]="apartment"
               [tuiHint]="[] | tuiFieldErrorContent"
               [minlength]="limits.address.apartment.minLength"
               [maxlength]="limits.address.apartment.maxLength"
               [attr.maxlength]="limits.address.apartment.maxLength"
-              tuiHintAppearance="error"
-              placeholder="Номер кв"
+              [placeholder]="'address.placeholders.apartment' | transloco"
             />
           </tui-textfield>
           @if (apartmentInput.focused()) {
             <span class="absolute top-1/2 -translate-y-1/2 right-2">
-              <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
-                availableApartmentLength
-              }}</tui-badge>
+              <tui-badge
+                [tuiHint]="'common.hint.availableSymbols' | transloco"
+                appearance="secondary"
+                size="s"
+              >
+                {{ availableApartmentLength }}
+              </tui-badge>
             </span>
           }
         </div>
@@ -85,11 +103,13 @@
           [style.color]="'var(--tui-background-accent-1)'"
           [style.font-size.rem]="1"
         />
-        <span class="text-sm font-medium text-gray-700">Удобное время для доставки</span>
+        <span class="text-sm font-medium text-gray-700">
+          {{ 'time.labels.preferredTime' | transloco }}
+        </span>
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-2 gap-4">
       @for (slot of preferredTimeSlots; track slot.id) {
         <label class="relative cursor-pointer">
           <input

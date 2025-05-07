@@ -10,9 +10,10 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import type { TuiBooleanHandler } from '@taiga-ui/cdk';
-import { TuiAlertService, TuiButton, TuiHintDirective, TuiTitle } from '@taiga-ui/core';
-import { TuiBadge, TuiRadioList } from '@taiga-ui/kit';
+import { TuiAlertService, TuiButton, TuiHintDirective } from '@taiga-ui/core';
+import { TuiRadioList } from '@taiga-ui/kit';
 import { filter } from 'rxjs';
 
 import {
@@ -25,7 +26,7 @@ import {
 
 @Component({
   selector: 'app-cargo-picker',
-  imports: [TuiRadioList, ReactiveFormsModule, TuiHintDirective, TuiBadge, TuiTitle, TuiButton],
+  imports: [TuiRadioList, ReactiveFormsModule, TuiHintDirective, TuiButton, TranslocoPipe],
   templateUrl: './cargo-picker.component.html',
   styleUrl: './cargo-picker.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +45,7 @@ export class CargoPickerComponent implements OnInit, OnChanges {
 
   private readonly alerts = inject(TuiAlertService);
   private readonly destroyRef = inject(DestroyRef);
+  private transloco = inject(TranslocoService);
 
   ngOnInit(): void {
     this.setupTypeChanges();
@@ -164,15 +166,18 @@ export class CargoPickerComponent implements OnInit, OnChanges {
     return types.map((type) => {
       switch (type.id) {
         case CargoTypeId.DOCUMENTS:
-          return { value: CargoType.DOCUMENTS, name: 'Документы' };
+          return {
+            value: CargoType.DOCUMENTS,
+            name: 'deliveryDetails.documents.title',
+          };
         case CargoTypeId.PARCELS:
-          return { value: CargoType.PARCELS, name: 'Посылки' };
+          return { value: CargoType.PARCELS, name: 'deliveryDetails.parcels.title' };
         case CargoTypeId.AUTO_PARTS:
-          return { value: CargoType.AUTO_PARTS, name: 'Автозапчасти' };
+          return { value: CargoType.AUTO_PARTS, name: 'deliveryDetails.autoParts.title' };
         case CargoTypeId.OTHER:
-          return { value: CargoType.OTHER, name: 'Другое' };
+          return { value: CargoType.OTHER, name: 'deliveryDetails.otherCargo.title' };
         default:
-          return { value: CargoType.DOCUMENTS, name: 'Документы' };
+          return { value: CargoType.DOCUMENTS, name: 'deliveryDetails.documents.title' };
       }
     });
   }

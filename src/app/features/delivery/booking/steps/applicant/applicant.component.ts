@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { TuiButton } from '@taiga-ui/core';
 import type { Observable } from 'rxjs';
 
@@ -12,7 +13,7 @@ import { IndividualComponent } from './individual';
 
 @Component({
   selector: 'app-applicant',
-  imports: [AsyncPipe, IndividualComponent, TuiButton],
+  imports: [AsyncPipe, IndividualComponent, TuiButton, TranslocoPipe],
   templateUrl: './applicant.component.html',
   styleUrl: './applicant.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

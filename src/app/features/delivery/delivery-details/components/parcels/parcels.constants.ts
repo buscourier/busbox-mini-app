@@ -1,14 +1,23 @@
+import type { TranslocoService } from '@jsverse/transloco';
+import type { TuiValidationError } from '@taiga-ui/cdk';
+
 import type { ParcelsLimitError } from './parcels.types';
 
-export const PARCELS_VALIDATION_MESSAGES = {
-  maxItems: ({ max }: ParcelsLimitError) => `Максимальное количество посылок: ${max}`,
-
-  totalQuantityMax: ({ max, actual }: ParcelsLimitError) =>
-    `Превышено общее количество мест: ${actual} из ${max} (на ${actual - max})`,
-
-  totalDimensionsMax: ({ max, actual }: ParcelsLimitError) =>
-    `Превышены общие габариты: ${actual} см из ${max} см (на ${actual - max} см)`,
-
-  totalWeightMax: ({ max, actual }: ParcelsLimitError) =>
-    `Превышен общий вес: ${actual} кг из ${max} кг (на ${actual - max} кг)`,
-} as const;
+export function parcelsValidationErrors(
+  service: TranslocoService,
+): Record<string, (context: never) => TuiValidationError | string> {
+  return {
+    maxItems: (context: ParcelsLimitError) =>
+      service.translate('deliveryDetails.parcels.validation.maxItems', { max: context.max }),
+    totalQuantityMax: (context: ParcelsLimitError) =>
+      service.translate(`deliveryDetails.parcels.validation.totalQuantityMax`, {
+        max: context.max,
+        actual: context.actual,
+      }),
+    totalWeightMax: (context: ParcelsLimitError) =>
+      service.translate(`deliveryDetails.parcels.validation.totalWeightMax`, {
+        max: context.max,
+        actual: context.actual,
+      }),
+  };
+}

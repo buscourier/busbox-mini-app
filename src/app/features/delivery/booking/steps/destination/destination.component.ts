@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { take, withLatestFrom } from 'rxjs';
 import type { Observable } from 'rxjs';
 
@@ -15,7 +16,13 @@ import { RecipientComponent } from './recipient';
 
 @Component({
   selector: 'app-destination',
-  imports: [AsyncPipe, RecipientComponent, DeliveryPointComponent, DeliveryDetailsComponent],
+  imports: [
+    AsyncPipe,
+    RecipientComponent,
+    DeliveryPointComponent,
+    DeliveryDetailsComponent,
+    TranslocoPipe,
+  ],
   templateUrl: './destination.component.html',
   styleUrl: './destination.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

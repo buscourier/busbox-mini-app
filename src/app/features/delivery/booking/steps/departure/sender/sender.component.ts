@@ -11,7 +11,8 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiHintDirective, TuiLabel, TuiTextfield } from '@taiga-ui/core';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { TuiHintDirective, TuiTextfield } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
   TuiBadge,
@@ -24,15 +25,15 @@ import {
 import { TuiInputPhoneModule } from '@taiga-ui/legacy';
 import { distinctUntilChanged, startWith } from 'rxjs';
 
-import type { ValidationLimits, ValidationMessages } from '@core/config';
-import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
+import type { ValidationLimits } from '@core/config';
+import { VALIDATION_LIMITS } from '@core/tokens';
 import { isObjectsEqual } from '@core/utils';
 
 import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 
 import { type Sender, SenderDocument, type SenderDocumentOption } from '../../../types';
 
-import { defaultDocument, senderDocuments } from './sender.constants';
+import { defaultDocument, senderDocuments, senderValidationErrors } from './sender.constants';
 import type { SenderForm } from './sender.types';
 
 @Component({
@@ -45,27 +46,18 @@ import type { SenderForm } from './sender.types';
     TuiInputPhoneModule,
     TuiStringifyPipe,
     TuiStringifyContentPipe,
-    TuiLabel,
     TuiTextfield,
     TuiChevron,
     TuiDataListWrapper,
+    TranslocoPipe,
   ],
   templateUrl: './sender.component.html',
   styleUrl: './sender.component.css',
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
-      useFactory: (messages: ValidationMessages) => ({
-        required: messages.required,
-        minlength: messages.minlength,
-        maxlength: messages.maxlength,
-        fullName: messages.user.fullName,
-        phone: messages.phone,
-        'passport.number': messages.document.passport.number,
-        'driverLicense.number': messages.document.driverLicense.number,
-        'other.number': messages.document.other.number,
-      }),
-      deps: [VALIDATION_MESSAGES],
+      useFactory: senderValidationErrors,
+      deps: [TranslocoService],
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

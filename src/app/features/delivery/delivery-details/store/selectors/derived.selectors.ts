@@ -47,7 +47,7 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
     baseSelectors.selectActiveOrderId,
     (entities, activeId) => {
       if (!activeId) return null;
-      return entities[activeId] ?? null; // явно преобразуем undefined в null
+      return entities[activeId] ?? null;
     },
   );
 
@@ -120,7 +120,8 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
       return {
         items: order.packaging.items.map((item) => ({
           type:
-            PACKAGING_NAMES[servicesMap.get(item.id)?.subgroup_id || ''] || 'Неизвестная упаковка',
+            PACKAGING_NAMES[servicesMap.get(item.id)?.subgroup_id || ''] ||
+            'Unknown packaging type',
           variant: servicesMap.get(item.id)?.site_name || '',
           price: servicesMap.get(item.id)?.price || '',
           quantity: item.quantity,

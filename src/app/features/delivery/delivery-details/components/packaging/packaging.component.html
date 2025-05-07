@@ -1,9 +1,13 @@
 <div class="relative mb-12 mt-16 px-4 py-8 rounded-lg border border-gray-200 bg-white shadow-sm">
-  <h2 class="absolute -top-4 px-3 text-lg bg-white text-gray-700 font-semibold">Упаковка</h2>
+  <h2 class="absolute -top-4 px-3 text-lg bg-white text-gray-700 font-semibold">
+    {{ 'deliveryDetails.packaging.title' | transloco }}
+  </h2>
 
   <!-- Boxes -->
   <div class="mb-6">
-    <h3 class="mb-3 text-sm font-medium text-gray-600">Коробка:</h3>
+    <h3 class="mb-3 text-sm font-medium text-gray-600">
+      {{ 'deliveryDetails.packaging.type.boxes' | transloco }}:
+    </h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
       @for (box of boxes; track box.id) {
         <div
@@ -45,7 +49,9 @@
 
   <!--Safe Packs -->
   <div class="mb-6">
-    <h3 class="mb-3 text-sm font-medium text-gray-600">Сейф-пакет:</h3>
+    <h3 class="mb-3 text-sm font-medium text-gray-600">
+      {{ 'deliveryDetails.packaging.type.safePacks' | transloco }} :
+    </h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
       @for (pack of safePacks; track pack.id) {
         <div
@@ -87,7 +93,9 @@
 
   <!--Poly Packs -->
   <div class="mb-6">
-    <h3 class="mb-3 text-sm font-medium text-gray-600">Полиэтиленовый пакет:</h3>
+    <h3 class="mb-3 text-sm font-medium text-gray-600">
+      {{ 'deliveryDetails.packaging.type.polyPacks' | transloco }} :
+    </h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
       @for (pack of polyPacks; track pack.id) {
         <div
@@ -129,7 +137,9 @@
 
   <!-- Film -->
   <div class="mb-6">
-    <h3 class="mb-3 text-sm font-medium text-gray-600">Пленка:</h3>
+    <h3 class="mb-3 text-sm font-medium text-gray-600">
+      {{ 'deliveryDetails.packaging.type.films' | transloco }}:
+    </h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
       @for (film of films; track film.id) {
         <div
@@ -171,7 +181,9 @@
 
   <!--Other Packs -->
   <div class="mb-6">
-    <h3 class="mb-3 text-sm font-medium text-gray-600">Другое:</h3>
+    <h3 class="mb-3 text-sm font-medium text-gray-600">
+      {{ 'deliveryDetails.packaging.type.other' | transloco }}:
+    </h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
       @for (pack of other; track pack.id) {
         <div

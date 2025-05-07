@@ -18,16 +18,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  TuiError,
-  TuiHintDirective,
-  TuiIcon,
-  TuiTextfieldComponent,
-  TuiTextfieldDirective,
-} from '@taiga-ui/core';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { TuiError, TuiHintDirective, TuiIcon, TuiTextfieldComponent } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
-  TuiBadge,
   TuiFieldErrorContentPipe,
   TuiFieldErrorPipe,
   TuiInputNumber,
@@ -43,11 +37,7 @@ import { customMaxValidator, customMinValidator } from '@shared/validators';
 
 import type { ParcelItem, ParcelItemDimensions, ParcelItemLimits } from '../../../types';
 
-import {
-  limitKeyMap,
-  PARCEL_ITEM_DEFAULTS,
-  PARCEL_ITEM_VALIDATION_MESSAGES,
-} from './parcel-item.constants';
+import { limitKeyMap, PARCEL_ITEM_DEFAULTS, parcelValidationErrors } from './parcel-item.constants';
 import type { ParcelItemForm } from './parcel-item.types';
 
 @Component({
@@ -57,15 +47,14 @@ import type { ParcelItemForm } from './parcel-item.types';
     TuiHintDirective,
     TuiFieldErrorContentPipe,
     TuiTextfieldControllerModule,
-    TuiBadge,
     TuiFieldErrorPipe,
     TuiError,
     AsyncPipe,
     TuiTextfieldComponent,
-    TuiTextfieldDirective,
     TuiInputNumber,
     TuiIcon,
     LimitBadgeComponent,
+    TranslocoPipe,
   ],
   templateUrl: './parcel-item.component.html',
   styleUrl: './parcel-item.component.css',
@@ -82,7 +71,8 @@ import type { ParcelItemForm } from './parcel-item.types';
     },
     {
       provide: TUI_VALIDATION_ERRORS,
-      useValue: PARCEL_ITEM_VALIDATION_MESSAGES,
+      useFactory: parcelValidationErrors,
+      deps: [TranslocoService],
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

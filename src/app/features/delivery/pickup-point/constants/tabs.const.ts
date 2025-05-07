@@ -6,11 +6,11 @@ import { PickupPointTabType } from '../types';
 export const PICKUP_POINT_TAB_CONFIG: Record<PickupPointTabType, PickupPointTabConfig> = {
   [PickupPointTabType.OFFICE]: {
     apiValue: 'give',
-    name: 'Сдать в отделение',
+    name: 'pickupPoint.methods.give',
   },
   [PickupPointTabType.COURIER]: {
     apiValue: 'pickup',
-    name: 'Вызвать курьера',
+    name: 'pickupPoint.methods.pickup',
   },
 };
 

@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { TuiLabel, TuiTextfield, TuiTextfieldComponent } from '@taiga-ui/core';
 import { TuiInputNumber } from '@taiga-ui/kit';
 import { debounceTime, merge, startWith } from 'rxjs';
@@ -22,7 +23,14 @@ import type { Documents } from '../../types';
 
 @Component({
   selector: 'app-documents',
-  imports: [ReactiveFormsModule, TuiInputNumber, TuiLabel, TuiTextfieldComponent, TuiTextfield],
+  imports: [
+    ReactiveFormsModule,
+    TuiInputNumber,
+    TuiLabel,
+    TuiTextfieldComponent,
+    TuiTextfield,
+    TranslocoPipe,
+  ],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

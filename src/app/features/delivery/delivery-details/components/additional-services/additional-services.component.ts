@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import type { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ChangeDetectionStrategy,
@@ -12,25 +11,17 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormGroup } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  TuiButton,
-  TuiError,
-  TuiHintDirective,
-  TuiTextfield,
-  TuiTextfieldComponent,
-} from '@taiga-ui/core';
+import { provideTranslocoScope, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { TuiHintDirective, TuiTextfield, TuiTextfieldComponent } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
-  TuiBadge,
   TuiCheckbox,
   TuiFieldErrorContentPipe,
-  TuiFieldErrorPipe,
   TuiInputNumberDirective,
 } from '@taiga-ui/kit';
 import { TuiInputPhoneModule } from '@taiga-ui/legacy';
 import { startWith } from 'rxjs';
 
-import { LimitBadgeComponent } from '@shared/components/limit-badge';
 import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 
 import type { AdditionalServices, Service } from '../../types';
@@ -44,7 +35,7 @@ import {
   MONETARY_SERVICES,
   RECIPIENT_PAYMENT_MAX_AMOUNT,
   RECIPIENT_PAYMENT_MIN_AMOUNT,
-  SERVICES_VALIDATION_MESSAGES,
+  servicesValidationErrors,
   SMS_SERVICES,
 } from './additional-services.constants';
 import type {
@@ -70,25 +61,25 @@ import type {
     ReactiveFormsModule,
     TuiFieldErrorContentPipe,
     TuiHintDirective,
-    TuiBadge,
     TuiCheckbox,
-    TuiError,
     TuiInputPhoneModule,
-    TuiFieldErrorPipe,
-    AsyncPipe,
     TuiInputNumberDirective,
     TuiTextfieldComponent,
-    LimitBadgeComponent,
-    TuiButton,
     TuiTextfield,
+    TranslocoPipe,
   ],
   templateUrl: './additional-services.component.html',
   styleUrl: './additional-services.component.css',
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
-      useValue: SERVICES_VALIDATION_MESSAGES,
+      useFactory: servicesValidationErrors,
+      deps: [TranslocoService],
     },
+    provideTranslocoScope({
+      scope: 'entities/contacts',
+      alias: 'contacts',
+    }),
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -335,7 +326,7 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
         ? {
             serviceId: formValue.insurance.serviceId || '',
             amount: formValue.insurance.amount || 0,
-            displayName: 'Страхование',
+            displayName: 'deliveryDetails.additionalServices.types.insurance',
             price: this.getServicePrice(formValue.insurance.serviceId ?? null),
           }
         : null,
@@ -343,7 +334,7 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
         ? {
             serviceId: formValue.recipientPayment.serviceId || '',
             amount: formValue.recipientPayment.amount || 0,
-            displayName: 'Оплата получателем',
+            displayName: 'deliveryDetails.additionalServices.types.recipientPayment',
             price: this.getServicePrice(formValue.recipientPayment.serviceId ?? null),
           }
         : null,
@@ -351,7 +342,7 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
         ? {
             serviceId: formValue.extendedSms.serviceId || '',
             phone: formValue.extendedSms.phone || '',
-            displayName: 'Расширенная Смс',
+            displayName: 'deliveryDetails.additionalServices.types.extendedSms',
             price: this.getServicePrice(formValue.extendedSms.serviceId ?? null),
           }
         : null,
@@ -359,7 +350,7 @@ export class AdditionalServicesComponent implements OnChanges, OnInit {
         ? {
             serviceId: formValue.senderSms.serviceId || '',
             phone: formValue.senderSms.phone || '',
-            displayName: 'Cмс отправителю',
+            displayName: 'deliveryDetails.additionalServices.types.senderSms',
             price: this.getServicePrice(formValue.senderSms.serviceId ?? null),
           }
         : null,

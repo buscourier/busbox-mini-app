@@ -1,7 +1,9 @@
 @if (form) {
   <div [formGroup]="form" class="grid grid-cols-3 gap-5">
     <label tuiLabel>
-      <span class="block text-sm text-gray-700 mb-1">Фамилия</span>
+      <span class="block text-sm text-gray-700 mb-1">
+        {{ 'user.labels.lastName' | transloco }}
+      </span>
       <div class="relative">
         <tui-textfield #lastNameInput>
           <input
@@ -11,22 +13,28 @@
             [minlength]="limits.user.lastName.minLength"
             [maxlength]="limits.user.lastName.maxLength"
             [attr.maxlength]="limits.user.lastName.maxLength"
-            placeholder="Укажите фамилию"
+            [placeholder]="'user.placeholders.lastName' | transloco"
             tuiHintAppearance="error"
           />
         </tui-textfield>
         @if (lastNameInput.focused()) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
-            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
-              availableLastNameLength
-            }}</tui-badge>
+            <tui-badge
+              appearance="secondary"
+              size="s"
+              [tuiHint]="'hint.messages.availableSymbols' | transloco"
+            >
+              {{ availableLastNameLength }}
+            </tui-badge>
           </span>
         }
       </div>
     </label>
 
     <label tuiLabel>
-      <span class="block text-sm text-gray-700 mb-1">Имя</span>
+      <span class="block text-sm text-gray-700 mb-1">
+        {{ 'user.labels.firstName' | transloco }}
+      </span>
       <div class="relative">
         <tui-textfield #firstNameInput>
           <input
@@ -36,22 +44,28 @@
             [minlength]="limits.user.firstName.minLength"
             [maxlength]="limits.user.firstName.maxLength"
             [attr.maxlength]="limits.user.firstName.maxLength"
-            placeholder="Укажите имя"
+            [placeholder]="'user.placeholders.firstName' | transloco"
             tuiHintAppearance="error"
           />
         </tui-textfield>
         @if (firstNameInput.focused()) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
-            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
-              availableFirstNameLength
-            }}</tui-badge>
+            <tui-badge
+              appearance="secondary"
+              size="s"
+              [tuiHint]="'hint.messages.availableSymbols' | transloco"
+            >
+              {{ availableFirstNameLength }}
+            </tui-badge>
           </span>
         }
       </div>
     </label>
 
     <label tuiLabel>
-      <span class="block text-sm text-gray-700 mb-1">Отчество</span>
+      <span class="block text-sm text-gray-700 mb-1">
+        {{ 'user.labels.middleName' | transloco }}
+      </span>
       <div class="relative">
         <tui-textfield #middleNameInput>
           <input
@@ -61,50 +75,64 @@
             [minlength]="limits.user.middleName.minLength"
             [maxlength]="limits.user.middleName.maxLength"
             [attr.maxlength]="limits.user.middleName.maxLength"
-            placeholder="Укажите отчество"
+            [placeholder]="'user.placeholders.middleName' | transloco"
             tuiHintAppearance="error"
           />
         </tui-textfield>
         @if (middleNameInput.focused()) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
-            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
-              availableMiddleNameLength
-            }}</tui-badge>
+            <tui-badge
+              appearance="secondary"
+              size="s"
+              [tuiHint]="'hint.messages.availableSymbols' | transloco"
+            >
+              {{ availableMiddleNameLength }}
+            </tui-badge>
           </span>
         }
       </div>
     </label>
 
     <label tuiLabel>
-      <span class="block text-sm text-gray-700 mb-1">Email</span>
+      <span class="block text-sm text-gray-700 mb-1">
+        {{ 'contacts.labels.email' | transloco }}
+      </span>
       <div class="relative">
         <tui-textfield>
           <input
             tuiTextfield
             [formControl]="email"
             [tuiHint]="[] | tuiFieldErrorContent"
+            [placeholder]="'contacts.placeholders.email' | transloco"
             tuiHintAppearance="error"
-            placeholder="Укажите email"
           />
         </tui-textfield>
       </div>
     </label>
 
     <div tuiLabel>
-      <span class="block text-sm text-gray-700 mb-1">Телефон</span>
+      <span class="block text-sm text-gray-700 mb-1">
+        {{ 'contacts.labels.phone' | transloco }}
+      </span>
 
       <tui-input-phone
         [formControl]="phone"
         [tuiHint]="[] | tuiFieldErrorContent"
         tuiHintAppearance="error"
       >
-        Укажите телефон
+        {{ 'contacts.placeholders.phone' | transloco }}
       </tui-input-phone>
     </div>
     <label tuiLabel>
-      <span class="block text-sm text-gray-700 mb-1">Роль</span>
+      <span class="block text-sm text-gray-700 mb-1">
+        {{ 'user.labels.role' | transloco }}
+      </span>
       <tui-textfield tuiChevron [stringify]="'label' | tuiStringify" [tuiTextfieldCleaner]="false">
-        <select tuiTextfield placeholder="Выберите роль" [formControl]="role"></select>
+        <select
+          tuiTextfield
+          [placeholder]="'user.placeholders.role' | transloco"
+          [formControl]="role"
+        ></select>
         <tui-data-list-wrapper
           *tuiTextfieldDropdown
           [items]="individualRoles"

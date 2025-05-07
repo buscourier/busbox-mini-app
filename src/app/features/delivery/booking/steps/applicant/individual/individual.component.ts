@@ -11,6 +11,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { TuiHintDirective, TuiTextfield } from '@taiga-ui/core';
 import {
   TUI_VALIDATION_ERRORS,
@@ -24,15 +25,15 @@ import {
 import { TuiInputPhoneModule } from '@taiga-ui/legacy';
 import { distinctUntilChanged } from 'rxjs';
 
-import type { ValidationLimits, ValidationMessages } from '@core/config';
-import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
+import type { ValidationLimits } from '@core/config';
+import { VALIDATION_LIMITS } from '@core/tokens';
 import { isObjectsEqual } from '@core/utils';
 
 import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 
 import type { Individual } from '../../../types';
 
-import { individualRoles } from './individual.constants';
+import { individualRoles, individualValidationErrors } from './individual.constants';
 import type { IndividualForm } from './individual.types';
 
 @Component({
@@ -48,23 +49,15 @@ import type { IndividualForm } from './individual.types';
     TuiTextfield,
     TuiChevron,
     TuiDataListWrapper,
+    TranslocoPipe,
   ],
   templateUrl: './individual.component.html',
   styleUrl: './individual.component.css',
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
-      useFactory: (messages: ValidationMessages) => ({
-        required: messages.required,
-        minlength: messages.minlength,
-        maxlength: messages.maxlength,
-        lastName: messages.user.lastName,
-        middleName: messages.user.middleName,
-        firstName: messages.user.firstName,
-        email: messages.email,
-        phone: messages.phone,
-      }),
-      deps: [VALIDATION_MESSAGES],
+      useFactory: individualValidationErrors,
+      deps: [TranslocoService],
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

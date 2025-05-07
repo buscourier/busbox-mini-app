@@ -1,0 +1,65 @@
+{
+  "buttons": {
+    "next": "Дальше",
+    "back": "Назад",
+    "sendOrder": "Отправить заявку",
+    "reset": "Сбросить",
+    "close": "Закрыть",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "add": "Добавить"
+  },
+  "confirm": {
+    "buttons": {
+      "yes": "Да",
+      "no": "Нет"
+    },
+    "labels": {
+      "areYouSure": "Вы уверены?"
+    },
+    "messages": {
+      "orderDeletion": "Информация о заказе будет удалена!"
+    }
+  },
+  "alert": {
+    "labels": {
+      "error": "Ошибка",
+      "success": "Успешно",
+      "warning": "Внимание",
+      "info": "Информация"
+    },
+    "messages": {
+      "loadingError": "Не удалось загрузить данные"
+    }
+  },
+  "validation": {
+    "required": "Обязательное поле",
+    "minlength": "Минимальная длина: {{requiredLength}} символов",
+    "maxlength": "Максимальная длина: {{requiredLength}} символов",
+    "min": "Минимальное значение: {{min}}",
+    "max": "Максимальное значение: {{max}}",
+    "pattern": "Значение не соответствует формату",
+    "email": "Некорректный email"
+  },
+  "hint": {
+    "messages": {
+      "availableSymbols": "Доступно символов",
+      "available": "Доступно"
+    }
+  },
+  "units": {
+    "weight": "кг",
+    "length": "см",
+    "width": "см",
+    "height": "см",
+    "quantity": "шт"
+  },
+  "fields": {
+    "quantity": "Количество",
+    "date": "Дата",
+    "dimensions": "Габариты"
+  },
+  "text": {
+    "noData": "Нет данных"
+  }
+}

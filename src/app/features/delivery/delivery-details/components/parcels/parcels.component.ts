@@ -11,7 +11,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { TuiAlertService, TuiButton, TuiError, TuiIcon } from '@taiga-ui/core';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { TuiAlertService, TuiError, TuiIcon } from '@taiga-ui/core';
 import { TUI_VALIDATION_ERRORS, TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { debounceTime } from 'rxjs';
 
@@ -22,7 +23,7 @@ import type { ParcelItem, ParcelItemLimits, Parcels, ParcelsLimits } from '../..
 
 import { PARCEL_ITEM_DEFAULTS, ParcelItemComponent } from './parcel-item';
 import { parcelItemAnimation } from './parcels.animations';
-import { PARCELS_VALIDATION_MESSAGES } from './parcels.constants';
+import { parcelsValidationErrors } from './parcels.constants';
 import type { ParcelsErrors } from './parcels.types';
 import { parcelsValidator } from './parcels.validator';
 
@@ -34,15 +35,16 @@ import { parcelsValidator } from './parcels.validator';
     TuiFieldErrorPipe,
     TuiError,
     AsyncPipe,
-    TuiButton,
     TuiIcon,
+    TranslocoPipe,
   ],
   templateUrl: './parcels.component.html',
   styleUrl: './parcels.component.css',
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
-      useValue: PARCELS_VALIDATION_MESSAGES,
+      useFactory: parcelsValidationErrors,
+      deps: [TranslocoService],
     },
   ],
   animations: [parcelItemAnimation],
@@ -63,6 +65,7 @@ export class ParcelsComponent implements OnChanges, OnInit {
   /** Private properties */
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private transloco = inject(TranslocoService);
 
   /** Public properties */
   parcels = this.fb.array<ParcelItem>([]);
@@ -166,9 +169,12 @@ export class ParcelsComponent implements OnChanges, OnInit {
   protected showNotification(limits: ParcelItemLimits): void {
     this.alerts
       .open(
-        `Cумма (Д + Ш + В) ≤ <strong>${limits.DIMENSIONS.MAX} см.</strong><br />Вес: <strong>${limits.WEIGHT.MAX} кг.</strong>`,
+        `
+          Cумма (Д + Ш + В) ≤ <strong>${limits.DIMENSIONS.MAX} ${this.transloco.translate('units.width')}</strong>
+          <br />${this.transloco.translate('deliveryDetails.parcel.labels.weight')}:
+          <strong>${limits.WEIGHT.MAX} ${this.transloco.translate('units.weight')}</strong>`,
         {
-          label: 'Ограничения посылки',
+          label: this.transloco.translate('deliveryDetails.parcel.messages.limits'),
           autoClose: 5000,
           appearance: 'warning',
         },

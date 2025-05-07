@@ -1,0 +1,14 @@
+{
+  "labels": {
+    "phone": "Телефон",
+    "email": "Email"
+  },
+  "placeholders": {
+    "phone": "Введите телефон",
+    "email": "Введите email"
+  },
+  "validation": {
+    "phone": "Телефон указан неверно",
+    "email": "Email указан неверно"
+  }
+}

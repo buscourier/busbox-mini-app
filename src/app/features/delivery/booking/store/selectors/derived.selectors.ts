@@ -63,12 +63,15 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
         const sender = departure?.sender;
 
         return {
-          title: 'Отправитель',
+          title: 'booking.departure.sender.title',
           fields: [
-            { label: 'ФИО', value: sender?.fullName || 'Не указан' },
-            { label: 'Документ', value: sender?.document.label || 'Не указан' },
-            { label: 'Номер документа', value: sender?.documentNumber || 'Не указан' },
-            { label: 'Телефон', value: sender?.phone || 'Не указан' },
+            { label: 'user.labels.fullName', value: sender?.fullName || 'text.noData' },
+            { label: 'document.labels.document', value: sender?.document.label || 'text.noData' },
+            {
+              label: 'document.labels.documentNumber',
+              value: sender?.documentNumber || 'text.noData',
+            },
+            { label: 'contacts.labels.phone', value: sender?.phone || 'text.noData' },
           ],
         };
       },
@@ -79,10 +82,10 @@ export const createDerivedSelectors = (baseSelectors: BaseSelectors): DerivedSel
         const recipient = destination?.recipient;
 
         return {
-          title: 'Получатель',
+          title: 'booking.destination.recipient.title',
           fields: [
-            { label: 'ФИО', value: recipient?.fullName || 'Не указан' },
-            { label: 'Телефон', value: recipient?.phone || 'Не указан' },
+            { label: 'user.labels.fullName', value: recipient?.fullName || 'text.noData' },
+            { label: 'contacts.labels.phone', value: recipient?.phone || 'text.noData' },
           ],
         };
       },

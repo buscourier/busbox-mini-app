@@ -1,11 +1,13 @@
 @if (form) {
   <h3 class="text-lg font-medium text-gray-800 mb-4 pb-3 border-b border-gray-100">
-    Данные получателя
+    {{ 'booking.destination.recipient.title' | transloco }}
   </h3>
 
   <div [formGroup]="form" class="grid grid-cols-2 gap-4">
     <label tuiLabel>
-      <span class="block text-sm text-gray-700 mb-1">ФИО</span>
+      <span class="block text-sm text-gray-700 mb-1">
+        {{ 'user.labels.fullName' | transloco }}
+      </span>
       <div class="relative">
         <tui-textfield #fullNameInput>
           <input
@@ -16,25 +18,32 @@
             [maxlength]="limits.user.fullName.maxLength"
             [attr.maxlength]="limits.user.fullName.maxLength"
             tuiHintAppearance="error"
+            [placeholder]="'user.placeholders.fullName' | transloco"
           />
         </tui-textfield>
         @if (fullNameInput.focused()) {
           <span class="absolute top-1/2 -translate-y-1/2 right-2">
-            <tui-badge appearance="secondary" tuiHint="Доступно символов" size="s">{{
-              availableFullNameLength
-            }}</tui-badge>
+            <tui-badge
+              appearance="secondary"
+              [tuiHint]="'hint.messages.availableSymbols' | transloco"
+              size="s"
+              >{{ availableFullNameLength }}</tui-badge
+            >
           </span>
         }
       </div>
     </label>
     <div tuiLabel>
-      <span class="block text-sm text-gray-700 mb-1">Телефон</span>
+      <span class="block text-sm text-gray-700 mb-1">
+        {{ 'contacts.labels.phone' | transloco }}
+      </span>
 
       <tui-input-phone
         [formControl]="phone"
         [tuiHint]="[] | tuiFieldErrorContent"
         tuiHintAppearance="error"
       >
+        {{ 'contacts.placeholders.phone' | transloco }}
       </tui-input-phone>
     </div>
   </div>

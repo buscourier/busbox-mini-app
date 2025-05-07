@@ -1,4 +1,5 @@
 import type { Routes } from '@angular/router';
+import { provideTranslocoScope } from '@jsverse/transloco';
 
 import { CalculatorComponent } from './calculator';
 import { DeliveryComponent } from './delivery.component';
@@ -16,6 +17,12 @@ export const deliveryRoutes: Routes = [
       {
         path: 'calculator',
         component: CalculatorComponent,
+        providers: [
+          provideTranslocoScope({
+            scope: 'features/delivery/calculator',
+            alias: 'c',
+          }),
+        ],
       },
       {
         path: 'booking',

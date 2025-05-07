@@ -3,6 +3,7 @@ import { AsyncPipe } from '@angular/common';
 import type { OnInit, OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy, Component, inject, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
 import { Store } from '@ngrx/store';
 import { TuiCurrencyPipe } from '@taiga-ui/addon-commerce';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
@@ -19,10 +20,30 @@ import type { DeliverySummaryViewModel } from './types';
 
 @Component({
   selector: 'app-delivery-summary',
-  imports: [AsyncPipe, RouterLink, TuiButton, TuiSkeleton, TuiIcon, TuiCurrencyPipe],
+  imports: [AsyncPipe, RouterLink, TuiButton, TuiSkeleton, TuiIcon, TuiCurrencyPipe, TranslocoPipe],
   templateUrl: './delivery-summary.component.html',
   styleUrl: './delivery-summary.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    provideTranslocoScope(
+      {
+        scope: 'features/delivery/pickup-point',
+        alias: 'pickupPoint',
+      },
+      {
+        scope: 'features/delivery/delivery-point',
+        alias: 'deliveryPoint',
+      },
+      {
+        scope: 'features/delivery/delivery-details',
+        alias: 'deliveryDetails',
+      },
+      {
+        scope: 'features/delivery/delivery-summary',
+        alias: 'summary',
+      },
+    ),
+  ],
   animations: [
     trigger('slideInOut', [
       transition(':enter', [

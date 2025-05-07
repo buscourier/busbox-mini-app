@@ -4,10 +4,11 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { provideTranslocoScope, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TuiDay } from '@taiga-ui/cdk';
-import { TuiAlertService, TuiHint, TuiIcon, TuiLoader } from '@taiga-ui/core';
-import { type TuiConfirmData, TuiSkeleton } from '@taiga-ui/kit';
+import { TuiAlertService, TuiButton, TuiHint, TuiIcon } from '@taiga-ui/core';
+import { type TuiConfirmData, TuiFieldErrorContentPipe, TuiSkeleton } from '@taiga-ui/kit';
 import {
   TUI_CONFIRM,
   TUI_VALIDATION_ERRORS,
@@ -48,6 +49,7 @@ import { CourierDetailsComponent } from '@delivery/base/courier-details';
 import { DeliveryPointFacade } from '@delivery/delivery-point';
 import type { CourierDetails } from '@delivery/types';
 
+import { pickupPointValidationErrors } from './pickup-point.constants';
 import { PickupPointFacade } from './pickup-point.facade';
 import type { PickupPointControlValues, PickupPointForm, ResetConfig } from './pickup-point.types';
 import { PickupPointTabType, type PickupPointViewModel } from './types';
@@ -57,7 +59,6 @@ import { PickupPointTabType, type PickupPointViewModel } from './types';
   imports: [
     AsyncPipe,
     ReactiveFormsModule,
-    TuiLoader,
     TuiComboBoxModule,
     TuiTextfieldControllerModule,
     TuiStringifyPipe,
@@ -70,6 +71,9 @@ import { PickupPointTabType, type PickupPointViewModel } from './types';
     TuiSkeleton,
     TuiIcon,
     TuiHint,
+    TranslocoPipe,
+    TuiButton,
+    TuiFieldErrorContentPipe,
   ],
   templateUrl: './pickup-point.component.html',
   styleUrl: './pickup-point.component.css',
@@ -77,10 +81,13 @@ import { PickupPointTabType, type PickupPointViewModel } from './types';
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
-      useValue: {
-        required: `Поле обязательно для заполнения`,
-      },
+      useFactory: pickupPointValidationErrors,
+      deps: [TranslocoService],
     },
+    provideTranslocoScope({
+      scope: 'features/delivery/pickup-point',
+      alias: 'pickupPoint',
+    }),
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -97,6 +104,7 @@ export class PickupPointComponent implements OnInit {
   private readonly dialogs = inject(TuiResponsiveDialogService);
   private readonly pickupPointFacade = inject(PickupPointFacade);
   private deliveryPointFacade = inject(DeliveryPointFacade);
+  private transloco = inject(TranslocoService);
 
   get city(): FormControl<PickupCity | null> {
     return this.form.controls.city;
@@ -184,7 +192,9 @@ export class PickupPointComponent implements OnInit {
       )
       .subscribe((error) => {
         if (error.hasAnyError) {
-          this.showErrorNotification('Не удалось загрузить данные по пункту отправки');
+          this.showErrorNotification(
+            this.transloco.translate('features.delivery.pickupPoint.errors.loading'),
+          );
         }
       });
   }
@@ -390,14 +400,16 @@ export class PickupPointComponent implements OnInit {
           reset: () => this.pickupPointFacade.resetOffice(),
         };
       default:
-        throw new Error(`Unexpected tab type: ${tabId}`);
+        throw new Error(
+          `${this.transloco.translate('features.delivery.pickupPoint.errors.tabType')}: ${tabId}`,
+        );
     }
   }
 
   private showErrorNotification(message: string): void {
     this.alerts
       .open(message, {
-        label: 'Ошибка',
+        label: this.transloco.translate('common.alert.labels.error'),
         autoClose: 0,
         appearance: 'error',
       })
@@ -407,13 +419,13 @@ export class PickupPointComponent implements OnInit {
 
   private confirmNewCity(): Observable<boolean> {
     const confirmData: TuiConfirmData = {
-      content: 'Информация о заказе будет удалена!',
-      yes: 'Да',
-      no: 'Нет',
+      content: this.transloco.translate('confirm.messages.orderDeletion'),
+      yes: this.transloco.translate('confirm.buttons.yes'),
+      no: this.transloco.translate('confirm.buttons.no'),
     };
 
     return this.dialogs.open<boolean>(TUI_CONFIRM, {
-      label: 'Вы уверены?',
+      label: this.transloco.translate('confirm.labels.areYouSure'),
       size: 's',
       data: confirmData,
     });

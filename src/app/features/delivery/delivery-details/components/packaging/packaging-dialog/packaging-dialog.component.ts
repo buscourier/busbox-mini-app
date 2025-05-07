@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { type TuiDialogContext, TuiLabel, TuiTextfield } from '@taiga-ui/core';
 import { TuiButton } from '@taiga-ui/core';
 import { TuiInputNumberDirective, TuiInputNumberStep } from '@taiga-ui/kit';
@@ -17,6 +18,7 @@ import type { SelectedPackagingItem } from './packaging-dialog.types';
     TuiInputNumberStep,
     TuiLabel,
     TuiTextfield,
+    TranslocoPipe,
   ],
   templateUrl: './packaging-dialog.component.html',
   styleUrl: './packaging-dialog.component.css',

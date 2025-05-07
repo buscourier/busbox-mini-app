@@ -1,6 +1,5 @@
 import { DocumentRegex, PHONE_REGEX, TEXT_BASE_REGEX } from '@shared/regex';
 
-// Базовая конфигурация поля
 export interface FieldConfig {
   minLength: number;
   maxLength: number;

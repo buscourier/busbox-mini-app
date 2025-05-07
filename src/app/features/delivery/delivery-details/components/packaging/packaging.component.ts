@@ -1,7 +1,8 @@
 import type { OnChanges, SimpleChanges } from '@angular/core';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { tuiDialog, TuiIcon, TuiTitle } from '@taiga-ui/core';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { tuiDialog, TuiIcon } from '@taiga-ui/core';
 import { TuiCheckbox } from '@taiga-ui/kit';
 
 import type { Packaging, PackagingItem, Service } from '../../types';
@@ -11,7 +12,7 @@ import { PackagingGroupId, type PackagingOtherGroupIds } from './packaging.const
 
 @Component({
   selector: 'app-packaging',
-  imports: [FormsModule, TuiCheckbox, TuiIcon, TuiTitle],
+  imports: [FormsModule, TuiCheckbox, TuiIcon, TranslocoPipe],
   templateUrl: './packaging.component.html',
   styleUrl: './packaging.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

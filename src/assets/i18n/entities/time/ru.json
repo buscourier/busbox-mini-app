@@ -1,0 +1,8 @@
+{
+  "labels": {
+    "preferredTime": "Удобное время для доставки"
+  },
+  "placeholders": {
+    "preferredTime": "Выберите время"
+  }
+}

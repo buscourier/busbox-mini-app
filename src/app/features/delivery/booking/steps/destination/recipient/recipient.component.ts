@@ -11,6 +11,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { FormControl } from '@angular/forms';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import {
   TuiHintDirective,
   TuiLabel,
@@ -21,14 +22,15 @@ import { TUI_VALIDATION_ERRORS, TuiBadge, TuiFieldErrorContentPipe } from '@taig
 import { TuiInputModule, TuiInputPhoneModule } from '@taiga-ui/legacy';
 import { distinctUntilChanged } from 'rxjs';
 
-import type { ValidationLimits, ValidationMessages } from '@core/config';
-import { VALIDATION_LIMITS, VALIDATION_MESSAGES } from '@core/tokens';
+import type { ValidationLimits } from '@core/config';
+import { VALIDATION_LIMITS } from '@core/tokens';
 import { isObjectsEqual } from '@core/utils';
 
 import { FIELD_VALIDATORS_FACTORY } from '@shared/forms';
 
 import type { Recipient } from '../../../types';
 
+import { recipientValidationErrors } from './recipient.constants';
 import type { RecipientForm } from './recipient.types';
 
 @Component({
@@ -43,20 +45,15 @@ import type { RecipientForm } from './recipient.types';
     TuiLabel,
     TuiTextfieldComponent,
     TuiTextfieldDirective,
+    TranslocoPipe,
   ],
   templateUrl: './recipient.component.html',
   styleUrl: './recipient.component.css',
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
-      useFactory: (messages: ValidationMessages) => ({
-        required: messages.required,
-        minlength: messages.minlength,
-        maxlength: messages.maxlength,
-        fullName: messages.user.fullName,
-        phone: messages.phone,
-      }),
-      deps: [VALIDATION_MESSAGES],
+      useFactory: recipientValidationErrors,
+      deps: [TranslocoService],
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

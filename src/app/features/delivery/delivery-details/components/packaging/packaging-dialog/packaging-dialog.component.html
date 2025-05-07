@@ -3,7 +3,7 @@
   <p class="mb-4 text-sm">{{ data.dimensions }}</p>
   <div class="flex items-end space-x-2">
     <label tuiLabel class="counter block grow">
-      Сколько штук?
+      {{ 'fields.quantity' | transloco }}
 
       <tui-textfield>
         <input
@@ -15,6 +15,8 @@
         />
       </tui-textfield>
     </label>
-    <button type="button" tuiButton size="m" (click)="onSubmit()">Подтвердить</button>
+    <button type="button" tuiButton size="m" (click)="onSubmit()">
+      {{ 'buttons.add' | transloco }}
+    </button>
   </div>
 </div>
