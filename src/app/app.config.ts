@@ -19,7 +19,13 @@ import {
 import { TUI_TEXTFIELD_LABEL_OUTSIDE, TUI_TEXTFIELD_SIZE } from '@taiga-ui/legacy';
 
 import { DEFAULT_VALIDATION_LIMITS } from '@core/config';
-import { VALIDATION_LIMITS } from '@core/tokens';
+import {
+  CONTACT_INFO,
+  EMAIL,
+  PHONE_NUMBER,
+  TELEGRAM_ACCOUNT,
+  VALIDATION_LIMITS,
+} from '@core/tokens';
 import { CustomDateTransformer } from '@core/transformers';
 
 import { BookingEffects, bookingFeature } from '@delivery/booking';
@@ -61,10 +67,6 @@ export const appConfig: ApplicationConfig = {
       provide: VALIDATION_LIMITS,
       useValue: DEFAULT_VALIDATION_LIMITS,
     },
-    // {
-    //   provide: VALIDATION_MESSAGES,
-    //   useValue: DEFAULT_VALIDATION_MESSAGES,
-    // },
     {
       provide: TUI_TEXTFIELD_SIZE,
       useValue: {
@@ -77,7 +79,28 @@ export const appConfig: ApplicationConfig = {
         labelOutside: true,
       },
     },
-    // tuiDialogOptionsProvider()
+    {
+      provide: PHONE_NUMBER,
+      useValue: '+7 (423) 293 78 79',
+    },
+    {
+      provide: TELEGRAM_ACCOUNT,
+      useValue: 'https://t.me/busbox',
+    },
+    {
+      provide: EMAIL,
+      useValue: 'inbox@busbox.guru',
+    },
+
+    {
+      provide: CONTACT_INFO,
+      useFactory: (phone: string, telegram: string, email: string) => ({
+        phone,
+        telegram,
+        email,
+      }),
+      deps: [PHONE_NUMBER, TELEGRAM_ACCOUNT, EMAIL],
+    },
     tuiRadioOptionsProvider({
       size: 'm',
     }),
