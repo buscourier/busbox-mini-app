@@ -1,12 +1,12 @@
 {
-  "name": "busbox-ui",
+  "name": "busbox-mini-app",
   "version": "1.0.0",
   "description": "Starter template for Angular project with NgRx and Tailwind CSS",
   "author": "Anton Maiatskii <work.mayatskiy@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/buscourier/busbox-ui"
+    "url": "https://github.com/buscourier/busbox-mini-app"
   },
   "keywords": [
     "angular",
@@ -14,9 +14,9 @@
     "ngrx",
     "tailwind"
   ],
-  "homepage": "https://busbox-ui.dev",
+  "homepage": "https://busbox-mini-app.dev",
   "bugs": {
-    "url": "https://github.com/buscourier/busbox-ui/issues"
+    "url": "https://github.com/buscourier/busbox-mini-app/issues"
   },
   "engines": {
     "node": ">=20.15.0"

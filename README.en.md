@@ -41,7 +41,7 @@ The project can be run both locally and through Docker. Deployment is implemente
 ### 1. Locally
 
 - Clone the project to your computer:
-  - `https://github.com/buscourier/busbox-ui.git`
+  - `https://github.com/buscourier/busbox-mini-app.git`
 - Navigate to the project and install dependencies:
   - `npm ci`
 - Activate the `develop` branch in the project:
