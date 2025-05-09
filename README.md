@@ -41,7 +41,7 @@
 ### 1. Локально
 
 - Склонировать проект на свой компьютер:
-  - `https://github.com/buscourier/busbox-ui.git`
+  - `https://github.com/buscourier/busbox-mini-app.git`
 - Перейти в проект и установить зависимости:
   - `npm ci`
 - В проекте активировать ветку `develop`:
